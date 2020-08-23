@@ -1,34 +1,22 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Sideform from './components/sideform';
+
+import Contentlayout from './layout/contentlayout';
+import Topbar from './layout/topbar';
+import Navbar from './layout/navbar';
+import Footer from './layout/footer';
 
 function App() {
   return (
     <>
- <div id="wrapper">
-      <div className="content-page">
-        <div className="content">
+      <div id="wrapper">
+        <Topbar />
+       
+        <Contentlayout />
 
-
-          <div className="container-fluid">
-
-
-            <div className="row">
-              <div className="col-12">
-
-                <h4 className="page-title">Starter</h4>
-
-                <div className="row">
-                  <Sideform />
-
-                </div>
-              </div>
-            </div>
-          </div>
-          </div>
-          </div>
-          </div>
+       <Footer />
+      </div>
     </>
   );
 }
