@@ -6,13 +6,17 @@ const Topbar = () => {
 
             <div className="navbar-custom">
                 <div className="container-fluid">
-                <a class="navbar-brand" href="#">
-          <img src="http://placehold.it/150x50?text=Logo" alt="" />
-        </a>
+                
+                {/* <span class="logo">
+                    <a href="index.html">
+
+                        <b class="logo_text">AstroLogic</b> One</a>
+                </span> */}
+           
+
                     <ul className="list-unstyled topnav-menu float-right mb-0">
 
-
-
+                   
 
 
                         <li className="dropdown d-none d-lg-inline-block">
@@ -86,7 +90,29 @@ const Topbar = () => {
                         </li> */}
 
                     </ul>
+<div className="logo-box">
+    <a href="" className="logo logo-dark text-center">
+        <span className="logo-sm">
+            {/* <img src="" /> */}
+            <span className="logo-lg-text-light">ASTRO-ONE</span>
+        </span>
+        <span className="logo-lg">
+            {/* <img src="" /> */}
+            <span className="logo-lg-text-light">ASTRO</span>
+        </span>
+    </a>
 
+    <a href="" className="logo logo-light text-center">
+    <span className="logo-sm">
+            {/* <img src=""  /> */}
+            <span className="logo-lg-text-light">ASTRO-ONE</span>
+        </span>
+        <span className="logo-lg">
+            {/* <img src=""  /> */}
+            <span className="logo-lg-text-light">ASTRO-ONE</span>
+        </span>
+    </a>
+</div>
 
 
 
