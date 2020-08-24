@@ -8,7 +8,11 @@ const sideform = () => {
                     <div className="card-body">
 
                         <h4 className="header-title">Input Sizes</h4>
-                       
+                        <p class="sub-header">
+                                                        Detail text goes here  
+                                                        <code> hello world </code>
+                                                        description of what todo
+                                                    </p>
 
                         <form>
                             <div className="form-group mb-3">

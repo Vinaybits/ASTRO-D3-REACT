@@ -3,7 +3,7 @@ import React from 'react';
 const Sideoptions =() =>{
     return(
         <>
- <div class="col-lg-3">
+ <div class="col-lg-2">
                                             <div class="card">
                                                 <div class="card-body">
             

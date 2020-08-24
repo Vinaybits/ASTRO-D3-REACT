@@ -1,0 +1,40 @@
+#sun {
+    stroke: #000;
+    fill: #000;
+}
+
+.orbit {
+    stroke: transparent;
+    fill: transparent;
+}
+
+.planet {
+    stroke: #666;
+    fill: #fff;
+}
+
+.Planet_Text {
+    fill: #fff;
+    font-size: 10px;
+}
+
+.moon {
+    stroke: #ccc;
+    fill: #fff;
+}
+
+.monthText {
+    fill: #fff;
+    font-size: 10px;
+}
+
+.naksText {
+    fill: #fff;
+    font-size: 10px;
+    letter-spacing: 1px;
+    pointer-events: none;
+}
+
+.planet_cluster {
+    pointer-events: none;
+}
