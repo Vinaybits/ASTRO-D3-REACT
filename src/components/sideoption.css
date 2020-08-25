@@ -1,0 +1,16 @@
+.custom-checkbox {
+    display: block;
+    position: relative;
+    font-size: 14px;
+}
+
+.custom-checkbox input {
+    width: 16px;
+    height: 16px;
+}
+
+.custom-checkbox label {
+    position: absolute;
+    background-color: transparent;
+    margin-top: -2px;
+}

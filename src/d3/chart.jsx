@@ -3,84 +3,72 @@ import * as d3 from 'd3';
 import './d3.css';
 
 class BarChart extends Component {
+    
     constructor(props) {
 
         super(props);
-        this.state = {
-            planets :[
-                {
-                R: 280,
-                r: 5,
-                speed: -1.60,
-                phi0: 35,
-                color: 'white',
-                degree: 100.23,
-                name: "Mo",
-                moons: [] // mercury
-            }, {
-                R: 280,
-                r: 8,
-                speed: -1.60,
-                phi0: 35,
-                color: 'yellow',
-                degree: 250,
-                name: "Sa",
-                moons: [] // mercury
-            }, {
-                R: 285,
-                r: 7,
-                speed: -2.60,
-                phi0: 135,
-                color: 'skyblue',
-                degree: 284,
-                name: "Ea",
-                moons: [] // mercury
-            }, {
-                R: 290,
-                r: 8,
-                speed: -1.60,
-                phi0: 25,
-                color: 'brown',
-                degree: 120,
-                name: "Ur ( R )",
-                moons: [] // mercury
-            },
-    
-    
-    
-    
-            ]
+
+        const planets1 = [
+            {
+            R: 280,
+            r: 5,
+            speed: -1.60,
+            phi0: 35,
+            color: 'white',
+            degree: 100.23,
+            name: "Mo",
+            moons: [] // mercury
+        }, {
+            R: 280,
+            r: 8,
+            speed: -1.60,
+            phi0: 35,
+            color: 'yellow',
+            degree: 250,
+            name: "Sa",
+            moons: [] // mercury
+        }, {
+            R: 285,
+            r: 7,
+            speed: -2.60,
+            phi0: 135,
+            color: 'skyblue',
+            degree: 284,
+            name: "Ea",
+            moons: [] // mercury
+        }, {
+            R: 290,
+            r: 8,
+            speed: -1.60,
+            phi0: 25,
+            color: 'brown',
+            degree: 120,
+            name: "Ur ( R )",
+            moons: [] // mercury
+        },
+
+
+
+
+        ];
+        this.state ={
+            planets : planets1,
+            name: "faraaz"
+
         };
+        
         this.myRef = React.createRef();
+        this.handleClick = this.handleClick.bind(this);
 
 
     }
 
     componentDidMount() {
-        this.astro_wheel();
-    }
-    astro_wheel(){
-        // planets and moons
-        const {planets} = this.state;
-        this.setState = {
-            planets : [ ...planets ,{
-                
-                    R: 80,
-                    r: 5,
-                    speed: -1.60,
-                    phi0: 35,
-                    color: 'white',
-                    degree: 150.23,
-                    name: "Mo",
-                    moons: [] // mercury
-                
-            }]
-        }
-
-
-
-
        
+        this.astro_wheel(this.state.planets);
+    }
+    astro_wheel(planets){
+      
         // Create dummy data
         var data = [{
             name: "Pisces",
@@ -583,15 +571,19 @@ class BarChart extends Component {
             .attr("id", function (d, i) {
                 return "PADAS_Arc_" + i;
             }) //Unique id for each slice
-            .transition()
-            .duration(2000)
-            .attrTween("d", function (d) {
-                var i = d3.interpolate(d.endAngle, d.startAngle);
-                return function (t) {
-                    d.startAngle = i(t);
-                    return arc_padas(d);
-                }
-            });
+
+            //uncomment this section for PADAS animation 
+
+            // .transition()
+            // .duration(2000)
+            // .attrTween("d", function (d) {
+            //     var i = d3.interpolate(d.endAngle, d.startAngle);
+            //     return function (t) {
+            //         d.startAngle = i(t);
+            //         return arc_padas(d);
+            //     }
+            // })
+            ;
 
         //update will go here 
 
@@ -731,11 +723,54 @@ class BarChart extends Component {
     };
 
     componentDidUpdate(){
-        this.draw();
+        d3.selectAll("svg").remove();
+        this.astro_wheel(this.state.planets);
     }
 
+    handleClick = () =>{
+        const planets2 = [
+            {
+            R: 280,
+            r: 5,
+            speed: -1.60,
+            phi0: 35,
+            color: 'white',
+            degree: 100.23,
+            name: "Mo",
+            moons: [] // mercury
+        }, {
+            R: 280,
+            r: 8,
+            speed: -1.60,
+            phi0: 35,
+            color: 'yellow',
+            degree: 250,
+            name: "Sa",
+            moons: [] // mercury
+        }, {
+            R: 285,
+            r: 7,
+            speed: -2.60,
+            phi0: 135,
+            color: 'skyblue',
+            degree: 284,
+            name: "Ea",
+            moons: [] // mercury
+        }, 
+
+
+
+
+        ];
+        this.setState({planets: planets2 , name:"Faraaz Khan"})
+
+    }
+
+    
     render() {
         return <>
+            <button onClick={this.handleClick}>Click Me</button>
+    <div>name is {this.state.name}</div>
             <div ref={this.myRef} ></div>
         </>
     }
