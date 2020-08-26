@@ -2,7 +2,7 @@ import React from 'react';
 import Chart1 from '../d3/chart';
 
 
-const D3graph =() =>{
+const D3graph =(props) =>{
     return(
         <>
          <div class="col-lg-7">
@@ -11,7 +11,7 @@ const D3graph =() =>{
             
                                                     <h4 class="header-title"></h4>
                                                    
-            <Chart1 />
+            <Chart1 data={props.planetsdata}/>
                                                   
             
                                                 </div> 

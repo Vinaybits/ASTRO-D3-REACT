@@ -3,30 +3,31 @@ import BarChart from '../d3/chart';
 import './sideoption.css';
 
 class Sideoptions extends Component{
-    state = {
-        Su : true,
-        Mo : true,
-        Me : true,
-        Ve : true,
-        Ma : true,
-        Ju : true,
-        Sa : true,
-        Ra : true,
-        Ke : true
-        
 
-    };
+    constructor(props){
+        super(props);
+        this.state = {
+            innitialState : this.props.checkbox_status
+           
+            
+    
+        };
+       
 
-    onChange = (e) =>{
-        console.log("checked");
-        this.setState({[e.target.name] : e.target.checked});
-        
     }
 
-
-
     render(){
-        const {Su,Mo,Me,Ve,Ma,Ju,Sa,Ra,Ke} = this.state;
+        const Su = this.state.innitialState[0].value;
+        const Mo = this.state.innitialState[1].value;
+        const Me = this.state.innitialState[2].value;
+        const Ve = this.state.innitialState[3].value;
+        const Ma = this.state.innitialState[4].value;
+        const Ju = this.state.innitialState[5].value;
+        const Sa = this.state.innitialState[6].value;
+        const Ra = this.state.innitialState[7].value;
+        const Ke = this.state.innitialState[8].value;
+
+       // const {Su,Mo,Me,Ve,Ma,Ju,Sa,Ra,Ke} = this.state.planet_filter_names;
        
         return(
            
@@ -37,14 +38,14 @@ class Sideoptions extends Component{
                                                         <h4 class="header-title">Filter</h4>
                                                         <p class="sub-header">
                                                             Filter using below options
-                                                            <button onClick={this.onChange}>Click Me</button>
+                                                            <button>Click Me</button>
                                                         </p>
                                                        <div className="form-group">
                                                            <div className="mb-1 custom-checkbox">
                                                                <input type="checkbox" className="mr-1"
                                                                 checked={Su}
-                                                                onChange={this.onChange} 
-                                                                name="Su"/>
+                                                                onChange={() => this.props.onchange_('0')} 
+                                                                name="Su" id="0"/>
                                                                  <label> Sun </label>
 
                                                                 
@@ -52,7 +53,7 @@ class Sideoptions extends Component{
                                                            </div>
                                                            <div className="custom-checkbox mb-1">
                                                                <input type="checkbox" className="mr-1" checked={Mo}
-                                                                onChange={this.onChange}
+                                                                onChange={() => this.props.onchange_('1')}
                                                                 id="2" name="Mo"
                                                                 
                                                                 ></input>
@@ -60,37 +61,37 @@ class Sideoptions extends Component{
                                                            </div>
                                                            <div className="custom-checkbox mb-1">
                                                                <input type="checkbox" className="mr-1" checked={Me}
-                                                                onChange={this.onChange} id="3" name="Me"></input>
+                                                                onChange={() => this.props.onchange_('2')} id="3" name="Me"></input>
                                                                <label > Mercury </label>
                                                            </div>
                                                            <div className="custom-checkbox mb-1">
                                                                <input type="checkbox" className="mr-1" checked={Ve}
-                                                                onChange={this.onChange} id="4" name="Ve"></input>
+                                                                onChange={() => this.props.onchange_('3')} id="4" name="Ve"></input>
                                                                <label > Venus </label>
                                                            </div>
                                                            <div className="custom-checkbox mb-1">
                                                                <input type="checkbox" className="mr-1" checked={Ma}
-                                                                onChange={this.onChange} id="5" name="Ma"></input>
+                                                                onChange={() => this.props.onchange_('4')} id="5" name="Ma"></input>
                                                                <label > Mars </label>
                                                            </div>
                                                            <div className="custom-checkbox mb-1">
                                                                <input type="checkbox" className="mr-1" checked={Ju}
-                                                                onChange={this.onChange} id="6" name="Ju"></input>
+                                                                onChange={() => this.props.onchange_('5')} id="6" name="Ju"></input>
                                                                <label > Jupiter </label>
                                                            </div>
                                                            <div className="custom-checkbox mb-1">
                                                                <input type="checkbox" className="mr-1" checked={Sa}
-                                                                onChange={this.onChange} id="7" name="Sa"></input>
+                                                                onChange={() => this.props.onchange_('6')} id="7" name="Sa"></input>
                                                                <label > Saturn </label>
                                                            </div>
                                                            <div className="custom-checkbox mb-1">
                                                                <input type="checkbox" className="mr-1" checked={Ra}
-                                                                onChange={this.onChange} id="8" name="Ra"></input>
+                                                                onChange={() => this.props.onchange_('7')} id="8" name="Ra"></input>
                                                                <label > Rahu </label>
                                                            </div>
                                                            <div className="custom-checkbox mb-1">
                                                                <input type="checkbox" className="mr-1" checked={Ke}
-                                                                onChange={this.onChange} id="9" name="Ke"></input>
+                                                                onChange={() => this.props.onchange_('8')} id="9" name="Ke"></input>
                                                                <label > Ketu </label>
                                                            </div>
                                                        </div>

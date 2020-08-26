@@ -8,49 +8,7 @@ class BarChart extends Component {
 
         super(props);
 
-        const planets1 = [
-            {
-            R: 280,
-            r: 5,
-            speed: -1.60,
-            phi0: 35,
-            color: 'white',
-            degree: 100.23,
-            name: "Mo",
-            moons: [] // mercury
-        }, {
-            R: 280,
-            r: 8,
-            speed: -1.60,
-            phi0: 35,
-            color: 'yellow',
-            degree: 250,
-            name: "Sa",
-            moons: [] // mercury
-        }, {
-            R: 285,
-            r: 7,
-            speed: -2.60,
-            phi0: 135,
-            color: 'skyblue',
-            degree: 284,
-            name: "Ea",
-            moons: [] // mercury
-        }, {
-            R: 290,
-            r: 8,
-            speed: -1.60,
-            phi0: 25,
-            color: 'brown',
-            degree: 120,
-            name: "Ur ( R )",
-            moons: [] // mercury
-        },
-
-
-
-
-        ];
+        const planets1 = this.props.data;
         this.state ={
             planets : planets1,
             name: "faraaz"
