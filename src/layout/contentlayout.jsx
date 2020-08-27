@@ -45,7 +45,7 @@ const Contentlayout = () => {
     moons: [] // mercury
 },
 ];
-  let planets_filter_init = [
+  const planets_filter_init = [
     {name:'Su' ,value:false},
     {name:'Mo' ,value:false},
     {name:'Me' ,value:false},
@@ -59,13 +59,14 @@ const Contentlayout = () => {
 
   const[planetdata , setPlanetdata] = useState(planet_init);
   const[planetnames , setPlanetnames] = useState(planets_filter_init);
-  console.log("this is mine " + planetnames[0].name);
+  console.log("this is mine " + planetnames);
   
-  
-  setCheckboxState();
+  useEffect(() => {
+    setCheckboxState();
+  },[planetdata]);
   
 
-  function setCheckboxState() {
+  const setCheckboxState = ()=> {
     for(var i=0 ; i< planetdata.length ; i++){
       for (var j=0; j< planetnames.length; j++){
         if(planetnames[j].name === planetdata[i].name){
@@ -78,7 +79,26 @@ const Contentlayout = () => {
    //console.log("check box state"+planetnames);
   }
   const onChange = (values) =>{
+  //   let list = [];
+  //   setPlanetnames(list);
+     let newList = [...planetnames];
+     let isTrue = newList[values].value;
    
+     if(isTrue === true){
+      newList[values].value = false;
+    
+     }
+    else{
+      //alert("false");
+      newList[values].value = true;
+    }
+    
+  //  setPlanetnames(list);
+  //let newList = [...planetnames]; // copying the old datas array
+  //newList[values].value = false; // replace e.target.value with whatever you want to change it to
+  setPlanetnames(newList);
+
+
 }
 
 
@@ -96,7 +116,7 @@ const Contentlayout = () => {
                  
                   <Sideform />
                   <D3graph planetsdata={planetdata}/>
-                  <Sideoptions checkbox_status={planetnames} onchange_={onChange}/>
+                  <Sideoptions checkbox_status={planetnames} onchange_={onChange} />
 
                 </div>
                 <div className="row">

@@ -54,14 +54,17 @@ class Sideoptions extends Component{
                                                            <div className="custom-checkbox mb-1">
                                                                <input type="checkbox" className="mr-1" checked={Mo}
                                                                 onChange={() => this.props.onchange_('1')}
-                                                                id="2" name="Mo"
-                                                                
-                                                                ></input>
+                                                                id="2" name="Mo"  ></input>
                                                                <label > Moon </label>
                                                            </div>
                                                            <div className="custom-checkbox mb-1">
-                                                               <input type="checkbox" className="mr-1" checked={Me}
-                                                                onChange={() => this.props.onchange_('2')} id="3" name="Me"></input>
+                                                               <input type="checkbox"
+                                                                className="mr-1"
+                                                                checked={Me}
+                                                                onChange={() => this.props.onchange_('2')} 
+                                                               
+                                                                id="3" 
+                                                                name="Me"></input>
                                                                <label > Mercury </label>
                                                            </div>
                                                            <div className="custom-checkbox mb-1">

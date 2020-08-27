@@ -5,7 +5,7 @@ import Chart1 from '../d3/chart';
 const D3graph =(props) =>{
     return(
         <>
-         <div class="col-lg-7">
+         <div id="d3graph" class="col-lg-7">
                                             <div class="card">
                                                 <div class="card-body">
             

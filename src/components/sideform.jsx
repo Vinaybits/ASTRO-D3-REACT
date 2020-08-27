@@ -17,19 +17,23 @@ const sideform = () => {
                         <form>
                             <div className="form-group mb-3">
                                 <label for="example-input-small">Name</label>
-                                <input type="text" id="example-input-small" name="example-input-small" className="form-control form-control-sm" placeholder=".input-sm" />
+                                <input type="text" id="example-input-small" name="example-input-small" className="form-control form-control-sm" 
+                                placeholder="write your full name" />
                             </div>
                             <div className="form-group mb-3">
                                 <label for="example-input-small">D.O.B</label>
-                                <input type="text" id="example-input-small" name="example-input-small" className="form-control form-control-sm" placeholder=".input-sm" />
+                                <input type="text" id="example-input-small" name="example-input-small" className="form-control form-control-sm" 
+                                placeholder="select your date of birth" />
                             </div>
                             <div className="form-group mb-3">
                                 <label for="example-input-small">Place of Birth</label>
-                                <input type="text" id="example-input-small" name="example-input-small" className="form-control form-control-sm" placeholder=".input-sm" />
+                                <input type="text" id="example-input-small" name="example-input-small" className="form-control form-control-sm" 
+                                placeholder="place of birth" />
                             </div>
                             <div className="form-group mb-3">
                                 <label for="example-input-small">Time of Birth</label>
-                                <input type="text" id="example-input-small" name="example-input-small" className="form-control form-control-sm" placeholder=".input-sm" />
+                                <input type="text" id="example-input-small" name="example-input-small" className="form-control form-control-sm" 
+                                placeholder="time of birth" />
                             </div>
                             <button type="submit" className="ladda-button btn btn-primary" >
                                Submit
