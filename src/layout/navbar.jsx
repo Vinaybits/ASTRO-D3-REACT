@@ -3,7 +3,7 @@ import React from 'react';
 const Navbar =() =>{
     return(
         <>
-         <div className="topnav shadow-lg">
+         {/* <div className="topnav shadow-lg">
                 <div className="container-fluid">
                     <nav className="navbar navbar-light navbar-expand-lg topnav-menu">
 
@@ -363,7 +363,7 @@ const Navbar =() =>{
                         </div> 
                     </nav>
                 </div> 
-            </div> 
+            </div>  */}
 
         </>
 

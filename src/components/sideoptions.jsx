@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import BarChart from '../d3/chart';
 import './sideoption.css';
 
 class Sideoptions extends Component{

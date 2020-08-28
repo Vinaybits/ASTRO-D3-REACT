@@ -20,7 +20,7 @@ const Topbar = () => {
 
 
                         <li className="dropdown d-none d-lg-inline-block">
-                            <a className="nav-link dropdown-toggle arrow-none waves-effect waves-light" data-toggle="fullscreen" href="#d3graph">
+                            <a className="nav-link dropdown-toggle arrow-none waves-effect waves-light" data-toggle="fullscreen" href="/#">
                                 <i className="fe-maximize noti-icon"></i>
                             </a>
                         </li>
@@ -91,7 +91,7 @@ const Topbar = () => {
 
                     </ul>
 <div className="logo-box">
-    <a href="" className="logo logo-dark text-center">
+    <a href="/#" className="logo logo-dark text-center">
         <span className="logo-sm">
             {/* <img src="" /> */}
             <span className="logo-lg-text-light">ASTRO-ONE</span>
@@ -102,7 +102,7 @@ const Topbar = () => {
         </span>
     </a>
 
-    <a href="" className="logo logo-light text-center">
+    <a href="/#" className="logo logo-light text-center">
     <span className="logo-sm">
             {/* <img src=""  /> */}
             <span className="logo-lg-text-light">ASTRO-ONE</span>

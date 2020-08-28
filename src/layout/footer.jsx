@@ -8,13 +8,13 @@ const Footer =() =>{
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-md-6">
-                                2020 &copy; .... by <a href="">FRKLABS</a> 
+                                2020 &copy; .... by <a href="/#">FRKLABS</a> 
                             </div>
                             <div className="col-md-6">
                                 <div className="text-md-right footer-links d-none d-sm-block">
                                     {/* <a href="javascript:void(0);">About Us</a>
                                     <a href="javascript:void(0);">Help</a> */}
-                                    <a href="javascript:void(0);">Contact Us</a>
+                                    <a href="/#">Contact Us</a>
                                 </div>
                             </div>
                         </div>
