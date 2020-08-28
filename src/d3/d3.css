@@ -15,7 +15,7 @@
 
 .Planet_Text {
     fill: #fff;
-    font-size: 10px;
+    font-size: 12px;
 }
 
 .moon {
@@ -25,12 +25,12 @@
 
 .monthText {
     fill: #fff;
-    font-size: 10px;
+    font-size: 13px;
 }
 
 .naksText {
     fill: #fff;
-    font-size: 10px;
+    font-size: 14px;
     letter-spacing: 1px;
     pointer-events: none;
 }

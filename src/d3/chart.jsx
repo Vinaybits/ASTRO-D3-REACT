@@ -264,8 +264,8 @@ class BarChart extends Component {
         // accessRef.style("background-color","red")
 
         // establish variables
-        var w = 660;
-        var h = 600;
+        var w = 900;
+        var h = 700;
         var x = (w / 2);
         var y = (h / 2);
         var t0 = new Date().setHours(0, 0, 0, 0);
@@ -281,7 +281,7 @@ class BarChart extends Component {
 
         //Sunshine wheel
         var first_inner_radius = (w / 16);
-        var first_outer_radius = first_inner_radius + 60;
+        var first_outer_radius = first_inner_radius + 80;
         // var gradient_color_sunsigns = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, 12 + 1));
         var data_ready_sunsigns = pie(data);
         var arc_sunsigns = d3.arc()
@@ -290,7 +290,7 @@ class BarChart extends Component {
 
         //Naks Wheel
         var second_inner_radius = first_outer_radius + 20;
-        var second_outer_radius = second_inner_radius + 100;
+        var second_outer_radius = second_inner_radius + 120;
         var gradient_color_naks = d3.scaleOrdinal(d3.quantize(d3.interpolateViridis, 27 + 1));
         var data_ready_naks = pie(data2);
 
@@ -329,8 +329,11 @@ class BarChart extends Component {
             .outerRadius(third_outer_radius);
 
         var svg = d3.select(this.myRef.current).append("svg")
-            .attr("width", w)
-            .attr("height", h)
+            // .attr("width", w)
+            // .attr("height", h)
+            .attr("preserveAspectRatio", "xMinYMin meet")
+            .attr("viewBox", "0 0 900 700")
+
             .style("background-color", "#1E4451");
 
 

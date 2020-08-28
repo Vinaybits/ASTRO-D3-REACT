@@ -8,8 +8,8 @@ const Contentlayout = () => {
 
   const planet_init = [
     {
-    R: 270,
-    r: 5,
+    R: 320,
+    r: 8,
     speed: -1.60,
     phi0: 35,
     color: 'white',
@@ -17,7 +17,7 @@ const Contentlayout = () => {
     name: "Mo",
     moons: [] // mercury
 }, {
-    R: 272,
+    R: 325,
     r: 8,
     speed: -1.60,
     phi0: 35,
@@ -26,7 +26,7 @@ const Contentlayout = () => {
     name: "Sa",
     moons: [] // mercury
 }, {
-    R: 275,
+    R: 330,
     r: 7,
     speed: -2.60,
     phi0: 135,
@@ -36,7 +36,7 @@ const Contentlayout = () => {
     moons: [] // mercury
 }, 
 {
-  R: 280,
+  R: 335,
   r: 8,
   speed: -1.60,
   phi0: 25,
@@ -46,7 +46,7 @@ const Contentlayout = () => {
   moons: [] // mercury
 },
 {
-  R: 285,
+  R: 340,
   r: 8,
   speed: -1.60,
   phi0: 25,
@@ -56,7 +56,7 @@ const Contentlayout = () => {
   moons: [] // mercury
 },
 {
-  R: 290,
+  R: 345,
   r: 8,
   speed: -1.60,
   phi0: 25,
@@ -65,7 +65,7 @@ const Contentlayout = () => {
   name: "Ma",
   moons: [] // mercury
 },{
-    R: 295,
+    R: 350,
     r: 8,
     speed: -1.60,
     phi0: 25,
@@ -75,7 +75,7 @@ const Contentlayout = () => {
     moons: [] // mercury
 },
 {
-  R: 300,
+  R: 355,
   r: 8,
   speed: -2.60,
   phi0: 25,
@@ -85,7 +85,7 @@ const Contentlayout = () => {
   moons: [] // mercury
 },
 {
-  R: 305,
+  R: 360,
   r: 8,
   speed: 1.60,
   phi0: 35,
