@@ -7,11 +7,8 @@ class BarChart extends Component {
     constructor(props) {
 
         super(props);
-
-        const planets1 = this.props.data;
         this.state ={
-            planets : planets1,
-            name: "faraaz"
+            planets : this.props.data
 
         };
         
@@ -23,7 +20,7 @@ class BarChart extends Component {
 
     componentDidMount() {
        
-        this.astro_wheel(this.state.planets);
+        this.astro_wheel(this.props.data);
     }
     astro_wheel(planets){
       
@@ -682,7 +679,7 @@ class BarChart extends Component {
 
     componentDidUpdate(){
         d3.selectAll("svg").remove();
-        this.astro_wheel(this.state.planets);
+        this.astro_wheel(this.props.data);
     }
 
     handleClick = () =>{
@@ -720,15 +717,14 @@ class BarChart extends Component {
 
 
         ];
-        this.setState({planets: planets2 , name:"Faraaz Khan"})
+       // this.setState({planets: planets2 , name:"Faraaz Khan"})
 
     }
 
     
     render() {
         return <>
-            <button onClick={this.handleClick}>Click Me</button>
-    <div>name is {this.state.name}</div>
+  
             <div ref={this.myRef} ></div>
         </>
     }
