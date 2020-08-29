@@ -3,6 +3,8 @@ import Sideform from '../components/sideform'
 import D3graph from '../components/d3graph';
 import Sideoptions from '../components/sideoptions';
 import Card3col from '../components/card3col';
+import { geoNaturalEarth1Raw } from 'd3';
+import { render } from '@testing-library/react';
 
 const Contentlayout = () => {
 
@@ -136,7 +138,8 @@ const Contentlayout = () => {
      let check_name ='';
      let newList = [...planetnames];
      if(values === ''){
-
+        setPlanetdata(planet_init);
+       
      }
      else{
       isTrue = newList[values].value;
@@ -170,10 +173,20 @@ const Contentlayout = () => {
 }
 
 const setplanetdata_state = (value,name) =>{
-  let newPlanetData = planet_init;
-  newPlanetData = newPlanetData.filter(item => item.name === name);
+  let newPlanetData = [...planetdata];
+  if(value === true){
+    // remove becuse check value is true and its tuening to false
+  const planetItemIndex = newPlanetData.findIndex(item => item.name === name);
+  const updatePlanet = {...newPlanetData[planetItemIndex]};
+  console.log(newPlanetData);
+  newPlanetData.splice(planetItemIndex,1);
+  console.log(newPlanetData);
+  //newPlanetData = newPlanetData.filter(item => item.name === name);
   setPlanetdata(newPlanetData);
-
+  }
+  else{
+    //add from innitial array here 
+  }
 }
 
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './sideoption.css';
 
+
 class Sideoptions extends Component{
 
     constructor(props){
@@ -36,9 +37,11 @@ class Sideoptions extends Component{
                 
                                                         <h4 class="header-title">Filter</h4>
                                                         <p class="sub-header">
-                                                            Filter using below options
-                                                            <button  onClick={() => this.props.onchange_('')}>Enable Filters</button>
-                                                        </p>
+                                                            Filter using below .. text..
+                                                           
+                                                             
+                                                              <button className="btn btn-outline-danger btn-sm"  onClick={() => this.props.onchange_('')}>Enable Filters</button>
+                                                              </p>
                                                        <div className="form-group">
                                                            <div className="mb-1 custom-checkbox">
                                                                <input type="checkbox" className="mr-1"
