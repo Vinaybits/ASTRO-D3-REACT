@@ -21,6 +21,7 @@ class BarChart extends Component {
     componentDidMount() {
        
         this.astro_wheel(this.props.data);
+        this.draw_planets(this.props.data);
     }
     astro_wheel(planets){
       
@@ -528,7 +529,7 @@ class BarChart extends Component {
             .style("opacity", 1)
             .attr("id", function (d, i) {
                 return "PADAS_Arc_" + i;
-            }) //Unique id for each slice
+            }) ;//Unique id for each slice
 
             //uncomment this section for PADAS animation 
 
@@ -546,7 +547,17 @@ class BarChart extends Component {
         //update will go here 
 
         // draw planets and moon clusters
-        container.selectAll("g.planet")
+      
+
+
+    };
+
+
+    draw_planets(planets){
+        
+        
+        
+        d3.select("#orbit_container").selectAll("g.planet")
             .data(planets)
             .enter()
             .append("g")
@@ -676,13 +687,15 @@ class BarChart extends Component {
             }, 3800)
 
         }
+    }
 
 
-    };
+
 
     componentDidUpdate(){
-        d3.selectAll("svg").remove();
-        this.astro_wheel(this.props.data);
+        d3.select("#orbit_container").selectAll("g.planet_cluster").remove();
+       // this.astro_wheel(this.props.data);
+       this.draw_planets(this.props.data);
     }
 
     handleClick = () =>{
