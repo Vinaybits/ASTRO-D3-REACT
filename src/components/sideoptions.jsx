@@ -39,7 +39,7 @@ class Sideoptions extends Component{
                                                         <p class="sub-header">
                                                             Filter using below .. text..
                                                            
-                                                             
+                                                             <button onClick={() => this.props.player()}>start</button>
                                                               <button className="btn btn-outline-danger btn-sm"  onClick={() => this.props.onchange_('')}>Enable Filters</button>
                                                               </p>
                                                        <div className="form-group">

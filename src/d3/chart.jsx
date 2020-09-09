@@ -13,15 +13,18 @@ class BarChart extends Component {
         };
         
         this.myRef = React.createRef();
-        this.handleClick = this.handleClick.bind(this);
+       
 
 
     }
+
+    
 
     componentDidMount() {
        
         this.astro_wheel(this.props.data);
         this.draw_planets(this.props.data);
+       
     }
     astro_wheel(planets){
       
@@ -266,7 +269,7 @@ class BarChart extends Component {
 
         // establish variables
         var w = 900;
-        var h = 700;
+        var h = 750;
         var x = (w / 2);
         var y = (h / 2);
         var t0 = new Date().setHours(0, 0, 0, 0);
@@ -333,7 +336,7 @@ class BarChart extends Component {
             // .attr("width", w)
             // .attr("height", h)
             .attr("preserveAspectRatio", "xMinYMin meet")
-            .attr("viewBox", "0 0 900 700")
+            .attr("viewBox", "0 0 900 750")
 
             .style("background-color", "#1E4451");
 
@@ -554,8 +557,7 @@ class BarChart extends Component {
 
 
     draw_planets(planets){
-        
-        
+ 
         
         d3.select("#orbit_container").selectAll("g.planet")
             .data(planets)
@@ -629,7 +631,7 @@ class BarChart extends Component {
 
             .transition()
 
-            .duration(4000)
+            .duration(5)
             .attr("transform", function (d) {
                 getDegree_highlight(d.degree);
                 return "rotate(" + ((-d.degree) - 90) + ")";
@@ -684,58 +686,64 @@ class BarChart extends Component {
 
                     .style("fill", color)
 
-            }, 3800)
+            }, 800)
 
         }
     }
 
+remove_highlight = () =>{
+    var sunshine_degree = 360 / 12;
+    //console.log(sunshine_degree);
+    var naks_degree = 360 / 27;
+    // console.log(naks_degree);
+    var padas_degree = 360 / 108;
+    // console.log(padas);
+    var gradient_color_padas = d3.scaleOrdinal()
+    .domain([0, 1, 2, 3])
+    .range(["#4ea1be", "#6bb0c9", "#87bfd3", "#a4cfde"]);
+
+    // this loop is for SUNSHINE HIGHLIGHT
+    for (var i = 0; i <= 11; i++) {
+        // between(degree + "hello + " + (sunshine_degree * i) + " + condition2 + " + (sunshine_degree * (i + 1)) + " jvalue +" + (11 - i) + " ");
+            d3.select("#SunSign_Arc_" + (11 - i)).style("fill","#467B89");
+            //console.log("true" + j)
+           
+    }
+
+    //  this loop is for NAKS highlight
+    for (var i = 0; i <= 26; i++) {
+       
+        d3.select("#NAKS_Arc_" + (26 - i)).style("fill","#467B89");
+            //console.log("true" + j)
+        
+
+    }
+
+    // this loop is for PADAS highlight
+    for (i = 0; i <= 107; i++) {
+       
+       d3.select("#PADAS_Arc_" + (107 - i)).style("fill",function (d) {
+        //console.log("hi" + d);
+        return gradient_color_padas(d.data.key)
+
+    });
+            //console.log("true" + j)
+        
+    }
+    
+}
 
 
 
     componentDidUpdate(){
         d3.select("#orbit_container").selectAll("g.planet_cluster").remove();
        // this.astro_wheel(this.props.data);
+       this.remove_highlight();
        this.draw_planets(this.props.data);
     }
 
-    handleClick = () =>{
-        const planets2 = [
-            {
-            R: 280,
-            r: 5,
-            speed: -1.60,
-            phi0: 35,
-            color: 'white',
-            degree: 100.23,
-            name: "Mo",
-            moons: [] // mercury
-        }, {
-            R: 280,
-            r: 8,
-            speed: -1.60,
-            phi0: 35,
-            color: 'yellow',
-            degree: 250,
-            name: "Sa",
-            moons: [] // mercury
-        }, {
-            R: 285,
-            r: 7,
-            speed: -2.60,
-            phi0: 135,
-            color: 'skyblue',
-            degree: 284,
-            name: "Ea",
-            moons: [] // mercury
-        }, 
-
-
-
-
-        ];
-       // this.setState({planets: planets2 , name:"Faraaz Khan"})
-
-    }
+    
+   
 
     
     render() {

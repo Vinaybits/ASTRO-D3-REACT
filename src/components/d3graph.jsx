@@ -7,9 +7,9 @@ const D3graph =(props) =>{
         <>
          <div id="d3graph" className="col-lg-7">
                                             <div className="card">
-                                                <div className="card-body">
+                                                <div className="card-body" style={{"padding":"5px"}}>
             
-                                                    <h4 className="header-title">D3</h4>
+                                                   
                                                    
             <Chart1 data={props.planetsdata}/>
                                                   
