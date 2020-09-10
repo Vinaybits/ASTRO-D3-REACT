@@ -6,10 +6,12 @@ import Contentlayout from './layout/contentlayout';
 import Topbar from './layout/topbar';
 import Navbar from './layout/navbar';
 import Footer from './layout/footer';
+import { GlobalProvider, GlobalContext } from './mycontext';
 
 function App() {
   return (
     <>
+     <GlobalProvider>
       <div id="wrapper">
         <Topbar />
        
@@ -17,6 +19,7 @@ function App() {
 
        <Footer />
       </div>
+      </GlobalProvider>
     </>
   );
 }

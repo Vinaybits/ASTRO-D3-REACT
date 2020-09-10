@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3';
 import './d3.css';
+import { GlobalProvider, GlobalContext } from '../mycontext';
 
 class BarChart extends Component {
-    
+    static contextType = GlobalContext;
     constructor(props) {
 
         super(props);
@@ -21,9 +22,10 @@ class BarChart extends Component {
     
 
     componentDidMount() {
-       
-        this.astro_wheel(this.props.data);
-        this.draw_planets(this.props.data);
+        console.log("context");
+        this.context.updateplanet();
+        this.astro_wheel(this.context.planet);
+        this.draw_planets(this.context.planet);
        
     }
     astro_wheel(planets){
@@ -602,6 +604,17 @@ class BarChart extends Component {
                         return d.name;
                     });
 
+                    d3.select(this)
+                    .append("text")
+                    .attr("transform", "translate(310,-12)")
+                    .attr("y", 4)
+
+                    .attr("class", "Planet_degree")
+                    .text(function (d) {
+                       // console.log(d.degree);
+                        return d.degree ;
+                    });
+
 
 
 
@@ -631,7 +644,7 @@ class BarChart extends Component {
 
             .transition()
 
-            .duration(5)
+            .duration(1)
             .attr("transform", function (d) {
                 getDegree_highlight(d.degree);
                 return "rotate(" + ((-d.degree) - 90) + ")";
@@ -691,7 +704,7 @@ class BarChart extends Component {
         }
     }
 
-remove_highlight = () =>{
+       remove_highlight = () =>{
     var sunshine_degree = 360 / 12;
     //console.log(sunshine_degree);
     var naks_degree = 360 / 27;
@@ -731,7 +744,7 @@ remove_highlight = () =>{
         
     }
     
-}
+     }
 
 
 
@@ -739,7 +752,7 @@ remove_highlight = () =>{
         d3.select("#orbit_container").selectAll("g.planet_cluster").remove();
        // this.astro_wheel(this.props.data);
        this.remove_highlight();
-       this.draw_planets(this.props.data);
+       this.draw_planets(this.context.planet);
     }
 
     

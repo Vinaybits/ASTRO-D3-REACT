@@ -18,6 +18,11 @@
     font-size: 12px;
 }
 
+.Planet_degree {
+    fill: #dcd427;
+    font-size: 12px;
+}
+
 .moon {
     stroke: #ccc;
     fill: #fff;
