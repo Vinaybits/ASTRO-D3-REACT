@@ -6,6 +6,7 @@ import Card3col from '../components/card3col';
 import { geoNaturalEarth1Raw } from 'd3';
 import { render } from '@testing-library/react';
 
+
 const Contentlayout = () => {
 
   const planet_init = [
@@ -481,11 +482,11 @@ const Contentlayout = () => {
 
                   <Sideform />
                   <D3graph planetsdata={planetdata} />
-                  <Sideoptions checkbox_status={planetnames} onchange_={onChange} player={loadData}/>
+                  {/* <Sideoptions checkbox_status={planetnames} onchange_={onChange} player={loadData}/> */}
 
                 </div>
                 <div className="row">
-
+                
                   <Card3col />
                   <Card3col />
                   <Card3col />

@@ -3,6 +3,7 @@ import * as d3 from 'd3';
 import './d3.css';
 import { GlobalProvider, GlobalContext } from '../mycontext';
 
+
 class BarChart extends Component {
     static contextType = GlobalContext;
     constructor(props) {
@@ -23,6 +24,7 @@ class BarChart extends Component {
 
     componentDidMount() {
         console.log("context");
+        console.log(this.context.planet);
         this.context.updateplanet();
         this.astro_wheel(this.context.planet);
         this.draw_planets(this.context.planet);
@@ -763,6 +765,8 @@ class BarChart extends Component {
         return <>
   
             <div ref={this.myRef} ></div>
+          
+           
         </>
     }
 };
