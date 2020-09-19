@@ -59,29 +59,38 @@
 }
 
 .tooltip212 {
-    background: #eee;
-    /* NEW */
-    box-shadow: 0 0 5px #999999;
-    /* NEW */
-    color: #fff;
-    /* NEW */
-    display: none;
-    /* NEW */
-    font-size: 12px;
-    /* NEW */
-    /* NEW */
+    background: #467B89;
+    min-width: 100px;
     padding: 10px;
-    /* NEW */
+    transition: all 0.25s cubic-bezier(0, 0, 0.2, 1);
+    color: #fff;
+    border: 1px solid #173F5F;
+    border-radius: 3px;
+    font-weight: 500;
+    z-index: 4;
+    display: none;
+    font-size: 12px;
     position: absolute;
-    /* NEW */
-    text-align: center;
-    /* NEW */
+    text-align: left;
     top: 95px;
-    /* NEW */
-    width: 80px;
-    /* NEW */
-    z-index: 10;
-    /* NEW */
+    max-width: 150px;
+    transform: translateY(9px);
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 0 3px rgba(56, 54, 54, 0.86);
+    opacity: 0.8;
+}
+
+.tooltip-top::before {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 0px;
+    left: 0;
+    top: 50%;
+    border: 10px solid transparent;
+    border-left: 0;
+    border-right: 10px solid #467B89;
+    transform: translate(calc(-100% - 0px), -50%);
 }
 
 #play-button {

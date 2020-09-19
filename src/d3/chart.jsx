@@ -345,18 +345,18 @@ class BarChart extends Component {
 
             .style("background-color", "#1E4451");  
            
-            var tooltip = d3.select(this.myRef.current)                               // NEW
+            var tooltip = d3.select(this.myRef.current)                               
             .append('div')   
-            .attr('class', 'tooltip212')                                             // NEW
-            .attr('id', 'tooltip_id');                                    // NEW
+            .attr('class', 'tooltip212 tooltip-top')                                             
+            .attr('id', 'tooltip_id');                                    
                         
-          tooltip.append('div')                                           // NEW
-            .attr('class', 'label');                                      // NEW
+          tooltip.append('div')                                           
+            .attr('class', 'label');                                      
                
-          tooltip.append('div')                                           // NEW
-            .attr('class', 'count');                                      // NEW
+          tooltip.append('div')                                           
+            .attr('class', 'count');                                      
     
-          tooltip.append('div')                                           // NEW
+          tooltip.append('div')                                           
             .attr('class', 'percent');    
 
         //sun
@@ -616,18 +616,34 @@ class BarChart extends Component {
                         return d.name;
                     });
 
-                    d3.select(this)
-                    .append("text")
-                    .attr("transform", "translate(310,-12)")
-                    .attr("y", 4)
+                    // Show Degree Area 
+                    
+                    // d3.select(this)
+                    // .append("text")
+                    // .attr("transform", "translate(310,-12)")
+                    // .attr("y", 4)
 
-                    .attr("class", "Planet_degree")
-                    .text(function (d) {
-                       // console.log(d.degree);
-                        return d.degree ;
-                    });
+                    // .attr("class", "Planet_degree")
+                    // .text(function (d) {
+                    //    // console.log(d.degree);
+                    //     return d.degree ;
+                    // });
 
                     var tooltip_ = d3.select("#tooltip_id");
+                    var htmlfor_tooltip = function (d) {
+                        var name = d.name;
+                        if(name == 'Mo'){name = 'Moon'};
+                        if(name == 'Ve'){name = 'Venus'};
+                        if(name == 'Ma'){name = 'Mars'};
+                        if(name == 'Sa'){name = 'Saturn'};
+                        if(name == 'Su'){name = 'Sun'};
+                        if(name == 'Me'){name = 'Mercury'};
+                        if(name == 'Ju'){name = 'Jupitor'};
+                        if(name == 'Ra'){name = 'Rahu'};
+                        if(name == 'Ke'){name = 'Ketu'};
+
+                        return "<b>Name </b> : " + name + "<br/> <b>Degree </b> :" + d.degree+"&#176" ;
+                    }
 
                     d3.select(this).append("circle")
                     .attr("r", d.r) // radius of planet circle 
@@ -639,8 +655,10 @@ class BarChart extends Component {
                     .on("mouseover", function(d) {
                         console.log("ok")
                         tooltip_
-                        .select('.label').html(d.degree)
-                        .style("color","green")
+                        .style("left", (d3.event.pageX - 410) + "px")
+                        .style("top", (d3.event.pageY - 200) + "px")
+                        .select('.label').html(htmlfor_tooltip(d))
+                        
                         return tooltip_.style("display", "block");
                         })
                         .on("mouseout",function name(params) {
