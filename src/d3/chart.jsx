@@ -30,6 +30,7 @@ class BarChart extends Component {
         this.draw_planets(this.context.planet);
        
     }
+    
     astro_wheel(planets){
       
         // Create dummy data
@@ -342,8 +343,21 @@ class BarChart extends Component {
             .attr("preserveAspectRatio", "xMinYMin meet")
             .attr("viewBox", "0 0 900 750")
 
-            .style("background-color", "#1E4451");
-
+            .style("background-color", "#1E4451");  
+           
+            var tooltip = d3.select(this.myRef.current)                               // NEW
+            .append('div')   
+            .attr('class', 'tooltip212')                                             // NEW
+            .attr('id', 'tooltip_id');                                    // NEW
+                        
+          tooltip.append('div')                                           // NEW
+            .attr('class', 'label');                                      // NEW
+               
+          tooltip.append('div')                                           // NEW
+            .attr('class', 'count');                                      // NEW
+    
+          tooltip.append('div')                                           // NEW
+            .attr('class', 'percent');    
 
         //sun
         svg.append("circle")
@@ -561,7 +575,9 @@ class BarChart extends Component {
 
 
     draw_planets(planets){
- 
+        
+       
+          
         
         d3.select("#orbit_container").selectAll("g.planet")
             .data(planets)
@@ -574,14 +590,8 @@ class BarChart extends Component {
 
                     .attr("r", d.R); // setting the radius of ORBIT from data 
 
-                var cc = d3.select(this).append("circle")
-                    .attr("r", d.r) // radius of planet circle 
-                    .attr("cx", d.R) //setting X
-                    .attr("cy", 0) // setting Y
-                    .style("fill", d.color)
-
-                    .attr("class", "planet");
-
+                    
+                    
 
                 d3.select(this)
                     .append("line")
@@ -617,8 +627,26 @@ class BarChart extends Component {
                         return d.degree ;
                     });
 
+                    var tooltip_ = d3.select("#tooltip_id");
 
+                    d3.select(this).append("circle")
+                    .attr("r", d.r) // radius of planet circle 
+                    .attr("cx", d.R) //setting X
+                    .attr("cy", 0) // setting Y
+                    .style("fill", d.color)
 
+                    .attr("class", "planet")
+                    .on("mouseover", function(d) {
+                        console.log("ok")
+                        tooltip_
+                        .select('.label').html(d.degree)
+                        .style("color","green")
+                        return tooltip_.style("display", "block");
+                        })
+                        .on("mouseout",function name(params) {
+                            return tooltip_.style("display", "none");
+                        });
+                
 
                 d3.select(this).append("g")
                     .attr("transform", "translate(" + d.R + ",0)")
@@ -651,6 +679,7 @@ class BarChart extends Component {
                 getDegree_highlight(d.degree);
                 return "rotate(" + ((-d.degree) - 90) + ")";
             });
+            
 
         function getDegree_highlight(degree) {
             var sunshine_degree = 360 / 12;

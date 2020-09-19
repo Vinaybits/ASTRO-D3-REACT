@@ -37,11 +37,51 @@
     fill: #fff;
     font-size: 14px;
     letter-spacing: 1px;
+    /* pointer-events: none; */
+}
+
+.planet_cluster {}
+
+.Planet_Text {
     pointer-events: none;
 }
 
-.planet_cluster {
+.moon_cluster {
     pointer-events: none;
+}
+
+.orbit {
+    pointer-events: none;
+}
+
+.Planet_degree {
+    pointer-events: none;
+}
+
+.tooltip212 {
+    background: #eee;
+    /* NEW */
+    box-shadow: 0 0 5px #999999;
+    /* NEW */
+    color: #fff;
+    /* NEW */
+    display: none;
+    /* NEW */
+    font-size: 12px;
+    /* NEW */
+    /* NEW */
+    padding: 10px;
+    /* NEW */
+    position: absolute;
+    /* NEW */
+    text-align: center;
+    /* NEW */
+    top: 95px;
+    /* NEW */
+    width: 80px;
+    /* NEW */
+    z-index: 10;
+    /* NEW */
 }
 
 #play-button {
