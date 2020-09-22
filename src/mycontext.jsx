@@ -7,7 +7,7 @@ export class GlobalProvider extends Component {
 
 	planet_init = [
 		{
-		  R: 330,
+		  R: 320,
 		  r: 8,
 		  speed: -1.60,
 		  phi0: 35,
@@ -16,7 +16,7 @@ export class GlobalProvider extends Component {
 		  name: "Mo",
 		  moons: [] // mercury
 		}, {
-		  R: 340,
+		  R: 335,
 		  r: 8,
 		  speed: -1.60,
 		  phi0: 35,
@@ -25,7 +25,7 @@ export class GlobalProvider extends Component {
 		  name: "Sa",
 		  moons: [] // mercury
 		}, {
-		  R: 350,
+		  R: 340,
 		  r: 7,
 		  speed: -2.60,
 		  phi0: 135,
@@ -35,7 +35,7 @@ export class GlobalProvider extends Component {
 		  moons: [] // mercury
 		},
 		{
-		  R: 360,
+		  R: 345,
 		  r: 8,
 		  speed: -1.60,
 		  phi0: 25,
@@ -45,7 +45,7 @@ export class GlobalProvider extends Component {
 		  moons: [] // mercury
 		},
 		{
-		  R: 370,
+		  R: 350,
 		  r: 8,
 		  speed: -1.60,
 		  phi0: 25,
@@ -55,7 +55,7 @@ export class GlobalProvider extends Component {
 		  moons: [] // mercury
 		},
 		{
-		  R: 380,
+		  R: 355,
 		  r: 8,
 		  speed: -1.60,
 		  phi0: 25,
@@ -64,7 +64,7 @@ export class GlobalProvider extends Component {
 		  name: "Ma",
 		  moons: [] // mercury
 		}, {
-		  R: 390,
+		  R: 360,
 		  r: 8,
 		  speed: -1.60,
 		  phi0: 25,
@@ -74,7 +74,7 @@ export class GlobalProvider extends Component {
 		  moons: [] // mercury
 		},
 		{
-		  R: 400,
+		  R: 365,
 		  r: 8,
 		  speed: -2.60,
 		  phi0: 25,
@@ -84,7 +84,7 @@ export class GlobalProvider extends Component {
 		  moons: [] // mercury
 		},
 		{
-		  R: 410,
+		  R: 370,
 		  r: 8,
 		  speed: 1.60,
 		  phi0: 35,
@@ -266,7 +266,7 @@ export class GlobalProvider extends Component {
 					   },
 					   {
 						  "name": "Sa",
-						  "deg": 367.47,
+						  "deg": 300.47,
 						  "motion": "D"
 					   },
 					   {

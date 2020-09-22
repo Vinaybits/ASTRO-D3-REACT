@@ -9,18 +9,18 @@ class BarChart extends Component {
     constructor(props) {
 
         super(props);
-        this.state ={
-            planets : this.props.data
+        this.state = {
+            planets: this.props.data
 
         };
-        
+
         this.myRef = React.createRef();
-       
+
 
 
     }
 
-    
+
 
     componentDidMount() {
         console.log("context");
@@ -28,11 +28,19 @@ class BarChart extends Component {
         this.context.updateplanet();
         this.astro_wheel(this.context.planet);
         this.draw_planets(this.context.planet);
-       
+
+        var pathEl = d3.select('#orbit_container');
+        var circleBox = pathEl.node().getBBox();
+        console.log(circleBox);
+        console.log(circleBox.x + "-" + circleBox.y);
+
+
+
+
     }
-    
-    astro_wheel(planets){
-      
+
+    astro_wheel(planets) {
+
         // Create dummy data
         var data = [{
             name: "Pisces",
@@ -274,8 +282,8 @@ class BarChart extends Component {
 
         // establish variables
         var w = 900;
-        var h = 750;
-        var x = (w / 2);
+        var h = 850;
+        var x = (w / 2.2);
         var y = (h / 2);
         var t0 = new Date().setHours(0, 0, 0, 0);
         var delta = (Date.now() - t0);
@@ -296,6 +304,8 @@ class BarChart extends Component {
         var arc_sunsigns = d3.arc()
             .innerRadius(first_inner_radius)
             .outerRadius(first_outer_radius);
+
+
 
         //Naks Wheel
         var second_inner_radius = first_outer_radius + 20;
@@ -341,23 +351,23 @@ class BarChart extends Component {
             // .attr("width", w)
             // .attr("height", h)
             .attr("preserveAspectRatio", "xMinYMin meet")
-            .attr("viewBox", "0 0 900 750")
+            .attr("viewBox", "0 0 900 850")
 
-            .style("background-color", "#1E4451");  
-           
-            var tooltip = d3.select(this.myRef.current)                               
-            .append('div')   
-            .attr('class', 'tooltip212 tooltip-top')                                             
-            .attr('id', 'tooltip_id');                                    
-                        
-          tooltip.append('div')                                           
-            .attr('class', 'label');                                      
-               
-          tooltip.append('div')                                           
-            .attr('class', 'count');                                      
-    
-          tooltip.append('div')                                           
-            .attr('class', 'percent');    
+            .style("background-color", "#1E4451");
+
+        var tooltip = d3.select(this.myRef.current)
+            .append('div')
+            .attr('class', 'tooltip212 tooltip-top')
+            .attr('id', 'tooltip_id');
+
+        tooltip.append('div')
+            .attr('class', 'label');
+
+        tooltip.append('div')
+            .attr('class', 'count');
+
+        tooltip.append('div')
+            .attr('class', 'percent');
 
         //sun
         svg.append("circle")
@@ -550,35 +560,35 @@ class BarChart extends Component {
             .style("opacity", 1)
             .attr("id", function (d, i) {
                 return "PADAS_Arc_" + i;
-            }) ;//Unique id for each slice
+            });//Unique id for each slice
 
-            //uncomment this section for PADAS animation 
+        //uncomment this section for PADAS animation 
 
-            // .transition()
-            // .duration(2000)
-            // .attrTween("d", function (d) {
-            //     var i = d3.interpolate(d.endAngle, d.startAngle);
-            //     return function (t) {
-            //         d.startAngle = i(t);
-            //         return arc_padas(d);
-            //     }
-            // })
-            ;
+        // .transition()
+        // .duration(2000)
+        // .attrTween("d", function (d) {
+        //     var i = d3.interpolate(d.endAngle, d.startAngle);
+        //     return function (t) {
+        //         d.startAngle = i(t);
+        //         return arc_padas(d);
+        //     }
+        // })
+        ;
 
         //update will go here 
 
         // draw planets and moon clusters
-      
+
 
 
     };
 
 
-    draw_planets(planets){
-        
-       
-          
-        
+    draw_planets(planets) {
+
+
+
+
         d3.select("#orbit_container").selectAll("g.planet")
             .data(planets)
             .enter()
@@ -590,8 +600,8 @@ class BarChart extends Component {
 
                     .attr("r", d.R); // setting the radius of ORBIT from data 
 
-                    
-                    
+
+
 
                 d3.select(this)
                     .append("line")
@@ -616,55 +626,230 @@ class BarChart extends Component {
                         return d.name;
                     });
 
-                    // Show Degree Area 
+                // Show Degree Area 
+
+                // d3.select(this)
+                // .append("text")
+                // .attr("transform", "translate(310,-12)")
+                // .attr("y", 4)
+
+                // .attr("class", "Planet_degree")
+                // .text(function (d) {
+                //    // console.log(d.degree);
+                //     return d.degree ;
+                // });
+
+                var tooltip_ = d3.select("#tooltip_id");
+                var htmlfor_tooltip = function (d) {
+                    var sunshine_data = [{
+                        name: "Pisces",
+                        value: 30,
+                        id: 11
+                    }, {
+                        name: "Aquarius",
+                        value: 30,
+                        id: 10
+                    }, {
+                        name: "Capricorn",
+                        value: 30,
+                        id: 9
+                    }, {
+                        name: "Sagittarius",
+                        value: 30,
+                        id: 8
+                    }, {
+                        name: "Scorpio",
+                        value: 30,
+                        id: 7
+                    }, {
+                        name: "Libra",
+                        value: 30,
+                        id: 6
+                    }, {
+                        name: "Virgo",
+                        value: 30,
+                        id: 5
+                    }, {
+                        name: "Leo",
+                        value: 30,
+                        id: 4
+                    }, {
+                        name: "Cancer",
+                        value: 30,
+                        id: 3
+                    }, {
+                        name: "Gemini",
+                        value: 30,
+                        id: 2
+                    }, {
+                        name: "Taurus",
+                        value: 30,
+                        id: 1
+                    }, {
+                        name: "Aries",
+                        value: 30,
+                        id: 0
+                    },];
+
+                    var naks_data = [{
+                        name: "Revati",
+                        value: 13.33
+                    }, {
+                        name: "   U. Bhādrapadā",
+                        value: 13.33
+                    }, {
+                        name: "   P. Bhādrapadā",
+                        value: 13.33
+                    }, {
+                        name: "Shatabhisha",
+                        value: 13.33
+                    }, {
+                        name: "Śrāviṣṭha",
+                        value: 13.33
+                    }, {
+                        name: "Śrāvaṇa",
+                        value: 13.33
+                    }, {
+                        name: "   U. Āṣāḍhā",
+                        value: 13.33
+                    }, {
+                        name: "  P. Āshādhā",
+                        value: 13.33
+                    }, {
+                        name: "Mula",
+                        value: 13.33
+                    }, {
+                        name: "Jyeshtha",
+                        value: 13.33
+                    }, {
+                        name: "Anurādhā",
+                        value: 13.33
+                    }, {
+                        name: "Viśākhā",
+                        value: 13.33
+                    }, {
+                        name: "Svātī",
+                        value: 13.33
+                    }, {
+                        name: "Chitra",
+                        value: 13.33
+                    }, {
+                        name: "Hasta",
+                        value: 13.33
+                    }, {
+                        name: "Uttara",
+                        value: 13.33
+                    }, {
+                        name: "Pūrva",
+                        value: 13.33
+                    }, {
+                        name: "Maghā",
+                        value: 13.33
+                    }, {
+                        name: "Āshleshā",
+                        value: 13.33
+                    }, {
+                        name: "Pushya",
+                        value: 13.33
+                    }, {
+                        name: "Punarvasu",
+                        value: 13.33
+                    }, {
+                        name: "Ārdrā",
+                        value: 13.33
+                    }, {
+                        name: "Mrigashīrsha",
+                        value: 13.33
+                    }, {
+                        name: "Rohini",
+                        value: 13.33
+                    }, {
+                        name: "Krittika",
+                        value: 13.33
+                    }, {
+                        name: "Bharani",
+                        value: 13.33
+                    }, {
+                        name: "Ashwini",
+                        value: 13.33
+                    }]
                     
-                    // d3.select(this)
-                    // .append("text")
-                    // .attr("transform", "translate(310,-12)")
-                    // .attr("y", 4)
+                    var sunshine_degree = 360 / 12;
 
-                    // .attr("class", "Planet_degree")
-                    // .text(function (d) {
-                    //    // console.log(d.degree);
-                    //     return d.degree ;
-                    // });
+                    var naks_degree = 360 / 27;
 
-                    var tooltip_ = d3.select("#tooltip_id");
-                    var htmlfor_tooltip = function (d) {
-                        var name = d.name;
-                        if(name == 'Mo'){name = 'Moon'};
-                        if(name == 'Ve'){name = 'Venus'};
-                        if(name == 'Ma'){name = 'Mars'};
-                        if(name == 'Sa'){name = 'Saturn'};
-                        if(name == 'Su'){name = 'Sun'};
-                        if(name == 'Me'){name = 'Mercury'};
-                        if(name == 'Ju'){name = 'Jupitor'};
-                        if(name == 'Ra'){name = 'Rahu'};
-                        if(name == 'Ke'){name = 'Ketu'};
+                    var padas_degree = 360 / 108;
+                    var name = d.name;
+                    var degree = d.degree;
+                    var sunshine_name = "";
+                    var naks_name = "";
+                    var padas_number = "";
+                    if (name == 'Mo') { name = 'Moon' };
+                    if (name == 'Ve') { name = 'Venus' };
+                    if (name == 'Ma') { name = 'Mars' };
+                    if (name == 'Sa') { name = 'Saturn' };
+                    if (name == 'Su') { name = 'Sun' };
+                    if (name == 'Me') { name = 'Mercury' };
+                    if (name == 'Ju') { name = 'Jupitor' };
+                    if (name == 'Ra') { name = 'Rahu' };
+                    if (name == 'Ke') { name = 'Ketu' };
 
-                        return "<b>Name </b> : " + name + "<br/> <b>Degree </b> :" + d.degree+"&#176" ;
+                  
+
+
+                    // this loop is for SUNSHINE HIGHLIGHT
+                    for (var i = 0; i <= 11; i++) {
+
+                        if (degree >= (sunshine_degree * i) && degree < (sunshine_degree * (i + 1))) {
+                            //animate_color_arc("#SunSign_Arc_" + (11 - i), "red");
+                            console.log(i + "- " + degree);
+
+                            sunshine_name = (sunshine_data[(11 - i)].name);
+                        }
                     }
 
-                    d3.select(this).append("circle")
+                    //  this loop is for NAKS highlight
+                    for (var i = 0; i <= 26; i++) {
+                        if (degree >= (naks_degree * i) && degree < (naks_degree * (i + 1))) {
+                            console.log(i + "- " + degree);
+                            naks_name = naks_data[(26-i)].name;
+                        }
+
+                    }
+
+                     // this loop is for PADAS highlight
+                     padas_number = (degree % 4) ;
+                     console.log(padas_number);
+
+
+
+                    return "<b>Name </b> : " + name + "<br/> <b>Degree </b> :" + degree + "&#176" + "<br/> <b>Sunshine</b> :" + sunshine_name + "<br/> <b>Naks :</b>" + naks_name ;
+                }
+
+                d3.select(this).append("circle")
                     .attr("r", d.r) // radius of planet circle 
                     .attr("cx", d.R) //setting X
                     .attr("cy", 0) // setting Y
                     .style("fill", d.color)
 
                     .attr("class", "planet")
-                    .on("mouseover", function(d) {
-                        console.log("ok")
+                    .on("mouseover", function (d) {
+                        var x = d3.event.clientX;
+                        var y = d3.event.clientY;
+                        // console.log("ok" + x + "-" + y);
                         tooltip_
-                        .style("left", (d3.event.pageX - 410) + "px")
-                        .style("top", (d3.event.pageY - 200) + "px")
-                        .select('.label').html(htmlfor_tooltip(d))
-                        
+
+                            .style("left", (d3.event.clientX + 20) + "px")
+                            .style("top", (d3.event.clientY - 50) + "px")
+
+                            .select('.label').html(htmlfor_tooltip(d))
+
                         return tooltip_.style("display", "block");
-                        })
-                        .on("mouseout",function name(params) {
-                            return tooltip_.style("display", "none");
-                        });
-                
+                    })
+                    .on("mouseout", function name(params) {
+                        return tooltip_.style("display", "none");
+                    });
+
 
                 d3.select(this).append("g")
                     .attr("transform", "translate(" + d.R + ",0)")
@@ -697,7 +882,7 @@ class BarChart extends Component {
                 getDegree_highlight(d.degree);
                 return "rotate(" + ((-d.degree) - 90) + ")";
             });
-            
+
 
         function getDegree_highlight(degree) {
             var sunshine_degree = 360 / 12;
@@ -753,67 +938,66 @@ class BarChart extends Component {
         }
     }
 
-       remove_highlight = () =>{
-    var sunshine_degree = 360 / 12;
-    //console.log(sunshine_degree);
-    var naks_degree = 360 / 27;
-    // console.log(naks_degree);
-    var padas_degree = 360 / 108;
-    // console.log(padas);
-    var gradient_color_padas = d3.scaleOrdinal()
-    .domain([0, 1, 2, 3])
-    .range(["#4ea1be", "#6bb0c9", "#87bfd3", "#a4cfde"]);
+    remove_highlight = () => {
+        var sunshine_degree = 360 / 12;
+        //console.log(sunshine_degree);
+        var naks_degree = 360 / 27;
+        // console.log(naks_degree);
+        var padas_degree = 360 / 108;
+        // console.log(padas);
+        var gradient_color_padas = d3.scaleOrdinal()
+            .domain([0, 1, 2, 3])
+            .range(["#4ea1be", "#6bb0c9", "#87bfd3", "#a4cfde"]);
 
-    // this loop is for SUNSHINE HIGHLIGHT
-    for (var i = 0; i <= 11; i++) {
-        // between(degree + "hello + " + (sunshine_degree * i) + " + condition2 + " + (sunshine_degree * (i + 1)) + " jvalue +" + (11 - i) + " ");
-            d3.select("#SunSign_Arc_" + (11 - i)).style("fill","#467B89");
+        // this loop is for SUNSHINE HIGHLIGHT
+        for (var i = 0; i <= 11; i++) {
+            // between(degree + "hello + " + (sunshine_degree * i) + " + condition2 + " + (sunshine_degree * (i + 1)) + " jvalue +" + (11 - i) + " ");
+            d3.select("#SunSign_Arc_" + (11 - i)).style("fill", "#467B89");
             //console.log("true" + j)
-           
+
+        }
+
+        //  this loop is for NAKS highlight
+        for (var i = 0; i <= 26; i++) {
+
+            d3.select("#NAKS_Arc_" + (26 - i)).style("fill", "#467B89");
+            //console.log("true" + j)
+
+
+        }
+
+        // this loop is for PADAS highlight
+        for (i = 0; i <= 107; i++) {
+
+            d3.select("#PADAS_Arc_" + (107 - i)).style("fill", function (d) {
+                //console.log("hi" + d);
+                return gradient_color_padas(d.data.key)
+
+            });
+            //console.log("true" + j)
+
+        }
+
     }
 
-    //  this loop is for NAKS highlight
-    for (var i = 0; i <= 26; i++) {
-       
-        d3.select("#NAKS_Arc_" + (26 - i)).style("fill","#467B89");
-            //console.log("true" + j)
-        
-
-    }
-
-    // this loop is for PADAS highlight
-    for (i = 0; i <= 107; i++) {
-       
-       d3.select("#PADAS_Arc_" + (107 - i)).style("fill",function (d) {
-        //console.log("hi" + d);
-        return gradient_color_padas(d.data.key)
-
-    });
-            //console.log("true" + j)
-        
-    }
-    
-     }
-
-
-
-    componentDidUpdate(){
+  
+    componentDidUpdate() {
         d3.select("#orbit_container").selectAll("g.planet_cluster").remove();
-       // this.astro_wheel(this.props.data);
-       this.remove_highlight();
-       this.draw_planets(this.context.planet);
+        // this.astro_wheel(this.props.data);
+        this.remove_highlight();
+        this.draw_planets(this.context.planet);
     }
 
-    
-   
 
-    
+
+
+
     render() {
         return <>
-  
+
             <div ref={this.myRef} ></div>
-          
-           
+
+
         </>
     }
 };

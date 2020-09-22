@@ -1,10 +1,12 @@
 import React from 'react';
 import Chart1 from '../d3/chart';
 import { useState } from 'react';
+import * as d3 from 'd3';
 
 
 const D3graph = (props) => {
     const [currentClass, setcurrentClass] = useState('col-lg-9');
+    
     const toggleClass = () => {
 
         (currentClass == 'col-lg-9') ? setcurrentClass('fullscreen') : setcurrentClass('col-lg-9');

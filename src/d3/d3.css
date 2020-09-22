@@ -70,7 +70,7 @@
     z-index: 4;
     display: none;
     font-size: 12px;
-    position: absolute;
+    position: fixed;
     text-align: left;
     top: 95px;
     max-width: 150px;

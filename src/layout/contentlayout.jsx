@@ -39,7 +39,7 @@ const Contentlayout = () => {
       moons: [] // mercury
     },
     {
-      R: 335,
+      R: 360,
       r: 8,
       speed: -1.60,
       phi0: 25,
@@ -49,7 +49,7 @@ const Contentlayout = () => {
       moons: [] // mercury
     },
     {
-      R: 340,
+      R: 370,
       r: 8,
       speed: -1.60,
       phi0: 25,
@@ -59,7 +59,7 @@ const Contentlayout = () => {
       moons: [] // mercury
     },
     {
-      R: 345,
+      R: 380,
       r: 8,
       speed: -1.60,
       phi0: 25,
@@ -68,7 +68,7 @@ const Contentlayout = () => {
       name: "Ma",
       moons: [] // mercury
     }, {
-      R: 350,
+      R: 390,
       r: 8,
       speed: -1.60,
       phi0: 25,
@@ -78,7 +78,7 @@ const Contentlayout = () => {
       moons: [] // mercury
     },
     {
-      R: 355,
+      R: 400,
       r: 8,
       speed: -2.60,
       phi0: 25,
@@ -88,7 +88,7 @@ const Contentlayout = () => {
       moons: [] // mercury
     },
     {
-      R: 360,
+      R: 410,
       r: 8,
       speed: 1.60,
       phi0: 35,
