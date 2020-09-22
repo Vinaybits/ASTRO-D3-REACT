@@ -802,7 +802,7 @@ class BarChart extends Component {
 
                         if (degree >= (sunshine_degree * i) && degree < (sunshine_degree * (i + 1))) {
                             //animate_color_arc("#SunSign_Arc_" + (11 - i), "red");
-                            console.log(i + "- " + degree);
+                           // console.log(i + "- " + degree);
 
                             sunshine_name = (sunshine_data[(11 - i)].name);
                         }
@@ -811,19 +811,51 @@ class BarChart extends Component {
                     //  this loop is for NAKS highlight
                     for (var i = 0; i <= 26; i++) {
                         if (degree >= (naks_degree * i) && degree < (naks_degree * (i + 1))) {
-                            console.log(i + "- " + degree);
+                           // console.log(i + "- " + degree);
                             naks_name = naks_data[(26-i)].name;
                         }
 
                     }
 
                      // this loop is for PADAS highlight
-                     padas_number = (degree % 4) ;
-                     console.log(padas_number);
+                     //to calculate padas I am using this formula 
+                     // var result = (degree * 60) divided by 800 (this also give naks)
+                     // result decimal value * 800 
+                     // If this values is within 
+                     //0 to 200 it is 1st Pada, 
+                     //within 200 to 400 it is 2nd Pada, 
+                     //within 400 to 600 it is 3rd pada and 
+                     //within 600 to 800 it is 4th pada.
+
+                     var divide_result = (degree * 60) / 800;
+                     divide_result = Math.abs(divide_result);
+                     var decimal_value = divide_result - Math.floor(divide_result);
+                     console.log(decimal_value);
+
+                     var padas_no = decimal_value * 800;
+
+                     if(padas_no < 200)
+                        {
+                         padas_number = 1
+                        }
+                        else if(padas_no >= 200 && padas_no < 400)
+                        {
+                            padas_number = 2
+                        }
+                        else if(padas_no >= 400 && padas_no < 600)
+                        {
+                            padas_number = 3
+                        }
+                        else if(padas_no >= 600 && padas_no < 800)
+                        {
+                            padas_number = 4
+                        }
+                    
 
 
 
-                    return "<b>Name </b> : " + name + "<br/> <b>Degree </b> :" + degree + "&#176" + "<br/> <b>Sunshine</b> :" + sunshine_name + "<br/> <b>Naks :</b>" + naks_name ;
+
+                    return "<b>Name </b> : " + name + "<br/> <b>Degree </b> :" + degree + "&#176" + "<br/> <b>Sunshine</b> :" + sunshine_name + "<br/> <b>Naks :</b>" + naks_name + "<br/> <b>Pada :</b>" + padas_number;
                 }
 
                 d3.select(this).append("circle")
