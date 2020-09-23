@@ -134,7 +134,7 @@ export class GlobalProvider extends Component {
 				
 };
 
-	
+	 
 
 	 play_array = ()=>{
 		var dummy_data = {
@@ -291,68 +291,74 @@ export class GlobalProvider extends Component {
 			  ]
 		  };
 		var formatted_array = this.format_incoming_data(dummy_data);
+		this.setState({newStateplanet:formatted_array});
 
-		formatted_array.forEach((data,i) =>{
-			setTimeout(()=>{
-				console.log("New array - " + i);
-				console.log(data[1].degree);
-				this.setState({planet:data});
-				this.setState({current_index:i});
-						   
-						  }, i * 2000);
 
-		})
-		clearTimeout();
-		
-		
-		
-		 
-					
-		 
+		var length = formatted_array.length;
+		window.t = setInterval(()=>{
+			//set playicon to pause 
+			this.setState({playicon:'fe-pause'});
+			//set the position based on array 
+			this.setState({planet:formatted_array[this.state.current_index]});
+			// update the array index by 1 for next position
+			this.setState({current_index:this.state.current_index+1});
+
+			if(this.state.current_index === length){
+				//console.log(this.state.current_index + " - " + length);
+				clearInterval(window.t);
+				this.setState({playicon:'fe-play'});
+				this.setState({current_index:0});
+			  }
+
+		},2000)
 
 	 }
 
-
-
-
-	//  this is code is for updating current state with timer and push new data with delay 
-//  loadData = () => {
+	 pause_array=() =>{
+		clearInterval(window.t);
+		this.setState({playicon:'fe-play'});
 		
-// 		var array1 = dummy_data.p_dates;
-	
-// 		var state_planet = this.planet_init;
-// 		console.log("state - " + state_planet[0]);
-		
-	
-// 		array1.forEach((name, i) => {
-// 		  setTimeout(() => {
-// 			// display(name);
-// 			state_planet.forEach(item1 => {
-// 			  var itemFromArr2 = array1[i].planets.find(item2 => item2.name == item1.name);
-	
-// 			  if (itemFromArr2) {
-// 				item1.degree = itemFromArr2.deg;
-// 			  }
-// 			});
-// 			console.log("New array - " + i);
-// 			console.log(state_planet[1].degree);
-// 			this.setState({planet:state_planet});
-		   
-// 		  }, i * 2000);
-		  
-// 		});
-	
-// 	};
+	 }
 
+	 forward_array=() =>{
 
+		   var length = this.state.newStateplanet.length;
+		  // console.log(length )
+		   if(length > this.state.current_index){
+			   // update the array index by 1 for next position
+		       this.setState({current_index:this.state.current_index+1});
+		       //set the position based on array 
+		        this.setState({planet:this.state.newStateplanet[this.state.current_index]});
+		   }
+		   else if(length === this.state.current_index)
+		   {
+			clearInterval(window.t);
+			this.setState({playicon:'fe-play'});
+			this.setState({current_index:0});
 
-	// toggle() {
-	// 	this.setState({IsActive : !IsActive});
-	//   };
-	//   reset() {
-	// 	//setSeconds(0);
-	// 	this.setState({IsActive : false});
-	//   };
+		   }	
+
+	 }
+
+	 backward_array=()=>{
+		var length = this.state.newStateplanet.length;
+		 
+		if(this.state.current_index === 0){
+			this.setState({current_index:length});
+			//set the position based on array 
+			 this.setState({planet:this.state.newStateplanet[this.state.current_index]});
+		}
+		else{
+		 if(length > this.state.current_index){
+			 // update the array index by 1 for next position
+			 this.setState({current_index:this.state.current_index - 1});
+			 //set the position based on array 
+			  this.setState({planet:this.state.newStateplanet[this.state.current_index]});
+		 }
+		}
+
+	 }
+
 
 	state = {
 		planet:this.planet_init,
@@ -361,7 +367,11 @@ export class GlobalProvider extends Component {
 		IsActive:false,
 		prev: '',
 		next: '',
-		updateplanet : this.play_array,
+		playicon:'fe-play',
+		playplanet : this.play_array,
+		pauseplanet : this.pause_array,
+		forwardPlanet : this.forward_array,
+		backwardPlanet: this.backward_array,
 		togglebutton: this.toggle,
 	};
 	render() {

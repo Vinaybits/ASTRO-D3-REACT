@@ -25,17 +25,11 @@ class BarChart extends Component {
     componentDidMount() {
         console.log("context");
         console.log(this.context.planet);
-        this.context.updateplanet();
+       
         this.astro_wheel(this.context.planet);
         this.draw_planets(this.context.planet);
 
-        var pathEl = d3.select('#orbit_container');
-        var circleBox = pathEl.node().getBBox();
-        console.log(circleBox);
-        console.log(circleBox.x + "-" + circleBox.y);
-
-
-
+        
 
     }
 
@@ -1014,10 +1008,12 @@ class BarChart extends Component {
 
   
     componentDidUpdate() {
+       
         d3.select("#orbit_container").selectAll("g.planet_cluster").remove();
         // this.astro_wheel(this.props.data);
         this.remove_highlight();
         this.draw_planets(this.context.planet);
+       
     }
 
 
