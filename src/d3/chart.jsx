@@ -849,7 +849,7 @@ class BarChart extends Component {
 
 
 
-                    return "<b>Name </b> : " + name + "<br/> <b>Degree </b> :" + degree + "&#176" + "<br/> <b>Sunshine</b> :" + sunshine_name + "<br/> <b>Naks :</b>" + naks_name + "<br/> <b>Pada :</b>" + padas_number;
+                    return "<b>Planet </b> : " + name + "<br/> <b>Degree </b> :" + degree + "&#176" + "<br/> <b>Sunshine</b> :" + sunshine_name + "<br/> <b>Naks :</b>" + naks_name + "<br/> <b>Pada :</b>" + padas_number;
                 }
 
                 d3.select(this).append("circle")

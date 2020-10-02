@@ -5,6 +5,7 @@ import Sideoptions from '../components/sideoptions';
 import Card3col from '../components/card3col';
 import { geoNaturalEarth1Raw } from 'd3';
 import { render } from '@testing-library/react';
+import Sidetable from '../components/sidetable';
 
 
 const Contentlayout = () => {
@@ -482,7 +483,9 @@ const Contentlayout = () => {
 
                   <Sideform />
                   <D3graph planetsdata={planetdata} />
-                  <Sideoptions checkbox_status={planetnames} onchange_={onChange} player={loadData}/>
+                  
+                  {/* <Sideoptions checkbox_status={planetnames} onchange_={onChange} player={loadData}/> */}
+                 <Sidetable />
 
                 </div>
                 <div className="row">

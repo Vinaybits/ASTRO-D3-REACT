@@ -1505,6 +1505,8 @@ export class GlobalProvider extends Component {
 		  };
 		var formatted_array = this.format_incoming_data(dummy_data);
 		this.setState({newStateplanet:formatted_array});
+		//this.setState({apidataState:dummy_data.p_dates});
+		// these fn go on page load or onmount state event 
 
 
 		var length = formatted_array.length;
@@ -1513,6 +1515,8 @@ export class GlobalProvider extends Component {
 			this.setState({playicon:'fe-pause'});
 			//set the position based on array 
 			this.setState({planet:formatted_array[this.state.current_index]});
+			//set date value 
+			this.setState({apidataState:dummy_data.p_dates[this.state.current_index]});
 			// update the array index by 1 for next position
 			this.setState({current_index:this.state.current_index+1});
 
@@ -1576,6 +1580,7 @@ export class GlobalProvider extends Component {
 	state = {
 		planet:this.planet_init,
 		newStateplanet : '',
+		apidataState : '',
 		current_index: 0,
 		IsActive:false,
 		prev: '',
