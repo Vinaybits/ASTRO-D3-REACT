@@ -482,7 +482,7 @@ const Contentlayout = () => {
 
                   <Sideform />
                   <D3graph planetsdata={planetdata} />
-                  {/* <Sideoptions checkbox_status={planetnames} onchange_={onChange} player={loadData}/> */}
+                  <Sideoptions checkbox_status={planetnames} onchange_={onChange} player={loadData}/>
 
                 </div>
                 <div className="row">

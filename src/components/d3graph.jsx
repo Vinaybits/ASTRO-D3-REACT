@@ -7,10 +7,10 @@ import { GlobalProvider, GlobalContext } from '../mycontext';
 
 const D3graph = (props) => {
     const context = React.useContext(GlobalContext)
-    const [currentClass, setcurrentClass] = useState('col-lg-9');
+    const [currentClass, setcurrentClass] = useState('col-lg-7');
 
     const toggleClass = () => {
-        (currentClass == 'col-lg-9') ? setcurrentClass('fullscreen') : setcurrentClass('col-lg-9');
+        (currentClass == 'col-lg-7') ? setcurrentClass('fullscreen') : setcurrentClass('col-lg-7');
     };
 
     const play_array =()=>{
@@ -67,47 +67,18 @@ const D3graph = (props) => {
                                 <div class="btn-group">
                                     <a href="#" onClick={backward_array} class="btn btn-outline-light waves-effect"><i class="fe-skip-back"></i></a>
 
-                                    <a href="#" class="btn btn-danger waves-effect"><i class="fe-square"></i></a>
+                                    {/* <a href="#" class="btn btn-danger waves-effect"><i class="fe-square"></i></a> */}
                                     <a href="#" onClick={play_array} class="btn btn-outline-light waves-effect"><i class={context.playicon}></i></a>
 
-                                    <a href="#" onClick={forward_array} class="btn btn-outline-warning waves-effect"><i class="fe-skip-forward"></i></a>
+                                    <a href="#" onClick={forward_array} class="btn btn-outline-light waves-effect"><i class="fe-skip-forward"></i></a>
                                 </div>
                             </span>
 
                             <div className="row">
-                                <div className="col-lg-9">
+                                <div className="col-lg-10">
                                     <Chart1 data={props.planetsdata} />
                                 </div>
-                                <div className="col-lg-3">
-                                    <div class="table-responsive">
-                                        <table class="table table-borderless mb-0" style={{ "color": "#fff" }} cellPadding="0" cellSpacing="0">
-                                            <thead class="thead-light">
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Degree</th>
-
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <th>Su</th>
-                                                    <td>217.21</td>
-
-                                                </tr>
-                                                <tr>
-                                                    <th>Ru</th>
-                                                    <td>331</td>
-
-                                                </tr>
-                                                <tr>
-                                                    <th>Ke</th>
-                                                    <td>49</td>
-
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                               
                             </div>
 
 
