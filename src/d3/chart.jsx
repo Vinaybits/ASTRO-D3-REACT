@@ -279,8 +279,8 @@ class BarChart extends Component {
         var h = 850;
         var x = (w / 2);
         var y = (h / 2.4);
-        var t0 = new Date().setHours(0, 0, 0, 0);
-        var delta = (Date.now() - t0);
+        //var t0 = new Date().setHours(0, 0, 0, 0);
+        //var delta = (Date.now() - t0);
 
         // establish variables for AstroWheel
         var pie = d3.pie()
@@ -304,7 +304,7 @@ class BarChart extends Component {
         //Naks Wheel
         var second_inner_radius = first_outer_radius + 20;
         var second_outer_radius = second_inner_radius + 120;
-        var gradient_color_naks = d3.scaleOrdinal(d3.quantize(d3.interpolateViridis, 27 + 1));
+       // var gradient_color_naks = d3.scaleOrdinal(d3.quantize(d3.interpolateViridis, 27 + 1));
         var data_ready_naks = pie(data2);
 
         //sunshine_outer_wheel merge nkas wheel 
@@ -778,15 +778,15 @@ class BarChart extends Component {
                     var sunshine_name = "";
                     var naks_name = "";
                     var padas_number = "";
-                    if (name == 'Mo') { name = 'Moon' };
-                    if (name == 'Ve') { name = 'Venus' };
-                    if (name == 'Ma') { name = 'Mars' };
-                    if (name == 'Sa') { name = 'Saturn' };
-                    if (name == 'Su') { name = 'Sun' };
-                    if (name == 'Me') { name = 'Mercury' };
-                    if (name == 'Ju') { name = 'Jupitor' };
-                    if (name == 'Ra') { name = 'Rahu' };
-                    if (name == 'Ke') { name = 'Ketu' };
+                    if (name === 'Mo') { name = 'Moon' };
+                    if (name === 'Ve') { name = 'Venus' };
+                    if (name === 'Ma') { name = 'Mars' };
+                    if (name === 'Sa') { name = 'Saturn' };
+                    if (name === 'Su') { name = 'Sun' };
+                    if (name === 'Me') { name = 'Mercury' };
+                    if (name === 'Ju') { name = 'Jupitor' };
+                    if (name === 'Ra') { name = 'Rahu' };
+                    if (name === 'Ke') { name = 'Ketu' };
 
                   
 

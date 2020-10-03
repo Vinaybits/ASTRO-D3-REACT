@@ -3,8 +3,6 @@ import Sideform from '../components/sideform'
 import D3graph from '../components/d3graph';
 import Sideoptions from '../components/sideoptions';
 import Card3col from '../components/card3col';
-import { geoNaturalEarth1Raw } from 'd3';
-import { render } from '@testing-library/react';
 import Sidetable from '../components/sidetable';
 
 
@@ -451,7 +449,7 @@ const Contentlayout = () => {
       setTimeout(() => {
         // display(name);
         state_planet.forEach(item1 => {
-          var itemFromArr2 = array1[i].planets.find(item2 => item2.name == item1.name);
+          var itemFromArr2 = array1[i].planets.find(item2 => item2.name === item1.name);
 
           if (itemFromArr2) {
             item1.degree = itemFromArr2.deg;
@@ -488,13 +486,13 @@ const Contentlayout = () => {
                  <Sidetable />
 
                 </div>
-                <div className="row">
+                {/* <div className="row">
                 
                   <Card3col />
                   <Card3col />
                   <Card3col />
 
-                </div>
+                </div> */}
 
               </div>
             </div>

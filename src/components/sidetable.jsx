@@ -1,5 +1,5 @@
 import React from 'react';
-import { GlobalProvider, GlobalContext } from '../mycontext';
+import { GlobalContext } from '../mycontext';
 
 
 const Sidetable = () => {

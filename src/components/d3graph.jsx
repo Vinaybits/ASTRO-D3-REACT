@@ -1,7 +1,6 @@
 import React from 'react';
 import Chart1 from '../d3/chart';
 import { useState } from 'react';
-import * as d3 from 'd3';
 import { GlobalProvider, GlobalContext } from '../mycontext';
 
 
@@ -10,7 +9,7 @@ const D3graph = (props) => {
     const [currentClass, setcurrentClass] = useState('col-lg-7');
 
     const toggleClass = () => {
-        (currentClass == 'col-lg-7') ? setcurrentClass('fullscreen') : setcurrentClass('col-lg-7');
+        (currentClass === 'col-lg-7') ? setcurrentClass('fullscreen') : setcurrentClass('col-lg-7');
     };
 
     const play_array =()=>{

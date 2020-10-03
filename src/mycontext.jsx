@@ -110,7 +110,7 @@ export class GlobalProvider extends Component {
 	    api_data.forEach((name,i) =>{
 			array_format.forEach((a,j)=>{
 				var api_dgree = api_data[i].planets.find(b => 
-					b.name == a.name
+					b.name === a.name
 	
 				)
 				if(api_dgree){
@@ -126,11 +126,9 @@ export class GlobalProvider extends Component {
 			
 		});
 		
-		console.log(new_array);
-		return new_array;
-		//console.log(array_format);
 		//console.log(new_array);
-		console.log("----test ---end---");
+		return new_array;
+		
 				
 };
 
@@ -1505,6 +1503,8 @@ export class GlobalProvider extends Component {
 		  };
 		var formatted_array = this.format_incoming_data(dummy_data);
 		this.setState({newStateplanet:formatted_array});
+		//set for SIDETABLE
+		this.setState({newState_apidata:dummy_data.p_dates});
 		//this.setState({apidataState:dummy_data.p_dates});
 		// these fn go on page load or onmount state event 
 
@@ -1543,9 +1543,13 @@ export class GlobalProvider extends Component {
 		  // console.log(length )
 		   if(length > this.state.current_index){
 			   // update the array index by 1 for next position
-		       this.setState({current_index:this.state.current_index+1});
+			   this.setState({current_index:this.state.current_index+1});
+			  
 		       //set the position based on array 
-		        this.setState({planet:this.state.newStateplanet[this.state.current_index]});
+				this.setState({planet:this.state.newStateplanet[this.state.current_index]});
+				 //set Side table 
+				 this.setState({apidataState:this.state.newState_apidata[this.state.current_index]});
+			   
 		   }
 		   else if(length === this.state.current_index)
 		   {
@@ -1564,6 +1568,8 @@ export class GlobalProvider extends Component {
 			this.setState({current_index:length});
 			//set the position based on array 
 			 this.setState({planet:this.state.newStateplanet[this.state.current_index]});
+			 //set Side table 
+			 this.setState({apidataState:this.state.newState_apidata[this.state.current_index]});
 		}
 		else{
 		 if(length > this.state.current_index){
@@ -1571,6 +1577,8 @@ export class GlobalProvider extends Component {
 			 this.setState({current_index:this.state.current_index - 1});
 			 //set the position based on array 
 			  this.setState({planet:this.state.newStateplanet[this.state.current_index]});
+			  //set Side table 
+			  this.setState({apidataState:this.state.newState_apidata[this.state.current_index]});
 		 }
 		}
 
@@ -1581,6 +1589,7 @@ export class GlobalProvider extends Component {
 		planet:this.planet_init,
 		newStateplanet : '',
 		apidataState : '',
+		newState_apidata : '',
 		current_index: 0,
 		IsActive:false,
 		prev: '',
