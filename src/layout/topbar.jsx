@@ -4,7 +4,7 @@ const Topbar = () => {
     return (
         <>
 
-            <div className="navbar-custom">
+            <div className="navbar-custom" style={{"height":"60px", "backgroundColor": "#363538"}}>
                 <div className="container-fluid">
                 
                 {/* <span class="logo">
@@ -94,22 +94,22 @@ const Topbar = () => {
     <a href="/#" className="logo logo-dark text-center">
         <span className="logo-sm">
             {/* <img src="" /> */}
-            <span className="logo-lg-text-light">ASTRO-ONE</span>
+            <span className="logo-lg-text-light">Omparashar</span>
         </span>
         <span className="logo-lg">
             {/* <img src="" /> */}
-            <span className="logo-lg-text-light">ASTRO</span>
+            <span className="logo-lg-text-light">Omparashar</span>
         </span>
     </a>
 
     <a href="/#" className="logo logo-light text-center">
     <span className="logo-sm">
             {/* <img src=""  /> */}
-            <span className="logo-lg-text-light">ASTRO-ONE</span>
+            <span className="logo-lg-text-light" style={{"color":"#52d6f4"}}>Omparashar</span>
         </span>
         <span className="logo-lg">
             {/* <img src=""  /> */}
-            <span className="logo-lg-text-light">ASTRO-ONE</span>
+            <span className="logo-lg-text-light" style={{"color":"#52d6f4"}}>Omparashar</span>
         </span>
     </a>
 </div>

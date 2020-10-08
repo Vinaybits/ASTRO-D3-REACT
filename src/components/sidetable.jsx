@@ -16,7 +16,7 @@ const Sidetable = () => {
 
                         <h4 className="header-title">Planet position </h4>
                         <div className="sub-heading"> Date : <span style={{ "fontSize": "14px" }} className="badge badge-pill badge-dark"> {date} </span></div>
-                       <br></br>
+                      At 12:00 AM @ ''<br/>
                         <table className="table table-sm table-bordered">
                             <thead>
                                 <tr>

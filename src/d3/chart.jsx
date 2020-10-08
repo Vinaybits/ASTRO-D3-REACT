@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as d3 from 'd3';
 import './d3.css';
 import { GlobalProvider, GlobalContext } from '../mycontext';
+import * as bg_img from '../components/bg_naks.jpg'
 
 
 class BarChart extends Component {
@@ -37,40 +38,40 @@ class BarChart extends Component {
 
         // Create dummy data
         var data = [{
-            name: "Pisces",
+            name: "Pis",
             value: 30
         }, {
-            name: "Aquarius",
+            name: "Aqu",
             value: 30
         }, {
-            name: "Capricorn",
+            name: "Cap",
             value: 30
         }, {
-            name: "Sagittarius",
+            name: "Sag",
             value: 30
         }, {
-            name: "Scorpio",
+            name: "Sco",
             value: 30
         }, {
-            name: "Libra",
+            name: "Lib",
             value: 30
         }, {
-            name: "Virgo",
+            name: "Vir",
             value: 30
         }, {
             name: "Leo",
             value: 30
         }, {
-            name: "Cancer",
+            name: "Can",
             value: 30
         }, {
-            name: "Gemini",
+            name: "Gem",
             value: 30
         }, {
-            name: "Taurus",
+            name: "Tau",
             value: 30
         }, {
-            name: "Aries",
+            name: "Ari",
             value: 30
         },];
 
@@ -78,10 +79,10 @@ class BarChart extends Component {
             name: "Revati",
             value: 13.33
         }, {
-            name: "   U. Bhādrapadā",
+            name: "   U.Bhādrapadā",
             value: 13.33
         }, {
-            name: "   P. Bhādrapadā",
+            name: "   P.Bhādrapadā",
             value: 13.33
         }, {
             name: "Shatabhisha",
@@ -93,10 +94,10 @@ class BarChart extends Component {
             name: "Śrāvaṇa",
             value: 13.33
         }, {
-            name: "   U. Āṣāḍhā",
+            name: "   U.Āṣāḍhā",
             value: 13.33
         }, {
-            name: "  P. Āshādhā",
+            name: "  P.Āshādhā",
             value: 13.33
         }, {
             name: "Mula",
@@ -276,9 +277,9 @@ class BarChart extends Component {
 
         // establish variables
         var w = 900;
-        var h = 850;
+        var h = 650;
         var x = (w / 2);
-        var y = (h / 2.4);
+        var y = (h / 2);
         //var t0 = new Date().setHours(0, 0, 0, 0);
         //var delta = (Date.now() - t0);
 
@@ -291,8 +292,8 @@ class BarChart extends Component {
 
 
         //Sunshine wheel
-        var first_inner_radius = (w / 16);
-        var first_outer_radius = first_inner_radius + 80;
+        var first_inner_radius = (w / 30);
+        var first_outer_radius = first_inner_radius + 30;
         // var gradient_color_sunsigns = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, 12 + 1));
         var data_ready_sunsigns = pie(data);
         var arc_sunsigns = d3.arc()
@@ -303,7 +304,7 @@ class BarChart extends Component {
 
         //Naks Wheel
         var second_inner_radius = first_outer_radius + 20;
-        var second_outer_radius = second_inner_radius + 120;
+        var second_outer_radius = second_inner_radius + 90;
        // var gradient_color_naks = d3.scaleOrdinal(d3.quantize(d3.interpolateViridis, 27 + 1));
         var data_ready_naks = pie(data2);
 
@@ -322,7 +323,7 @@ class BarChart extends Component {
 
         //PADAS Wheel
         var third_inner_radius = second_outer_radius + 0.5;
-        var third_outer_radius = third_inner_radius + 30;
+        var third_outer_radius = third_inner_radius + 10;
         //colors
         // var gradient_color_padas = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, 108 + 1))
         var gradient_color_padas = d3.scaleOrdinal()
@@ -345,9 +346,11 @@ class BarChart extends Component {
             // .attr("width", w)
             // .attr("height", h)
             .attr("preserveAspectRatio", "xMinYMin meet")
-            .attr("viewBox", "0 0 900 850")
+            .attr("viewBox", "0 0 "+w+" "+h+"")
 
-            .style("background-color", "#1E4451");
+           // .style("background-color", "#1E4452")
+           // .style("background-image", "url("+bg_img+")")
+            ;
 
         var tooltip = d3.select(this.myRef.current)
             .append('div')
@@ -368,12 +371,13 @@ class BarChart extends Component {
             .attr("r", 10)
             .attr("cx", x)
             .attr("cy", y)
-            .style("fill", "black")
+            .style("fill", "#363538")
             .attr("id", "sun");
 
         // planet group
         var container = svg.append("g")
             .attr("id", "orbit_container")
+           
             .attr("transform", "translate(" + x + "," + y + ")");
         //draw donuts 
 
@@ -393,10 +397,12 @@ class BarChart extends Component {
             // .attr('fill', function(d) {
             //     return gradient_color_sunsigns(d.data.key)
             // })
-            .attr("fill", "transparent")
+            .attr("fill", "#363538")
             .attr("stroke", "#fff")
             .style("stroke-width", "0.5px")
             .style("opacity", 0.7)
+
+
         // -----SUNSIGN WHEEL----------------
         container.selectAll('sunsign_wheel')
             .data(data_ready_sunsigns)
@@ -453,7 +459,7 @@ class BarChart extends Component {
             .data(data)
             .enter().append("text")
             .attr("class", "monthText")
-            .attr("x", 30) //Move the text from the start angle of the arc
+            .attr("x", 15) //Move the text from the start angle of the arc
             .attr("dy", -4) //Move the text down
             .append("textPath")
             .attr("text-anchor", "middle")
@@ -537,6 +543,7 @@ class BarChart extends Component {
                 return (x(d.name) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)";
             })
             .attr("alignment-baseline", "middle");
+            
 
         // ----------PADAS WHEEL---------------
         container.selectAll('padas_wheel')
@@ -549,8 +556,8 @@ class BarChart extends Component {
                 return gradient_color_padas(d.data.key)
 
             })
-            .attr("stroke", "#1E4451")
-            .style("stroke-width", "1.5px")
+            .attr("stroke", "#8d8c8a")
+            .style("stroke-width", "1.2px")
             .style("opacity", 1)
             .attr("id", function (d, i) {
                 return "PADAS_Arc_" + i;
@@ -579,8 +586,7 @@ class BarChart extends Component {
 
 
     draw_planets(planets) {
-
-
+       
 
 
         d3.select("#orbit_container").selectAll("g.planet")
@@ -589,6 +595,19 @@ class BarChart extends Component {
             .append("g")
             .attr("class", "planet_cluster")
             .each(function (d, i) {
+
+                d3.select(this)
+
+                .append("text")
+                .attr("transform", "translate(" + (d.R - 4) + ",0)")
+                .attr("y", 20)
+
+                .attr("class", "Planet_Text")
+                .text(function (d) {
+                   // console.log(d.name);
+                    return d.name;
+                });
+
                 d3.select(this).append("circle") // draw a circle
                     .attr("class", "orbit") // setting css class 
 
@@ -608,17 +627,7 @@ class BarChart extends Component {
                     .attr("class", "planet_line")
 
 
-                d3.select(this)
-
-                    .append("text")
-                    .attr("transform", "translate(" + (d.R + 11) + ",0)")
-                    .attr("y", 4)
-
-                    .attr("class", "Planet_Text")
-                    .text(function (d) {
-                        console.log(d.name);
-                        return d.name;
-                    });
+               
 
                 // Show Degree Area 
 
@@ -852,11 +861,43 @@ class BarChart extends Component {
                     return "<b>Planet </b> : " + name + "<br/> <b>Degree </b> :" + degree + "&#176" + "<br/> <b>Sunshine</b> :" + sunshine_name + "<br/> <b>Naks :</b>" + naks_name + "<br/> <b>Pada :</b>" + padas_number;
                 }
 
+
+             //To show gradient colors on planet   
+               function colors(d) {
+                var gradient = d3.select("#orbit_container")
+                .append("svg:linearGradient")
+                  .attr("id", "gradient"+d.color)
+                  .attr("x1", "0%")
+                  .attr("y1", "0%")
+                  .attr("x2", "100%")
+                  .attr("y2", "100%")
+                  .attr("spreadMethod", "pad");
+
+                gradient.append("svg:stop")
+                .attr("offset", "0%")
+                .attr("stop-color", "#efefef")
+                .attr("stop-opacity", 1);
+            
+                gradient.append("svg:stop")
+                .attr("offset", "100%")
+                .attr("stop-color", d.color)
+                .attr("stop-opacity", 1);             
+                   
+               }
+
+
+
+
                 d3.select(this).append("circle")
                     .attr("r", d.r) // radius of planet circle 
                     .attr("cx", d.R) //setting X
                     .attr("cy", 0) // setting Y
-                    .style("fill", d.color)
+                    //.style("fill", d.color)
+                   // .style("fill", "url(#gradient)")
+                    .style("fill", function (d) {
+                        colors(d);
+                        return "url(#gradient"+d.color+")";
+                    })
 
                     .attr("class", "planet")
                     .on("mouseover", function (d) {

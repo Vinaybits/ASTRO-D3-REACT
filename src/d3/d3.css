@@ -15,7 +15,8 @@
 
 .Planet_Text {
     fill: #fff;
-    font-size: 12px;
+    font-size: 10px;
+    z-index:999;
 }
 
 .Planet_degree {
@@ -30,13 +31,14 @@
 
 .monthText {
     fill: #fff;
-    font-size: 13px;
+    font-size: 11px;
 }
 
 .naksText {
     fill: #fff;
-    font-size: 14px;
+    font-size: 10px;
     letter-spacing: 1px;
+    word-wrap:break-word;
     /* pointer-events: none; */
 }
 
