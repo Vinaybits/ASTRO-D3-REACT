@@ -6,6 +6,7 @@ import { Component } from 'react';
 import moment from 'moment';
 import * as cities from '../components/cities.json';
 import Autocomplete from "../components/autocomplete";
+import axios from 'axios';
 
 class sideform extends Component{
     constructor(props){
@@ -17,6 +18,33 @@ class sideform extends Component{
         }
       
 
+    }
+    componentDidMount(){
+      var url_string = 'http://api.omparashar.com/planet/multi/positions/overdaterange';
+
+      var data = JSON.stringify({"from_year":2020,"from_month":1,"from_day":1,"to_year":2020,"to_month":12,"to_day":31,"lat":29.47,"long":77.69,"offset":19800,"p_nums":[1,2,3,4,5]});
+
+      var config = {
+        method: 'get',
+        url: 'http://api.omparashar.com/planet/multi/positions/overdaterange',
+        headers: { 
+          'Content-Type': 'application/json',
+          'charset':'utf-8'
+        },
+        data : data
+      };
+      
+      axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+     
+
+     
+      
     }
 
     alertclick = () =>{

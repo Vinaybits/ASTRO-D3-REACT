@@ -4,6 +4,7 @@ import D3graph from '../components/d3graph';
 import Sideoptions from '../components/sideoptions';
 import Card3col from '../components/card3col';
 import Sidetable from '../components/sidetable';
+import PlotlyChart from '../components/ploty_chart'
 
 
 const Contentlayout = () => {
@@ -481,6 +482,7 @@ const Contentlayout = () => {
 
                   <Sideform />
                   <D3graph planetsdata={planetdata} />
+                 
                   
                   {/* <Sideoptions checkbox_status={planetnames} onchange_={onChange} player={loadData}/> */}
                  <Sidetable />
