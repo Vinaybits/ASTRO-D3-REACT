@@ -1,8 +1,10 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import './autocomplete.css'
+import { GlobalProvider, GlobalContext } from '../mycontext';
 
 class Autocomplete extends Component {
+  static contextType = GlobalContext;
   static propTypes = {
     suggestions: PropTypes.instanceOf(Array)
   };
@@ -13,6 +15,7 @@ class Autocomplete extends Component {
 
   constructor(props) {
     super(props);
+    
 
     this.state = {
       // The active selection's index
@@ -22,14 +25,20 @@ class Autocomplete extends Component {
       // Whether or not the suggestion list is shown
       showSuggestions: false,
       // What the user has entered
-      userInput: ""
+      userInput: '',
+    
     };
+    
   }
+
 
   // Event fired when the input value is changed
   onChange = e => {
     const { suggestions } = this.props;
+
     const userInput = e.currentTarget.value;
+    
+    
 
     // Filter our suggestions that don't contain the user's input
     const filteredSuggestions = suggestions.filter(
@@ -43,8 +52,11 @@ class Autocomplete extends Component {
       activeSuggestion: 0,
       filteredSuggestions,
       showSuggestions: true,
-      userInput: e.currentTarget.value
+      userInput: e.currentTarget.value,
+    
+      
     });
+    
   };
 
   // Event fired when the user clicks on a suggestion
@@ -139,7 +151,8 @@ class Autocomplete extends Component {
 
     return (
       <Fragment>
-        <input
+        <input id="auto_complete1"
+        ref = "cpDev1"
           type="text"
           onChange={onChange}
           onKeyDown={onKeyDown}

@@ -3,6 +3,8 @@ import Chart1 from '../d3/chart';
 import { useState } from 'react';
 import { GlobalProvider, GlobalContext } from '../mycontext';
 import * as bg_img from '../components/bg_naks.jpg'
+import D3_linechart from '../d3/d3_linechart';
+import Ploty_1 from '../d3/plotly_1';
 
 
 const D3graph = (props) => {
@@ -65,18 +67,19 @@ const D3graph = (props) => {
                             <span class="header-title" style={{ "color": "#fff" }}>
 
                                 <div class="btn-group">
-                                    <a href="#" onClick={backward_array} class="btn btn-dark waves-effect"><i class="fe-skip-back"></i></a>
+                                    <a href="#" onClick={backward_array} class={context.IsActive}><i class="fe-skip-back"></i></a>
 
                                     {/* <a href="#" class="btn btn-danger waves-effect"><i class="fe-square"></i></a> */}
-                                    <a href="#" onClick={play_array} class="btn btn-dark waves-effect"><i class={context.playicon}></i></a>
+                                    <a href="#" onClick={play_array} class={context.IsActive}><i class={context.playicon}></i></a>
 
-                                    <a href="#" onClick={forward_array} class="btn btn-dark waves-effect"><i class="fe-skip-forward"></i></a>
+                                    <a href="#" onClick={forward_array} class={context.IsActive}><i class="fe-skip-forward"></i></a>
                                 </div>
                             </span>
 
                             <div className="row">
                                 <div className="col-lg-12">
                                     <Chart1 data={props.planetsdata} />
+                                   
                                 </div>
                                
                             </div>
@@ -86,6 +89,12 @@ const D3graph = (props) => {
 
                         </div>
                     </div>
+                
+                {/* <br>
+                </br>
+
+                <D3_linechart />
+                <Ploty_1 /> */}
                 </div>
 
 

@@ -7,51 +7,101 @@ import moment from 'moment';
 import * as cities from '../components/cities.json';
 import Autocomplete from "../components/autocomplete";
 import axios from 'axios';
+import { GlobalProvider, GlobalContext } from '../mycontext';
 
 class sideform extends Component{
+  static contextType = GlobalContext;
     constructor(props){
         super(props);
      
         this.state={
             startDate : null,
-            endDate : null
-        }
+            endDate : null,
+            cities_value : null
+        };
+        
       
 
     }
+    
     componentDidMount(){
-      var url_string = 'http://api.omparashar.com/planet/multi/positions/overdaterange';
-
-      var data = JSON.stringify({"from_year":2020,"from_month":1,"from_day":1,"to_year":2020,"to_month":12,"to_day":31,"lat":29.47,"long":77.69,"offset":19800,"p_nums":[1,2,3,4,5]});
-
-      var config = {
-        method: 'get',
-        url: 'http://api.omparashar.com/planet/multi/positions/overdaterange',
-        headers: { 
-          'Content-Type': 'application/json',
-          'charset':'utf-8'
-        },
-        data : data
-      };
       
-      axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-      })
-      .catch(function (error) {
-        console.log(error);
+      
+    }
+
+     
+
+    alertclick = (e) =>{
+      
+      let start_Date ='';
+      let end_Date = '';
+      let from_year = '', from_month = '', from_day = '';
+      let to_year = '', to_month = '', to_day = '';
+      let lat = '', long = '';
+      let offset = '';
+ 
+      start_Date = this.state.startDate;
+      end_Date = this.state.endDate;
+      from_year = moment(start_Date).format('YYYY');
+      from_month = moment(start_Date).format('MM');
+      from_day = moment(start_Date).format('DD');
+ 
+      to_year = moment(end_Date).format('YYYY');
+      to_month = moment(end_Date).format('MM');
+      to_day = moment(end_Date).format('DD');
+ 
+ 
+ 
+      var names = document.getElementById('auto_complete1').value;
+      var keys = Object.entries(cities[0]+ "."+ names);
+      Object.entries(cities[0]).forEach(([key, value])=>{
+ 
+       if(key === names){
+         long = Math.round(value.longitude).toFixed(2);
+         lat = Math.round(value.latitude).toFixed(2);
+       }
+       //console.log(`${key}: ${value}`);
+ 
       });
-     
-
-     
+      offset = Math.round(long * 4 * 60);
       
+ 
+
+     var url_string = 'http://api.omparashar.com/planet/multi/positions/overdaterange';
+     //var params = "?from_year=2020&from_month=1&from_day=1&to_year=2020&to_month=6&to_day=30&lat=29.47&long=77.69&offset=19800&p_nums=3&p_nums=4";
+     var params = "?from_year="+from_year+"&from_month="+from_month+"&from_day="+from_day+"&to_year="+to_year+"&to_month="+to_month+"&to_day="+to_day+"&lat="+lat+"&long="+long+"&offset="+offset+"&p_nums=1&p_nums=2&p_nums=3&p_nums=4&p_nums=5&p_nums=6&p_nums=10&p_nums=100";
+
+     var a = moment(start_Date);
+     var b = moment(end_Date);
+     var numberofdays = b.diff(a, 'days') // 1
+
+     if(names === ''){
+       alert("Please select place of observation");
+     }
+     else if(lat === '' || long === '' || offset === ''){
+      alert("Please choose correct place of observation");
+
+     }
+     else if(start_Date === '' || end_Date === '' || from_year === 'Invalid date' || start_Date === null || end_Date === null){
+      alert("Please select date range ");
+
+     }
+     else if(numberofdays > 365){
+      alert("Please select date range with in 365 days / 1 year");
+     }
+     else{
+      this.context.callAPI_daterange(url_string+params);
+     }
+    
+      
+      
+    // alert(lat+long+offset+"Start -"+from_year+from_month+from_day+"-" + moment(this.state.startDate).format("DD-MM-YYYY") + "</br>" + "End -" +moment(this.state.endDate).format("DD-MM-YYYY"));
+    e.preventDefault();
+   
     }
 
-    alertclick = () =>{
-     
-      
-     alert("Start -" + moment(this.state.startDate).format("DD-MM-YYYY") + "</br>" + "End -" +moment(this.state.endDate).format("DD-MM-YYYY"));
-    }
+    // set all variable values 
+    
     
     
     render(){

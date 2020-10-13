@@ -482,7 +482,7 @@ const Contentlayout = () => {
 
                   <Sideform />
                   <D3graph planetsdata={planetdata} />
-                 
+                 {/* <PlotlyChart></PlotlyChart> */}
                   
                   {/* <Sideoptions checkbox_status={planetnames} onchange_={onChange} player={loadData}/> */}
                  <Sidetable />

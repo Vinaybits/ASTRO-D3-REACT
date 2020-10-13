@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from 'axios';
 
 export const GlobalContext = React.createContext();
 
@@ -1501,10 +1502,9 @@ export class GlobalProvider extends Component {
 		   
 			  ]
 		  };
-		var formatted_array = this.format_incoming_data(dummy_data);
+		var formatted_array = this.format_incoming_data(this.state.newState_apidata);
 		this.setState({newStateplanet:formatted_array});
-		//set for SIDETABLE
-		this.setState({newState_apidata:dummy_data.p_dates});
+		
 		//this.setState({apidataState:dummy_data.p_dates});
 		// these fn go on page load or onmount state event 
 
@@ -1516,7 +1516,7 @@ export class GlobalProvider extends Component {
 			//set the position based on array 
 			this.setState({planet:formatted_array[this.state.current_index]});
 			//set date value 
-			this.setState({apidataState:dummy_data.p_dates[this.state.current_index]});
+			this.setState({apidataState:this.state.newState_apidata.p_dates[this.state.current_index]});
 			// update the array index by 1 for next position
 			this.setState({current_index:this.state.current_index+1});
 
@@ -1548,7 +1548,7 @@ export class GlobalProvider extends Component {
 		       //set the position based on array 
 				this.setState({planet:this.state.newStateplanet[this.state.current_index]});
 				 //set Side table 
-				 this.setState({apidataState:this.state.newState_apidata[this.state.current_index]});
+				 this.setState({apidataState:this.state.newState_apidata.p_dates[this.state.current_index]});
 			   
 		   }
 		   else if(length === this.state.current_index)
@@ -1569,7 +1569,7 @@ export class GlobalProvider extends Component {
 			//set the position based on array 
 			 this.setState({planet:this.state.newStateplanet[this.state.current_index]});
 			 //set Side table 
-			 this.setState({apidataState:this.state.newState_apidata[this.state.current_index]});
+			 this.setState({apidataState:this.state.newState_apidata.p_dates[this.state.current_index]});
 		}
 		else{
 		 if(length > this.state.current_index){
@@ -1578,20 +1578,49 @@ export class GlobalProvider extends Component {
 			 //set the position based on array 
 			  this.setState({planet:this.state.newStateplanet[this.state.current_index]});
 			  //set Side table 
-			  this.setState({apidataState:this.state.newState_apidata[this.state.current_index]});
+			  this.setState({apidataState:this.state.newState_apidata.p_dates[this.state.current_index]});
 		 }
 		}
+
+	 }
+
+	 call_daterange = (url)=> {
+	// alert("hi" + url);
+
+	 var config = {
+        method: 'get',
+        url: url,
+        headers: { }
+      };
+	  
+	  // always use arrow function otherwise this. will not work
+      axios(config)
+      .then((response) => {
+		  //set for SIDETABLE
+		  var api_data = JSON.stringify(response.data);
+		  this.setState({newState_apidata:response.data});
+		  this.setState({IsActive:'btn btn-dark waves-effect'});
+
+		  //IsActive:' disabled'
+		//console.log("Result"+JSON.stringify(response.data));
+		//console.log(api_data);
+      })
+      .catch(function (error) {
+        console.log("Result" + error);
+	  });
+	  
+
 
 	 }
 
 
 	state = {
 		planet:this.planet_init,
-		newStateplanet : '',
-		apidataState : '',
+		newStateplanet : '', // updated planet state after api call 
+		apidataState : '', // set this 
 		newState_apidata : '',
 		current_index: 0,
-		IsActive:false,
+		IsActive:'btn btn-dark waves-effect disabled', // class used for wheel buttons 
 		prev: '',
 		next: '',
 		playicon:'fe-play',
@@ -1599,7 +1628,9 @@ export class GlobalProvider extends Component {
 		pauseplanet : this.pause_array,
 		forwardPlanet : this.forward_array,
 		backwardPlanet: this.backward_array,
-		togglebutton: this.toggle,
+		callAPI_daterange: (url) => this.call_daterange(url),
+		togglebutton: this.toggle
+		
 	};
 	render() {
 		return (
