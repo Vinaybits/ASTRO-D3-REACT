@@ -69,7 +69,7 @@ class sideform extends Component{
 
      var url_string = 'http://api.omparashar.com/planet/multi/positions/overdaterange';
      //var params = "?from_year=2020&from_month=1&from_day=1&to_year=2020&to_month=6&to_day=30&lat=29.47&long=77.69&offset=19800&p_nums=3&p_nums=4";
-     var params = "?from_year="+from_year+"&from_month="+from_month+"&from_day="+from_day+"&to_year="+to_year+"&to_month="+to_month+"&to_day="+to_day+"&lat="+lat+"&long="+long+"&offset="+offset+"&p_nums=1&p_nums=2&p_nums=3&p_nums=4&p_nums=5&p_nums=6&p_nums=10&p_nums=100";
+     var params = "?from_year="+from_year+"&from_month="+from_month+"&from_day="+from_day+"&to_year="+to_year+"&to_month="+to_month+"&to_day="+to_day+"&lat="+lat+"&long="+long+"&offset="+offset+"&p_nums=0&p_nums=1&p_nums=2&p_nums=3&p_nums=4&p_nums=5&p_nums=6&p_nums=10&p_nums=100";
 
      var a = moment(start_Date);
      var b = moment(end_Date);
@@ -90,7 +90,7 @@ class sideform extends Component{
       alert("Please select date range with in 365 days / 1 year");
      }
      else{
-      this.context.callAPI_daterange(url_string+params);
+      this.context.callAPI_daterange(url_string+params,names);
      }
     
       
@@ -167,8 +167,8 @@ class sideform extends Component{
                   <h4 className="header-title">Transition of Planets</h4>
                   <p class="sub-header">
                     Let us explore how
-                    <code> planet </code>
-                    moves
+                    <code> planets </code>
+                    move
                   </p>
 
                   <form>
@@ -178,6 +178,7 @@ class sideform extends Component{
                     </div>
                     <div className="form-group mb-3">
                       <label for="example-input-small">Select Date Range</label>
+                     
                       <DateRangePicker
                         startDate={this.state.startDate} // momentPropTypes.momentObj or null,
                        
@@ -196,15 +197,23 @@ class sideform extends Component{
                           this.setState({ focusedInput })
                         } // PropTypes.func.isRequired,
                       />
+                       <p class="sub-header">
+                    Maximun Date Range allowed is <code> 1year 
+                     </code>
+                   
+                  </p>
                     </div>
+<center>
+
 
                     <button
                       type="submit"
                       className="ladda-button btn btn-primary"
-                      onClick={this.alertclick}
+                      onClick={this.alertclick} disabled={this.context.IsLoading}
                     >
-                      Submit
-                    </button>
+                      {(this.context.IsLoading) ? <span>Getting Data <i className="mdi mdi-spin mdi-loading mr-1 font-16"></i></span> : 'Get Data'}
+                      
+                    </button></center>
                   </form>
                 </div>
               </div>

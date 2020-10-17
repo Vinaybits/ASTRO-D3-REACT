@@ -470,7 +470,7 @@ const Contentlayout = () => {
 
   return (
     <>
-      <div className="content-page" style={{"padding-top":"2px"}}>
+      <div className="content-page" style={{"padding-top":"0px", "margin-top":"60px"}}>
         <div className="content">
           <div className="container-fluid" style={{"maxWidth" : "100%"}}>
             <div className="row">

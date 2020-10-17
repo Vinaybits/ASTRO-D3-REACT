@@ -146,8 +146,8 @@ export class GlobalProvider extends Component {
 
 		var length = formatted_array.length;
 		window.t = setInterval(()=>{
-			//set playicon to pause 
-			this.setState({playicon:'fe-pause'});
+			//set playicon to fas fa-pause fa-2x 
+			this.setState({playicon:'fas fa-pause fa-2x'});
 			//set the position based on array 
 			this.setState({planet:formatted_array[this.state.current_index]});
 			//set date value 
@@ -158,7 +158,7 @@ export class GlobalProvider extends Component {
 			if(this.state.current_index === length){
 				//console.log(this.state.current_index + " - " + length);
 				clearInterval(window.t);
-				this.setState({playicon:'fe-play'});
+				this.setState({playicon:'fas fa-play fa-2x'});
 				this.setState({current_index:0});
 			  }
 
@@ -168,7 +168,7 @@ export class GlobalProvider extends Component {
 
 	 pause_array=() =>{
 		clearInterval(window.t);
-		this.setState({playicon:'fe-play'});
+		this.setState({playicon:'fas fa-play fa-2x'});
 		
 	 }
 
@@ -189,7 +189,7 @@ export class GlobalProvider extends Component {
 		   else if(length === this.state.current_index)
 		   {
 			clearInterval(window.t);
-			this.setState({playicon:'fe-play'});
+			this.setState({playicon:'fas fa-play fa-2x'});
 			this.setState({current_index:0});
 
 		   }	
@@ -219,8 +219,9 @@ export class GlobalProvider extends Component {
 
 	 }
 
-	 call_daterange = (url)=> {
+	 call_daterange = (url,city)=> {
 	// alert("hi" + url);
+	this.setState({IsLoading:true})
 
 	 var config = {
         method: 'get',
@@ -235,13 +236,17 @@ export class GlobalProvider extends Component {
 		  var api_data = JSON.stringify(response.data);
 		  this.setState({newState_apidata:response.data});
 		  this.setState({IsActive:'btn btn-dark waves-effect'});
+		  //set place  of observation in sidetable 
+		  this.setState({placeobserved:city});
 
 		  //IsActive:' disabled'
+		  this.setState({IsLoading:false})
 		//console.log("Result"+JSON.stringify(response.data));
 		//console.log(api_data);
       })
       .catch(function (error) {
-        console.log("Result" + error);
+		console.log("Result" + error);
+		this.setState({IsLoading:false})
 	  });
 	  
 
@@ -258,13 +263,15 @@ export class GlobalProvider extends Component {
 		IsActive:'btn btn-dark waves-effect disabled', // class used for wheel buttons 
 		prev: '',
 		next: '',
-		playicon:'fe-play',
+		playicon:'fas fa-play fa-2x',
 		playplanet : this.play_array,
 		pauseplanet : this.pause_array,
 		forwardPlanet : this.forward_array,
 		backwardPlanet: this.backward_array,
-		callAPI_daterange: (url) => this.call_daterange(url),
-		togglebutton: this.toggle
+		callAPI_daterange: (url,city) => this.call_daterange(url,city),
+		togglebutton: this.toggle,
+		placeobserved:'',
+		IsLoading:false
 		
 	};
 	render() {

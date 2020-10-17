@@ -17,13 +17,13 @@ const D3graph = (props) => {
 
     const play_array =()=>{
         var current_action = context.playicon;
-        if(current_action === 'fe-play'){
+        if(current_action === 'fas fa-play fa-2x'){
             //play the wheel
             context.playplanet();
-            //setplaybuttonIcon = 'fe-pause'
+            //setplaybuttonIcon = 'fas fa-pause fa-2x'
 
         }
-        else if(current_action === 'fe-pause')
+        else if(current_action === 'fas fa-pause fa-2x')
         {
             context.pauseplanet();
 
@@ -67,12 +67,12 @@ const D3graph = (props) => {
                             <span class="header-title" style={{ "color": "#fff" }}>
 
                                 <div class="btn-group">
-                                    <a href="#" onClick={backward_array} class={context.IsActive}><i class="fe-skip-back"></i></a>
+                                    <a href="#" onClick={backward_array} class={context.IsActive}><i class="fas fa-step-backward fa-2x"></i></a>
 
                                     {/* <a href="#" class="btn btn-danger waves-effect"><i class="fe-square"></i></a> */}
                                     <a href="#" onClick={play_array} class={context.IsActive}><i class={context.playicon}></i></a>
 
-                                    <a href="#" onClick={forward_array} class={context.IsActive}><i class="fe-skip-forward"></i></a>
+                                    <a href="#" onClick={forward_array} class={context.IsActive}><i class="fas fa-step-forward fa-2x"></i></a>
                                 </div>
                             </span>
 

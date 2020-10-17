@@ -90,26 +90,26 @@ const Topbar = () => {
                         </li> */}
 
                     </ul>
-<div className="logo-box">
+<div className="logo-box" >
     <a href="/#" className="logo logo-dark text-center">
         <span className="logo-sm">
-            {/* <img src="" /> */}
-            <span className="logo-lg-text-light">Omparashar</span>
+        <img src='logo_OP.png' width="150px"  style={{"padding-left":"10px"}}/>
+            {/* <span className="logo-lg-text-light"></span> */}
         </span>
         <span className="logo-lg">
-            {/* <img src="" /> */}
-            <span className="logo-lg-text-light">Omparashar</span>
+        <img src='logo_OP.png' width="200px" />
+            {/* <span className="logo-lg-text-light"></span> */}
         </span>
     </a>
 
     <a href="/#" className="logo logo-light text-center">
     <span className="logo-sm">
-            {/* <img src=""  /> */}
-            <span className="logo-lg-text-light" style={{"color":"#52d6f4"}}>Omparashar</span>
+    <img src='logo_OP.png' width="150px" style={{"padding-left":"10px"}}/>
+            {/* <span className="logo-lg-text-light" style={{"color":"#52d6f4"}}></span> */}
         </span>
         <span className="logo-lg">
-            {/* <img src=""  /> */}
-            <span className="logo-lg-text-light" style={{"color":"#52d6f4"}}>Omparashar</span>
+        <img src='logo_OP.png' width="200px" />
+            {/* <span className="logo-lg-text-light" style={{"color":"#52d6f4"}}></span> */}
         </span>
     </a>
 </div>

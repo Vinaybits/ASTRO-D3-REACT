@@ -14,14 +14,14 @@ const Sidetable = () => {
                 <div className="card">
                     <div className="card-body">
 
-                        <h4 className="header-title">Planet position </h4>
+                        <h4 className="header-title">Planet positions </h4>
                         <div className="sub-heading"> Date : <span style={{ "fontSize": "14px" }} className="badge badge-pill badge-dark"> {date} </span></div>
-                      At 12:00 AM @ ''<br/>
+                      At 12:00 AM @ {context.placeobserved}<br/>
                         <table className="table table-sm table-bordered">
                             <thead>
                                 <tr>
                                     <th scope="col">Planet</th>
-                                    <th scope="col">Degree</th>
+                                    <th scope="col">Degrees</th>
 
                                 </tr>
                             </thead>
@@ -33,7 +33,7 @@ const Sidetable = () => {
                                             <>
                                                 <tr key={item.name}>
                                                     <td style={{"width":"50px"}}>{item.name}</td>
-                                        <td>{item.deg}&#176;{item.motion}</td>
+                                        <td>{item.deg}&#176; <b>{ (item.motion === 'D')? '': 'R'}</b></td>
 
                                                 </tr>
 
