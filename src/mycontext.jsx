@@ -146,8 +146,8 @@ export class GlobalProvider extends Component {
 
 		var length = formatted_array.length;
 		window.t = setInterval(()=>{
-			//set playicon to fas fa-pause fa-2x 
-			this.setState({playicon:'fas fa-pause fa-2x'});
+			//set playicon to mdi mdi-pause 
+			this.setState({playicon:'mdi mdi-pause'});
 			//set the position based on array 
 			this.setState({planet:formatted_array[this.state.current_index]});
 			//set date value 
@@ -158,17 +158,17 @@ export class GlobalProvider extends Component {
 			if(this.state.current_index === length){
 				//console.log(this.state.current_index + " - " + length);
 				clearInterval(window.t);
-				this.setState({playicon:'fas fa-play fa-2x'});
+				this.setState({playicon:'mdi mdi-play'});
 				this.setState({current_index:0});
 			  }
 
-		},2000)
+		},(this.state.play_speed * 1000))
 
 	 }
 
 	 pause_array=() =>{
 		clearInterval(window.t);
-		this.setState({playicon:'fas fa-play fa-2x'});
+		this.setState({playicon:'mdi mdi-play'});
 		
 	 }
 
@@ -189,7 +189,7 @@ export class GlobalProvider extends Component {
 		   else if(length === this.state.current_index)
 		   {
 			clearInterval(window.t);
-			this.setState({playicon:'fas fa-play fa-2x'});
+			this.setState({playicon:'mdi mdi-play'});
 			this.setState({current_index:0});
 
 		   }	
@@ -241,6 +241,7 @@ export class GlobalProvider extends Component {
 
 		  //IsActive:' disabled'
 		  this.setState({IsLoading:false})
+		  this.playSpeed(1);
 		//console.log("Result"+JSON.stringify(response.data));
 		//console.log(api_data);
       })
@@ -250,6 +251,12 @@ export class GlobalProvider extends Component {
 	  });
 	  
 
+
+	 }
+
+	 playSpeed = (sec) =>{
+
+		 this.setState({play_speed : sec});
 
 	 }
 
@@ -263,8 +270,10 @@ export class GlobalProvider extends Component {
 		IsActive:'btn btn-dark waves-effect disabled', // class used for wheel buttons 
 		prev: '',
 		next: '',
-		playicon:'fas fa-play fa-2x',
+		playicon:'mdi mdi-play',
 		playplanet : this.play_array,
+		play_speed_fn : (seconds) => this.playSpeed(seconds),
+		play_speed : 1,
 		pauseplanet : this.pause_array,
 		forwardPlanet : this.forward_array,
 		backwardPlanet: this.backward_array,
