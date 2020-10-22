@@ -1,0 +1,19 @@
+
+
+.form-error {
+  font-size: 0.875rem;
+  color: red;
+}
+
+.DateInput_input {
+	font-size: 15px;
+	padding: 5px 10px;
+}
+
+.sub-header {
+	margin-bottom: 5px;
+}
+
+.card-body{
+	padding: 1rem;
+}
