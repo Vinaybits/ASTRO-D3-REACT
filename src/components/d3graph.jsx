@@ -9,14 +9,14 @@ import Ploty_1 from '../d3/plotly_1';
 
 const D3graph = (props) => {
     const context = React.useContext(GlobalContext)
-    const [currentClass, setcurrentClass] = useState('col-lg-8');
+    const [currentClass, setcurrentClass] = useState('col-lg-10');
     const [value,setValue] = useState(1);
     const [message,setMessage] = useState('Speed is per day per sec');
 
 
 
     const toggleClass = () => {
-        (currentClass === 'col-lg-8') ? setcurrentClass('fullscreen') : setcurrentClass('col-lg-8');
+        (currentClass === 'col-lg-10') ? setcurrentClass('fullscreen') : setcurrentClass('col-lg-10');
     };
 
     const play_array =()=>{
@@ -49,12 +49,12 @@ const D3graph = (props) => {
             setMessage(
                 "Can't decrement more. Since 1 is the min value"
                   );
-          
+
         } else {
             setValue(value-1);
             setMessage(null);
             context.play_speed_fn(value);
-         
+
         }
       }
 
@@ -64,7 +64,7 @@ const D3graph = (props) => {
             setValue(value+1);
             setMessage(null);
             context.play_speed_fn(value);
-         
+
         } else {
         setMessage(
             "Can't increment more. Since 10 is the max value"
@@ -99,7 +99,7 @@ const D3graph = (props) => {
                                 <div class="btn-group">
                                     <a href="#" style={{"padding":"0","padding-left":"3px","padding-right":"3px","margin":"0"}} onClick={backward_array} class={context.IsActive}><i style={{"font-size":"40px","padding":"0","margin":"0"}} class="mdi mdi-skip-previous large"></i></a>
 
-                                    {/* <a href="#" style={{"padding":"0","margin":"0"}} class="btn btn-danger waves-effect"><i class="fe-square"></i></a> */} 
+                                    {/* <a href="#" style={{"padding":"0","margin":"0"}} class="btn btn-danger waves-effect"><i class="fe-square"></i></a> */}
                                     <a href="#" style={{"padding":"0","padding-left":"3px","padding-right":"3px","margin":"0"}} onClick={play_array} class={context.IsActive}><i style={{"font-size":"40px","padding":"0","margin":"0"}} class={context.playicon}></i></a>
 
                                     <a href="#" style={{"padding":"0","padding-left":"3px","padding-right":"3px","margin":"0"}} onClick={forward_array} class={context.IsActive}><i style={{"font-size":"40px","padding":"0","margin":"0"}} class="mdi mdi-skip-next "></i></a>

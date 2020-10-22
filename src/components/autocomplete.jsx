@@ -31,10 +31,18 @@ class Autocomplete extends Component {
     
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.resetInputText) {
+      this.setState({userInput: ''});
+      this.props.handleChange("reset");
+    }
+  }
+
 
   // Event fired when the input value is changed
   onChange = e => {
     const { suggestions } = this.props;
+    this.props.handleChange("userInput");
 
     const userInput = e.currentTarget.value;
     

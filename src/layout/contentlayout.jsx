@@ -169,7 +169,6 @@ const Contentlayout = () => {
       setplanetdata_state(isTrue, check_name);
     }
 
-
     //check for the planet_data and make chnages in data 
 
     //check the name of checkbox clicked
@@ -359,7 +358,7 @@ const Contentlayout = () => {
               "name": "Ve",
               "deg": 293.67,
               "motion": "D"
-            },
+            }, 
             {
               "name": "Ma",
               "deg": 216.12,
@@ -474,18 +473,22 @@ const Contentlayout = () => {
         <div className="content">
           <div className="container-fluid" style={{"Width" : "100%", "max-width":"100%"}}>
             <div className="row">
-              <div className="col-12">
-
-
-
-                <div className="row">
-
-                  <Sideform />
+                  <div className="col-lg-2 col-md-2">
+                    <div>
+                      <Sideform />
+                    </div>
+                    <div>
+                      <Sidetable />
+                    </div>
+                  </div>
                   <D3graph planetsdata={planetdata} />
+                  
                  {/* <PlotlyChart></PlotlyChart> */}
                   
                   {/* <Sideoptions checkbox_status={planetnames} onchange_={onChange} player={loadData}/> */}
-                 <Sidetable />
+                  
+                 
+                 
 
                 </div>
                 {/* <div className="row">
@@ -495,9 +498,6 @@ const Contentlayout = () => {
                   <Card3col />
 
                 </div> */}
-
-              </div>
-            </div>
 
           </div>
         </div>

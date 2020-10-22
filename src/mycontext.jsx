@@ -126,7 +126,7 @@ export class GlobalProvider extends Component {
 
 			
 		});
-		
+
 		//console.log(new_array);
 		return new_array;
 		
@@ -146,7 +146,7 @@ export class GlobalProvider extends Component {
 
 		var length = formatted_array.length;
 		window.t = setInterval(()=>{
-			//set playicon to mdi mdi-pause 
+			//set playicon to mdi mdi-pause
 			this.setState({playicon:'mdi mdi-pause'});
 			//set the position based on array 
 			this.setState({planet:formatted_array[this.state.current_index]});
@@ -230,7 +230,7 @@ export class GlobalProvider extends Component {
       };
 	  
 	  // always use arrow function otherwise this. will not work
-      axios(config)
+      return axios(config)
       .then((response) => {
 		  //set for SIDETABLE
 		  var api_data = JSON.stringify(response.data);
@@ -242,12 +242,14 @@ export class GlobalProvider extends Component {
 		  //IsActive:' disabled'
 		  this.setState({IsLoading:false})
 		  this.playSpeed(1);
+          this.setState({dataLoaded: true});
+          return true;
 		//console.log("Result"+JSON.stringify(response.data));
 		//console.log(api_data);
       })
       .catch(function (error) {
 		console.log("Result" + error);
-		this.setState({IsLoading:false})
+		this.setState({IsLoading:false});
 	  });
 	  
 
@@ -280,7 +282,8 @@ export class GlobalProvider extends Component {
 		callAPI_daterange: (url,city) => this.call_daterange(url,city),
 		togglebutton: this.toggle,
 		placeobserved:'',
-		IsLoading:false
+		IsLoading:false,
+		dataLoaded: false
 		
 	};
 	render() {
