@@ -41,7 +41,7 @@ function make_y_gridlines() {
       // create svg element
       var svg = d3.select("#D3_line").append("svg")
       .attr("width", 1000)
-      .attr("height", 600);
+//      .attr("height", 600);
 
       // Create the scale
       var x = d3.scaleTime()

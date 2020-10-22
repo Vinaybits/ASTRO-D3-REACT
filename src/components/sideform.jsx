@@ -4,10 +4,14 @@ import 'react-dates/lib/css/_datepicker.css';
 import {DateRangePicker, SingleDatePicker, DayPickerRangeController} from 'react-dates';
 import { Component } from 'react';
 import moment from 'moment';
+import Collapse from 'react-bootstrap/Collapse';
+import Button from 'react-bootstrap/Button';
+
 import * as cities from '../components/cities.json';
 import Autocomplete from "../components/autocomplete";
 import axios from 'axios';
 import { GlobalProvider, GlobalContext } from '../mycontext';
+import './sideform.css';
 
 class sideform extends Component{
   static contextType = GlobalContext;
@@ -17,9 +21,19 @@ class sideform extends Component{
         this.state={
             startDate : null,
             endDate : null,
-            cities_value : null
+            city: '',
+            cities_value : null,
+            focusedEndDate: false,
+            isValidDateRange: false,
+            errors: {},
+            open: true,
+            resetInputText: false,
+            showLabels: false,
         };
+
         
+
+        this.resetForm = this.resetForm.bind(this);
       
 
     }
@@ -32,6 +46,8 @@ class sideform extends Component{
      
 
     alertclick = (e) =>{
+
+      e.preventDefault();
       
       let start_Date ='';
       let end_Date = '';
@@ -48,12 +64,18 @@ class sideform extends Component{
  
       to_year = moment(end_Date).format('YYYY');
       to_month = moment(end_Date).format('MM');
-      to_day = moment(end_Date).format('DD');
+      to_day = moment(end_Date).format('DD'); 
+      let errors = this.state.errors;
+      let isFormValid = true;
+
+      if(start_Date == null || end_Date == null) {
+        errors['dateError'] = "Please select date range";
+        isFormValid = false;
+      }
  
- 
- 
-      var names = document.getElementById('auto_complete1').value;
-      var keys = Object.entries(cities[0]+ "."+ names);
+      let names = document.getElementById('auto_complete1').value;
+      this.setState({city: names});
+      let keys = Object.entries(cities[0]+ "."+ names);
       Object.entries(cities[0]).forEach(([key, value])=>{
  
        if(key === names){
@@ -64,47 +86,106 @@ class sideform extends Component{
  
       });
       offset = Math.round(long * 4 * 60);
-      
- 
 
-     var url_string = 'http://api.omparashar.com/planet/multi/positions/overdaterange';
-     //var params = "?from_year=2020&from_month=1&from_day=1&to_year=2020&to_month=6&to_day=30&lat=29.47&long=77.69&offset=19800&p_nums=3&p_nums=4";
-     var params = "?from_year="+from_year+"&from_month="+from_month+"&from_day="+from_day+"&to_year="+to_year+"&to_month="+to_month+"&to_day="+to_day+"&lat="+lat+"&long="+long+"&offset="+offset+"&p_nums=0&p_nums=1&p_nums=2&p_nums=3&p_nums=4&p_nums=5&p_nums=6&p_nums=10&p_nums=100";
+      if(names === '') {
+       // alert("Please select place of observation");
+        errors['observation'] = "Please select place of observation";
+        isFormValid = false;
+      } else if(lat === '' || long === '' || offset === ''){
+      // alert("Please choose correct place of observation");
+      errors['observation'] = "Please choose correct place of observation";
+      isFormValid = false;
+      }
 
-     var a = moment(start_Date);
-     var b = moment(end_Date);
-     var numberofdays = b.diff(a, 'days') // 1
+      this.setState({errors: errors});
+     
+      let url_string = 'http://api.omparashar.com/planet/multi/positions/overdaterange';
+      //var params = "?from_year=2020&from_month=1&from_day=1&to_year=2020&to_month=6&to_day=30&lat=29.47&long=77.69&offset=19800&p_nums=3&p_nums=4";
+      let params = "?from_year="+from_year+"&from_month="+from_month+"&from_day="+from_day+"&to_year="+to_year+"&to_month="+to_month+"&to_day="+to_day+"&lat="+lat+"&long="+long+"&offset="+offset+"&p_nums=0&p_nums=1&p_nums=2&p_nums=3&p_nums=4&p_nums=5&p_nums=6&p_nums=10&p_nums=100";
 
-     if(names === ''){
-       alert("Please select place of observation");
-     }
-     else if(lat === '' || long === '' || offset === ''){
-      alert("Please choose correct place of observation");
 
-     }
-     else if(start_Date === '' || end_Date === '' || from_year === 'Invalid date' || start_Date === null || end_Date === null){
-      alert("Please select date range ");
-
-     }
-     else if(numberofdays > 365){
-      alert("Please select date range with in 365 days / 1 year");
-     }
-     else{
-      this.context.callAPI_daterange(url_string+params,names);
-     }
-    
+      // submit form and send reqest is valid date range and location
+      if(this.state.isValidDateRange && isFormValid) {
+        this.context.callAPI_daterange(url_string+params,names).then(result => {
+          if(result) {
+            this.setState({open: false});
+            this.setState({showLabels: true});
+          }
+        });
+        // this.setState({open: false});
+      }     
       
       
     // alert(lat+long+offset+"Start -"+from_year+from_month+from_day+"-" + moment(this.state.startDate).format("DD-MM-YYYY") + "</br>" + "End -" +moment(this.state.endDate).format("DD-MM-YYYY"));
-    e.preventDefault();
+    
    
     }
 
     // set all variable values 
     
+    onDateChange = (name, date) => {   
+      let errors = this.state.errors;
+      let isValidDateRange = true;
+      errors['dateError'] = "";
+      this.setState({errors});
+      if(name == "startDate") {
+
+        this.setState({startDate: date});
+        if(this.state.endDate) {
+          let isBefore = moment(date).isBefore(this.state.endDate);
+          if(!isBefore){
+            errors['dateError'] = "End date should be greater than start date";
+            isValidDateRange = false;
+          } else if(date.diff(this.state.endDate, 'days') > 365) {
+                errors['dateError'] = "Please select date range with in 365 days / 1 year";
+                isValidDateRange = false;
+            } 
+        }
+      } else if(name == "endDate") {
+
+          this.setState({endDate: date});
+          if(this.state.startDate) {
+            let isAfter = moment(date).isAfter(this.state.startDate);
+            if(!isAfter) {
+              errors['dateError'] = "End date should be greater than start date";
+              isValidDateRange = false;
+            } else if(date.diff(this.state.startDate, 'days') > 365) {
+                errors['dateError'] = "Please select date range with in 365 days / 1 year";
+                isValidDateRange = false;
+            } 
+          } else {
+            errors['dateError'] = "Please select start date";
+            isValidDateRange = false;
+          }
+      }
+
+      this.setState({errors: errors});
+      this.setState({isValidDateRange: isValidDateRange});
+    }
+
+
+    handleAutoCompleterChange = (type) => {
+      if(type == 'userInput'){
+        let errors = this.state.errors;
+        errors['observation'] = "";
+        this.setState({errors: errors});
+      } else if(type == 'reset') {
+        this.setState({resetInputText: false});
+      }
+    }
+
+    resetForm() {
+      // this.context.dataLoaded = false;
+      // this.context.apidataState = {};
+      this.setState({showLabels: false});
+      this.setState({open: true});
+      this.setState({startDate: null});
+      this.setState({endDate: null});
+      this.setState({city: ''});
+      this.setState({resetInputText: true});
+    }
     
-    
-    render(){
+    render() {
       //console.log(cities.default);
       var city = cities.default[0];
       var cities_name = Object.keys(city);
@@ -119,7 +200,7 @@ class sideform extends Component{
             i <= parseInt(moment(max).format("YYYY"));
             i++
           ) {
-            years.push(<option value={i}>{i}</option>);
+            years.push(<option key={i} value={i}>{i}</option>);
           }
           return years;
         };
@@ -142,7 +223,7 @@ class sideform extends Component{
                   }}
                 >
                   {moment.months().map((label, value) => (
-                    <option value={value}>{label}</option>
+                    <option key={label} value={value}>{label}</option>
                   ))}
                 </select>
               </div>
@@ -159,62 +240,118 @@ class sideform extends Component{
             </div>
           );
         };
+        const showLabels = () => {
+          return(
+          <div>
+            <div>Place: 
+              <label for="example-input-small" style={{"margin-bottom": "0px"}}>
+                {this.state.city}
+              </label>
+            </div>
+            <div> Start Date: 
+              <label for="example-input-small" style={{"margin-bottom": "0px"}}>
+                {moment(this.state.startDate).format("DD-MM-YYYY")}
+              </label>
+            </div>
+            <div>End Date: 
+              <label for="example-input-small" style={{"margin-bottom": "0px"}}>
+                {moment(this.state.endDate).format("DD-MM-YYYY")}
+              </label>
+            </div>
+          </div>
+          );
+        }
         return (
           <>
-            <div className="col-lg-2">
+            <div className="">
               <div className="card">
                 <div className="card-body">
                   <h4 className="header-title">Transition of Planets</h4>
-                  <p class="sub-header">
+                  <p class="sub-header" style={{"margin-bottom": "0px"}}>
                     Let us explore how
                     <code> planets </code>
                     move
                   </p>
+                  <div>
 
-                  <form>
-                    <div className="form-group mb-3">
-                      <label for="example-input-small">Place of Observation</label>
-                      <Autocomplete  suggestions={cities_name} />
-                    </div>
-                    <div className="form-group mb-3">
-                      <label for="example-input-small">Select Date Range</label>
-                     
-                      <DateRangePicker
-                        startDate={this.state.startDate} // momentPropTypes.momentObj or null,
-                       
-                        endDate={this.state.endDate} // momentPropTypes.momentObj or null,
-                      
-                        isOutsideRange={falseFunc}
-                        displayFormat={() => "DD-MM-YYYY"}
-                        minDate={moment(min)}
-                        maxDate={moment(max)}
-                        renderMonthElement={renderMonthElement}
-                        onDatesChange={({ startDate, endDate }) =>
-                          this.setState({ startDate, endDate })
-                        } // PropTypes.func.isRequired,
-                        focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-                        onFocusChange={(focusedInput) =>
-                          this.setState({ focusedInput })
-                        } // PropTypes.func.isRequired,
-                      />
-                       <p class="sub-header">
-                    Maximun Date Range allowed is <code> 1year 
-                     </code>
-                   
-                  </p>
-                    </div>
-<center>
-
-
-                    <button
-                      type="submit"
-                      className="ladda-button btn btn-primary"
-                      onClick={this.alertclick} disabled={this.context.IsLoading}
-                    >
-                      {(this.context.IsLoading) ? <span>Getting Data <i className="mdi mdi-spin mdi-loading mr-1 font-16"></i></span> : 'Get Data'}
-                      
-                    </button></center>
-                  </form>
+                  {this.context.dataLoaded ? 
+                    <div>
+                      {this.state.showLabels && showLabels()}
+                      <a onClick={() => {this.resetForm()}} style={{"color": "#34abeb", "cursor": "pointer"}}>
+                        Reset Parameters 
+                      </a> </div> : null    
+                                     
+                  }
+                  </div>
+                  <Collapse id="sidebar" dimension="width" in={this.state.open}>
+                    <form>
+                      <div className="form-group mb-1">
+                        <label for="example-input-small">Place of Observation</label>
+                        <Autocomplete resetInputText={this.state.resetInputText} handleChange={this.handleAutoCompleterChange} suggestions={cities_name} />
+                        {this.state.errors.observation && 
+                        <p className="form-error">{this.state.errors.observation}</p>
+                        }
+                      </div>
+                      <div className="">
+                      <label for="example-input-small" style={{"margin-bottom": "0px"}}>Select Date Range</label>
+                      </div>
+                      <label for="example-input-small">From</label>
+                      <div className="mb-1">                      
+                        <SingleDatePicker
+                          numberOfMonths={1}
+                          date={this.state.startDate} // momentPropTypes.momentObj or null
+                          onDateChange={date => this.onDateChange("startDate", date)} // PropTypes.func.isRequired
+                          focused={this.state.focused} // PropTypes.bool
+                          onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
+                          id="start_date" // PropTypes.string.isRequired,
+                          placeholder="Start Date"
+                          isOutsideRange={falseFunc}
+                          displayFormat={() => "DD-MM-YYYY"}
+                          minDate={moment(min)}
+                          maxDate={moment(max)}
+                          renderMonthElement={renderMonthElement}
+                          readOnly={true}
+                        />                      
+                      </div>
+                      <label for="example-input-small">To</label>
+                      <div className="">                      
+                        <SingleDatePicker
+                          numberOfMonths={1}
+                          date={this.state.endDate} // momentPropTypes.momentObj or null
+                          onDateChange={date => this.onDateChange("endDate", date)} // PropTypes.func.isRequired
+                          focused={this.state.focusedEndDate} // PropTypes.bool
+                          onFocusChange={({ focused: focusedEndDate }) => this.setState({ focusedEndDate })} // PropTypes.func.isRequired
+                          id="end_date" // PropTypes.string.isRequired,
+                          placeholder="End Date"
+                          isOutsideRange={falseFunc}
+                          displayFormat={() => "DD-MM-YYYY"}
+                          minDate={moment(min)}
+                          maxDate={moment(max)}
+                          renderMonthElement={renderMonthElement}
+                          readOnly={true}
+                        />                      
+                      </div>
+                      <div>
+                        {this.state.errors.dateError && 
+                          <p className="form-error"> {this.state.errors.dateError}</p>
+                        }
+                      </div>
+                      <div>
+                        <p class="sub-header">
+                          Maximun Date Range allowed is <code> 1year </code>                   
+                        </p>
+                      </div>
+                      <center>
+                        <button
+                          type="submit"
+                          className="ladda-button btn btn-primary"
+                          onClick={this.alertclick} disabled={this.context.IsLoading}>
+                          {(this.context.IsLoading) ? <span>Getting Data <i className="mdi mdi-spin mdi-loading mr-1 font-16"></i></span> : 'Get Data'}
+                          
+                        </button>
+                      </center>
+                    </form>
+                  </Collapse>
                 </div>
               </div>
             </div>

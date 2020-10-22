@@ -2,7 +2,7 @@ import React from 'react';
 import { GlobalContext } from '../mycontext';
 
 
-const Sidetable = () => {
+const Sidetable = (props) => {
     const context = React.useContext(GlobalContext);
     var date = context.apidataState.date;
     var planet_data_degree = [];
@@ -10,7 +10,7 @@ const Sidetable = () => {
     console.log("super-" + planet_data_degree);
     return (
         <>
-            <div className="col-lg-2">
+            <div className="">
                 <div className="card">
                     <div className="card-body">
 

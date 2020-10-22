@@ -9,10 +9,10 @@ import Ploty_1 from '../d3/plotly_1';
 
 const D3graph = (props) => {
     const context = React.useContext(GlobalContext)
-    const [currentClass, setcurrentClass] = useState('col-lg-8');
+    const [currentClass, setcurrentClass] = useState('col-lg-10');
 
     const toggleClass = () => {
-        (currentClass === 'col-lg-8') ? setcurrentClass('fullscreen') : setcurrentClass('col-lg-8');
+        (currentClass === 'col-lg-10') ? setcurrentClass('fullscreen') : setcurrentClass('col-lg-10');
     };
 
     const play_array =()=>{

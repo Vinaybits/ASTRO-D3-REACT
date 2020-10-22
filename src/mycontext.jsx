@@ -126,8 +126,6 @@ export class GlobalProvider extends Component {
 
 			
 		});
-		
-		//console.log(new_array);
 		return new_array;
 		
 				
@@ -230,7 +228,7 @@ export class GlobalProvider extends Component {
       };
 	  
 	  // always use arrow function otherwise this. will not work
-      axios(config)
+      return axios(config)
       .then((response) => {
 		  //set for SIDETABLE
 		  var api_data = JSON.stringify(response.data);
@@ -240,13 +238,16 @@ export class GlobalProvider extends Component {
 		  this.setState({placeobserved:city});
 
 		  //IsActive:' disabled'
-		  this.setState({IsLoading:false})
+		  this.setState({IsLoading:false});
+		  this.setState({dataLoaded: true});
+
+		  return true;
 		//console.log("Result"+JSON.stringify(response.data));
 		//console.log(api_data);
       })
       .catch(function (error) {
 		console.log("Result" + error);
-		this.setState({IsLoading:false})
+		this.setState({IsLoading:false});
 	  });
 	  
 
@@ -257,7 +258,7 @@ export class GlobalProvider extends Component {
 	state = {
 		planet:this.planet_init,
 		newStateplanet : '', // updated planet state after api call 
-		apidataState : '', // set this 
+		apidataState : {}, // set this 
 		newState_apidata : '',
 		current_index: 0,
 		IsActive:'btn btn-dark waves-effect disabled', // class used for wheel buttons 
@@ -271,7 +272,8 @@ export class GlobalProvider extends Component {
 		callAPI_daterange: (url,city) => this.call_daterange(url,city),
 		togglebutton: this.toggle,
 		placeobserved:'',
-		IsLoading:false
+		IsLoading:false,
+		dataLoaded: false
 		
 	};
 	render() {
