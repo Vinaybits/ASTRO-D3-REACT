@@ -4,10 +4,12 @@ import D3graph from '../components/d3graph';
 import Sideoptions from '../components/sideoptions';
 import Card3col from '../components/card3col';
 import Sidetable from '../components/sidetable';
-import PlotlyChart from '../components/ploty_chart'
+import Ploty_1 from '../d3/plotly_1';
+import { GlobalProvider, GlobalContext } from '../mycontext';
 
 
 const Contentlayout = () => {
+  const context = React.useContext(GlobalContext)
 
   const planet_init = [
     {
@@ -463,13 +465,25 @@ const Contentlayout = () => {
       
     });
 
-
+   
 
   }
 
+  function currentView() {
+    var view = context.currentView;
+ 
+ if(view === 'circle_graph'){
+  return ( <D3graph />);
+ }
+ else{
+     return(  <Ploty_1 />);
+ }
+  
+}
+
   return (
     <>
-      <div className="content-page" style={{"padding-top":"0px", "margin-top":"60px"}}>
+      <div className="content-page" style={{"padding-top":"0px", "margin-top":"58px"}}>
         <div className="content">
           <div className="container-fluid" style={{"Width" : "100%", "max-width":"100%"}}>
             <div className="row">
@@ -477,13 +491,18 @@ const Contentlayout = () => {
                     <div>
                       <Sideform />
                     </div>
-                    <div>
+                    {/* <div>
                       <Sidetable />
-                    </div>
+                    </div> */}
                   </div>
-                  <D3graph planetsdata={planetdata} />
+
+
+
+
+                  {/* <D3graph /> */}
+                  {currentView()}
                   
-                 {/* <PlotlyChart></PlotlyChart> */}
+                
                   
                   {/* <Sideoptions checkbox_status={planetnames} onchange_={onChange} player={loadData}/> */}
                   

@@ -19,6 +19,7 @@ const D3graph = (props) => {
         (currentClass === 'col-lg-10') ? setcurrentClass('fullscreen') : setcurrentClass('col-lg-10');
     };
 
+   
     const play_array =()=>{
         var current_action = context.playicon;
         if(current_action === 'mdi mdi-play'){
@@ -71,19 +72,13 @@ const D3graph = (props) => {
           );
         }
       }
+     
 
 
 
     return (
         <>
-
-
-
             <div className={currentClass}>
-
-
-
-
                 <div id="d3graph" className="col-lg-12"  >
                     <div className="card" style={{ "background-image": "url("+bg_img+")", "background-position": "center","background-repeat": "no-repeat" ,"background-size": "cover", }}>
 
@@ -117,7 +112,8 @@ const D3graph = (props) => {
 
                             <div className="row">
                                 <div className="col-lg-12">
-                                    <Chart1 data={props.planetsdata} />
+                                   
+                                <Chart1 />
                                    
                                 </div>
                                
@@ -128,12 +124,8 @@ const D3graph = (props) => {
 
                         </div>
                     </div>
-                
-                {/* <br>
-                </br>
-
-                <D3_linechart />
-                <Ploty_1 /> */}
+             
+                {/* <Ploty_1 /> */}
                 </div>
 
 

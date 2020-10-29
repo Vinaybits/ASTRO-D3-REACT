@@ -10,10 +10,7 @@ class BarChart extends Component {
     constructor(props) {
 
         super(props);
-        this.state = {
-            planets: this.props.data
-
-        };
+       
 
         this.myRef = React.createRef();
 
@@ -276,7 +273,7 @@ class BarChart extends Component {
         // accessRef.style("background-color","red")
 
         // establish variables
-        var w = 900;
+        var w = 1080;
         var h = 650;
         var x = (w / 2);
         var y = (h / 2);

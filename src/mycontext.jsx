@@ -8,7 +8,7 @@ export class GlobalProvider extends Component {
 
 	planet_init = [
 		{
-		  R: 190,
+		  R: 195,
 		  r: 7,
 		  speed: -1.60,
 		  phi0: 35,
@@ -17,7 +17,7 @@ export class GlobalProvider extends Component {
 		  name: "Mo",
 		  moons: [] // mercury
 		}, {
-		  R: 280,
+		  R: 285,
 		  r: 7,
 		  speed: -1.60,
 		  phi0: 35,
@@ -26,7 +26,7 @@ export class GlobalProvider extends Component {
 		  name: "Sa",
 		  moons: [] // mercury
 		}, {
-		  R: 205,
+		  R: 210,
 		  r: 7,
 		  speed: -2.60,
 		  phi0: 135,
@@ -36,7 +36,7 @@ export class GlobalProvider extends Component {
 		  moons: [] // mercury
 		},
 		{
-		  R: 220,
+		  R: 225,
 		  r: 7,
 		  speed: -1.60,
 		  phi0: 25,
@@ -46,7 +46,7 @@ export class GlobalProvider extends Component {
 		  moons: [] // mercury
 		},
 		{
-		  R: 235,
+		  R: 240,
 		  r: 7,
 		  speed: -1.60,
 		  phi0: 25,
@@ -56,7 +56,7 @@ export class GlobalProvider extends Component {
 		  moons: [] // mercury
 		},
 		{
-		  R: 250,
+		  R: 255,
 		  r: 7,
 		  speed: -1.60,
 		  phi0: 25,
@@ -65,7 +65,7 @@ export class GlobalProvider extends Component {
 		  name: "Ma",
 		  moons: [] // mercury
 		}, {
-		  R: 265,
+		  R: 270,
 		  r: 7,
 		  speed: -1.60,
 		  phi0: 25,
@@ -75,7 +75,7 @@ export class GlobalProvider extends Component {
 		  moons: [] // mercury
 		},
 		{
-		  R: 295,
+		  R: 300,
 		  r: 7,
 		  speed: -2.60,
 		  phi0: 25,
@@ -85,7 +85,7 @@ export class GlobalProvider extends Component {
 		  moons: [] // mercury
 		},
 		{
-		  R: 310,
+		  R: 315,
 		  r: 7,
 		  speed: 1.60,
 		  phi0: 35,
@@ -261,6 +261,11 @@ export class GlobalProvider extends Component {
 		 this.setState({play_speed : sec});
 
 	 }
+	 changeView =(value)=>{
+		// alert(value);
+		this.setState({currentView:value})
+
+	 }
 
 
 	state = {
@@ -270,8 +275,8 @@ export class GlobalProvider extends Component {
 		newState_apidata : '',
 		current_index: 0,
 		IsActive:'btn btn-dark waves-effect disabled', // class used for wheel buttons 
-		prev: '',
-		next: '',
+		currentView: 'circle_graph',
+		changeView: (value) => this.changeView(value),
 		playicon:'mdi mdi-play',
 		playplanet : this.play_array,
 		play_speed_fn : (seconds) => this.playSpeed(seconds),
@@ -282,8 +287,7 @@ export class GlobalProvider extends Component {
 		callAPI_daterange: (url,city) => this.call_daterange(url,city),
 		togglebutton: this.toggle,
 		placeobserved:'',
-		IsLoading:false,
-		dataLoaded: false
+		IsLoading:false
 		
 	};
 	render() {
