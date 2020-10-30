@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Plotly from 'plotly.js';
 import moment from 'moment';
 import { GlobalProvider, GlobalContext } from '../mycontext';
+import '../d3/plotly.css';
 
 class Ploty_1 extends Component {
     static contextType = GlobalContext;
@@ -16,6 +17,7 @@ this.apidate_format();
 }
 
 apidate_format =() =>{
+    var gd1 = document.getElementById('myDiv');
     var api_data = this.context.newState_apidata;
 
     // var from_year = api_data.from_year;
@@ -194,8 +196,8 @@ apidate_format =() =>{
         showlegend: true,
         legend: {"orientation": "h",x: 0.01,y: 1.04},
         autosize:true,
-        width:1080,
-        height:720,
+       // width:1080,
+       // height:720,
         title: "Path Tracing of Planets",
         hovermode:"x|y",
         hoverdistance:100,
@@ -205,7 +207,7 @@ apidate_format =() =>{
         
 
         xaxis:{
-            title:"X-Axis",
+            title:"Dates",
             range: [minDate, maxDate],
             type: 'date',
             showgrid:false,
@@ -447,9 +449,9 @@ apidate_format =() =>{
       };
       
       var data = [sun_data,moon_data,mercury_data,venus_data,mars_data,jupiter_data,saturn_data,rahu_data,ketu_data,trace3];
-      var config = {responsive: true}
+      var config = {responsive: true , displaylogo: false}
       
-      Plotly.newPlot('myDiv', data, layout, config);
+      Plotly.newPlot(gd1, data, layout, config);
     
 }
 
@@ -460,7 +462,31 @@ apidate_format =() =>{
     render() { 
         return (  <> 
         {/* <button onClick={this.apidate_format}>click me</button> */}
-        <div id="myDiv"></div>
+        <div className="col-lg-10">
+                <div id="d3graph" className="col-lg-12"  >
+                    <div className="card">
+                    <div className="card-body" style={{ "padding": "10px" }}>
+                            <div class="card-widgets">
+                                <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light"
+                                    data-toggle="fullscreen"
+                                    >
+                                    <i class="fe-maximize noti-icon"></i></a>
+                            </div>
+                             <span class="header-title" style={{ "color": "#fff" }}>
+                            </span>
+                            <div className="row">
+                                <div className="col-lg-12" style={{width:"80%", height:"700px"}}>
+                                    <center>
+                                    <div id="myDiv"></div>
+                                    </center>
+                                  
+                                </div>
+                            </div> 
+
+                   </div>
+                </div>
+            </div>
+            </div>
         </>);
     }
 }

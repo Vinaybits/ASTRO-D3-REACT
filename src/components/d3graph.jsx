@@ -9,14 +9,14 @@ import Ploty_1 from '../d3/plotly_1';
 
 const D3graph = (props) => {
     const context = React.useContext(GlobalContext)
-    const [currentClass, setcurrentClass] = useState('col-lg-10');
+    const [currentClass, setcurrentClass] = useState('col-lg-10 col-md-12');
     const [value,setValue] = useState(1);
     const [message,setMessage] = useState('Speed is per day per sec');
 
 
 
     const toggleClass = () => {
-        (currentClass === 'col-lg-10') ? setcurrentClass('fullscreen') : setcurrentClass('col-lg-10');
+        (currentClass === 'col-lg-10 col-md-12') ? setcurrentClass('fullscreen') : setcurrentClass('col-lg-10 col-md-12');
     };
 
    
