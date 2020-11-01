@@ -6,6 +6,7 @@ import Card3col from '../components/card3col';
 import Sidetable from '../components/sidetable';
 import Ploty_1 from '../d3/plotly_1';
 import { GlobalProvider, GlobalContext } from '../mycontext';
+import Plotly_NAKS from '../d3/plotly_Naks';
 
 
 const Contentlayout = () => {
@@ -476,7 +477,7 @@ const Contentlayout = () => {
   return ( <D3graph />);
  }
  else{
-     return(  <Ploty_1 />);
+     return(  <Plotly_NAKS/> );
  }
   
 }
@@ -501,6 +502,7 @@ const Contentlayout = () => {
 
                   {/* <D3graph /> */}
                   {currentView()}
+                  {/* <Plotly_NAKS/> */}
                   
                 
                   

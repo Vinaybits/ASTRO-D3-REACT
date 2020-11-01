@@ -411,10 +411,8 @@ class sideform extends Component {
 
         {/* New div for showing table data in this component only  */}
         <div className="">
-          <div
-            className="card"
-            style={{ display: this.state.open ? "" : "none" }}
-          >
+          <div className="card"
+            style={{ display: this.state.open ? "" : "none" }} >
             <div className="card-body">
               <h4 className="header-title">Planet positions </h4>
               <div className="sub-heading">
@@ -447,13 +445,13 @@ class sideform extends Component {
                 </button>
               </div>
               <hr></hr>
+              <div style={{display:this.state.value === 'circle_graph' ? '' : 'none'}}>
               <div className="sub-heading">
                 {" "}
                 Date :{" "}
                 <span
                   style={{ fontSize: "14px" }}
-                  className="badge badge-pill badge-dark"
-                >
+                  className="badge badge-pill badge-dark" >
                   {" "}
                   {date}{" "}
                 </span>
@@ -485,6 +483,7 @@ class sideform extends Component {
                   : "Loading..."}
               </table>
             </div>
+          </div>
           </div>
         </div>
       </>
