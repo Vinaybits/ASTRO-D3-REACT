@@ -81,7 +81,7 @@ class Plotly_NAKS extends Component {
                 y_planet7.push(JSON.parse(JSON.stringify(planet_rahu)));
                 y_planet8.push(JSON.parse(JSON.stringify(planet_ketu)));
             }
-            console.log("Superman -"+ x_dates+ "- deg-" + y_planet1[0]); 
+            //console.log("Superman -"+ x_dates+ "- deg-" + y_planet1[0]); 
             var date_end = x_dates[x_dates.length-1];
             var minDate_ = moment(x_dates[0],'DD-MM-YYYY');
             var minDate = moment(minDate_).format('YYYY-MM-DD');
@@ -197,7 +197,7 @@ class Plotly_NAKS extends Component {
               var trace2 = {
   x: [x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length]],
   y: [140, 25, 260],
-  name: 'yaxis2 data',
+  name: 'Nakshatras',
   yaxis: 'y2',
   type: 'scatter'
 }
@@ -796,7 +796,7 @@ apidate_format_rashi =() =>{
         y_planet7.push(JSON.parse(JSON.stringify(planet_rahu)));
         y_planet8.push(JSON.parse(JSON.stringify(planet_ketu)));
     }
-    console.log("Superman -"+ x_dates+ "- deg-" + y_planet1[0]); 
+   // console.log("Superman -"+ x_dates+ "- deg-" + y_planet1[0]); 
     var date_end = x_dates[x_dates.length-1];
     var minDate_ = moment(x_dates[0],'DD-MM-YYYY');
     var minDate = moment(minDate_).format('YYYY-MM-DD');
@@ -912,7 +912,7 @@ apidate_format_rashi =() =>{
               var trace2 = {
   x: [x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length]],
   y: [140, 25, 260],
-  name: 'yaxis2 data',
+  name: 'Rashi',
   yaxis: 'y2',
   type: 'scatter'
 }
@@ -1264,7 +1264,7 @@ apidate_format_combined =() =>{
         y_planet7.push(JSON.parse(JSON.stringify(planet_rahu)));
         y_planet8.push(JSON.parse(JSON.stringify(planet_ketu)));
     }
-    console.log("Superman -"+ x_dates+ "- deg-" + y_planet1[0]); 
+    // console.log("Superman -"+ x_dates+ "- deg-" + y_planet1[0]); 
     var date_end = x_dates[x_dates.length-1];
     var minDate_ = moment(x_dates[0],'DD-MM-YYYY');
     var minDate = moment(minDate_).format('YYYY-MM-DD');
@@ -1380,7 +1380,7 @@ apidate_format_combined =() =>{
               var trace2 = {
   x: [x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length]],
   y: [140, 25, 260],
-  name: 'yaxis2 data',
+  name: 'Nakshartas',
   yaxis: 'y2',
   type: 'scatter'
 }
@@ -1718,10 +1718,10 @@ switch_naksview = ()=>{
                                 </div>
                                 <span class="header-title" style={{ "color": "#fff" }}>
 
-<div class="btn-group">
-<button className="btn btn-primary" onClick={this.switch_rasiview}>Raasi View</button>
-<button className="btn btn-primary" onClick={this.switch_naksview}>Nakshatra View</button>
-<button className="btn btn-primary" onClick={this.switch_combinedview}> Combined View </button>
+<div class="btn-group" >
+<button className="btn btn-primary btn-sm" onClick={this.switch_rasiview}>Rashi View</button>
+<button className="btn btn-primary btn-sm" onClick={this.switch_naksview}>Nakshatra View</button>
+<button className="btn btn-primary btn-sm" onClick={this.switch_combinedview}> Combined View </button>
 
 </div>
                                 </span>
