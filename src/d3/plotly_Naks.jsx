@@ -195,8 +195,13 @@ class Plotly_NAKS extends Component {
         
         
               var trace2 = {
-  x: [x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length]],
-  y: [140, 25, 260],
+  x: [x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],
+  x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],
+  x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],
+  x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],
+  x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length]],
+  y: [6.66,19.99,33.32,46.65,59.98,73.31,
+    86.64,99.9,113.30, 126.63, 139.96, 153.29, 166.62, 179.95, 193.28, 206.61, 219.94, 233.27, 246.605, 259.93, 273.26, 286.59, 299.92, 313.255, 326.58, 339.91, 353.245],
   name: 'Nakshatras',
   yaxis: 'y2',
   type: 'scatter'
@@ -296,10 +301,14 @@ class Plotly_NAKS extends Component {
                     ticks:'outside',
                     overlaying: 'y1',
                     side:'right',
-                    tickmode : 'array',
+                    //tickmode : 'array',
                     // tickangle: 45, rangemode: 'nonnegative',
-                    tickvals : [10,20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270],
-                    ticktext : ["Ashwini","Bharani","Krittika", "Rohini", "Mrigashīrsha", "Ārdrā", "Punarvasu", "Pushya", "Āshleshā", "Maghā", "Pūrva", "Uttara","Hasta","Chitra","Svātī","Viśākhā","Anurādhā","Jyeshtha","Mula","P.Āshādhā","U.Āṣāḍhā","Śrāvaṇa","Śrāviṣṭha","Shatabhisha","P.Bhādrapadā","U.Bhādrapadā","Revati"],
+                    tickvals : [6.66,19.99,33.32,46.65,59.98,73.31,
+                                86.64,99.9,113.30, 126.63, 139.96, 153.29, 166.62, 179.95, 193.28, 206.61, 219.94, 233.27, 246.605, 259.93, 273.26, 286.59, 299.92, 313.255, 326.58, 339.91, 353.245],
+                    ticktext : [
+                        "Ashwini","Bharani", "Krittika","Rohini","Mrigashīrsha","Ārdrā","Punarvasu",
+                        "Pushya", "Āshleshā","Maghā","Pūrva",
+                        "Uttara","Hasta","Chitra","Svātī","Viśākhā","Anurādhā","Jyeshtha","Mula","P.Āshādhā","U.Āṣāḍhā","Śrāvaṇa","Śrāviṣṭha","Shatabhisha","P.Bhādrapadā","U.Bhādrapadā","Revati"],
                 },
                
 
@@ -1377,13 +1386,18 @@ apidate_format_combined =() =>{
       };
 
 
-              var trace2 = {
-  x: [x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length]],
-  y: [140, 25, 260],
-  name: 'Nakshartas',
-  yaxis: 'y2',
-  type: 'scatter'
-}
+      var trace2 = {
+        x: [x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],
+        x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],
+        x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],
+        x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],
+        x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length]],
+        y: [6.66,19.99,33.32,46.65,59.98,73.31,
+          86.64,99.9,113.30, 126.63, 139.96, 153.29, 166.62, 179.95, 193.28, 206.61, 219.94, 233.27, 246.605, 259.93, 273.26, 286.59, 299.92, 313.255, 326.58, 339.91, 353.245],
+        name: 'Nakshatras',
+        yaxis: 'y2',
+        type: 'scatter'
+      }
 
        var layout = {
                   
@@ -1430,7 +1444,7 @@ apidate_format_combined =() =>{
         
                 yaxis:{
                     
-                    showgrid:false,
+                    showgrid:true,
                    // zeroline:false,
                     showspikes:true, 
             
@@ -1438,7 +1452,7 @@ apidate_format_combined =() =>{
                 spikedash:"dot",
                 spikecolor:"red",
                 spikemode:"across",
-                    gridcolor:'#efefef',
+                    gridcolor:'silver',
                     showticklabels:true,
                     linecolor:'rgb(204, 204, 204)',
                     linewidth:2,
@@ -1452,7 +1466,7 @@ apidate_format_combined =() =>{
                     ticks:'outside',
                     tickmode : 'array',
                     // tickangle: 45, rangemode: 'nonnegative',
-                    tickvals : [15,45,75,105,135,165,195,225,255,285,315,345],
+                    tickvals : [30,60,90,120,150,180,210,240,270,300,330,360],
                     ticktext : ["Aries","Taurus","Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"]
                 },
                 yaxis2: {
@@ -1480,10 +1494,14 @@ apidate_format_combined =() =>{
                     side:'right',
                     tickmode : 'array',
                     // tickangle: 45, rangemode: 'nonnegative',
-                    tickvals : [10,20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270],
-                    ticktext : ["Ashwini","Bharani","Krittika", "Rohini", "Mrigashīrsha", "Ārdrā", "Punarvasu", "Pushya", "Āshleshā", "Maghā", "Pūrva", "Uttara","Hasta","Chitra","Svātī","Viśākhā","Anurādhā","Jyeshtha","Mula","P.Āshādhā","U.Āṣāḍhā","Śrāvaṇa","Śrāviṣṭha","Shatabhisha","P.Bhādrapadā","U.Bhādrapadā","Revati"],
-                },
-                          shapes: [
+                    tickvals : [6.66,19.99,33.32,46.65,59.98,73.31,
+                        86.64,99.9,113.30, 126.63, 139.96, 153.29, 166.62, 179.95, 193.28, 206.61, 219.94, 233.27, 246.605, 259.93, 273.26, 286.59, 299.92, 313.255, 326.58, 339.91, 353.245],
+            ticktext : [
+                "Ashwini","Bharani", "Krittika","Rohini","Mrigashīrsha","Ārdrā","Punarvasu",
+                "Pushya", "Āshleshā","Maghā","Pūrva",
+                "Uttara","Hasta","Chitra","Svātī","Viśākhā","Anurādhā","Jyeshtha","Mula","P.Āshādhā","U.Āṣāḍhā","Śrāvaṇa","Śrāviṣṭha","Shatabhisha","P.Bhādrapadā","U.Bhādrapadā","Revati"],
+        },
+                shapes: [
                     // 1st highlight during Feb 4 - Feb 6
                     {
                         type: 'rect',
@@ -1492,7 +1510,7 @@ apidate_format_combined =() =>{
                         x0: x_dates[0],//1-10-2020 (1-9-2020)
                         y0: 0,
                         x1: x_dates[x_dates.length-1],
-                        y1: 30,
+                        y1: 13.66,
                         fillcolor:"#fff",
                         //opacity:0.9,
                         layer:'below',
@@ -1505,9 +1523,9 @@ apidate_format_combined =() =>{
                         xref: 'x',
                         yref: 'y',
                         x0: x_dates[0],
-                        y0: 30,
+                        y0: 13.66,
                         x1: x_dates[x_dates.length-1],
-                        y1: 60,
+                        y1: 26.66,
                         fillcolor:"#F3F7F9",
                         //opacity:0.9,
                         layer:'below',
@@ -1520,9 +1538,9 @@ apidate_format_combined =() =>{
                         xref: 'x',
                         yref: 'y',
                         x0: x_dates[0],
-                        y0: 60,
+                        y0: 26.66,
                         x1: x_dates[x_dates.length-1],
-                        y1: 90,
+                        y1: 39.99,
                         fillcolor:"#fff",
                         //opacity:0.9,
                         layer:'below',
@@ -1535,9 +1553,9 @@ apidate_format_combined =() =>{
                         xref: 'x',
                         yref: 'y',
                         x0: x_dates[0],
-                        y0: 90,
+                        y0: 39.99,
                         x1: x_dates[x_dates.length-1],
-                        y1: 120,
+                        y1: 53.32,
                         fillcolor:"#F3F7F9",
                         //opacity:0.9,
                         layer:'below',
@@ -1550,9 +1568,9 @@ apidate_format_combined =() =>{
                         xref: 'x',
                         yref: 'y',
                         x0: x_dates[0],
-                        y0: 120,
+                        y0: 53.32,
                         x1: x_dates[x_dates.length-1],
-                        y1: 150,
+                        y1: 66.65,
                         fillcolor:"#fff",
                         //opacity:0.9,
                         layer:'below',
@@ -1565,9 +1583,9 @@ apidate_format_combined =() =>{
                         xref: 'x',
                         yref: 'y',
                         x0: x_dates[0],
-                        y0: 150,
+                        y0: 66.65,
                         x1: x_dates[x_dates.length-1],
-                        y1: 180,
+                        y1: 79.98,
                         fillcolor:"#F3F7F9",
                         //opacity:0.9,
                         layer:'below',
@@ -1580,9 +1598,9 @@ apidate_format_combined =() =>{
                         xref: 'x',
                         yref: 'y',
                         x0: x_dates[0],
-                        y0: 180,
+                        y0: 79.98,
                         x1: x_dates[x_dates.length-1],
-                        y1: 210,
+                        y1: 93.31,
                         fillcolor:"#fff",
                         //opacity:0.9,
                         layer:'below',
@@ -1595,9 +1613,9 @@ apidate_format_combined =() =>{
                         xref: 'x',
                         yref: 'y',
                         x0: x_dates[0],
-                        y0: 210,
+                        y0: 93.31,
                         x1: x_dates[x_dates.length-1],
-                        y1: 240,
+                        y1: 106.64,
                         fillcolor:"#F3F7F9",
                         //opacity:0.9,
                         layer:'below',
@@ -1605,14 +1623,15 @@ apidate_format_combined =() =>{
                             width: 0
                         }
                     },
+
                     {
                         type: 'rect',
                         xref: 'x',
                         yref: 'y',
                         x0: x_dates[0],
-                        y0: 240,
+                        y0: 106.64,
                         x1: x_dates[x_dates.length-1],
-                        y1: 270,
+                        y1: 119.97,
                         fillcolor:"#fff",
                         //opacity:0.9,
                         layer:'below',
@@ -1625,9 +1644,9 @@ apidate_format_combined =() =>{
                         xref: 'x',
                         yref: 'y',
                         x0: x_dates[0],
-                        y0: 270,
+                        y0: 119.97,
                         x1: x_dates[x_dates.length-1],
-                        y1: 300,
+                        y1: 133.3,
                         fillcolor:"#F3F7F9",
                         //opacity:0.9,
                         layer:'below',
@@ -1640,9 +1659,9 @@ apidate_format_combined =() =>{
                         xref: 'x',
                         yref: 'y',
                         x0: x_dates[0],
-                        y0: 300,
+                        y0: 133.3,
                         x1: x_dates[x_dates.length-1],
-                        y1: 330,
+                        y1: 146.63,
                         fillcolor:"#fff",
                         //opacity:0.9,
                         layer:'below',
@@ -1655,9 +1674,9 @@ apidate_format_combined =() =>{
                         xref: 'x',
                         yref: 'y',
                         x0: x_dates[0],
-                        y0: 330,
+                        y0: 146.63,
                         x1: x_dates[x_dates.length-1],
-                        y1: 360,
+                        y1: 159.96,
                         fillcolor:"#F3F7F9",
                         //opacity:0.9,
                         layer:'below',
@@ -1665,6 +1684,249 @@ apidate_format_combined =() =>{
                             width: 0
                         }
                     },
+                    {
+                        type: 'rect',
+                        xref: 'x',
+                        yref: 'y',
+                        x0: x_dates[0],
+                        y0: 159.96,
+                        x1: x_dates[x_dates.length-1],
+                        y1: 173.29,
+                        fillcolor:"#fff",
+                        //opacity:0.9,
+                        layer:'below',
+                        line: {
+                            width: 0
+                        }
+                    },
+                    {
+                        type: 'rect',
+                        xref: 'x',
+                        yref: 'y',
+                        x0: x_dates[0],
+                        y0: 173.29,
+                        x1: x_dates[x_dates.length-1],
+                        y1: 186.62,
+                        fillcolor:"#F3F7F9",
+                        //opacity:0.9,
+                        layer:'below',
+                        line: {
+                            width: 0
+                        }
+                    },
+                    {
+                        type: 'rect',
+                        xref: 'x',
+                        yref: 'y',
+                        x0: x_dates[0],
+                        y0: 182.62,
+                        x1: x_dates[x_dates.length-1],
+                        y1: 199.95,
+                        fillcolor:"#fff",
+                        //opacity:0.9,
+                        layer:'below',
+                        line: {
+                            width: 0
+                        }
+                    },
+                    {
+                        type: 'rect',
+                        xref: 'x',
+                        yref: 'y',
+                        x0: x_dates[0],
+                        y0: 199.95,
+                        x1: x_dates[x_dates.length-1],
+                        y1: 213.28,
+                        fillcolor:"#F3F7F9",
+                        //opacity:0.9,
+                        layer:'below',
+                        line: {
+                            width: 0
+                        }
+                    },
+// y:[226.61,239.94,253.27,266.6,279.93,293.26,306.59,319.92,333.25,346.58,359.91],
+                    {
+                        type: 'rect',
+                        xref: 'x',
+                        yref: 'y',
+                        x0: x_dates[0],
+                        y0: 213.28,
+                        x1: x_dates[x_dates.length-1],
+                        y1: 226.61,
+                        fillcolor:"#fff",
+                        //opacity:0.9,
+                        layer:'below',
+                        line: {
+                            width: 0
+                        }
+                    },
+                    {
+                        type: 'rect',
+                        xref: 'x',
+                        yref: 'y',
+                        x0: x_dates[0],
+                        y0: 226.61,
+                        x1: x_dates[x_dates.length-1],
+                        y1: 239.94,
+                        fillcolor:"#F3F7F9",
+                        //opacity:0.9,
+                        layer:'below',
+                        line: {
+                            width: 0
+                        }
+                    },
+                    {
+                        type: 'rect',
+                        xref: 'x',
+                        yref: 'y',
+                        x0: x_dates[0],
+                        y0: 239.94,
+                        x1: x_dates[x_dates.length-1],
+                        y1: 253.27,
+                        fillcolor:"#fff",
+                        //opacity:0.9,
+                        layer:'below',
+                        line: {
+                            width: 0
+                        }
+                    },
+                    {
+                        type: 'rect',
+                        xref: 'x',
+                        yref: 'y',
+                        x0: x_dates[0],
+                        y0: 253.27,
+                        x1: x_dates[x_dates.length-1],
+                        y1: 266.6,
+                        fillcolor:"#F3F7F9",
+                        //opacity:0.9,
+                        layer:'below',
+                        line: {
+                            width: 0
+                        }
+                    },
+                    {
+                        type: 'rect',
+                        xref: 'x',
+                        yref: 'y',
+                        x0: x_dates[0],
+                        y0: 266.6,
+                        x1: x_dates[x_dates.length-1],
+                        y1: 279.93,
+                        fillcolor:"#fff",
+                        //opacity:0.9,
+                        layer:'below',
+                        line: {
+                            width: 0
+                        }
+                    },
+                    {
+                        type: 'rect',
+                        xref: 'x',
+                        yref: 'y',
+                        x0: x_dates[0],
+                        y0: 279.93,
+                        x1: x_dates[x_dates.length-1],
+                        y1: 293.26,
+                        fillcolor:"#F3F7F9",
+                        //opacity:0.9,
+                        layer:'below',
+                        line: {
+                            width: 0
+                        }
+                    },
+                    {
+                        type: 'rect',
+                        xref: 'x',
+                        yref: 'y',
+                        x0: x_dates[0],
+                        y0: 293.26,
+                        x1: x_dates[x_dates.length-1],
+                        y1: 306.59,
+                        fillcolor:"#fff",
+                        //opacity:0.9,
+                        layer:'below',
+                        line: {
+                            width: 0
+                        }
+                    },
+                    {
+                        type: 'rect',
+                        xref: 'x',
+                        yref: 'y',
+                        x0: x_dates[0],
+                        y0: 306.59,
+                        x1: x_dates[x_dates.length-1],
+                        y1: 319.92,
+                        fillcolor:"#F3F7F9",
+                        //opacity:0.9,
+                        layer:'below',
+                        line: {
+                            width: 0
+                        }
+                    },
+                    {
+                        type: 'rect',
+                        xref: 'x',
+                        yref: 'y',
+                        x0: x_dates[0],
+                        y0: 319.92,
+                        x1: x_dates[x_dates.length-1],
+                        y1: 333.25,
+                        fillcolor:"#fff",
+                        //opacity:0.9,
+                        layer:'below',
+                        line: {
+                            width: 0
+                        }
+                    },
+                    {
+                        type: 'rect',
+                        xref: 'x',
+                        yref: 'y',
+                        x0: x_dates[0],
+                        y0: 333.25,
+                        x1: x_dates[x_dates.length-1],
+                        y1: 346.58,
+                        fillcolor:"#F3F7F9",
+                        //opacity:0.9,
+                        layer:'below',
+                        line: {
+                            width: 0
+                        }
+                    },
+                    {
+                        type: 'rect',
+                        xref: 'x',
+                        yref: 'y',
+                        x0: x_dates[0],
+                        y0: 346.58,
+                        x1: x_dates[x_dates.length-1],
+                        y1: 359.91,
+                        fillcolor:"#fff",
+                        //opacity:0.9,
+                        layer:'below',
+                        line: {
+                            width: 0
+                        }
+                    },
+                    {
+                        type: 'rect',
+                        xref: 'x',
+                        yref: 'y',
+                        x0: x_dates[0],
+                        y0: 359.91,
+                        x1: x_dates[x_dates.length-1],
+                        y1: 372,
+                        fillcolor:"#F3F7F9",
+                        //opacity:0.9,
+                        layer:'below',
+                        line: {
+                            width: 0
+                        }
+                    },
+
+                    
                 ],
                         
                 
