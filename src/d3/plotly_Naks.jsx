@@ -1437,7 +1437,7 @@ apidate_format_combined =() =>{
                 rangemode: 'tozero',
                 autorange: true,
                 ticks:'outside',
-                tickformat :'%y~%m~%d',
+                tickformat :'%Y~%m~%d',
                
                
                 },
