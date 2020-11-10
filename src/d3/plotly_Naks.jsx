@@ -211,7 +211,7 @@ class Plotly_NAKS extends Component {
               var layout = {
                   
                 showlegend: true,
-                legend: {"orientation": "h",x: 0.01,y: 1.05},
+                legend: {"orientation": "h",x: 0.01,y: 1.10},
                 autosize:true,
                // width:1080,
                // height:720,
@@ -929,7 +929,7 @@ apidate_format_rashi =() =>{
       var layout = {
           
         showlegend: true,
-        legend: {"orientation": "h",x: 0.01,y: 1.04},
+        legend: {"orientation": "h",x: 0.01,y: 1.10},
         autosize:true,
        // width:1080,
        // height:720,
@@ -1402,7 +1402,7 @@ apidate_format_combined =() =>{
        var layout = {
                   
                 showlegend: true,
-                legend: {"orientation": "h",x: 0.01,y: 1.05},
+                legend: {"orientation": "h",x: 0.01,y: 1.10},
                 autosize:true,
                 title: "Path Tracing of Planets",
                 hovermode:"x|y",
