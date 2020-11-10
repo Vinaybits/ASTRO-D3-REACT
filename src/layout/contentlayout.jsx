@@ -7,6 +7,7 @@ import Sidetable from '../components/sidetable';
 import Ploty_1 from '../d3/plotly_1';
 import { GlobalProvider, GlobalContext } from '../mycontext';
 import Plotly_NAKS from '../d3/plotly_Naks';
+import Journey from '../d3/Journey';
 
 
 const Contentlayout = () => {
@@ -476,8 +477,11 @@ const Contentlayout = () => {
  if(view === 'circle_graph'){
   return ( <D3graph />);
  }
+ else if(view === 'line_chart'){
+  return ( <Plotly_NAKS />);
+ }
  else{
-     return(  <Plotly_NAKS/> );
+     return(  <Journey/>);
  }
   
 }
