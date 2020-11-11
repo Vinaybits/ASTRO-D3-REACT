@@ -1,14 +1,14 @@
 import React, { useState, useEffect , useRef} from 'react';
 import Sideform from '../components/sideform'
 import D3graph from '../components/d3graph';
-import Sideoptions from '../components/sideoptions';
-import Card3col from '../components/card3col';
-import Sidetable from '../components/sidetable';
-import Ploty_1 from '../d3/plotly_1';
-import { GlobalProvider, GlobalContext } from '../mycontext';
+// import Sideoptions from '../components/sideoptions';
+// import Card3col from '../components/card3col';
+// import Sidetable from '../components/sidetable';
+// import Ploty_1 from '../d3/plotly_1';
+import { GlobalContext } from '../mycontext';
 import Plotly_NAKS from '../d3/plotly_Naks';
 import Journey from '../d3/Journey';
-
+// import Snapshot from '../d3/Snapshot';
 
 const Contentlayout = () => {
   const context = React.useContext(GlobalContext)
@@ -480,7 +480,8 @@ const Contentlayout = () => {
  else if(view === 'line_chart'){
   return ( <Plotly_NAKS />);
  }
- else{
+
+  else{
      return(  <Journey/>);
  }
   

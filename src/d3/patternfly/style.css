@@ -1,0 +1,11 @@
+#pf-timeline {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+
+#pf-timeline .popover {
+  white-space: pre;
+  max-width: none;
+}
