@@ -67,6 +67,10 @@ const chart = eventDrops({
     zoom: {
         onZoomEnd: () => updateCommitsInformation(chart),
     },
+    range:{
+        start: new Date('2018/01/01'),
+        end: new Date('2018/01/27'),
+    },
     drop: {
         date: d => new Date(d.date),
         onMouseOver: commit => {
@@ -118,11 +122,10 @@ const repositoriesData = repositories.map(repository => ({
     name: repository.name,
     data: repository.commits,
 }));
-
 d3
     .select('#events')
     .data([repositoriesData])
-    .call(chart);
+    .call(chart)
 
 updateCommitsInformation(chart);
 

@@ -237,8 +237,7 @@ export class GlobalProvider extends Component {
 		  this.setState({newState_apidata:response.data});
 		  this.setState({IsActive:'btn btn-dark waves-effect'});
 		  //set place  of observation in sidetable 
-		  this.setState({placeobserved:city});
-
+		  this.setState({placeobserved:city});	
 		  //IsActive:' disabled'
 		  this.setState({IsLoading:false})
 		  this.playSpeed(1);
@@ -287,6 +286,8 @@ export class GlobalProvider extends Component {
 		callAPI_daterange: (url,city) => this.call_daterange(url,city),
 		togglebutton: this.toggle,
 		placeobserved:'',
+		startDate:'',
+		endDate:'',
 		IsLoading:false
 		
 	};

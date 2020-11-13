@@ -193,11 +193,11 @@ class sideform extends Component {
   };
 
   handleAutoCompleterChange = (type) => {
-    if (type == "userInput") {
+    if (type === "userInput") {
       let errors = this.state.errors;
       errors["observation"] = "";
       this.setState({ errors: errors });
-    } else if (type == "reset") {
+    } else if (type === "reset") {
       this.setState({ resetInputText: false });
     }
   };
