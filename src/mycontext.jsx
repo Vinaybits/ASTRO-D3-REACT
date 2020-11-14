@@ -219,7 +219,7 @@ export class GlobalProvider extends Component {
 
 	 }
 
-	 call_daterange = (url,city)=> {
+	 call_daterange = (url,city,str_date,end_date)=> {
 	// alert("hi" + url);
 	this.setState({IsLoading:true})
 
@@ -241,7 +241,14 @@ export class GlobalProvider extends Component {
 		  //IsActive:' disabled'
 		  this.setState({IsLoading:false})
 		  this.playSpeed(1);
-          this.setState({dataLoaded: true});
+		  this.setState({dataLoaded: true});
+		  
+		  // set start and end date for future use 
+		  this.setState({startDate:str_date});
+		  this.setState({endDate:end_date});
+
+
+
           return true;
 		//console.log("Result"+JSON.stringify(response.data));
 		//console.log(api_data);
@@ -283,7 +290,7 @@ export class GlobalProvider extends Component {
 		pauseplanet : this.pause_array,
 		forwardPlanet : this.forward_array,
 		backwardPlanet: this.backward_array,
-		callAPI_daterange: (url,city) => this.call_daterange(url,city),
+		callAPI_daterange: (url,city, str_date,end_date) => this.call_daterange(url,city,str_date,end_date),
 		togglebutton: this.toggle,
 		placeobserved:'',
 		startDate:'',

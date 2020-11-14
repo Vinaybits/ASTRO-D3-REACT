@@ -137,11 +137,17 @@ class sideform extends Component {
 
     // submit form and send reqest is valid date range and location
     if (this.state.isValidDateRange && isFormValid) {
+      //formating start and end date for updateing api conetxt
+      var startDate = from_year+"/"+from_month+"/"+from_day;
+      var endDate = to_year+"/"+to_month+"/"+to_day;
+
+      //----end
       this.context
-        .callAPI_daterange(url_string + params, names)
+        .callAPI_daterange(url_string + params, names, startDate, endDate)
         .then((result) => {
           if (result) {
             this.setState({ open: "none" });
+            
           }
         });
       // this.setState({open: false});
