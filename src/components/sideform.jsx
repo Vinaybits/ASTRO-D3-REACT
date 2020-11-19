@@ -39,20 +39,16 @@ class sideform extends Component {
 
     this.resetForm = this.resetForm.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.changeViewClick = this.changeViewClick.bind(this);
   }
 
   componentDidMount() {}
 
   handleChange(event) {
     this.setState({value: event.target.value});
+    this.context
+    .changeView(event.target.value);
    
 
-  }
-  changeViewClick(){
-    this.context
-    .changeView(this.state.value);
-    
   }
 
   alertclick = (e) => {
@@ -439,8 +435,7 @@ class sideform extends Component {
             <option value="snapshot">Snapshot</option>
           </select>
                    </label>
-                     <button className="btn" style={{backgroundColor:"#18D4C3", color:"#fff"}} onClick={this.changeViewClick}>Change</button>
-               <br></br> <br></br>
+                <br></br>
                 <button
                   type="submit"
                   className="ladda-button btn"

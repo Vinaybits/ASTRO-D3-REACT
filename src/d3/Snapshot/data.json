@@ -1,0 +1,103 @@
+{
+   "place": "Lucknow",
+   "lat": 26.84,
+   "longitude": 80.94,
+   "year": 2020,
+   "month": 1,
+   "day": 1,
+   "hour": 5,
+   "minute": 30,
+   "second": 45,
+   "detailedPlanetPositions": [
+      {
+         "planet_name": "Sun",
+         "abs_degree": 255.88,
+         "r_d_m_s": "[9, 15, 52, 41]",
+         "motion": "D",
+         "nakshtra": "Purva Ashadha",
+         "nakshtra_pada": 1,
+         "nakshtra_lord": "Venus",
+         "combust": false
+      },
+      {
+         "planet_name": "Moon",
+         "abs_degree": 322.01,
+         "r_d_m_s": "[11, 22, 0, 44]",
+         "motion": "D",
+         "nakshtra": "purva Bhadrapada",
+         "nakshtra_pada": 1,
+         "nakshtra_lord": "Jupiter",
+         "combust": false
+      },
+      {
+         "planet_name": "Mercury",
+         "abs_degree": 250.25,
+         "r_d_m_s": "[9, 10, 15, 8]",
+         "motion": "D",
+         "nakshtra": "Moola",
+         "nakshtra_pada": 4,
+         "nakshtra_lord": "Ketu",
+         "combust": true
+      },
+      {
+         "planet_name": "Venus",
+         "abs_degree": 290.28,
+         "r_d_m_s": "[10, 20, 16, 41]",
+         "motion": "D",
+         "nakshtra": "Shravana",
+         "nakshtra_pada": 4,
+         "nakshtra_lord": "Moon",
+         "combust": false
+      },
+      {
+         "planet_name": "Mars",
+         "abs_degree": 214.25,
+         "r_d_m_s": "[8, 4, 15, 11]",
+         "motion": "D",
+         "nakshtra": "Anuradha",
+         "nakshtra_pada": 1,
+         "nakshtra_lord": "Saturn",
+         "combust": false
+      },
+      {
+         "planet_name": "Jupiter",
+         "abs_degree": 252.54,
+         "r_d_m_s": "[9, 12, 32, 19]",
+         "motion": "D",
+         "nakshtra": "Moola",
+         "nakshtra_pada": 4,
+         "nakshtra_lord": "Ketu",
+         "combust": true
+      },
+      {
+         "planet_name": "Saturn",
+         "abs_degree": 267.26,
+         "r_d_m_s": "[9, 27, 15, 47]",
+         "motion": "D",
+         "nakshtra": "Uttara Ashadha",
+         "nakshtra_pada": 1,
+         "nakshtra_lord": "Sun",
+         "combust": true
+      },
+      {
+         "planet_name": "Rahu",
+         "abs_degree": 74.11,
+         "r_d_m_s": "[3, 14, 6, 26]",
+         "motion": "R",
+         "nakshtra": "Ardra",
+         "nakshtra_pada": 3,
+         "nakshtra_lord": "Rahu",
+         "combust": false
+      },
+      {
+         "planet_name": "Ketu",
+         "abs_degree": 254.11,
+         "r_d_m_s": "[9, 14, 6, 26]",
+         "motion": "R",
+         "nakshtra": "Purva Ashadha",
+         "nakshtra_pada": 1,
+         "nakshtra_lord": "Venus",
+         "combust": false
+      }
+   ]
+}
