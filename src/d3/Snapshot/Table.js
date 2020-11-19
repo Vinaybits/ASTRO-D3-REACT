@@ -29,8 +29,8 @@ export default function Table({ columns, data }) {
   // Render the UI for your table
   return (
     <>
-      <input
-      className = "search"
+      <input style={{"width":"300px"}}
+      className = "search form-control" 
         value={filterInput}
         onChange={handleFilterChange}
         placeholder={"Search Planet Name"}
