@@ -8,6 +8,7 @@ import D3graph from '../components/d3graph';
 import { GlobalContext } from '../mycontext';
 import Plotly_NAKS from '../d3/plotly_Naks';
 import Journey from '../d3/Journey';
+import Snapshot from '../d3/Snapshot'
 
 const Contentlayout = () => {
   const context = React.useContext(GlobalContext)
@@ -480,8 +481,11 @@ const Contentlayout = () => {
   return ( <Plotly_NAKS />);
  }
 
-  else{
+  else if(view === 'journey'){ 
      return(  <Journey/>);
+ }
+ else{
+   return(<Snapshot/>);
  }
   
 }
