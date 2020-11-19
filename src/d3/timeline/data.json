@@ -1,50 +1,51 @@
 [
   {
-    "eventname": "Rashi change",
-    "activity": [
+    "event_type": "Rashi change",
+    "milestones": [
       {
-        "message": "Rashi Event Description",
-        "date": "Sun, 01 Nov 2020 15:03:41 +0100"
+        "desc": "Rashi Event Description",
+        "event_datetime": "Sun, 01 Nov 2020 15:03:41"
       }
     ]
   },
 
   {
-    "eventname": "Naks Change",
-    "activity": [
+    "event_type": "Naks Change",
+    "milestones": [
       {
-        "message": "Naks Event Desc",
-        "date": "Sat, 21 Nov 2020 10:10:29 +0200"
+        "desc": "Naks Event Desc",
+        "event_datetime": "Sat, 21 Nov 2020 10:10:29"
       },
       {
-        "message": "Naks Event Desc",
-        "date": "Sun, 22 Nov 2020 09:19:46 +0200"
+        "desc": "Naks Event Desc",
+        "event_datetime": "Sun, 22 Nov 2020 09:19:46"
+        
       }
     ]
   },
   {
-    "eventname": "Padas Change",
-    "activity": [
+    "event_type": "Padas Change",
+    "milestones": [
       {
-        "message": "Pada event desc",
-        "date": "Sun, 8 Nov 2020 11:21:55 +0100"
+        "desc": "Pada event desc",
+        "event_datetime": "Sun, 8 Nov 2020 11:21:55"
       },
       {
-        "message": "Pada event Desc",
-        "date": "Fri, 13 Nov 2020 18:24:01 +0100"
+        "desc": "Pada event Desc",
+        "event_datetime": "Fri, 13 Nov 2020 18:24:01"
       }
     ]
   },
   {
-    "eventname": "combust",
-    "activity": [
+    "event_type": "combust",
+    "milestones": [
       {
-        "message": "Combust Event desc",
-        "date": "Sun, 29 Nov 2020 17:53:43 +0100"
+        "desc": "Combust Event desc",
+        "event_datetime": "Sun, 29 Nov 2020 17:53:43"
       },
       {
-        "message": "Combust Event Desc",
-        "date": "Mon, 30 Nov 2020 20:27:56 +0200"
+        "desc": "Combust Event Desc",
+        "event_datetime": "Mon, 30 Nov 2020 20:27:56"
       }
     ]
   }

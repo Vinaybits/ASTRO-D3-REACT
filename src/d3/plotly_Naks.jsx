@@ -919,8 +919,8 @@ apidate_format_rashi =() =>{
 
 
               var trace2 = {
-  x: [x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length]],
-  y: [140, 25, 260],
+  x: [x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length],x_dates[x_dates.length]],
+  y: [15,45,75,105,135,165,195,225,255,285,315,345],
   name: 'Rashi',
   yaxis: 'y2',
   type: 'scatter'
@@ -1022,7 +1022,7 @@ apidate_format_rashi =() =>{
                     overlaying: 'y1',
                     side:'right',
                     // tickangle: 45, rangemode: 'nonnegative',
-                    tickvals : [17,40,62,84,105,127,150,171,192,213,234,255],
+                    tickvals : [15,45,75,105,135,165,195,225,255,285,315,345],
                     ticktext : ["Aries","Taurus","Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"]
                 },
                   shapes: [

@@ -5,7 +5,7 @@ import { GlobalContext } from '../mycontext';
 import eventDrops from 'event-drops';
 import './styles.css';
 
-const repositories = require('./timeline/data.json');
+const repositories = require('./timeline/data2.json');
 
 
 class Journey extends Component {
@@ -21,7 +21,7 @@ class Journey extends Component {
 
 createChart() {
 
-    const humanizeDate = (date) => {
+    const humanizeDate = (event_datetime) => {
     const monthNames = [
         'Jan.',
         'Feb.',
@@ -38,8 +38,8 @@ createChart() {
     ];
 
     return `
-        ${monthNames[date.getMonth()]} ${date.getDate()} ${date.getFullYear()}
-        ${date.getHours()}:${date.getMinutes()}
+        ${monthNames[event_datetime.getMonth()]} ${event_datetime.getDate()} ${event_datetime.getFullYear()}
+        ${event_datetime.getHours()}:${event_datetime.getMinutes()}
     `;
 };
 const gravatar = email => `http`;
@@ -59,6 +59,9 @@ const updateCommitsInformation = chart => {
     numberCommitsContainer.textContent = filteredData.length;
     zoomStart.textContent = humanizeDate(chart.scale().domain()[0]);
     zoomEnd.textContent = humanizeDate(chart.scale().domain()[1]);
+
+    console.log(chart.scale().domain()[0]+ " Hello");
+    console.log(chart.scale().domain()[1]+ " Hello22");
     
 };
 
@@ -79,8 +82,8 @@ const chart = eventDrops({
         end: new Date(this.context.endDate),
     },
     drop: {
-        date: d => new Date(d.date),
-        onMouseOver: activity => {
+        date: d => new Date(d.event_datetime),
+        onMouseOver: milestones => {
             tooltip
                 .transition()
                 .duration(200)
@@ -93,12 +96,12 @@ const chart = eventDrops({
                     <div class="commit">
                    
                     <div class="content">
-                        <h3 class="message">${activity.message}</h3>
+                        <h3 class="message">${milestones.desc}</h3>
                         <p>
-                            <a href="#" class="author">link</a>
+                           
                             on <span class="date">${humanizeDate(
-                                new Date(activity.date)
-                            )}</span> -
+                                new Date(milestones.event_datetime)
+                            )}</span>
                            
                         </p>
                     </div>
@@ -117,9 +120,9 @@ const chart = eventDrops({
     },
 });
 
-const repositoriesData = repositories.map(repository => ({
-    name: repository.eventname,
-    data: repository.activity,
+const repositoriesData = repositories.transits.map(repository => ({
+    name: repository.event_type,
+    data: repository.milestones,
 }));
 //chart = d3.zoom().on("zoom", zoomed);
 let svg =d3.select('#events')
@@ -236,7 +239,7 @@ function zoomClick() {
                                    <br></br>
                                 <div id="events" ref={this.myRef} ></div>
                                 <p class="infos">
-            <span id="numberCommits"></span> commits <span class="light">found between</span> <br />
+            <span id="numberCommits"></span> milestones <span class="light">found between</span> <br />
             <span id="zoomStart"></span> <span class="light">and</span> <span id="zoomEnd"></span>
             
         </p>
