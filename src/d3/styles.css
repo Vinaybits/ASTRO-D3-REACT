@@ -141,3 +141,7 @@ footer p {
   font-size: 0.9rem;
   color: #777;
 }
+
+.basic-single-label {
+  padding-left: 3em;
+}

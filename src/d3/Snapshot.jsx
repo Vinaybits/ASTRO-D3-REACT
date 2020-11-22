@@ -6,23 +6,28 @@ import "./Snapshot/Snapshot.css";
 
 const data = require('./Snapshot/data.json');
 const positions= data.detailedPlanetPositions;
+const noncombust = ['Sun', 'Rahu', 'Ketu']
+
+const monthNames = ['Jan','Feb','March','Apr','May','June','Jul','Aug','Sept','Oct','Nov','Dec'];
+const reqdate = data.day + " " + monthNames[data.month] + " " + data.year + ", " + data.hour+ ":" + data.minute+ ":" + data.second + " at " + data.place;
+
 
 function Snapshot() {
   const columns = useMemo(
     () => [
       {
-        Header: "Detailed Planet Positions",
+        Header: "Snapshot of Planet Positions on  " + reqdate,
         columns: [
           {
-            Header: "Planet Name",
+            Header: "Planet",
             accessor: "planet_name"
           },
           {
-            Header: "Absolute Degree",
+            Header: "Degrees",
             accessor: "abs_degree"
           },
           {
-            Header: "R_D_M_S",
+            Header: "Degrees in Rashi",
             accessor: "r_d_m_s"
           },
           {
@@ -34,7 +39,7 @@ function Snapshot() {
             accessor: "nakshtra"
           },
           {
-            Header: "Nakshtra Pada",
+            Header: "Pada",
             accessor: "nakshtra_pada"
           },
           {
@@ -43,7 +48,9 @@ function Snapshot() {
           },
           {
             Header: "Combust",
-            accessor: d => d.combust.toString()
+            accessor: d => { if(noncombust.indexOf(d.planet_name) >=0) return 'Never' 
+                              else return d.combust ? 'Yes' : 'No' 
+                            }
           }
 
         ]
@@ -64,8 +71,7 @@ function Snapshot() {
                                     data-toggle="fullscreen">
                                     <i class="fe-maximize noti-icon"></i></a>
                             </div>
-                            
-
+              
                             <div className="row">
                                 <div className="col-lg-12">
                                     <center><h2>Snapshot</h2>

@@ -1,18 +1,44 @@
 import * as d3 from 'd3';
 import * as d3zoom from 'd3-zoom';
-import React, { Component } from 'react';
+import React, { Component,  useState  } from 'react';
 import { GlobalContext } from '../mycontext';
 import eventDrops from 'event-drops';
 import './styles.css';
+import Select from 'react-select';
 
 const repositories = require('./timeline/data2.json');
 
+const planets = [
+  { value: 'Jupiter', label: 'Jupiter' },
+  { value: 'Sun', label: 'Sun' },
+  { value: 'Moon', label: 'Moon' },
+  { value: 'Mercury', label: 'Mercury' },
+  { value: 'Venus', label: 'Venus' },
+  { value: 'Mars', label: 'Mars' },
+  { value: 'Saturn', label: 'Saturn' },
+  { value: 'Rahu', label: 'Rahu' },
+  { value: 'Ketu', label: 'Ketu' }
+];
 
+const filterOptions = [
+            { value: 'Direction Change Event', label: 'Direction' },
+            { value: 'Rashi Change Event', label: 'Rashi' },
+            { value: 'Nakshtra Change Event' , label: 'Nakshatra' },
+            { value: 'Nakshtra Pad Change Event', label: 'Pada' },
+            { value: 'Combustion', label: 'Combustion' },
+            ]
 class Journey extends Component {
      static contextType = GlobalContext;
      constructor(props){
       super(props);
       this.myRef = React.createRef();
+      this.state = {
+            selectedOption:{ value: 'Jupiter', label: 'Jupiter' },
+            multiValue: filterOptions,
+            
+      }
+      this.handleChange = this.handleChange.bind(this);
+      this.handleMultiChange = this.handleMultiChange.bind(this);
    }
    componentDidMount() {
       this.createChart();
@@ -20,6 +46,13 @@ class Journey extends Component {
 
 
 createChart() {
+
+    const addZero = (i) => {
+    if (i < 10) {
+        i = "0" + i;
+    }
+    return i;
+    }
 
     const humanizeDate = (event_datetime) => {
     const monthNames = [
@@ -36,14 +69,22 @@ createChart() {
         'Nov.',
         'Dec.',
     ];
+    const dayNames = [
+        'Sun, ',
+        'Mon, ',
+        'Tue, ',
+        'Wed, ',
+        'Thu, ',
+        'Fri, ',
+        'Sat, ',
+    ];
 
     return `
-        ${monthNames[event_datetime.getMonth()]} ${event_datetime.getDate()} ${event_datetime.getFullYear()}
-        ${event_datetime.getHours()}:${event_datetime.getMinutes()}
+       ${dayNames[event_datetime.getDay()]} ${monthNames[event_datetime.getMonth()]} ${event_datetime.getDate()} ${event_datetime.getFullYear()}
+        ${addZero(event_datetime.getHours())}:${addZero(event_datetime.getMinutes())}:${addZero(event_datetime.getSeconds())}
     `;
 };
-const gravatar = email => `http`;
-  
+
 const numberCommitsContainer = document.getElementById('numberCommits');
 const zoomStart = document.getElementById('zoomStart');
 const zoomEnd = document.getElementById('zoomEnd');
@@ -120,17 +161,28 @@ const chart = eventDrops({
     },
 });
 
-const repositoriesData = repositories.transits.map(repository => ({
+let repositoriesData={}
+
+if(this.state.multiValue === null )
+{
+repositoriesData = repositories.transits.filter(f => !filterOptions.some(person => person.value === f.event_type )).map(repository =>  ({
     name: repository.event_type,
     data: repository.milestones,
 }));
+}
+else{
+repositoriesData = repositories.transits.filter(f => this.state.multiValue.some(person => person.value === f.event_type )).map(repository =>  ({
+    name: repository.event_type,
+    data: repository.milestones,
+}));
+}
+
 //chart = d3.zoom().on("zoom", zoomed);
 let svg =d3.select('#events')
     .data([repositoriesData])
     .call(chart)
 
 updateCommitsInformation(chart);
-
 function zoomClick() {
     alert("hi");
     
@@ -173,7 +225,6 @@ function zoomClick() {
   }
 
 
-
 // const zoomIn = svg.append('button')
 //           .attr('type', 'button')
 //           .attr('class', 'btn btn-default timeline-pf-zoom timeline-pf-zoom-in')
@@ -213,13 +264,39 @@ function zoomClick() {
 //       zoomSlider
 //         .style('top', '10px')
 //         .style('left', '10px');
-  
-
-        
-
 }
 
+//  handleChange(event) {
+//     this.setState({planet: event.target.value});
+//   }
+
+  handleChange = selectedOption => {
+    this.setState({ selectedOption });
+  };
+
+//   handleChangeEvent = (option) => {
+//     this.setState(state => {
+//       return {
+//         multiValue: option
+//       };
+//     });
+//   };
+
+  handleMultiChange(option) {
+   this.setState(state => {
+      return {
+        multiValue: option
+      };
+    },() => this.createChart());
+  }
+
+
+
+  
     render() {
+        const { selectedOption} = this.state;
+
+        
         return <>
                 <div className="col-lg-10">
                 <div id="d3graph" className="col-lg-12"  >
@@ -231,15 +308,29 @@ function zoomClick() {
                                     data-toggle="fullscreen">
                                     <i class="fe-maximize noti-icon"></i></a>
                             </div>
-                            
-
+                    <label>Select an Event:            
+                    <Select
+          value={this.state.multiValue}
+          options={filterOptions}
+          onChange={this.handleMultiChange}
+          isMulti
+        />
+                    </label>  
+                  
+                    <label className="basic-single-label">Select a Planet:              
+                    <Select
+                    value={selectedOption}
+                    onChange={this.handleChange}
+                    options={planets}
+                    />
+                    </label>  
                             <div className="row">
                                 <div className="col-lg-12">
-                                    <center><h2>Event Timeline</h2></center>
+                                    <center><h2>{selectedOption.value} Transit Event Timeline</h2></center>
                                    <br></br>
                                 <div id="events" ref={this.myRef} ></div>
                                 <p class="infos">
-            <span id="numberCommits"></span> milestones <span class="light">found between</span> <br />
+            <span id="numberCommits"></span> Transit Events <span class="light">found between</span> <br />
             <span id="zoomStart"></span> <span class="light">and</span> <span id="zoomEnd"></span>
             
         </p>
