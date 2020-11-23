@@ -21,10 +21,10 @@ const planets = [
 ];
 
 const filterOptions = [
-            { value: 'Direction Change Event', label: 'Direction' },
-            { value: 'Rashi Change Event', label: 'Rashi' },
-            { value: 'Nakshtra Change Event' , label: 'Nakshatra' },
-            { value: 'Nakshtra Pad Change Event', label: 'Pada' },
+            { value: 'Direction Change Event', label: 'Direction Change' },
+            { value: 'Rashi Change Event', label: 'Rashi Change' },
+            { value: 'Nakshtra Change Event' , label: 'Nakshatra Change' },
+            { value: 'Nakshtra Pad Change Event', label: 'Pada Change' },
             { value: 'Combustion', label: 'Combustion' },
             ]
 class Journey extends Component {
