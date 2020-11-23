@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { useTable, useFilters, useSortBy } from "react-table";
 
 export default function Table({ columns, data }) {
-  const [filterInput, setFilterInput] = useState("");
   // Use the state and functions returned from useTable to build your UI
   const {
     getTableProps,
@@ -10,7 +9,6 @@ export default function Table({ columns, data }) {
     headerGroups,
     rows,
     prepareRow,
-    setFilter
   } = useTable(
     {
       columns,
@@ -20,21 +18,11 @@ export default function Table({ columns, data }) {
     useSortBy
   );
 
-  const handleFilterChange = e => {
-    const value = e.target.value || undefined;
-    setFilter("planet_name", value);
-    setFilterInput(value);
-  };
+
 
   // Render the UI for your table
   return (
     <>
-      <input style={{"width":"300px"}}
-      className = "search form-control" 
-        value={filterInput}
-        onChange={handleFilterChange}
-        placeholder={"Search Planet Name"}
-      />
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map(headerGroup => (
