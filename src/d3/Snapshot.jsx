@@ -74,7 +74,7 @@ function Snapshot() {
               
                             <div className="row">
                                 <div className="col-lg-12">
-                                    <center><h2>Snapshot</h2>
+                                    <center><h2>Snapshot of Planet Positions</h2>
                                   
       <Table columns={columns} data={positions} className="table table-bordered"/>
       </center>

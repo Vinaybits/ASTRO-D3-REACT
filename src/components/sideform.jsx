@@ -429,8 +429,8 @@ class sideform extends Component {
                     <label>
                     Select Perspective:
                     <select className="form-control"  value={this.state.value} onChange={this.handleChange}>
-            <option value="circle_graph">Circle Animated</option>
-            <option value="line_chart">Line Graph</option>
+            <option value="circle_graph">Galactic View</option>
+            <option value="line_chart">Traces</option>
             <option value="journey">Journey</option>
             <option value="snapshot">Snapshot</option>
           </select>
