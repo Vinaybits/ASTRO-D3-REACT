@@ -308,6 +308,7 @@ function zoomClick() {
                                     data-toggle="fullscreen">
                                     <i class="fe-maximize noti-icon"></i></a>
                             </div>
+                            <center>
                     <label>Select an Event:            
                     <Select
           value={this.state.multiValue}
@@ -324,6 +325,8 @@ function zoomClick() {
                     options={planets}
                     />
                     </label>  
+                    </center>
+                    <hr style={{"marginBottom":"2px"}} />
                             <div className="row">
                                 <div className="col-lg-12">
                                     <center><h2>{selectedOption.value} Transit Event Timeline</h2></center>
