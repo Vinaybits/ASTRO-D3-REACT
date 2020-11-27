@@ -130,7 +130,7 @@ class sideform extends Component {
       "&offset=" +
       offset +
       "&p_nums=0&p_nums=1&p_nums=2&p_nums=3&p_nums=4&p_nums=5&p_nums=6&p_nums=10&p_nums=100";
-
+    console.log(url_string+params)
     // submit form and send reqest is valid date range and location
     if (this.state.isValidDateRange && isFormValid) {
       //formating start and end date for updateing api conetxt

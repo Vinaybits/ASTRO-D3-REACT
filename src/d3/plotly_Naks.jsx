@@ -12,7 +12,8 @@ class Plotly_NAKS extends Component {
             view_type:'rashi',
             display_value_rashi : '',
             display_value_naks : '',
-            display_value_combined:''
+            display_value_combined:'',
+            currentClass: 'col-lg-10 col-md-12'
          }
     }
     componentDidMount() {
@@ -31,6 +32,7 @@ class Plotly_NAKS extends Component {
         apidate_format =() =>{
             var gd1 = document.getElementById('myDiv_NAKS');
             var api_data = this.context.newState_apidata;
+            // console.log(api_data)
             this.view_name = 'Nakshatra';
         
             // var from_year = api_data.from_year;
@@ -1961,11 +1963,16 @@ switch_naksview = ()=>{
 
 }
 
+  toggleClass = () => {
+        (this.state.currentClass === 'col-lg-10 col-md-12') ? this.setState({currentClass:'fullscreen'}) : this.setState({currentClass:'col-lg-10 col-md-12'});
+    };
+
+
 
     render() { 
         return (  <> 
             {/* <button onClick={this.apidate_format}>click me</button> */}
-            <div className="col-lg-10">
+            <div className={this.state.currentClass}>
                     <div id="d3graph" className="col-lg-12"  >
                    
                         <div className="card">
@@ -1975,7 +1982,7 @@ switch_naksview = ()=>{
                                    
                                     <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light"
                                         data-toggle="fullscreen"
-                                        >
+                                        onClick={this.toggleClass}>
                                         <i class="fe-maximize noti-icon"></i></a>
                                 </div>
                                 <span class="header-title" style={{ "color": "#fff" }}>
