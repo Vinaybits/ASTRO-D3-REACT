@@ -5,8 +5,9 @@ import { GlobalContext } from '../mycontext';
 import eventDrops from 'event-drops';
 import './styles.css';
 import Select from 'react-select';
-
-const repositories = require('./timeline/data2.json');
+import moment from "moment";
+import * as cities from "../components/cities.json";
+import axios from 'axios';
 
 const planets = [
   { value: 'Jupiter', label: 'Jupiter' },
@@ -19,6 +20,7 @@ const planets = [
   { value: 'Rahu', label: 'Rahu' },
   { value: 'Ketu', label: 'Ketu' }
 ];
+const planetnums = ['Sun','Moon','Mercury','Venus','Mars','Jupiter','Saturn','Uranus','Neptune','Pluto','Rahu'];
 
 const filterOptions = [
             { value: 'Direction Change Event', label: 'Direction Change' },
@@ -35,17 +37,116 @@ class Journey extends Component {
       this.state = {
             selectedOption:{ value: 'Jupiter', label: 'Jupiter' },
             multiValue: filterOptions,
-            
+            repositories:'',
+            currentClass: 'col-lg-10 col-md-12'
       }
       this.handleChange = this.handleChange.bind(this);
       this.handleMultiChange = this.handleMultiChange.bind(this);
    }
-   componentDidMount() {
-      this.createChart();
+   componentWillMount() {
+      this.fetchData();
    }
 
 
+   fetchData() {
+    let start_Date = "";
+    let end_Date = "";
+    let from_year = "",
+      from_month = "",
+      from_day = "";
+    let to_year = "",
+      to_month = "",
+      to_day = "";
+    let lat = "",
+      long = "";
+    let offset = "";
+    let pnum = 0;
+    if(this.state.selectedOption.value !=='Ketu'){
+    pnum = planetnums.indexOf(this.state.selectedOption.value)
+    }
+    else{
+        pnum=100
+    }
+    start_Date = this.context.startDate;
+    end_Date = this.context.endDate;
+    from_year = moment(start_Date).format("YYYY");
+    from_month = moment(start_Date).format("MM");
+    from_day = moment(start_Date).format("DD");
+
+    to_year = moment(end_Date).format("YYYY");
+    to_month = moment(end_Date).format("MM");
+    to_day = moment(end_Date).format("DD");
+
+    Object.entries(cities[0]).forEach(([key, value]) => {
+      if (key === this.context.placeobserved) {
+        long = Math.round(value.longitude).toFixed(2);
+        lat = Math.round(value.latitude).toFixed(2);
+      }
+    });
+      offset = Math.round(long * 4 * 60);
+
+
+        let url_string =
+      "http://api.omparashar.com/planet/journey/transit/overdaterange";
+    //var params = "?from_year=2020&from_month=1&from_day=1&to_year=2020&to_month=6&to_day=30&lat=29.47&long=77.69&offset=19800&p_nums=3&p_nums=4";
+    let params =
+      "?from_year=" +
+      from_year +
+      "&from_month=" +
+      from_month +
+      "&from_day=" +
+      from_day +
+      "&to_year=" +
+      to_year +
+      "&to_month=" +
+      to_month +
+      "&to_day=" +
+      to_day +
+      "&lat=" +
+      lat +
+      "&long=" +
+      long +
+      "&offset=" +
+      offset +
+      "&p_num=" +
+      pnum;
+      var config = {
+        method: 'get',
+        url: url_string+params,
+        headers: { }
+      };
+      console.log(url_string+params)
+	  
+	  // always use arrow function otherwise this. will not work
+      axios(config)
+      .then((response) => {
+		  //set for SIDETABLE
+		  console.log(response.data)
+          this.setState(state => {
+      return {
+        repositories: response.data
+      };
+    },() => this.createChart());
+    })
+      .catch(function (error) {
+		console.log("Result" + error);
+	  });
+
+
+   }
+
 createChart() {
+console.log(this.state.repositories.transits)
+    
+
+      //----end
+    //   this.context
+    //     .callAPI_Journey_daterange(url_string + params, this.context.placeobserved, startDate, endDate)
+    //     .then((result) => {
+    //       if(result){
+    //           console.log(result);
+    //       }
+    //     });
 
     const addZero = (i) => {
     if (i < 10) {
@@ -99,10 +200,7 @@ const updateCommitsInformation = chart => {
             
     numberCommitsContainer.textContent = filteredData.length;
     zoomStart.textContent = humanizeDate(chart.scale().domain()[0]);
-    zoomEnd.textContent = humanizeDate(chart.scale().domain()[1]);
-
-    console.log(chart.scale().domain()[0]+ " Hello");
-    console.log(chart.scale().domain()[1]+ " Hello22");
+    zoomEnd.textContent = humanizeDate(chart.scale().domain()[1])
     
 };
 
@@ -160,18 +258,16 @@ const chart = eventDrops({
         },
     },
 });
-
 let repositoriesData={}
-
-if(this.state.multiValue === null )
+if(this.state.multiValue === null)
 {
-repositoriesData = repositories.transits.filter(f => !filterOptions.some(person => person.value === f.event_type )).map(repository =>  ({
+repositoriesData = this.state.repositories.transits.filter(f => !filterOptions.some(person => person.value === f.event_type )).map(repository =>  ({
     name: repository.event_type,
     data: repository.milestones,
 }));
 }
 else{
-repositoriesData = repositories.transits.filter(f => this.state.multiValue.some(person => person.value === f.event_type )).map(repository =>  ({
+repositoriesData = this.state.repositories.transits.filter(f => this.state.multiValue.some(person => person.value === f.event_type )).map(repository =>  ({
     name: repository.event_type,
     data: repository.milestones,
 }));
@@ -271,7 +367,8 @@ function zoomClick() {
 //   }
 
   handleChange = selectedOption => {
-    this.setState({ selectedOption });
+    this.setState(
+        { selectedOption },()=>this.fetchData());
   };
 
 //   handleChangeEvent = (option) => {
@@ -290,6 +387,13 @@ function zoomClick() {
     },() => this.createChart());
   }
 
+  toggleClass = () => {
+        (this.state.currentClass === 'col-lg-10 col-md-12') ? this.setState({currentClass:'fullscreen'}) : this.setState({currentClass:'col-lg-10 col-md-12'});
+    };
+
+
+
+
 
 
   
@@ -298,18 +402,19 @@ function zoomClick() {
 
         
         return <>
-                <div className="col-lg-10">
+                <div className={this.state.currentClass}>
                 <div id="d3graph" className="col-lg-12"  >
                     <div className="card">
 
                         <div className="card-body" style={{ "padding": "10px" }}>
                             <div class="card-widgets">
                                 <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light"
-                                    data-toggle="fullscreen">
+                                    data-toggle="fullscreen"
+                                    onClick={this.toggleClass}>
                                     <i class="fe-maximize noti-icon"></i></a>
                             </div>
                             <center>
-                    <label>Select an Event:            
+                    <label>Select Events:            
                     <Select
           value={this.state.multiValue}
           options={filterOptions}

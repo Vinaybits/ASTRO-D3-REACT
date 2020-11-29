@@ -1,6 +1,6 @@
-import React from "react";
+import React, {useState} from "react";
 import { useTable, useFilters, useSortBy } from "react-table";
-
+import DateTimePicker from 'react-datetime-picker';
 export default function Table({ columns, data }) {
   // Use the state and functions returned from useTable to build your UI
   const {
@@ -19,7 +19,7 @@ export default function Table({ columns, data }) {
   );
 
 
-
+  const [value, onChange] = useState(new Date());
   // Render the UI for your table
   return (
     <>
@@ -42,7 +42,7 @@ export default function Table({ columns, data }) {
                 </th>
               ))}
             </tr>
-          ))}
+          ))}   
         </thead>
         <tbody {...getTableBodyProps()}>
           {rows.map((row, i) => {

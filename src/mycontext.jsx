@@ -220,8 +220,6 @@ export class GlobalProvider extends Component {
 	 }
 
 	 call_daterange = (url,city,str_date,end_date)=> {
-	// alert("hi" + url);
-	this.setState({IsLoading:true})
 
 	 var config = {
         method: 'get',
@@ -235,6 +233,7 @@ export class GlobalProvider extends Component {
 		  //set for SIDETABLE
 		  var api_data = JSON.stringify(response.data);
 		  this.setState({newState_apidata:response.data});
+		  console.log(this.state.newState_apidata)
 		  this.setState({IsActive:'btn btn-dark waves-effect'});
 		  //set place  of observation in sidetable 
 		  this.setState({placeobserved:city});	
@@ -257,10 +256,10 @@ export class GlobalProvider extends Component {
 		console.log("Result" + error);
 		this.setState({IsLoading:false});
 	  });
-	  
+	  }
 
 
-	 }
+
 
 	 playSpeed = (sec) =>{
 
@@ -291,13 +290,14 @@ export class GlobalProvider extends Component {
 		forwardPlanet : this.forward_array,
 		backwardPlanet: this.backward_array,
 		callAPI_daterange: (url,city, str_date,end_date) => this.call_daterange(url,city,str_date,end_date),
+		callAPI_Journey_daterange: (url,city, str_date,end_date) => this.call_daterange_journey(url,city,str_date,end_date),
 		togglebutton: this.toggle,
 		placeobserved:'',
 		startDate:'',
 		endDate:'',
 		IsLoading:false
-		
 	};
+
 	render() {
 		return (
 			<GlobalContext.Provider value={this.state}>
