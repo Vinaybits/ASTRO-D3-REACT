@@ -77,7 +77,7 @@ function Snapshot() {
       const url = url_string+params;
       const result = await axios(url);
       setData(result.data.detailedPlanetPositions);
-      console.log(result)
+      //console.log(result)
     })();
   },[newDate]);
   const columns =[

@@ -274,7 +274,7 @@ class BarChart extends Component {
 
         // establish variables
         var w = 1080;
-        var h = 650;
+        var h = 630;
         var x = (w / 2);
         var y = (h / 2);
         //var t0 = new Date().setHours(0, 0, 0, 0);
