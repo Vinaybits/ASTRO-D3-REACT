@@ -35,6 +35,7 @@ function Snapshot() {
         long = "";
     let offset = "";
     let c = contextType.placeobserved;
+    if(newDate !== null){
     y = newDate.getFullYear();
     m = newDate.getMonth()+1;
     d = newDate.getDate();
@@ -78,6 +79,10 @@ function Snapshot() {
       const result = await axios(url);
       setData(result.data.detailedPlanetPositions);
       //console.log(result)
+  }
+  else{
+    setData([])
+  }
     })();
   },[newDate]);
   const columns =[
