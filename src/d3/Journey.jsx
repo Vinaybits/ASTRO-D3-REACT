@@ -199,8 +199,8 @@ const updateCommitsInformation = chart => {
                 );
             
     numberCommitsContainer.textContent = filteredData.length;
-    zoomStart.textContent = humanizeDate(chart.scale().domain()[0]);
-    zoomEnd.textContent = humanizeDate(chart.scale().domain()[1])
+   // zoomStart.textContent = humanizeDate(chart.scale().domain()[0]);
+   // zoomEnd.textContent = humanizeDate(chart.scale().domain()[1])
     
 };
 
@@ -439,7 +439,8 @@ function zoomClick() {
                                 <div id="events" ref={this.myRef} ></div>
                                 <p class="infos">
             <span id="numberCommits"></span> Transit Events <span class="light">found between</span> <br />
-            <span id="zoomStart"></span> <span class="light">and</span> <span id="zoomEnd"></span>
+            {moment(this.context.startDate).format("Do MMMM YYYY")} <span class="light">and</span> {moment(this.context.endDate).format("Do MMMM YYYY")}
+            {/* <span id="zoomStart"></span> <span class="light">and</span> <span id="zoomEnd"></span> */}
             
         </p>
                                    
