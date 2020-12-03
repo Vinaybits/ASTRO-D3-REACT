@@ -36,7 +36,7 @@ class Journey extends Component {
       this.myRef = React.createRef();
       this.state = {
             selectedOption:{ value: 'Jupiter', label: 'Jupiter' },
-            multiValue: filterOptions,
+            multiValue: [],
             repositories:'',
             currentClass: 'col-lg-10 col-md-12'
       }
@@ -126,14 +126,33 @@ class Journey extends Component {
       return {
         repositories: response.data
       };
-    },() => this.createChart());
+    },() => this.setOptions());
     })
       .catch(function (error) {
 		console.log("Result" + error);
 	  });
 
+  }
 
-   }
+  setOptions() {
+    console.log(this.state.multiValue)
+    console.log(filterOptions)
+    let array=[]
+    this.state.repositories.transits.forEach(function (arrayItem) {
+    if(arrayItem!==null){
+      array.push({label:arrayItem.event_type,value:arrayItem.event_type})
+    }
+});
+
+
+
+  this.setState(state => {
+      return {
+        multiValue: array
+      };
+    },() => this.createChart());
+  
+  }
 
 createChart() {
 console.log(this.state.repositories.transits)
@@ -259,6 +278,7 @@ const chart = eventDrops({
     },
 });
 let repositoriesData={}
+
 if(this.state.multiValue === null)
 {
 repositoriesData = this.state.repositories.transits.filter(f => !filterOptions.some(person => person.value === f.event_type )).map(repository =>  ({
@@ -399,7 +419,7 @@ function zoomClick() {
   
     render() {
         const { selectedOption} = this.state;
-
+        console.log(this.state.multiValue)
         
         return <>
                 <div className={this.state.currentClass}>
@@ -407,12 +427,11 @@ function zoomClick() {
                     <div className="card">
 
                         <div className="card-body" style={{ "padding": "10px" }}>
-                            <div class="card-widgets">
+                            {/* <div class="card-widgets">
                                 <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light"
-                                    data-toggle="fullscreen"
-                                    onClick={this.toggleClass}>
+                                    data-toggle="fullscreen" href="/#">
                                     <i class="fe-maximize noti-icon"></i></a>
-                            </div>
+                            </div> */}
                             <center>
                     <label>Select Events:            
                     <Select

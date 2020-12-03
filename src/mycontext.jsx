@@ -139,7 +139,7 @@ export class GlobalProvider extends Component {
 		
 		var formatted_array = this.format_incoming_data(this.state.newState_apidata);
 		this.setState({newStateplanet:formatted_array});
-		
+		this.setState({showTable: true});
 		//this.setState({apidataState:dummy_data.p_dates});
 		// these fn go on page load or onmount state event 
 
@@ -275,6 +275,7 @@ export class GlobalProvider extends Component {
 
 	state = {
 		planet:this.planet_init,
+		showTable:false,
 		newStateplanet : '', // updated planet state after api call 
 		apidataState : '', // set this 
 		newState_apidata : '',

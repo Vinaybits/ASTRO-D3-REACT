@@ -4,25 +4,43 @@ import { GlobalContext } from '../mycontext';
 import Table from "./Snapshot/Table";
 import "./Snapshot/Snapshot.css";
 import * as cities from "../components/cities.json";
-import Select from 'react-select';
-import moment from "moment";
-import DateTimePicker from 'react-datetime-picker';
-import {
-  DateRangePicker,
-  SingleDatePicker,
-  DayPickerRangeController,
-} from "react-dates";
-import { lab } from "d3";
 
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+
+function pad(n) {
+    return (n < 10) ? ("0" + n) : n;
+}
+
+   
 const noncombust = ['Sun', 'Rahu', 'Ketu']
-let header= ""
+
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
+
 function Snapshot() {
   const contextType = useContext(GlobalContext)
-
   const [data, setData] = useState([]);
-  const [newDate,setNewDate] = useState(new Date());
+  const date = new Date()
+  let time = pad(date.getHours()) + ":" + pad(date.getMinutes()) + ":" + pad(date.getSeconds());
+  let [newDate,setNewDate] = useState(formatDate(date));
+  let [newTime,setNewTime] = useState(time);
   const [currentClass, setcurrentClass] = useState('col-lg-10 col-md-12');
-
+  let strArray = newDate;
+  strArray=strArray.split("-");
+  let day = days[(new Date(newDate)).getDay()];
+  let reqDate = day + "," + " " + strArray[2] + " "+ months[parseInt(strArray[1])-1]+" "+ strArray[0]
   useEffect(() => {
     (async () => {
    let y = "";
@@ -36,13 +54,16 @@ function Snapshot() {
     let offset = "";
     let c = contextType.placeobserved;
     if(newDate !== null){
-    y = newDate.getFullYear();
-    m = newDate.getMonth()+1;
-    d = newDate.getDate();
-    h = newDate.getHours();
-    mi = newDate.getMinutes();
-    s = newDate.getMinutes();
-    s = newDate.getSeconds()
+    newDate = newDate.split('-');
+    newTime = newTime.split(':');
+    y = newDate[0];
+    m = newDate[1];
+    d = newDate[2];
+    h = newTime[0];
+    mi = newTime[1];
+    s = newTime[2];
+    alert(m)
+    console.log(h,mi,s)
     Object.entries(cities[0]).forEach(([key, value]) => {
       if (key === c) {
         long = Math.round(value.longitude).toFixed(2);
@@ -84,10 +105,11 @@ function Snapshot() {
     setData([])
   }
     })();
-  },[newDate]);
+  },[newDate,newTime]);
+
   const columns =[
       {
-        Header: "Snapshot of Planet Positions on  " + newDate,
+        Header: ''+ reqDate + ' at ' + newTime,
         columns: [
           {
             Header: "Planet",
@@ -127,41 +149,41 @@ function Snapshot() {
       }
     ]
 
-   const toggleClass = () => {
-        (currentClass === 'col-lg-10 col-md-12') ? setcurrentClass('fullscreen') : setcurrentClass('col-lg-10 col-md-12');
-    };
+  //  const toggleClass = () => {
+  //       (currentClass === 'col-lg-10 col-md-12') ? setcurrentClass('fullscreen') : setcurrentClass('col-lg-10 col-md-12');
+  //   };
 
 
   const dateChange = (date) => {
-        setNewDate(date)
-    }
-
+        setNewDate(date.target.value)
+  }
+  const timeChange = (time) => {
+        setNewTime(time.target.value)
+  }
+  
 
   return (
     <div className={currentClass}>
-                <div id="d3graph" className="col-lg-12"  >
+                <div id="snapshot" className="col-lg-12"  >
                     <div className="card">
 
                         <div className="card-body" style={{ "padding": "10px" }}>
-                            <div class="card-widgets">
+                            {/* <div class="card-widgets">
                                 <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light"
-                                    data-toggle="fullscreen"
-                                    onClick={toggleClass}>
+                                    data-toggle="fullscreen" href="/#">
                                     <i class="fe-maximize noti-icon"></i></a>
-                            </div>
+                            </div> */}
 
 <center>
   <label>Select Date and Time:</label>
-                    <div>
-      <DateTimePicker
-        onChange={dateChange}
-        value={newDate}
-      />
+      <div>
+                            <input type="date" value={newDate} onChange={dateChange} onKeyDown={(e) => e.preventDefault()}></input>
+                            <input type="time" value={newTime} onChange={timeChange} onKeyDown={(e) => e.preventDefault()}></input>
     </div>
     </center>
                             <div className="row">
                                 <div className="col-lg-12">
-                                    <center><h2>Snapshot of Planet Positions</h2>
+                                    <center><h2>Snapshot of Planet's Positions</h2>
                         
       <Table columns={columns} data={data} className="table table-bordered"/>
       </center>

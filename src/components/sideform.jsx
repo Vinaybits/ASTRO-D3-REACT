@@ -284,20 +284,20 @@ class sideform extends Component {
         <div>
           <div>
             Place:
-            <label for="example-input-small" style={{ "margin-bottom": "0px" }}>
+            <label htmlFor="example-input-small" style={{ "marginBottom": "0px" }}>
               {this.state.city}
             </label>
           </div>
           <div>
             {" "}
             Start Date:
-            <label for="example-input-small" style={{ "margin-bottom": "0px" }}>
+            <label htmlFor="example-input-small" style={{ "marginBottom": "0px" }}>
               {moment(this.state.startDate).format("DD-MM-YYYY")}
             </label>
           </div>
           <div>
             End Date:
-            <label for="example-input-small" style={{ "margin-bottom": "0px" }}>
+            <label htmlFor="example-input-small" style={{ "marginBottom": "0px" }}>
               {moment(this.state.endDate).format("DD-MM-YYYY")}
             </label>
           </div>
@@ -310,7 +310,7 @@ class sideform extends Component {
           <div className="card" style={{ display: this.state.open }}>
             <div className="card-body">
               <h4 className="header-title">Transition of Planets</h4>
-              <p class="sub-header" style={{ "margin-bottom": "0px" }}>
+              <p className="sub-header" style={{ "marginBottom": "0px" }}>
                 Let us explore how
                 <code> planets </code>
                 move
@@ -318,7 +318,7 @@ class sideform extends Component {
 
               <form>
                 <div className="form-group mb-1">
-                  <label for="example-input-small">Place of Observation</label>
+                  <label htmlFor="example-input-small">Place of Observation</label>
                   <Autocomplete
                     resetInputText={this.state.resetInputText}
                     handleChange={this.handleAutoCompleterChange}
@@ -332,13 +332,13 @@ class sideform extends Component {
                 </div>
                 <div className="">
                   <label
-                    for="example-input-small"
-                    style={{ "margin-bottom": "0px" }}
+                    htmlFor="example-input-small"
+                    style={{ "marginBottom": "0px" }}
                   >
                     Select Date Range
                   </label>
                 </div>
-                <label for="example-input-small">From</label>
+                <label htmlFor="example-input-small">From</label>
                 <div className="mb-1">
                   <SingleDatePicker
                     numberOfMonths={1}
@@ -352,13 +352,13 @@ class sideform extends Component {
                     placeholder="Start Date"
                     isOutsideRange={falseFunc}
                     displayFormat={() => "DD-MM-YYYY"}
-                    minDate={moment(min)}
-                    maxDate={moment(max)}
+                    // minDate={moment(min)}
+                    // maxDate={moment(max)}
                     renderMonthElement={renderMonthElement}
                     readOnly={true}
                   />
                 </div>
-                <label for="example-input-small">To</label>
+                <label htmlFor="example-input-small">To</label>
                 <div className="">
                   <SingleDatePicker
                     numberOfMonths={1}
@@ -372,8 +372,8 @@ class sideform extends Component {
                     placeholder="End Date"
                     isOutsideRange={falseFunc}
                     displayFormat={() => "DD-MM-YYYY"}
-                    minDate={moment(min)}
-                    maxDate={moment(max)}
+                    // minDate={moment(min)}
+                    // maxDate={moment(max)}
                     renderMonthElement={renderMonthElement}
                     readOnly={true}
                   />
@@ -384,7 +384,7 @@ class sideform extends Component {
                   )}
                 </div>
                 <div>
-                  <p class="sub-header">
+                  <p className="sub-header">
                     Maximun Date Range allowed is <code> 1year </code>
                   </p>
                 </div>
@@ -438,15 +438,15 @@ class sideform extends Component {
                 <br></br>
                 <button
                   type="submit"
-                  className="ladda-button btn"
-                  style={{ backgroundColor: "#03428D", color: "#fff" }}
+                  className="ladda-button btn-sm"
+                  style={{ backgroundColor: "#03428D", color: "#fff",marginLeft:"5px"}}
                   onClick={this.resetForm}
                 >
                   Reset Parameters
                 </button>
               </div>
               <hr></hr>
-              <div style={{display:this.state.value === 'circle_graph' ? '' : 'none'}}>
+              <div style={{display:this.state.value === 'circle_graph' && this.context.showTable ? '' : 'none'}}>
               <div className="sub-heading">
                 {" "}
                 Date :{" "}

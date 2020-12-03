@@ -1978,13 +1978,12 @@ switch_naksview = ()=>{
                         <div className="card">
                       
                         <div className="card-body" style={{ "padding": "10px" }}>
-                                <div class="card-widgets">
+                                {/* <div class="card-widgets">
                                    
                                     <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light"
-                                        data-toggle="fullscreen"
-                                        onClick={this.toggleClass}>
+                                        data-toggle="fullscreen" href="/#">
                                         <i class="fe-maximize noti-icon"></i></a>
-                                </div>
+                                </div> */}
                                 <span class="header-title" style={{ "color": "#fff" }}>
 
 <div class="btn-group" >

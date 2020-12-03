@@ -19,7 +19,7 @@ const Topbar = () => {
                    
 
 
-                        <li className="dropdown d-none d-lg-inline-block">
+                        <li className="dropdown d-sm-inline-block">
                             <a className="nav-link dropdown-toggle arrow-none waves-effect waves-light" data-toggle="fullscreen" href="/#">
                                 <i className="fe-maximize noti-icon"></i>
                             </a>
@@ -29,14 +29,14 @@ const Topbar = () => {
 
                             <div className="custom-control custom-switch mb-1 mt-2 ml-2">
                                 <input type="radio" className="custom-control-input" name="color-scheme-mode" value="light"
-                                    id="light-mode-check" checked />
-                                <label className="custom-control-label" for="light-mode-check">Light Mode</label>
+                                    id="light-mode-check" defaultChecked />
+                                <label className="custom-control-label" htmlFor="light-mode-check">Light Mode</label>
                             </div>
 
                             <div className="custom-control custom-switch mb-1 ml-2">
                                 <input type="radio" className="custom-control-input" name="color-scheme-mode" value="dark"
                                     id="dark-mode-check" />
-                                <label className="custom-control-label" for="dark-mode-check">Dark Mode</label>
+                                <label className="custom-control-label" htmlFor="dark-mode-check">Dark Mode</label>
                             </div>
                         </li>
 
@@ -93,7 +93,7 @@ const Topbar = () => {
 <div className="logo-box" >
     <a href="/#" className="logo logo-dark text-center">
         <span className="logo-sm">
-        <img src='logo_OP.png' width="150px"  style={{"padding-left":"10px"}}/>
+        <img src='logo_OP.png' width="150px"  style={{"paddingLeft":"10px"}}/>
             {/* <span className="logo-lg-text-light"></span> */}
         </span>
         <span className="logo-lg">
@@ -104,7 +104,7 @@ const Topbar = () => {
 
     <a href="/#" className="logo logo-light text-center">
     <span className="logo-sm">
-    <img src='logo_OP.png' width="150px" style={{"padding-left":"10px"}}/>
+    <img src='logo_OP.png' width="150px" style={{"paddingLeft":"10px"}}/>
             {/* <span className="logo-lg-text-light" style={{"color":"#52d6f4"}}></span> */}
         </span>
         <span className="logo-lg">

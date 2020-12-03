@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import { useTable, useFilters, useSortBy } from "react-table";
-import DateTimePicker from 'react-datetime-picker';
 export default function Table({ columns, data }) {
   // Use the state and functions returned from useTable to build your UI
   const {
@@ -28,7 +27,7 @@ export default function Table({ columns, data }) {
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map(column => (
-                <th
+                <th style={{textAlign:"center"}}
                   {...column.getHeaderProps(column.getSortByToggleProps())}
                   className={
                     column.isSorted

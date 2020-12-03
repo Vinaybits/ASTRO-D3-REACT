@@ -11,9 +11,8 @@ const D3graph = (props) => {
     const context = React.useContext(GlobalContext)
     const [currentClass, setcurrentClass] = useState('col-lg-10 col-md-12');
     const [value,setValue] = useState(1);
+    const [speed,setSpeed] = useState("mop");
     const [message,setMessage] = useState('Speed is per day per sec');
-
-
 
     const toggleClass = () => {
         (currentClass === 'col-lg-10 col-md-12') ? setcurrentClass('fullscreen') : setcurrentClass('col-lg-10 col-md-12');
@@ -72,6 +71,12 @@ const D3graph = (props) => {
           );
         }
       }
+
+      const handleSpeed = (speed) =>{
+          setSpeed(speed)
+          alert('hi')
+
+      }
      
 
 
@@ -80,33 +85,40 @@ const D3graph = (props) => {
         <>
             <div className={currentClass}>
                 <div id="d3graph" className="col-lg-12"  >
-                    <div className="card" style={{ "background-image": "url("+bg_img+")", "background-position": "center","background-repeat": "no-repeat" ,"background-size": "cover", }}>
+                    <div className="card" style={{ "backgroundImage": "url("+bg_img+")", "backgroundPosition": "center","backgroundRepeat": "no-repeat" ,"backgroundSize": "cover", }}>
 
                         <div className="card-body" style={{ "padding": "10px" }}>
-                            <div class="card-widgets">
+                            {/* <div class="card-widgets">
                                 <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light"
-                                    data-toggle="fullscreen"
-                                    onClick={toggleClass}>
+                                    data-toggle="fullscreen" href="/#">
                                     <i class="fe-maximize noti-icon"></i></a>
-                            </div>
-                            <span class="header-title" style={{ "color": "#fff" }}>
+                            </div> */}
+                            <span className="header-title" style={{ "color": "#fff" }}>
 
-                                <div class="btn-group">
-                                    <a href="#" style={{"padding":"0","padding-left":"3px","padding-right":"3px","margin":"0"}} onClick={backward_array} class={context.IsActive}><i style={{"font-size":"40px","padding":"0","margin":"0"}} class="mdi mdi-skip-previous large"></i></a>
+                                <div className="btn-group">
+                                    <a href="#" style={{"padding":"0","paddingLeft":"1px","paddingRight":"1px","margin":"0"}} onClick={backward_array} className={context.IsActive}><i style={{"fontSize":"25px","padding":"0","margin":"0"}} className="mdi mdi-skip-previous large"></i></a>
 
                                     {/* <a href="#" style={{"padding":"0","margin":"0"}} class="btn btn-danger waves-effect"><i class="fe-square"></i></a> */}
-                                    <a href="#" style={{"padding":"0","padding-left":"3px","padding-right":"3px","margin":"0"}} onClick={play_array} class={context.IsActive}><i style={{"font-size":"40px","padding":"0","margin":"0"}} class={context.playicon}></i></a>
+                                    <a href="#" style={{"padding":"0","paddingLeft":"1px","paddingRight":"1px","margin":"0"}} onClick={play_array} className={context.IsActive}><i style={{"fontSize":"25px","padding":"0","margin":"0"}} className={context.playicon}></i></a>
 
-                                    <a href="#" style={{"padding":"0","padding-left":"3px","padding-right":"3px","margin":"0"}} onClick={forward_array} class={context.IsActive}><i style={{"font-size":"40px","padding":"0","margin":"0"}} class="mdi mdi-skip-next "></i></a>
+                                    <a href="#" style={{"padding":"0","paddingLeft":"1px","paddingRight":"1px","margin":"0"}} onClick={forward_array} className={context.IsActive}><i style={{"fontSize":"25px","padding":"0","margin":"0"}} className="mdi mdi-skip-next "></i></a>
+                                </div>
+                                <div className="btn-group">
+                                {/* <button style={{"font-size":"10px"}} onClick={doDecrement} className=" btn btn-default fa fa-minus fa-inverse"></button>
+          <input className="form-control default" style={{"width":"15px", "height":"25px","textAlign":"center"}} type="text" className="number" value={value }></input>
+          <button style={{"font-size":"10px"}} onClick={doIncrement} className=" btn btn-default fa fa-plus fa-inverse" ></button>
+
                                 </div>
                                 <div class="btn-group">
-                                <button onClick={doDecrement} className=" btn btn-default fa fa-minus fa-inverse"></button>
-          <input className="form-control default" style={{"width":"25px","textAlign":"center"}} type="text" className="number" value={value }></input>
-          <button onClick={doIncrement} className=" btn btn-default fa fa-plus fa-inverse" ></button>
+                                <p style={{"text-align":"center","padding-top":"15px","font-size":"15px"}}>{message}</p> */}
 
-                                </div>
-                                <div class="btn-group">
-                                <p style={{"text-align":"center","padding-top":"15px"}}>{message}</p>
+                    <select style={{"padding":"0","paddingLeft":"1px","paddingRight":"1px","marginLeft":"8px",}} className="form-control"  value={speed} onChange={handleSpeed}>
+            <option value="Normal">Normal</option>
+            <option value="Very Slow">Very Slow</option>
+            <option value="Slow">Slow</option>
+            <option value="Fast">Fast</option>
+            <option value="Very Fast">Very Fast</option>
+          </select>    
                                 </div>
                             </span>
 
