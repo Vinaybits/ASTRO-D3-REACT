@@ -4,6 +4,24 @@ import { GlobalContext } from '../mycontext';
 import Table from "./Snapshot/Table";
 import "./Snapshot/Snapshot.css";
 import * as cities from "../components/cities.json";
+import DatePicker from 'react-date-picker'
+import { withStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+
+
+const styles = (theme) => ({
+  container: {
+    display: "flex",
+    flexWrap: "wrap"
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200
+  }
+});
+
+
 
 function formatDate(date) {
     var d = new Date(date),
@@ -33,14 +51,21 @@ function Snapshot() {
   const contextType = useContext(GlobalContext)
   const [data, setData] = useState([]);
   const date = new Date()
-  let time = pad(date.getHours()) + ":" + pad(date.getMinutes()) + ":" + pad(date.getSeconds());
-  let [newDate,setNewDate] = useState(formatDate(date));
+  let time = pad(date.getHours()) + ":" + pad(date.getMinutes())+ ":" + pad(date.getSeconds());
+  // let [newDate,setNewDate] = useState(formatDate(date));
   let [newTime,setNewTime] = useState(time);
+  const [value, onChange] = useState(new Date());
   const [currentClass, setcurrentClass] = useState('col-lg-10 col-md-12');
-  let strArray = newDate;
-  strArray=strArray.split("-");
-  let day = days[(new Date(newDate)).getDay()];
-  let reqDate = day + "," + " " + strArray[2] + " "+ months[parseInt(strArray[1])-1]+" "+ strArray[0]
+  let reqDate="";
+  let headerString=""
+  if(value!=null){
+  let day = days[value.getDay()];
+  reqDate = day + "," + " " +value.getDay() + " "+ months[value.getMonth()]+" "+ value.getFullYear();
+  headerString=reqDate+ " " + "at" + " " + newTime;
+  }
+  else{
+    headerString ="null";
+  }
   useEffect(() => {
     (async () => {
    let y = "";
@@ -53,17 +78,23 @@ function Snapshot() {
         long = "";
     let offset = "";
     let c = contextType.placeobserved;
-    if(newDate !== null){
-    newDate = newDate.split('-');
+    if(newTime==null){
+    h="00";
+    mi="00";
+    s="00";
+    }
+    else{
     newTime = newTime.split(':');
-    y = newDate[0];
-    m = newDate[1];
-    d = newDate[2];
     h = newTime[0];
     mi = newTime[1];
     s = newTime[2];
-    alert(m)
-    console.log(h,mi,s)
+    }
+
+    if(value !== null){
+    y=value.getFullYear();
+    m=value.getMonth()+1;
+    d=value.getDay();
+    
     Object.entries(cities[0]).forEach(([key, value]) => {
       if (key === c) {
         long = Math.round(value.longitude).toFixed(2);
@@ -105,11 +136,11 @@ function Snapshot() {
     setData([])
   }
     })();
-  },[newDate,newTime]);
+  },[value,newTime]);
 
   const columns =[
       {
-        Header: ''+ reqDate + ' at ' + newTime,
+        Header: ''+headerString,
         columns: [
           {
             Header: "Planet",
@@ -154,13 +185,24 @@ function Snapshot() {
   //   };
 
 
-  const dateChange = (date) => {
-        setNewDate(date.target.value)
+  // const dateChange = (date) => {
+  //       setNewDate(date.target.value)
+  // }
+  // const timeChange = (time) => {
+  //       setNewTime(time.target.value)
+  // }
+
+  // const timeChange = (time,string) => {
+  //     console.log(time)
+  //     console.log(string)
+  // }
+
+  const dateChange = (date) =>{
+    onChange(date)
   }
-  const timeChange = (time) => {
-        setNewTime(time.target.value)
+  const timeChange = (time) =>{
+    setNewTime(time.target.value)
   }
-  
 
   return (
     <div className={currentClass}>
@@ -177,8 +219,28 @@ function Snapshot() {
 <center>
   <label>Select Date and Time:</label>
       <div>
-                            <input type="date" value={newDate} onChange={dateChange} onKeyDown={(e) => e.preventDefault()}></input>
-                            <input type="time" value={newTime} onChange={timeChange} onKeyDown={(e) => e.preventDefault()}></input>
+                            {/* <input type="date" value={newDate} onChange={dateChange} onKeyDown={(e) => e.preventDefault()}></input> */}
+                            <DatePicker
+        onChange={dateChange}
+        value={value}
+        format="dd/MM/yyyy"
+        onKeyDown={(e) => e.preventDefault()}
+      />
+      <TextField
+        style={{    marginLeft: "10px",
+    marginTop: "0px"}}
+        id="time"
+        type="time"
+        defaultValue={newTime}
+        onChange={timeChange}
+        InputLabelProps={{
+          shrink: true
+        }}
+        inputVariant="outlined"
+      />
+      
+   
+                            {/* <input type="time" value={newTime} onChange={timeChange}></input> */}
     </div>
     </center>
                             <div className="row">
