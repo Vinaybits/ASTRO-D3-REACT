@@ -453,7 +453,7 @@ function zoomClick() {
                     <hr style={{"marginBottom":"2px"}} />
                             <div className="row">
                                 <div className="col-lg-12">
-                                    <center><h2>{selectedOption.value} Transit Event Timeline</h2></center>
+                                    <center><h2>{selectedOption.value}'s Transit Events Timeline</h2></center>
                                    <br></br>
                                 <div id="events" ref={this.myRef} ></div>
                                 <p class="infos">
