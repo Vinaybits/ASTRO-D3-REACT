@@ -60,7 +60,7 @@ function Snapshot() {
   let headerString=""
   if(value!=null){
   let day = days[value.getDay()];
-  reqDate = day + "," + " " +value.getDay() + " "+ months[value.getMonth()]+" "+ value.getFullYear();
+  reqDate = day + "," + " " +value.getDate() + " "+ months[value.getMonth()]+" "+ value.getFullYear();
   headerString=reqDate+ " " + "at" + " " + newTime;
   }
   else{
@@ -93,7 +93,7 @@ function Snapshot() {
     if(value !== null){
     y=value.getFullYear();
     m=value.getMonth()+1;
-    d=value.getDay();
+    d=value.getDate();
     
     Object.entries(cities[0]).forEach(([key, value]) => {
       if (key === c) {
@@ -236,7 +236,6 @@ function Snapshot() {
         InputLabelProps={{
           shrink: true
         }}
-        inputVariant="outlined"
       />
       
    
