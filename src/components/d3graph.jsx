@@ -73,10 +73,60 @@ const D3graph = (props) => {
       }
 
       const handleSpeed = (speed) =>{
-          setSpeed(speed)
-          alert('hi')
-
-      }
+          var current_action = context.playicon;
+          if(speed.target.value === "Very Fast"){
+                if(current_action === 'mdi mdi-pause'){
+            //play the wheel
+            context.pauseplanet();
+            //setplaybuttonIcon = 'mdi mdi-pause'
+         }
+    
+              setValue(0.5);
+              alert(value)
+              setSpeed(speed.target.value)
+              context.play_speed_fn(value);
+          }
+         else if(speed.target.value === "Fast"){
+             if(current_action === 'mdi mdi-pause'){
+            //play the wheel
+            context.pauseplanet();
+            //setplaybuttonIcon = 'mdi mdi-pause'
+         }
+             setValue(1.5)
+             setSpeed(speed.target.value)
+            context.play_speed_fn(value);
+         }
+         else if(speed.target.value === "Normal"){
+             if(current_action === 'mdi mdi-pause'){
+            //play the wheel
+            context.pauseplanet();
+            //setplaybuttonIcon = 'mdi mdi-pause'
+         }
+             setValue(3)
+             setSpeed(speed.target.value)
+             context.play_speed_fn(value);
+         }
+         else if(speed.target.value === "Slow"){
+             if(current_action === 'mdi mdi-pause'){
+            //play the wheel
+            context.pauseplanet();
+            //setplaybuttonIcon = 'mdi mdi-pause'
+         }
+             setValue(5)
+             setSpeed(speed.target.value)
+             context.play_speed_fn(value);
+         }
+         else if(speed.target.value === "Very Slow"){
+             if(current_action === 'mdi mdi-pause'){
+            //play the wheel
+            context.pauseplanet();
+            //setplaybuttonIcon = 'mdi mdi-pause'
+         }
+             setValue(6)
+             setSpeed(speed.target.value)
+             context.play_speed_fn(value);
+         }
+    }
      
 
 

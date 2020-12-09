@@ -22,7 +22,7 @@ export default function Table({ columns, data }) {
   // Render the UI for your table
   return (
     <>
-      <table {...getTableProps()}>
+      <table className="content-table" {...getTableProps()}>
         <thead>
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>

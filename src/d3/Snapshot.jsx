@@ -85,6 +85,7 @@ function Snapshot() {
     }
     else{
     newTime = newTime.split(':');
+    console.log(newTime)
     h = newTime[0];
     mi = newTime[1];
     s = newTime[2];
@@ -128,6 +129,7 @@ function Snapshot() {
       "&place=" +
       c;
       const url = url_string+params;
+      console.log(url)
       const result = await axios(url);
       setData(result.data.detailedPlanetPositions);
       //console.log(result)
@@ -236,6 +238,7 @@ function Snapshot() {
         InputLabelProps={{
           shrink: true
         }}
+        onKeyDown={(e) => e.preventDefault()}
       />
       
    

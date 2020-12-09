@@ -2,42 +2,6 @@ table {
   border-spacing: 0;
   border: 1px solid #ededed;
 }
-table tr:last-child td {
-  border-bottom: 0;
-}
-table th,
-table td {
-  margin: 0;
-  padding: 0.5rem;
-  border-bottom: 1px solid #ededed;
-  border-right: 1px solid #ededed;
-  position: relative;
-  text-align: center;
-}
-table th:last-child,
-table td:last-child {
-  border-right: 0;
-}
-table tr:nth-child(even) {
-  background-color: #fafafa;
-}
-
-table th::before {
-  position: absolute;
-  right: 15px;
-  top: 16px;
-  content: "";
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-}
-table th.sort-asc::before {
-  border-bottom: 5px solid #22543d;
-}
-table th.sort-desc::before {
-  border-top: 5px solid #22543d;
-}
 
 .App {
   display: flex;
@@ -54,14 +18,60 @@ table th.sort-desc::before {
   font-weight: bold;
   text-transform: uppercase;
 }
-.search {
-  padding: 10px;
-  margin-bottom: 20px;
-  font-size: 18px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  box-shadow: none;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
+
+* {
+  font-family: sans-serif; /* Change your font family */
+}
+
+.content-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  min-width: 400px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.content-table thead tr {
+  background-color: #009879;
+  color: #ffffff;
+}
+
+.content-table th {
+  font-weight: bolder;
+}
+
+.content-table th,
+.content-table td {
+  padding: 12px 15px;
+  margin: 0;
+  border-bottom: 1px solid #ededed;
+  border-right: 1px solid #ededed;
+  position: relative;
+  text-align: center;
+}
+
+.content-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+  color: #222222;
+}
+
+.content-table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+.content-table tbody tr.active-row {
+  font-weight: bold;
+  color: #009879;
+}
+
+.content-table tr:hover {
+  box-shadow: 0 13px 48px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  background-color: #009879;
+  /* -webkit-transform: scale(1.15); */
+  font-weight: bold;
+  font-size: 1.2em;
+  color: #fff !important;
 }
