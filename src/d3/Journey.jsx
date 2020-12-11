@@ -10,12 +10,12 @@ import * as cities from "../components/cities.json";
 import axios from 'axios';
 
 const planets = [
-  { value: 'Jupiter', label: 'Jupiter' },
   { value: 'Sun', label: 'Sun' },
   { value: 'Moon', label: 'Moon' },
-  { value: 'Mercury', label: 'Mercury' },
-  { value: 'Venus', label: 'Venus' },
   { value: 'Mars', label: 'Mars' },
+  { value: 'Mercury', label: 'Mercury' },
+  { value: 'Jupiter', label: 'Jupiter' },
+  { value: 'Venus', label: 'Venus' },
   { value: 'Saturn', label: 'Saturn' },
   { value: 'Rahu', label: 'Rahu' },
   { value: 'Ketu', label: 'Ketu' }
@@ -35,7 +35,7 @@ class Journey extends Component {
       super(props);
       this.myRef = React.createRef();
       this.state = {
-            selectedOption:{ value: 'Jupiter', label: 'Jupiter' },
+            selectedOption:{ value: 'Mercury', label: 'Mercury' },
             multiValue: [],
             repositories:'',
             currentClass: 'col-lg-10 col-md-12'
