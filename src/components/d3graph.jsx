@@ -73,58 +73,55 @@ const D3graph = (props) => {
       }
 
       const handleSpeed = (speed) =>{
+          setSpeed(speed.target.value)
           var current_action = context.playicon;
           if(speed.target.value === "Very Fast"){
                 if(current_action === 'mdi mdi-pause'){
             //play the wheel
             context.pauseplanet();
             //setplaybuttonIcon = 'mdi mdi-pause'
-         }
-    
-              setValue(0.5);
-              alert(value)
-              setSpeed(speed.target.value)
-              context.play_speed_fn(value);
+         }    
+              context.play_speed_fn(0.5);
           }
          else if(speed.target.value === "Fast"){
+             setSpeed(speed.target.value)
              if(current_action === 'mdi mdi-pause'){
             //play the wheel
             context.pauseplanet();
             //setplaybuttonIcon = 'mdi mdi-pause'
          }
-             setValue(1.5)
-             setSpeed(speed.target.value)
-            context.play_speed_fn(value);
+             
+            context.play_speed_fn(1.5);
          }
          else if(speed.target.value === "Normal"){
+             setSpeed(speed.target.value)
              if(current_action === 'mdi mdi-pause'){
             //play the wheel
             context.pauseplanet();
             //setplaybuttonIcon = 'mdi mdi-pause'
          }
-             setValue(3)
-             setSpeed(speed.target.value)
-             context.play_speed_fn(value);
+             
+             context.play_speed_fn(3);
          }
          else if(speed.target.value === "Slow"){
+              setSpeed(speed.target.value)
              if(current_action === 'mdi mdi-pause'){
             //play the wheel
             context.pauseplanet();
             //setplaybuttonIcon = 'mdi mdi-pause'
          }
-             setValue(5)
-             setSpeed(speed.target.value)
-             context.play_speed_fn(value);
+             
+            
+             context.play_speed_fn(5);
          }
          else if(speed.target.value === "Very Slow"){
+              setSpeed(speed.target.value)
              if(current_action === 'mdi mdi-pause'){
             //play the wheel
             context.pauseplanet();
             //setplaybuttonIcon = 'mdi mdi-pause'
          }
-             setValue(6)
-             setSpeed(speed.target.value)
-             context.play_speed_fn(value);
+            context.play_speed_fn(6);
          }
     }
      
