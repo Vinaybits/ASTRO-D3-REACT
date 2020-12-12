@@ -73,10 +73,57 @@ const D3graph = (props) => {
       }
 
       const handleSpeed = (speed) =>{
-          setSpeed(speed)
-          alert('hi')
-
-      }
+          setSpeed(speed.target.value)
+          var current_action = context.playicon;
+          if(speed.target.value === "Very Fast"){
+                if(current_action === 'mdi mdi-pause'){
+            //play the wheel
+            context.pauseplanet();
+            //setplaybuttonIcon = 'mdi mdi-pause'
+         }    
+              context.play_speed_fn(0.5);
+          }
+         else if(speed.target.value === "Fast"){
+             setSpeed(speed.target.value)
+             if(current_action === 'mdi mdi-pause'){
+            //play the wheel
+            context.pauseplanet();
+            //setplaybuttonIcon = 'mdi mdi-pause'
+         }
+             
+            context.play_speed_fn(1.5);
+         }
+         else if(speed.target.value === "Normal"){
+             setSpeed(speed.target.value)
+             if(current_action === 'mdi mdi-pause'){
+            //play the wheel
+            context.pauseplanet();
+            //setplaybuttonIcon = 'mdi mdi-pause'
+         }
+             
+             context.play_speed_fn(3);
+         }
+         else if(speed.target.value === "Slow"){
+              setSpeed(speed.target.value)
+             if(current_action === 'mdi mdi-pause'){
+            //play the wheel
+            context.pauseplanet();
+            //setplaybuttonIcon = 'mdi mdi-pause'
+         }
+             
+            
+             context.play_speed_fn(5);
+         }
+         else if(speed.target.value === "Very Slow"){
+              setSpeed(speed.target.value)
+             if(current_action === 'mdi mdi-pause'){
+            //play the wheel
+            context.pauseplanet();
+            //setplaybuttonIcon = 'mdi mdi-pause'
+         }
+            context.play_speed_fn(6);
+         }
+    }
      
 
 

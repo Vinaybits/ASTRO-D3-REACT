@@ -42,7 +42,7 @@ function pad(n) {
 }
 
    
-const noncombust = ['Sun', 'Rahu', 'Ketu']
+const noncombust = ['Ascendant', 'Sun', 'Rahu', 'Ketu']
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul','Aug','Sep','Oct','Nov','Dec']
 const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
@@ -60,7 +60,7 @@ function Snapshot() {
   let headerString=""
   if(value!=null){
   let day = days[value.getDay()];
-  reqDate = day + "," + " " +value.getDay() + " "+ months[value.getMonth()]+" "+ value.getFullYear();
+  reqDate = day + "," + " " +value.getDate() + " "+ months[value.getMonth()]+" "+ value.getFullYear();
   headerString=reqDate+ " " + "at" + " " + newTime;
   }
   else{
@@ -85,6 +85,7 @@ function Snapshot() {
     }
     else{
     newTime = newTime.split(':');
+    console.log(newTime)
     h = newTime[0];
     mi = newTime[1];
     s = newTime[2];
@@ -93,7 +94,7 @@ function Snapshot() {
     if(value !== null){
     y=value.getFullYear();
     m=value.getMonth()+1;
-    d=value.getDay();
+    d=value.getDate();
     
     Object.entries(cities[0]).forEach(([key, value]) => {
       if (key === c) {
@@ -128,6 +129,7 @@ function Snapshot() {
       "&place=" +
       c;
       const url = url_string+params;
+      console.log(url)
       const result = await axios(url);
       setData(result.data.detailedPlanetPositions);
       //console.log(result)
@@ -236,7 +238,7 @@ function Snapshot() {
         InputLabelProps={{
           shrink: true
         }}
-        inputVariant="outlined"
+        onKeyDown={(e) => e.preventDefault()}
       />
       
    

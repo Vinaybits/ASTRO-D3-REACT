@@ -32,7 +32,7 @@ class Plotly_NAKS extends Component {
         apidate_format =() =>{
             var gd1 = document.getElementById('myDiv_NAKS');
             var api_data = this.context.newState_apidata;
-            // console.log(api_data)
+            console.log(api_data)
             this.view_name = 'Nakshatra';
         
             // var from_year = api_data.from_year;
