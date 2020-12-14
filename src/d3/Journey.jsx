@@ -23,11 +23,11 @@ const planets = [
 const planetnums = ['Sun','Moon','Mercury','Venus','Mars','Jupiter','Saturn','Uranus','Neptune','Pluto','Rahu'];
 
 const filterOptions = [
-            { value: 'Direction Change Event', label: 'Direction Change' },
-            { value: 'Rashi Change Event', label: 'Rashi Change' },
-            { value: 'Nakshtra Change Event' , label: 'Nakshatra Change' },
-            { value: 'Nakshtra Pad Change Event', label: 'Pada Change' },
-            { value: 'Combustion', label: 'Combustion' },
+            { value: 'Direction Event', label: 'Direction Event' },
+            { value: 'Rashi Event', label: 'Rashi Event' },
+            { value: 'Nakshtra Event' , label: 'Nakshatra Event' },
+            { value: 'Pada Event', label: 'Pada Event' },
+            { value: 'Combustion Event', label: 'Combustion Event' },
             ]
 class Journey extends Component {
      static contextType = GlobalContext;
@@ -135,17 +135,12 @@ class Journey extends Component {
   }
 
   setOptions() {
-    console.log(this.state.multiValue)
-    console.log(filterOptions)
     let array=[]
     this.state.repositories.transits.forEach(function (arrayItem) {
     if(arrayItem!==null){
       array.push({label:arrayItem.event_type,value:arrayItem.event_type})
     }
 });
-
-
-
   this.setState(state => {
       return {
         multiValue: array
@@ -155,7 +150,7 @@ class Journey extends Component {
   }
 
 createChart() {
-console.log(this.state.repositories.transits)
+console.log(this.state.multiValue)
     
 
       //----end
@@ -292,6 +287,7 @@ repositoriesData = this.state.repositories.transits.filter(f => this.state.multi
     data: repository.milestones,
 }));
 }
+console.log(repositoriesData)
 
 //chart = d3.zoom().on("zoom", zoomed);
 let svg =d3.select('#events')
@@ -419,8 +415,6 @@ function zoomClick() {
   
     render() {
         const { selectedOption} = this.state;
-        console.log(this.state.multiValue)
-        
         return <>
                 <div className={this.state.currentClass}>
                 <div id="d3graph" className="col-lg-12"  >
