@@ -38,7 +38,8 @@ class Journey extends Component {
             selectedOption:{ value: 'Mercury', label: 'Mercury' },
             multiValue: [],
             repositories:'',
-            currentClass: 'col-lg-10 col-md-12'
+            currentClass: 'col-lg-10 col-md-12',
+            loading:true
       }
       this.handleChange = this.handleChange.bind(this);
       this.handleMultiChange = this.handleMultiChange.bind(this);
@@ -124,7 +125,8 @@ class Journey extends Component {
 		  console.log(response.data)
           this.setState(state => {
       return {
-        repositories: response.data
+        repositories: response.data,
+        loading:false
       };
     },() => this.setOptions());
     })
@@ -295,87 +297,6 @@ let svg =d3.select('#events')
     .call(chart)
 
 updateCommitsInformation(chart);
-function zoomClick() {
-    alert("hi");
-    
-    var element2 = d3.select('#events');
-    var element = d3.select('#events').node();
-    var width = element.getBoundingClientRect().width;
-    var height = element.getBoundingClientRect().height;
-   // var zoom = d3.zoom().scaleExtent([1, 8]).on("zoom", zoomed);
-
-    // var clicked = d3.event.target,
-    //     direction = 1,
-    //     factor = 0.2,
-    //     target_zoom = 1,
-    //     center = [width / 2, height / 2],
-    //     extent = zoom.scaleExtent(),
-    //     translate = zoom.translate(),
-    //     translate0 = [],
-    //     l = [],
-    //     view = {x: translate[0], y: translate[1], k: zoom.scale()};
-
-    // d3.event.preventDefault();
-    // direction = (this.id === 'zoom_in') ? 1 : -1;
-    // target_zoom = zoom.scale() * (1 + factor * direction);
-
-    // if (target_zoom < extent[0] || target_zoom > extent[1]) { return false; }
-
-    // translate0 = [(center[0] - view.x) / view.k, (center[1] - view.y) / view.k];
-    // view.k = target_zoom;
-    // l = [translate0[0] * view.k + view.x, translate0[1] * view.k + view.y];
-
-    // view.x += center[0] - l[0];
-    // view.y += center[1] - l[1];
-
-    // interpolateZoom([view.x, view.y], view.k);
-
-    
-    
-
-    
-  }
-
-
-// const zoomIn = svg.append('button')
-//           .attr('type', 'button')
-//           .attr('class', 'btn btn-default timeline-pf-zoom timeline-pf-zoom-in')
-//           .attr('id', 'timeline-pf-zoom-in')
-//           .style('top', '10px')
-//           .on('click', () => {zoomClick()});
-
-//       zoomIn
-//         .style('left', '10px')
-//         .append('i')
-//             .attr('class', 'fa fa-plus')
-//             .attr('id', 'timeline-pf-zoom-in-icon');
-
-//       const zoomOut = svg.append('button')
-//           .attr('type', 'button')
-//           .attr('class', 'btn btn-default timeline-pf-zoom')
-//           .attr('id', 'timeline-pf-zoom-out')
-//           .style('top', '10px')
-//           .on('click', () => {zoomClick()});
-//       zoomOut
-//         .style('left', '10px')
-//         .append('i')
-//           .attr('class', 'fa fa-minus')
-//           .attr('id', 'timeline-pf-zoom-out-icon');
-
-//     const zoomSlider = svg.append('input')
-//           .attr('type', 'range')
-//           .attr('class', 'timeline-pf-zoom timeline-pf-slider')
-//           .attr('id', 'timeline-pf-slider')
-//           .style('width', '10px')
-//           //.attr('value', this.sliderScale(this.zoom.scale()))
-//           .attr('min', '0')
-//           .attr('max', '10')
-//           .attr('step', 0.1)
-//           .on('input', () => {zoomClick()})
-//           .on('change', () => {zoomClick()});
-//       zoomSlider
-//         .style('top', '10px')
-//         .style('left', '10px');
 }
 
 //  handleChange(event) {
@@ -384,16 +305,8 @@ function zoomClick() {
 
   handleChange = selectedOption => {
     this.setState(
-        { selectedOption },()=>this.fetchData());
+        { selectedOption,loading:true },()=>this.fetchData());
   };
-
-//   handleChangeEvent = (option) => {
-//     this.setState(state => {
-//       return {
-//         multiValue: option
-//       };
-//     });
-//   };
 
   handleMultiChange(option) {
    this.setState(state => {
@@ -449,14 +362,26 @@ function zoomClick() {
                                 <div className="col-lg-12">
                                     <center><h2>{selectedOption.value}'s Transit Events Timeline</h2></center>
                                    <br></br>
-                                <div id="events" ref={this.myRef} ></div>
-                                <p class="infos">
+                                {this.state.loading ? (
+                                  <div>
+        <div class='loader'></div>
+        </div>)
+
+         : (
+           <div>
+             <div></div>
+         <div id="events" ref={this.myRef} ></div>
+         <p class="infos">
             <span id="numberCommits"></span> Transit Events <span class="light">found between</span> <br />
             {moment(this.context.startDate).format("Do MMMM YYYY")} <span class="light">and</span> {moment(this.context.endDate).format("Do MMMM YYYY")}
             {/* <span id="zoomStart"></span> <span class="light">and</span> <span id="zoomEnd"></span> */}
             
         </p>
+        </div>
                                    
+      )}
+                               
+                                
                                 </div>
                                
                             </div>

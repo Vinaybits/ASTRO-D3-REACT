@@ -1,41 +1,17 @@
-import React, { useMemo, useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { GlobalContext } from '../mycontext';
 import Table from "./Snapshot/Table";
 import "./Snapshot/Snapshot.css";
 import * as cities from "../components/cities.json";
 import DatePicker from 'react-date-picker'
-import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-
-
-const styles = (theme) => ({
-  container: {
-    display: "flex",
-    flexWrap: "wrap"
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 200
-  }
-});
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+import Button from "react-bootstrap/Button";
 
 
 
-function formatDate(date) {
-    var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
-
-    if (month.length < 2) 
-        month = '0' + month;
-    if (day.length < 2) 
-        day = '0' + day;
-
-    return [year, month, day].join('-');
-}
 
 function pad(n) {
     return (n < 10) ? ("0" + n) : n;
@@ -205,6 +181,30 @@ function Snapshot() {
   const timeChange = (time) =>{
     setNewTime(time.target.value)
   }
+  const exportPDF = () => {
+    const unit = "pt";
+    const size = "A4"; // Use A1, A2, A3 or A4
+    const orientation = "portrait"; // portrait or landscape
+
+    const marginLeft = 40;
+    const doc = new jsPDF(orientation, unit, size);
+
+    doc.setFontSize(15);
+
+    const title = "Snapshot of Planet Positions"+ " " + "on" + " " + headerString;
+    const headers = [["Planet","Degrees","Degrees in Rashi","Motion","Nakshatra","Pada","Nakshatra Lord","Combust"]];
+    const tabledata = data.map(elt=> [elt.planet_name, elt.abs_degree, elt.r_d_m_s, elt.motion, elt.nakshtra,elt.nakshtra_pada,elt.nakshtra_lord,elt.combust])
+    alert(data)
+    let content = {
+      startY: 50,
+      head: headers,
+      body: tabledata
+    };
+
+    doc.text(title, marginLeft, 40);
+    doc.autoTable(content);
+    doc.save("snapshot.pdf")
+  }
 
   return (
     <div className={currentClass}>
@@ -240,6 +240,16 @@ function Snapshot() {
         }}
         onKeyDown={(e) => e.preventDefault()}
       />
+       <div style={{ display: "flex" }}>
+      <button
+                    type="submit"
+                    className="ladda-button btn pdf"
+                    style={{ backgroundColor: " #009879", color: "#fff",marginLeft:"auto",marginRight: "5%" , marginTop: "-5%" }}
+                    onClick={exportPDF}
+                  >
+                    Generate PDF
+                  </button></div>
+      
       
    
                             {/* <input type="time" value={newTime} onChange={timeChange}></input> */}
