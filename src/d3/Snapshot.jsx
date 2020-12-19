@@ -194,7 +194,7 @@ function Snapshot() {
     const title = "Snapshot of Planet Positions"+ " " + "on" + " " + headerString;
     const headers = [["Planet","Degrees","Degrees in Rashi","Motion","Nakshatra","Pada","Nakshatra Lord","Combust"]];
     const tabledata = data.map(elt=> [elt.planet_name, elt.abs_degree, elt.r_d_m_s, elt.motion, elt.nakshtra,elt.nakshtra_pada,elt.nakshtra_lord,elt.combust])
-    alert(data)
+    //alert(data)
     let content = {
       startY: 50,
       head: headers,
@@ -203,7 +203,7 @@ function Snapshot() {
 
     doc.text(title, marginLeft, 40);
     doc.autoTable(content);
-    doc.save("snapshot.pdf")
+    doc.save("Omparashar_snapshot.pdf")
   }
 
   return (
@@ -244,7 +244,7 @@ function Snapshot() {
       <button
                     type="submit"
                     className="ladda-button btn pdf"
-                    style={{ backgroundColor: " #009879", color: "#fff",marginLeft:"auto",marginRight: "5%" , marginTop: "-5%" }}
+                    style={{ backgroundColor: " #009879", color: "#fff",marginLeft:"auto",marginRight: "5%" }}
                     onClick={exportPDF}
                   >
                     Generate PDF
