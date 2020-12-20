@@ -2,21 +2,19 @@ import React from "react";
 import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
 import {
-  DateRangePicker,
   SingleDatePicker,
-  DayPickerRangeController,
 } from "react-dates";
 import { Component } from "react";
 import moment from "moment";
-import Collapse from "react-bootstrap/Collapse";
-import Button from "react-bootstrap/Button";
-
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import * as cities from "../components/cities.json";
 import Autocomplete from "../components/autocomplete";
-import axios from "axios";
-import { GlobalProvider, GlobalContext } from "../mycontext";
+import {GlobalContext } from "../mycontext";
 import "./sideform.css";
-import { tickStep } from "d3";
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from 'react-places-autocomplete';
 
 class sideform extends Component {
   static contextType = GlobalContext;
@@ -34,7 +32,8 @@ class sideform extends Component {
       open: "",
       resetInputText: false,
       showLabels: false,
-      value:'circle_graph'
+      value:'circle_graph',
+      address:''
     };
 
     this.resetForm = this.resetForm.bind(this);
@@ -152,6 +151,7 @@ class sideform extends Component {
     // alert(lat+long+offset+"Start -"+from_year+from_month+from_day+"-" + moment(this.state.startDate).format("DD-MM-YYYY") + "</br>" + "End -" +moment(this.state.endDate).format("DD-MM-YYYY"));
   };
 
+
   // set all variable values
 
   onDateChange = (name, date) => {
@@ -192,6 +192,17 @@ class sideform extends Component {
 
     this.setState({ errors: errors });
     this.setState({ isValidDateRange: isValidDateRange });
+  };
+
+   handleplaceChange = address => {
+    this.setState({ address });
+  };
+
+  handleSelect = address => {
+    geocodeByAddress(address)
+      .then(results => getLatLng(results[0]))
+      .then(latLng => console.log('Success', latLng))
+      .catch(error => console.error('Error', error));
   };
 
   handleAutoCompleterChange = (type) => {
@@ -317,12 +328,53 @@ class sideform extends Component {
               </p>
 
               <form>
+                <div>
+    {/* <PlacesAutocomplete
+        value={this.state.address}
+        onChange={this.handleplaceChange}
+        onSelect={this.handleSelect}
+      >
+        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+          <div>
+            <input
+              {...getInputProps({
+                placeholder: 'Search Places ...',
+                className: 'location-search-input',
+              })}
+            />
+            <div className="autocomplete-dropdown-container">
+              {loading && <div>Loading...</div>}
+              {suggestions.map(suggestion => {
+                const className = suggestion.active
+                  ? 'suggestion-item--active'
+                  : 'suggestion-item';
+                // inline style for demonstration purpose
+                const style = suggestion.active
+                  ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                  : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                return (
+                  <div
+                    {...getSuggestionItemProps(suggestion, {
+                      className,
+                      style,
+                    })}
+                  >
+                    <span>{suggestion.description}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </PlacesAutocomplete> */}
+  </div>
                 <div className="form-group mb-1">
                   <label htmlFor="example-input-small">Place of Observation</label>
                   <Autocomplete
                     resetInputText={this.state.resetInputText}
                     handleChange={this.handleAutoCompleterChange}
                     suggestions={cities_name}
+                    id="autocomplete"
                   />
                   {this.state.errors.observation && (
                     <p className="form-error">
@@ -433,6 +485,7 @@ class sideform extends Component {
             <option value="line_chart">Traces</option>
             <option value="journey">Journey</option>
             <option value="snapshot">Snapshot</option>
+            <option value="astrochart">Astro chart</option>
           </select>
                    </label>
                 <br></br>
