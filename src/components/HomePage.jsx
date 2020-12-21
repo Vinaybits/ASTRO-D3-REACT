@@ -4,68 +4,28 @@ import { useEffect } from 'react';
 import $ from 'jquery';
 import 'react-bootstrap';
 import { Link } from 'react-router-dom'
-
-
-
-// const easeloading = () =>{
-//      $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function () {
-//         if (
-//             window.pathname.replace(/^\//, "") ==
-//                 this.pathname.replace(/^\//, "") &&
-//             window.hostname == this.hostname
-//         ) {
-//             var target = $(this.hash);
-//             target = target.length
-//                 ? target
-//                 : $("[name=" + this.hash.slice(1) + "]");
-//             if (target.length) {
-//                 $("html, body").animate(
-//                     {
-//                         scrollTop: target.offset().top - 72,
-//                     },
-//                     1000,
-//                     "easeInOutExpo"
-//                 );
-//                 return false;
-//             }
-//         }
-//     });
-
-//     // Closes responsive menu when a scroll trigger link is clicked
-//     $(".js-scroll-trigger").click(function () {
-//         $(".navbar-collapse").collapse("hide");
-//     });
-
-//     // Activate scrollspy to add active class to navbar items on scroll
-//     $("body").scrollspy({
-//         target: "#mainNav",
-//         offset: 74,
-//     });
-
-//     // Collapse Navbar
-//     var navbarCollapse = function () {
-//         if ($("#mainNav").offset().top > 100) {
-//             $("#mainNav").addClass("navbar-shrink");
-//         } else {
-//             $("#mainNav").removeClass("navbar-shrink");
-//         }
-//     };
-//     // Collapse now if page is not at top
-//     navbarCollapse();
-//     // Collapse the navbar when page is scrolled
-//     $(window).scroll(navbarCollapse);
-
-// }
-
+import { fn } from "moment";
 
 
 
 const HomePage= () => {
+    function scrollFunction() {
+        if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+         // document.getElementById("navbar").style.padding = "30px 10px";
+         // document.getElementById("logo").style.fontSize = "25px";
+        } else {
+          //document.getElementById("navbar").style.padding = "80px 10px";
+          //document.getElementById("logo").style.fontSize = "35px";
+          //alert("2");
+        }
+      }
+      window.onscroll = function() {scrollFunction()};
+      
 
       return(
           <>
           
-          <div id="home">
+          <div id="home" className="home">
         <nav className="navbar navbar-expand-lg navbar-expand-xl navbar-dark fixed-top" id="mainNav">
             <div className="container" style = {{marginLeft: "10%", marginRight: "10%"}}>
                 <a className="navbar-brand js-scroll-trigger" href="#page-top"><img src={require("../assets/img/logo.png")} alt="" /></a>
@@ -98,7 +58,7 @@ const HomePage= () => {
            
            
         </header>
-        <center>
+        <center style={{"background-color":"white"}}>
             <a style={{marginTop:"-30px"}} className="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Explore</a>
         </center>
         
