@@ -198,8 +198,19 @@ function Snapshot() {
     doc.setFontSize(15);
     doc.setTextColor(0,0,0);
     const title = headerString;
+
+    const combustfun = (planet_name, combustval) =>{
+      if(noncombust.indexOf(planet_name) >=0) {
+        return "Never"
+      }
+      else
+      {
+        return combust_dict[combustval]
+      }
+    }
+    const combust_dict = {true: "Yes", false: "No"}
     const headers = [["Planet","Degrees","Degrees in Rashi","Motion","Nakshatra","Pada","Nakshatra Lord","Combust"]];
-    const tabledata = data.map(elt=> [elt.planet_name, elt.abs_degree, elt.r_d_m_s, elt.motion, elt.nakshtra,elt.nakshtra_pada,elt.nakshtra_lord,elt.combust])
+    const tabledata = data.map(elt=> [elt.planet_name, elt.abs_degree, elt.r_d_m_s, elt.motion, elt.nakshtra,elt.nakshtra_pada,elt.nakshtra_lord, combustfun(elt.planet_name, elt.combust)])
     //alert(data)
     let content = {
       tableLineColor: [0, 0, 0], //choose RGB
@@ -209,7 +220,7 @@ function Snapshot() {
       head: headers,
       body: tabledata,
       bodyStyles: {
-            fontSize: 13,
+            fontSize: 12,
         },
     };
 
