@@ -5,6 +5,7 @@ import { GlobalProvider, GlobalContext } from '../mycontext';
 import * as bg_img from '../components/bg_naks.jpg'
 import D3_linechart from '../d3/d3_linechart';
 import Ploty_1 from '../d3/plotly_1';
+import NatalChart from '../d3/Panchang/Natal_chart';
 
 
 const D3graph = (props) => {
@@ -171,7 +172,7 @@ const D3graph = (props) => {
 
                             <div className="row">
                                 <div className="col-lg-12">
-                                   
+                                <NatalChart />
                                 <Chart1 />
                                    
                                 </div>
