@@ -71,7 +71,5 @@ table {
   z-index: 1;
   background-color: #009879;
   /* -webkit-transform: scale(1.15); */
-  font-weight: bold;
-  font-size: 1.2em;
   color: #fff !important;
 }
