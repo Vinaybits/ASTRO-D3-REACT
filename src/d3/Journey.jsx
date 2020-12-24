@@ -372,13 +372,19 @@ updateCommitsInformation(chart);
     const unit = "pt";
     const size = "A4"; // Use A1, A2, A3 or A4
     const orientation = "portrait"; // portrait or landscape
-
-    const marginLeft = 40;
-    const doc = new jsPDF(orientation, unit, size);
-
+    const doc = new jsPDF(orientation, unit, [800,600],true);
+    var img = new Image()
+    img.src = '../logo_OP.png'
+    doc.addImage(img, 'png', 10, 20, 100, 30,'','FAST')
+     const title = this.state.selectedOption.value + "'s" + " "+ "Journey";
+    doc.setFont("Roboto","bold");
+    doc.setFontSize(20);
+     doc.setTextColor(25,25,112);
+    doc.setFont("Roboto","normal");
+     doc.text(title, 232, 80);
     doc.setFontSize(15);
+    doc.setTextColor(0,0,0);
 
-    const title = this.state.selectedOption.value + "'s" + " "+ "Journey";
     let headers = [];
     headers.push("Date");
     this.state.pdfSelectedEvents.forEach(function(event){
@@ -391,26 +397,7 @@ updateCommitsInformation(chart);
       date=dateArray.join(" ")
       return date
    }
-   const renderBody = (event,desc,number,date) =>{
-        let time=date.split(" ").pop()
-        if(number===0 && event==="Direction Event"){
-          return desc + " " + "@" + " " +  time;
-        }
-        else if(number===1 && event==="Rashi Event"){
-          return desc + " " + "@" + " " +  time;
-        }
-        if(number===2 && event==="Nakshtra Event"){
-          return desc + " " + "@" + " " +  time;
-        }
-        if(number===3 && event==="Pada Event"){
-          return desc + " " + "@" + " " +  time;
-        }
-        if(number===4 && event==="Combustion Event"){
-          return desc + " " + "@" + " " +  time;
-        }
-        else
-        return ""
-   }
+ 
 
    const tabledata = []
    pdfArray.forEach(function(row){
@@ -430,13 +417,24 @@ updateCommitsInformation(chart);
    })
   
   let content = {
-      startY: 50,
+      ableLineColor: [0, 0, 0], //choose RGB
+      tableLineWidth: 0.5, //table border width
+      startY: 150,
+      theme: 'grid',
       head: actualheaders,
-      body: tabledata
+      body: tabledata,
+      bodyStyles: {
+            fontSize: 10,
+        },
     };
 
-    doc.text(title, marginLeft, 40);
+    let tabletitle = "From" + " " + this.context.startDate + " " + "To"+ " " +this.context.endDate
+    doc.text(tabletitle, 200, 130);
     doc.autoTable(content);
+    doc.setFontSize(10);
+     doc.setTextColor(255,0,0);
+    let str="Powered By OmParashar"
+    doc.text(str, 245, doc.internal.pageSize.getHeight()-50)
     doc.save("Omparashar_journey.pdf")
 
 

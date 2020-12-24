@@ -185,24 +185,51 @@ function Snapshot() {
     const unit = "pt";
     const size = "A4"; // Use A1, A2, A3 or A4
     const orientation = "portrait"; // portrait or landscape
-
-    const marginLeft = 40;
-    const doc = new jsPDF(orientation, unit, size);
-
+    const doc = new jsPDF(orientation, unit, size,true);
+    var img = new Image()
+    img.src = '../logo_OP.png'
+    doc.addImage(img, 'png', 10, 20, 100, 30,'','FAST')
+    const maintitle = "Snapshot of Planet Positions"
+    doc.setFont("Roboto","bold");
+    doc.setFontSize(20);
+     doc.setTextColor(25,25,112);
+    doc.setFont("Roboto","normal");
+     doc.text(maintitle, 180, 80);
     doc.setFontSize(15);
+    doc.setTextColor(0,0,0);
+    const title = headerString;
 
-    const title = "Snapshot of Planet Positions"+ " " + "on" + " " + headerString;
+    const combustfun = (planet_name, combustval) =>{
+      if(noncombust.indexOf(planet_name) >=0) {
+        return "Never"
+      }
+      else
+      {
+        return combust_dict[combustval]
+      }
+    }
+    const combust_dict = {true: "Yes", false: "No"}
     const headers = [["Planet","Degrees","Degrees in Rashi","Motion","Nakshatra","Pada","Nakshatra Lord","Combust"]];
-    const tabledata = data.map(elt=> [elt.planet_name, elt.abs_degree, elt.r_d_m_s, elt.motion, elt.nakshtra,elt.nakshtra_pada,elt.nakshtra_lord,elt.combust])
+    const tabledata = data.map(elt=> [elt.planet_name, elt.abs_degree, elt.r_d_m_s, elt.motion, elt.nakshtra,elt.nakshtra_pada,elt.nakshtra_lord, combustfun(elt.planet_name, elt.combust)])
     //alert(data)
     let content = {
-      startY: 50,
+      tableLineColor: [0, 0, 0], //choose RGB
+      tableLineWidth: 0.5, //table border width
+      startY: 170,
+      theme: 'grid',
       head: headers,
-      body: tabledata
+      body: tabledata,
+      bodyStyles: {
+            fontSize: 12,
+        },
     };
 
-    doc.text(title, marginLeft, 40);
+    doc.text(title, 200, 160);
     doc.autoTable(content);
+    doc.setFontSize(10);
+     doc.setTextColor(255,0,0);
+    let str="Powered By OmParashar"
+    doc.text(str, 245, doc.internal.pageSize.getHeight()-50)
     doc.save("Omparashar_snapshot.pdf")
   }
 
