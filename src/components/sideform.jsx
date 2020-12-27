@@ -396,6 +396,7 @@ class sideform extends Component {
                     onClick={this.alertclick}
                     disabled={this.context.IsLoading}
                   >
+                   
                     {this.context.IsLoading ? (
                       <span>
                         Getting Data{" "}
@@ -433,6 +434,7 @@ class sideform extends Component {
             <option value="line_chart">Traces</option>
             <option value="journey">Journey</option>
             <option value="snapshot">Snapshot</option>
+            <option value="Natal_chart_layout">Natal Chart</option>
           </select>
                    </label>
                 <br></br>

@@ -172,7 +172,7 @@ const D3graph = (props) => {
 
                             <div className="row">
                                 <div className="col-lg-12">
-                                <NatalChart />
+                               
                                 <Chart1 />
                                    
                                 </div>

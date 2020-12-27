@@ -9,6 +9,7 @@ import { GlobalContext } from '../mycontext';
 import Plotly_NAKS from '../d3/plotly_Naks';
 import Journey from '../d3/Journey';
 import Snapshot from '../d3/Snapshot'
+import Natal_chart_layout from '../d3/Panchang/Natal_chart_layout';
 
 const Contentlayout = () => {
   const context = React.useContext(GlobalContext)
@@ -484,6 +485,9 @@ const Contentlayout = () => {
   else if(view === 'journey'){ 
      return(  <Journey/>);
  }
+ else if(view === 'Natal_chart_layout'){ 
+  return(  <Natal_chart_layout/>);
+}
  else{
    return(<Snapshot/>);
  }

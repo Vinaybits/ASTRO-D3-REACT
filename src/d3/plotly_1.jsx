@@ -460,7 +460,8 @@ apidate_format =() =>{
 
     
     render() { 
-        return (  <> 
+        return (  
+        <> 
         {/* <button onClick={this.apidate_format}>click me</button> */}
         <div className="col-lg-10">
                 <div id="d3graph" className="col-lg-12"  >
