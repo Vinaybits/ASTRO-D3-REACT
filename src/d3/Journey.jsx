@@ -8,6 +8,10 @@ import Select from 'react-select';
 import moment from "moment";
 import * as cities from "../components/cities.json";
 import axios from 'axios';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button'
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 const planets = [
   { value: 'Sun', label: 'Sun' },
@@ -35,14 +39,20 @@ class Journey extends Component {
       super(props);
       this.myRef = React.createRef();
       this.state = {
-            selectedOption:{ value: 'Mercury', label: 'Mercury' },
+            selectedOption:{ value: 'Jupiter', label: 'Jupiter' },
             multiValue: [],
             repositories:'',
             currentClass: 'col-lg-10 col-md-12',
-            loading:true
+            loading:true,
+            show:false,
+            pdfSelectedEvents:[]
       }
       this.handleChange = this.handleChange.bind(this);
       this.handleMultiChange = this.handleMultiChange.bind(this);
+      this.exportJourneyPDF = this.exportJourneyPDF.bind(this);
+      this.handleClose = this.handleClose.bind(this);
+      this.handlePDFEvents = this.handlePDFEvents.bind(this)
+      this.generatePDF = this.generatePDF.bind(this)
    }
    componentWillMount() {
       this.fetchData();
@@ -320,7 +330,115 @@ updateCommitsInformation(chart);
         (this.state.currentClass === 'col-lg-10 col-md-12') ? this.setState({currentClass:'fullscreen'}) : this.setState({currentClass:'col-lg-10 col-md-12'});
     };
 
+  exportJourneyPDF(){
+    this.setState({show:true})
+  }
 
+  handleClose(){
+    this.setState({show:false})
+  }
+
+  handlePDFEvents(option) {
+   this.setState(state => {
+      return {
+        pdfSelectedEvents: option
+      };
+    })
+   }
+
+   generatePDF(){
+
+     this.setState({show:false})
+     const pdfData = this.state.repositories.transits.filter(f => this.state.pdfSelectedEvents.some(person => person.value === f.event_type )).map(repository =>  ({
+    event_type: repository.event_type,
+    data: repository.milestones
+}));
+    let pdfArray=[]
+    pdfData.forEach(function(element){
+      element.data.forEach(function(milestone){
+            let singleEle={}
+            singleEle.event_type = element.event_type;
+            singleEle.desc = milestone.desc;
+            singleEle.datetime = milestone.event_datetime
+            pdfArray.push(singleEle)
+      })
+    })
+    pdfArray.sort(function(a, b) {
+    var dateA = new Date(a.datetime), dateB = new Date(b.datetime);
+    return dateA - dateB;
+});
+    console.log(pdfArray)
+
+    const unit = "pt";
+    const size = "A4"; // Use A1, A2, A3 or A4
+    const orientation = "portrait"; // portrait or landscape
+    const doc = new jsPDF(orientation, unit, [800,600],true);
+    var img = new Image()
+    img.src = '../logo_OP.png'
+    doc.addImage(img, 'png', 10, 20, 100, 30,'','FAST')
+     const title = this.state.selectedOption.value + "'s" + " "+ "Journey";
+    doc.setFont("Roboto","bold");
+    doc.setFontSize(20);
+     doc.setTextColor(25,25,112);
+    doc.setFont("Roboto","normal");
+     doc.text(title, 232, 80);
+    doc.setFontSize(15);
+    doc.setTextColor(0,0,0);
+
+    let headers = [];
+    headers.push("Date");
+    this.state.pdfSelectedEvents.forEach(function(event){
+        headers.push(event.value);
+    });
+    let actualheaders=[headers]
+   const splitDate = (date) =>{
+      let dateArray = date.split(" ");
+      dateArray.splice(-1,1);
+      date=dateArray.join(" ")
+      return date
+   }
+ 
+
+   const tabledata = []
+   pdfArray.forEach(function(row){
+      let newrow=[]
+      let time=row.datetime.split(" ").pop()
+      newrow.push(splitDate(row.datetime))
+      let index=headers.indexOf(row.event_type)
+      for(var i=1; i<headers.length;i++){
+          if (i!==index){
+            newrow.push("")
+          }
+          else{
+            newrow.push(row.desc + " " + "@" + " " +  time)
+          }
+      }
+      tabledata.push(newrow)
+   })
+  
+  let content = {
+      ableLineColor: [0, 0, 0], //choose RGB
+      tableLineWidth: 0.5, //table border width
+      startY: 150,
+      theme: 'grid',
+      head: actualheaders,
+      body: tabledata,
+      bodyStyles: {
+            fontSize: 10,
+        },
+    };
+
+    let tabletitle = "From" + " " + this.context.startDate + " " + "To"+ " " +this.context.endDate
+    doc.text(tabletitle, 200, 130);
+    doc.autoTable(content);
+    doc.setFontSize(10);
+     doc.setTextColor(255,0,0);
+    let str="Powered By OmParashar"
+    doc.text(str, 245, doc.internal.pageSize.getHeight()-50)
+    doc.save("Omparashar_journey.pdf")
+
+
+   }
 
 
 
@@ -356,6 +474,43 @@ updateCommitsInformation(chart);
                     options={planets}
                     />
                     </label>  
+      <button
+                    type="submit"
+                    className="ladda-button btn pdf"
+                    style={{ backgroundColor: "rgb(3, 66, 141)", color: "#fff",margin:"32px",fontSize:"0.9rem" }}
+                    onClick={this.exportJourneyPDF}
+                  >
+                    Generate PDF
+                  </button>
+                  <Modal show={this.state.show} onHide={this.handleClose} centered>
+        
+        <Modal.Header 
+        closeButton 
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}>
+        <Modal.Title style={{color:"rgb(3, 66, 141)",fontWeight:"bold"}}>{selectedOption.value}'s Journey</Modal.Title> 
+        </Modal.Header>
+        <Modal.Body>
+          <center>
+                    <label>Select Events to be generated in PDF:            
+                    <Select
+          value={this.state.pdfSelectedEvents}
+          options={filterOptions}
+          onChange={this.handlePDFEvents}
+          isMulti
+        />
+                  </label> 
+                  </center>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={this.generatePDF}>
+            Done
+          </Button>
+        </Modal.Footer>
+      </Modal>
                     </center>
                     <hr style={{"marginBottom":"2px"}} />
                             <div className="row">
