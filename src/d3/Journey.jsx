@@ -441,7 +441,6 @@ updateCommitsInformation(chart);
     let start = this.context.startDate.split("/")
 
     let sday=start[2]
-    alert(parseInt(start[1]))
     let smonthName = monthNames[parseInt(start[1])-1];
     
     let syear = start[0]
