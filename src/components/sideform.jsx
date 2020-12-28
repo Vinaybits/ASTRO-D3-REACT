@@ -325,11 +325,11 @@ class sideform extends Component {
 
               <form>
                 <div>
-     <div>
+     {/* <div>
     <GooglePlacesAutocomplete
       apiKey="AIzaSyD20dhIgpcWeejMM9vOzbzvIwX7DNXrQao"
     />
-  </div>  
+  </div>   */}
     {/* <PlacesAutocomplete
         value={this.state.address}
         onChange={this.handleplaceChange}
