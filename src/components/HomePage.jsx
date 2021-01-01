@@ -83,8 +83,10 @@ const HomePage= () => {
                             </div>
                     <div className="col-md-3">
                                 <div className="team-member">
+                                    <Link to='/panchang'>
                                     <img className="mx-auto" style={{height:"200px"}} src={require("../assets/img/team/2.png")} alt="" />
                                     <h4 className="my-3">Panchang</h4>
+                                     </Link>
                                 <p className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
                     
                                 </div>
