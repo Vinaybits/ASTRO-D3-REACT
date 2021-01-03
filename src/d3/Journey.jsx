@@ -12,6 +12,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button'
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import { red } from '@material-ui/core/colors';
 
 const planets = [
   { value: 'Sun', label: 'Sun' },
@@ -358,7 +359,7 @@ updateCommitsInformation(chart);
       element.data.forEach(function(milestone){
             let singleEle={}
             singleEle.event_type = element.event_type;
-            singleEle.desc = milestone.desc;
+            singleEle.desc = milestone.desc.split(' ').slice(2).join(' ');;
             singleEle.datetime = milestone.event_datetime
             pdfArray.push(singleEle)
       })
@@ -383,12 +384,12 @@ updateCommitsInformation(chart);
     doc.setFont("Roboto","normal");
      doc.text(title, 232, 80);
     doc.setFontSize(15);
-    doc.setTextColor(0,0,0);
-
+    doc.setTextColor(80,80,80);
+    console.log(pdfData);
     let headers = [];
     headers.push("Date");
-    this.state.pdfSelectedEvents.forEach(function(event){
-        headers.push(event.value);
+    pdfData.forEach(function(event){
+        headers.push(event.event_type.split(" ")[0]);
     });
     let actualheaders=[headers]
    const splitDate = (date) =>{
@@ -404,7 +405,7 @@ updateCommitsInformation(chart);
       let newrow=[]
       let time=row.datetime.split(" ").pop()
       newrow.push(splitDate(row.datetime))
-      let index=headers.indexOf(row.event_type)
+      let index=headers.indexOf(row.event_type.split(" ")[0])
       for(var i=1; i<headers.length;i++){
           if (i!==index){
             newrow.push("")
@@ -417,24 +418,46 @@ updateCommitsInformation(chart);
    })
   
   let content = {
-      ableLineColor: [0, 0, 0], //choose RGB
-      tableLineWidth: 0.5, //table border width
       startY: 150,
       theme: 'grid',
       head: actualheaders,
       body: tabledata,
+      headerStyles: {
+        fontSize: 11,
+        halign: 'center',
+      },
       bodyStyles: {
             fontSize: 10,
-        },
+            halign: 'center',
+      },
+      rowPageBreak: 'avoid'
     };
 
-    let tabletitle = "From" + " " + this.context.startDate + " " + "To"+ " " +this.context.endDate
+
+    let monthNames =["Jan","Feb","Mar","Apr",
+                      "May","Jun","Jul","Aug",
+                      "Sep", "Oct","Nov","Dec"];
+
+    let start = this.context.startDate.split("/")
+
+    let sday=start[2]
+    let smonthName = monthNames[parseInt(start[1])-1];
+    
+    let syear = start[0]
+    let end = this.context.endDate.split("/")
+    
+    let eday=end[2]
+    let emonthName = monthNames[parseInt(end[1])-1];
+    
+    let eyear = end[0]
+
+    let tabletitle = "From" + " " + sday+","+" "+ smonthName+" " + syear + " " + "To"+ " " + eday+","+ " "+emonthName + " " + eyear
     doc.text(tabletitle, 200, 130);
     doc.autoTable(content);
     doc.setFontSize(10);
      doc.setTextColor(255,0,0);
     let str="Powered By OmParashar"
-    doc.text(str, 245, doc.internal.pageSize.getHeight()-50)
+    doc.text(str, 245, doc.internal.pageSize.getHeight()-30)
     doc.save("Omparashar_journey.pdf")
 
 

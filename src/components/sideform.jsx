@@ -11,10 +11,6 @@ import * as cities from "../components/cities.json";
 import Autocomplete from "../components/autocomplete";
 import {GlobalContext } from "../mycontext";
 import "./sideform.css";
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng,
-} from 'react-places-autocomplete';
 
 class sideform extends Component {
   static contextType = GlobalContext;
@@ -198,12 +194,12 @@ class sideform extends Component {
     this.setState({ address });
   };
 
-  handleSelect = address => {
-    geocodeByAddress(address)
-      .then(results => getLatLng(results[0]))
-      .then(latLng => console.log('Success', latLng))
-      .catch(error => console.error('Error', error));
-  };
+  // handleSelect = address => {
+  //   geocodeByAddress(address)
+  //     .then(results => getLatLng(results[0]))
+  //     .then(latLng => console.log('Success', latLng))
+  //     .catch(error => console.error('Error', error));
+  // };
 
   handleAutoCompleterChange = (type) => {
     if (type === "userInput") {
@@ -329,6 +325,11 @@ class sideform extends Component {
 
               <form>
                 <div>
+     {/* <div>
+    <GooglePlacesAutocomplete
+      apiKey="AIzaSyD20dhIgpcWeejMM9vOzbzvIwX7DNXrQao"
+    />
+  </div>   */}
     {/* <PlacesAutocomplete
         value={this.state.address}
         onChange={this.handleplaceChange}
