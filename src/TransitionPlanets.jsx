@@ -7,6 +7,7 @@ import Footer from './layout/footer';
 
 
 function TransitionPlanets() {
+  window.scrollTo({top: 0, left: 0, behavior: 'smooth' });
   return (
     <>
       <div id="wrapper">
