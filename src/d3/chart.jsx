@@ -602,7 +602,14 @@ class BarChart extends Component {
                 .attr("class", "Planet_Text")
                 .text(function (d) {
                    // console.log(d.name);
+                   if(d.motion === "R"){
+                    return d.name + " (" + d.motion +")" ;
+
+                   }
+                   else{
                     return d.name;
+                   }
+                    
                 });
 
                 d3.select(this).append("circle") // draw a circle
@@ -781,6 +788,7 @@ class BarChart extends Component {
                     var padas_degree = 360 / 108;
                     var name = d.name;
                     var degree = d.degree;
+                    var motion = d.motion;
                     var sunshine_name = "";
                     var naks_name = "";
                     var padas_number = "";
@@ -855,7 +863,7 @@ class BarChart extends Component {
 
 
 
-                    return "<b>Planet </b> : " + name + "<br/> <b>Degree </b> :" + degree + "&#176" + "<br/> <b>Sunsign</b> :" + sunshine_name + "<br/> <b>Nak :</b>" + naks_name + "<br/> <b>Pada :</b>" + padas_number;
+                    return "<b>Planet </b> : " + name + " - "+motion+"<br/> <b>Degree </b> :" + degree + "&#176" + "<br/> <b>Sunsign</b> :" + sunshine_name + "<br/> <b>Nak :</b>" + naks_name + "<br/> <b>Pada :</b>" + padas_number;
                 }
 
 

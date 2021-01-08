@@ -15,6 +15,7 @@ export class GlobalProvider extends Component {
 		  color: 'white',
 		  degree: -90,
 		  name: "Mo",
+		  motion:"",
 		  moons: [] // mercury
 		}, {
 		  R: 285,
@@ -24,6 +25,7 @@ export class GlobalProvider extends Component {
 		  color: 'yellow',
 		  degree: -90,
 		  name: "Sa",
+		  motion:"",
 		  moons: [] // mercury
 		}, {
 		  R: 210,
@@ -33,6 +35,7 @@ export class GlobalProvider extends Component {
 		  color: 'orange',
 		  degree: -90,
 		  name: "Su",
+		  motion:"",
 		  moons: [] // mercury
 		},
 		{
@@ -43,6 +46,7 @@ export class GlobalProvider extends Component {
 		  color: 'skyblue',
 		  degree: -90,
 		  name: "Me",
+		  motion:"",
 		  moons: [] // mercury
 		},
 		{
@@ -53,6 +57,7 @@ export class GlobalProvider extends Component {
 		  color: 'red',
 		  degree: -90,
 		  name: "Ve",
+		  motion:"",
 		  moons: [] // mercury
 		},
 		{
@@ -63,6 +68,7 @@ export class GlobalProvider extends Component {
 		  color: 'maroon',
 		  degree: -90,
 		  name: "Ma",
+		  motion:"",
 		  moons: [] // mercury
 		}, {
 		  R: 270,
@@ -72,6 +78,7 @@ export class GlobalProvider extends Component {
 		  color: 'green',
 		  degree: -90,
 		  name: "Ju",
+		  motion:"",
 		  moons: [] // mercury
 		},
 		{
@@ -82,6 +89,7 @@ export class GlobalProvider extends Component {
 		  color: 'purple',
 		  degree: -90,
 		  name: "Ra",
+		  motion:"",
 		  moons: [] // mercury
 		},
 		{
@@ -92,6 +100,7 @@ export class GlobalProvider extends Component {
 		  color: 'grey',
 		  degree: -90,
 		  name: "Ke",
+		  motion:"",
 		  moons: [] // mercury
 		}
 	  ];
@@ -116,6 +125,11 @@ export class GlobalProvider extends Component {
 				)
 				if(api_dgree){
 					a.degree = api_dgree.deg;
+					if(api_dgree.motion === "R"){
+						a.motion = api_dgree.motion;
+
+					}
+					
 					
 				}
 				
