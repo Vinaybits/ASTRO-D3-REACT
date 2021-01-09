@@ -125,10 +125,10 @@ export class GlobalProvider extends Component {
 				)
 				if(api_dgree){
 					a.degree = api_dgree.deg;
-					if(api_dgree.motion === "R"){
+					//if(api_dgree.motion === "R"){
 						a.motion = api_dgree.motion;
 
-					}
+					//}
 					
 					
 				}

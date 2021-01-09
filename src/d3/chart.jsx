@@ -606,8 +606,8 @@ class BarChart extends Component {
                     return d.name + " (" + d.motion +")" ;
 
                    }
-                   else{
-                    return d.name;
+                   else if(d.motion === "" || d.motion === " " ||d.motion === "D"){
+                    return d.name ;
                    }
                     
                 });

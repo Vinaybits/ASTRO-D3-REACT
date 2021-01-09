@@ -49,8 +49,11 @@ const HomePage= () => {
             <div className="container" style={{paddingLeft:"20%", paddingRight:"0"}}>
                 
                 
-                 <div className="masthead-subheading" style={{textAlign:"left"}}>Dedicated to <br></br> the great revelations of Rishi Parashar <br></br>
-                 in the world of astrology.
+                 <div className="masthead-subheading" style={{textAlign:"left"}}>Dedicated to... <br></br> </div>
+                 <div className="masthead-subheading" style={{textAlign:"left", fontStyle:"normal", paddingLeft:"8%"}}>the great revelations of 
+                 <span style={{color:"#FE8B5D", fontStyle:"italic"}}> Rishi Parashar</span>
+                  <br></br>
+                 in the world of <span style={{color:"#FE8B5D", fontStyle:"italic"}}>astrology</span>.
  </div>
                
                
