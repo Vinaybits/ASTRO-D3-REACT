@@ -46,13 +46,14 @@ const HomePage= () => {
         </nav>
         {/* <!-- Masthead--> */}
         <header className="masthead">
-            <div className="container" >
-                <div className="masthead-subheading">Welcome To Omparashar</div>
-                {/* <!-- <div class="masthead-heading text-uppercase">It's Nice To Meet You</div> --> */}
+            <div className="container" style={{paddingLeft:"20%", paddingRight:"0"}}>
+                
+                
+                 <div className="masthead-subheading" style={{textAlign:"left"}}>Dedicated to <br></br> the great revelations of Rishi Parashar <br></br>
+                 in the world of astrology.
+ </div>
                
-                <p>
-
-                </p>
+               
                 
             </div>
            
@@ -67,7 +68,7 @@ const HomePage= () => {
             <div className="container">
                 <div className="text-center">
                     <h2 className="section-heading text-uppercase">Services</h2>
-                    <h3 className="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    
                 </div>
                 <div className="row text-center justify-content-center">
                     
@@ -75,9 +76,11 @@ const HomePage= () => {
                         <div className="team-member">
                             <Link to='/transition'>
                             <img className="mx-auto" style={{height:"200px"}} src={require("../assets/img/team/1.png")} alt="" />
-                            <h4 className="my-3">Planet Transition</h4>
+                            <h4 className="my-3">Transition of Planets</h4>
                             </Link>
-                        <p className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                        <p className="text-muted">Let us explore how planets move in the sky with respect to each other using several 
+                        interesting perspectives. 
+                        Let the planets define their journey and we witness it as time passes by.</p>
                       
                         </div>
                             </div>
@@ -87,7 +90,8 @@ const HomePage= () => {
                                     <img className="mx-auto" style={{height:"200px"}} src={require("../assets/img/team/2.png")} alt="" />
                                     <h4 className="my-3">Panchang</h4>
                                      </Link>
-                                <p className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                                     <p className="text-muted">Everything that one should know about the time and astral bodies. Explore five elements and beyond. Explore 
+                                auspicious and inauspicious time during the day and night.</p>
                     
                                 </div>
                                     </div>
@@ -95,7 +99,8 @@ const HomePage= () => {
                                         <div className="team-member">
                                             <img className="mx-auto" style={{height:"200px"}} src={require("../assets/img/team/3.png")} alt="" />
                                             <h4 className="my-3">Dancing of Planets</h4>
-                                        <p className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                                        <p className="text-muted"> Learn and explore how two planets move with respect to each other creating wonderful patterns 
+                                        leavings us all in awe.</p>
                             
                                         </div>
                                             </div>
@@ -107,7 +112,7 @@ const HomePage= () => {
             <div className="container">
                 <div className="text-center">
                     <h2 className="section-heading text-uppercase">Contact Us</h2>
-                    <h3 className="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                   
                    
                 </div>
                <div>
@@ -134,7 +139,7 @@ const HomePage= () => {
         <footer className="footer py-4">
             <div className="container">
                 <div className="row align-items-center">
-                    <div className="col-lg-4 text-lg-left">Copyright © Your Website 2020</div>
+                    <div className="col-lg-4 text-lg-left">Copyright © Semanticbits </div>
                     <div className="col-lg-4 my-3 my-lg-0">
                         <a className="btn btn-dark btn-social mx-2" href="#!"><i className="fab fa-twitter"></i></a>
                         <a className="btn btn-dark btn-social mx-2" href="#!"><i className="fab fa-facebook-f"></i></a>
