@@ -1,13 +1,8 @@
 @charset "UTF-8";
 
-
 body {
   margin: 0;
-  
-  
-  
 }
-
 
 .btn {
   display: inline-block;
@@ -655,8 +650,6 @@ input[type="button"].btn-block {
   display: none;
 }
 
-
-
 .navbar {
   position: relative;
   display: flex;
@@ -1029,13 +1022,6 @@ input[type="button"].btn-block {
 .navbar-dark .navbar-text a:focus {
   color: #fff;
 }
-
-
-
-
-
-
-
 
 @media (prefers-reduced-motion: reduce) {
   .carousel-indicators li {
@@ -2492,10 +2478,6 @@ button.bg-dark:focus {
   box-shadow: none !important;
 }
 
-
-
-
-
 .stretched-link::after {
   position: absolute;
   top: 0;
@@ -3046,8 +3028,6 @@ header.masthead .masthead-heading {
   }
 }
 
-
-
 section#contact {
   background-color: #212529;
   /* background-image: url("../assets/img/map-image.png"); */
@@ -3095,7 +3075,6 @@ section#contact form#contactForm :-moz-placeholder {
   font-weight: 700;
   color: #ced4da;
 }
-
 
 .footer {
   text-align: center;

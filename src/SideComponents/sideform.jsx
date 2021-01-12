@@ -6,9 +6,8 @@ import {
 } from "react-dates";
 import { Component } from "react";
 import moment from "moment";
-import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import * as cities from "../components/cities.json";
-import Autocomplete from "../components/autocomplete";
+import Autocomplete from "./autocomplete";
 import {GlobalContext } from "../mycontext";
 import "./sideform.css";
 
@@ -16,10 +15,10 @@ class sideform extends Component {
   static contextType = GlobalContext;
   constructor(props) {
     super(props);
-
     this.state = {
       startDate: null,
       endDate: null,
+      panchangDate: null,
       city: "",
       cities_value: null,
       focusedEndDate: false,
@@ -103,7 +102,7 @@ class sideform extends Component {
     this.setState({ errors: errors });
 
     let url_string =
-      "http://api.omparashar.com/planet/multi/positions/overdaterange";
+      "http://api.omparashar.com/transit/multi/positions/overdaterange";
     //var params = "?from_year=2020&from_month=1&from_day=1&to_year=2020&to_month=6&to_day=30&lat=29.47&long=77.69&offset=19800&p_nums=3&p_nums=4";
     let params =
       "?from_year=" +
@@ -147,6 +146,13 @@ class sideform extends Component {
     // alert(lat+long+offset+"Start -"+from_year+from_month+from_day+"-" + moment(this.state.startDate).format("DD-MM-YYYY") + "</br>" + "End -" +moment(this.state.endDate).format("DD-MM-YYYY"));
   };
 
+  alertclickPanchang = (e) =>
+  {
+    e.preventDefault();
+    let names = document.getElementById("auto_complete1").value;
+     this.context.set_Panchang_Date(this.state.panchangDate,names);
+  }
+
 
   // set all variable values
 
@@ -168,7 +174,7 @@ class sideform extends Component {
           isValidDateRange = false;
         }
       }
-    } else if (name == "endDate") {
+    } else if (name === "endDate") {
       this.setState({ endDate: date });
       if (this.state.startDate) {
         let isAfter = moment(date).isAfter(this.state.startDate);
@@ -184,6 +190,9 @@ class sideform extends Component {
         errors["dateError"] = "Please select start date";
         isValidDateRange = false;
       }
+    }
+    else if(name === "panchangDate"){
+      this.setState({panchangDate: date})
     }
 
     this.setState({ errors: errors });
@@ -311,6 +320,8 @@ class sideform extends Component {
         </div>
       );
     };
+    const view = this.props.view;
+    if(view === "TransitionView"){
     return (
       <>
         <div className="">
@@ -543,6 +554,116 @@ class sideform extends Component {
         </div>
       </>
     );
+  }
+
+  else if( view === "panchangView"){
+    return(
+       <>
+      <div className="">
+          <div className="card" style={{ display: this.state.open }}>
+            <div className="card-body">
+              <h4 className="header-title">Panchang</h4>
+              <p className="sub-header" style={{ "marginBottom": "0px" }}>
+                Let us explore the
+                <code> panchang </code>
+                move
+              </p>
+              <form>
+              <div className="form-group mb-1">
+                  <label htmlFor="example-input-small">Place of Observation</label>
+                  <Autocomplete
+                    resetInputText={this.state.resetInputText}
+                    handleChange={this.handleAutoCompleterChange}
+                    suggestions={cities_name}
+                    id="autocomplete"
+                  />
+                  {this.state.errors.observation && (
+                    <p className="form-error">
+                      {this.state.errors.observation}
+                    </p>
+                  )}
+                </div>
+                <label htmlFor="example-input-small">Select Date</label>
+                <div className="mb-1">
+                  <SingleDatePicker
+                    numberOfMonths={1}
+                    date={this.state.panchangDate} // momentPropTypes.momentObj or null
+                    onDateChange={(date) =>
+                      this.onDateChange("panchangDate", date)
+                    } // PropTypes.func.isRequired
+                    focused={this.state.focused} // PropTypes.bool
+                    onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
+                    id="panchang_date" // PropTypes.string.isRequired,
+                    placeholder="Date"
+                    isOutsideRange={falseFunc}
+                    displayFormat={() => "DD-MM-YYYY"}
+                    // minDate={moment(min)}
+                    // maxDate={moment(max)}
+                    renderMonthElement={renderMonthElement}
+                    readOnly={true}
+                  />
+                </div>
+                <center>
+                  <button
+                    type="submit"
+                    className="ladda-button btn"
+                    style={{ backgroundColor: "#03428D", color: "#fff" }}
+                    onClick={this.alertclickPanchang}
+                    disabled={this.context.IsLoading}
+                  >
+                    {this.context.IsLoading ? (
+                      <span>
+                        Getting Data{" "}
+                        <i className="mdi mdi-spin mdi-loading mr-1 font-16"></i>
+                      </span>
+                    ) : (
+                      "Get Data"
+                    )}
+                  </button>
+                </center>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div className="">
+          <div className="card"
+            style={{ display: this.state.open ? "" : "none" }} >
+            <div className="card-body">
+              <h4 className="header-title">Panchang</h4>
+              <div className="sub-heading">
+               Date : {moment(this.state.startDate).format("DD-MM-YYYY")}
+                <br />
+                Location : {this.state.city}
+                <br />
+                <br />
+              
+                    <label>
+                    Select Perspective:
+                    <select className="form-control"  value={this.state.value} onChange={this.handleChange}>
+            <option value="panchang">Panchang</option>
+            <option value="panchang_table">Holistic View</option>
+            {/* <option value="journey">Journey</option>
+            <option value="snapshot">Snapshot</option>
+            <option value="astrochart">Astro chart</option> */}
+          </select>
+                   </label>
+                <br></br>
+                <button
+                  type="submit"
+                  className="ladda-button btn-sm"
+                  style={{ backgroundColor: "#03428D", color: "#fff",marginLeft:"5px"}}
+                  onClick={this.resetForm}
+                >
+                  Reset Parameters
+                </button>
+              </div>
+              </div>
+          </div>
+        </div>
+     </>                     
+    );
+  }
   }
 }
 

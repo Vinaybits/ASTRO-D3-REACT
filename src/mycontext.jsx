@@ -286,6 +286,12 @@ export class GlobalProvider extends Component {
 
 	 }
 
+	 set_PanchangDate = (date,city) =>
+	 {
+		 this.setState({panchangDate:date})
+		 this.setState({placeobserved:city});	
+	 }
+
 
 	state = {
 		planet:this.planet_init,
@@ -305,11 +311,13 @@ export class GlobalProvider extends Component {
 		forwardPlanet : this.forward_array,
 		backwardPlanet: this.backward_array,
 		callAPI_daterange: (url,city, str_date,end_date) => this.call_daterange(url,city,str_date,end_date),
+		set_Panchang_Date: (panchangDate,city) => this.set_PanchangDate(panchangDate,city),
 		callAPI_Journey_daterange: (url,city, str_date,end_date) => this.call_daterange_journey(url,city,str_date,end_date),
 		togglebutton: this.toggle,
-		placeobserved:'',
+		placeobserved:null,
 		startDate:'',
 		endDate:'',
+		panchangDate:null,
 		IsLoading:false
 	};
 

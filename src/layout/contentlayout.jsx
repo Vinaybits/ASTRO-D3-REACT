@@ -1,5 +1,5 @@
 import React, { useState, useEffect , useRef} from 'react';
-import Sideform from '../components/sideform'
+import Sideform from '../SideComponents/sideform'
 import D3graph from '../components/d3graph';
 // import Sideoptions from '../components/sideoptions';
 // import Card3col from '../components/card3col';
@@ -499,7 +499,7 @@ const Contentlayout = () => {
             <div className="row">
                   <div className="col-lg-2 col-md-12">
                     <div>
-                      <Sideform />
+                      <Sideform view={"TransitionView"}/>
                     </div>
                     {/* <div>
                       <Sidetable />

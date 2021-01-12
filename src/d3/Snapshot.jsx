@@ -81,7 +81,7 @@ function Snapshot() {
       offset = Math.round(long * 4 * 60);
 
       let url_string =
-      "http://api.omparashar.com/planet/snapshot";
+      "http://api.omparashar.com/transit/snapshot";
     //var params = "?from_year=2020&from_month=1&from_day=1&to_year=2020&to_month=6&to_day=30&lat=29.47&long=77.69&offset=19800&p_nums=3&p_nums=4";
     let params =
       "?year="+

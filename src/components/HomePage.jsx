@@ -89,9 +89,11 @@ const HomePage= () => {
                             </div>
                     <div className="col-md-3">
                                 <div className="team-member">
+                                    <Link to='/panchang'>
                                     <img className="mx-auto" style={{height:"200px"}} src={require("../assets/img/team/2.png")} alt="" />
                                     <h4 className="my-3">Panchang</h4>
-                                <p className="text-muted">Everything that one should know about the time and astral bodies. Explore five elements and beyond. Explore 
+                                     </Link>
+                                     <p className="text-muted">Everything that one should know about the time and astral bodies. Explore five elements and beyond. Explore 
                                 auspicious and inauspicious time during the day and night.</p>
                     
                                 </div>
