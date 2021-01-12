@@ -1,10 +1,10 @@
 import React from 'react';
-import Chart1 from '../d3/chart';
 import { useState } from 'react';
 import { GlobalProvider, GlobalContext } from '../mycontext';
 import * as bg_img from '../components/bg_naks.jpg'
 import D3_linechart from '../d3/d3_linechart';
 import Ploty_1 from '../d3/plotly_1';
+import Chart1 from '../d3/chart';
 
 
 const D3graph = (props) => {

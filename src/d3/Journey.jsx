@@ -99,7 +99,7 @@ class Journey extends Component {
 
 
         let url_string =
-      "http://api.omparashar.com/planet/journey/transit/overdaterange";
+      "http://api.omparashar.com/transit/journey/overdaterange";
     //var params = "?from_year=2020&from_month=1&from_day=1&to_year=2020&to_month=6&to_day=30&lat=29.47&long=77.69&offset=19800&p_nums=3&p_nums=4";
     let params =
       "?from_year=" +

@@ -3,8 +3,8 @@ import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { GlobalProvider, GlobalContext } from './mycontext';
 import HomePage from './components/HomePage';
-import TransitionPlanets from './TransitionPlanets';
-import PanchangHome from './PanchangHome'
+import TransitionPlanets from './ComponentHomePages/TransitionHome';
+import PanchangHome from './ComponentHomePages/PanchangHome'
 function App() {
   return (
     <>

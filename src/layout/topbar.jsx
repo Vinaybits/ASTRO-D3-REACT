@@ -20,7 +20,7 @@ const Topbar = () => {
 
 
                         <li className="dropdown d-sm-inline-block">
-                            <a className="nav-link dropdown-toggle arrow-none waves-effect waves-light" data-toggle="fullscreen" href="/#">
+                            <a className="nav-link dropdown-toggle arrow-none waves-effect waves-light" data-toggle="fullscreen">
                                 <i className="fe-maximize noti-icon"></i>
                             </a>
                         </li>
