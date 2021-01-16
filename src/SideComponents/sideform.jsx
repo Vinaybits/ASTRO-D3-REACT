@@ -150,7 +150,9 @@ class sideform extends Component {
   {
     e.preventDefault();
     let names = document.getElementById("auto_complete1").value;
+    this.setState({ city: names });
      this.context.set_Panchang_Date(this.state.panchangDate,names);
+     this.setState({ open: "none" });
   }
 
 
@@ -228,6 +230,8 @@ class sideform extends Component {
     this.setState({ endDate: null });
     this.setState({ city: "" });
     this.setState({ resetInputText: true });
+    this.setState({ panchangDate: null });
+    
   }
 
   render() {
@@ -449,7 +453,7 @@ class sideform extends Component {
                 </div>
                 <div>
                   <p className="sub-header">
-                    Maximun Date Range allowed is <code> 1year </code>
+                    Maximum Date Range allowed is <code> 1year </code>
                   </p>
                 </div>
                 <center>
@@ -497,7 +501,6 @@ class sideform extends Component {
             <option value="line_chart">Traces</option>
             <option value="journey">Journey</option>
             <option value="snapshot">Snapshot</option>
-            <option value="astrochart">Astro chart</option>
           </select>
                    </label>
                 <br></br>
@@ -566,7 +569,6 @@ class sideform extends Component {
               <p className="sub-header" style={{ "marginBottom": "0px" }}>
                 Let us explore the
                 <code> panchang </code>
-                move
               </p>
               <form>
               <div className="form-group mb-1">
@@ -630,24 +632,15 @@ class sideform extends Component {
           <div className="card"
             style={{ display: this.state.open ? "" : "none" }} >
             <div className="card-body">
-              <h4 className="header-title">Panchang</h4>
+              <h4 className="header-title">Holistic View</h4>
               <div className="sub-heading">
-               Date : {moment(this.state.startDate).format("DD-MM-YYYY")}
+               Date : {moment(this.state.panchangDate).format("DD-MM-YYYY")}
                 <br />
                 Location : {this.state.city}
                 <br />
                 <br />
               
-                    <label>
-                    Select Perspective:
-                    <select className="form-control"  value={this.state.value} onChange={this.handleChange}>
-            <option value="panchang">Panchang</option>
-            <option value="panchang_table">Holistic View</option>
-            {/* <option value="journey">Journey</option>
-            <option value="snapshot">Snapshot</option>
-            <option value="astrochart">Astro chart</option> */}
-          </select>
-                   </label>
+                    
                 <br></br>
                 <button
                   type="submit"

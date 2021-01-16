@@ -226,7 +226,7 @@ export class GlobalProvider extends Component {
         url: url,
         headers: { }
       };
-	  
+	  this.setState({IsLoading:true})
 	  // always use arrow function otherwise this. will not work
       return axios(config)
       .then((response) => {
@@ -274,8 +274,10 @@ export class GlobalProvider extends Component {
 
 	 set_PanchangDate = (date,city) =>
 	 {
+		 this.setState({IsLoading:true})
 		 this.setState({panchangDate:date})
 		 this.setState({placeobserved:city});	
+		 this.setState({IsLoading:false})
 	 }
 
 
