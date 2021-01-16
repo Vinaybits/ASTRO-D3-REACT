@@ -27,12 +27,13 @@ function remove_character(str, char_pos)
  {
   if(str!== null){
   str=str.split(",")[1]
-  let part1 = str.substring(0, char_pos);
-  let part2 = str.substring(char_pos + 3, str.length);
+  let part1 = str.substring(0, char_pos+1);
+  let part2 = str.substring(char_pos + 4, str.length);
+  console.log(part1,part2)
   return (part1 + part2);
   }
   else{
-
+        console.log("I'm in else")
   }
  }
 
@@ -126,7 +127,7 @@ function extract_next_next_karan(obj){
      if(obj!==null){
 
          let tithi_name = obj.current.Tithi;
-        let imglink = "./HolisticAssets/Moons/"
+        let imglink = "Moons/"
         tithi_name = tithi_name+'.png'
         return imglink+tithi_name;
      }
@@ -177,25 +178,9 @@ function Holistic() {
       }
     });
       offset = Math.round(long * 4 * 60);
-      let sunrise_string =
-      "http://api.omparashar.com/panchang/dailypanchang/sunrise"
-    //var params = "?from_year=2020&from_month=1&from_day=1&to_year=2020&to_month=6&to_day=30&lat=29.47&long=77.69&offset=19800&p_nums=3&p_nums=4";
-      let sunset_string =
-      "http://api.omparashar.com/panchang/dailypanchang/sunset"
-      let moonset_string =
-      "http://api.omparashar.com/panchang/dailypanchang/moonset"
-      let moonrise_string =
-      "http://api.omparashar.com/panchang/dailypanchang/moonrise";
-      let tithi_string =
-      "http://api.omparashar.com/panchang/dailypanchang/tithi";
-      let yoga_string =
-      "http://api.omparashar.com/panchang/dailypanchang/yoga";
-      let karan_string = 
-      "http://api.omparashar.com/panchang/dailypanchang/karan";
-      let weekday_string = 
-      "http://api.omparashar.com/panchang/dailypanchang/dayoftheweek";
-      let kulika_string = 
-      "http://api.omparashar.com/panchang/dailypanchang/kulika";
+      let holistic_api = axios.create({
+        baseURL: 'http://api.omparashar.com/panchang/dailypanchang/'   
+      })
     let params =
       "?year="+
       y +
@@ -211,36 +196,19 @@ function Holistic() {
       offset +
       "&place=" +
       place;
-      const sunriseurl = sunrise_string+params;
-      console.log(sunriseurl)
-      const sunseturl = sunset_string+params;
-      console.log(sunseturl)
-      const moonriseurl = moonrise_string+params;
-      console.log(moonriseurl)
-      const moonseturl = sunrise_string+params;
-      console.log(moonseturl)
-      const tithiurl = tithi_string+params;
-      console.log(tithiurl)
-      const yogaurl = yoga_string+params;
-      console.log(yogaurl)
-      const karanurl = karan_string+params;
-      console.log(karanurl)
-      const weekdayurl=weekday_string+params;
-      console.log(weekdayurl)
-      const kulikaurl = kulika_string+params;
-      console.log(kulikaurl)
 
-      const sunriseresult = await axios(sunriseurl)
-      const sunsetresult = await axios(sunseturl);
-      const moonriseresult = await axios(moonriseurl);
-      const moonsetresult = await axios(moonseturl)
-      const tithiresult = await axios(tithiurl)
-      const yogaresult = await axios(yogaurl)
-      const karanresult = await axios(karanurl)
-      const weekdayresult = await axios(weekdayurl)
-      const kulikaresult = await axios(kulikaurl)
+      const sunriseresult = await holistic_api.get(`/sunrise${params}`);
+      const sunsetresult = await holistic_api.get(`/sunset${params}`);;
+      const moonriseresult = await holistic_api.get(`/moonrise${params}`);;
+      const moonsetresult = await holistic_api.get(`/moonset${params}`);
+      const tithiresult = await holistic_api.get(`/tithi${params}`);
+      const yogaresult = await holistic_api.get(`/yoga${params}`);
+      const karanresult = await holistic_api.get(`/karan${params}`);
+      const weekdayresult = await holistic_api.get(`/dayoftheweek${params}`);
+      const kulikaresult = await holistic_api.get(`/kulika${params}`);
       console.log(tithiresult)
       setsunriseTime(sunriseresult.data);
+      console.log(sunriseresult.data);
       setsunsetTime(sunsetresult.data);
       setmoonriseTime(moonriseresult.data);
       setmoonsetTime(moonsetresult.data);
@@ -253,10 +221,9 @@ function Holistic() {
     })();
   },[contextType.panchangDate, place]);
 
-
+          let moonriseTimedisplay = remove_character(moonriseTime,5);
         let sunriseTimedisplay = remove_character(sunriseTime,5);
   let sunsetTimedisplay = remove_character(sunsetTime,5);
-  let moonriseTimedisplay = remove_character(moonriseTime,5);
   let moonsetTimedisplay = remove_character(moonsetTime,5);
   let tithicurrent = extract_current_tithi(tithiobject);
   let yogacurrent = extract_current_yoga(yogaobject);
@@ -268,13 +235,12 @@ function Holistic() {
   let kulika = extract_kulika_string(kulikavalue)
   let tithiname_1=""
   let tithiname_2=""
-//   let imgsrc=null;
-//   let link=""
-//    imgsrc = extract_image_link(tithiobject);
-//    if(typeof(imgsrc)!==undefined){
-//        console.log(imgsrc,typeof(imgsrc))
-//     //    link=require(imgsrc);
-//    }
+  let imgsrc=null;
+  let link=""
+   imgsrc = extract_image_link(tithiobject);
+   if(typeof(imgsrc)!=="undefined"){
+       link =imgsrc;
+   }
 
   if(tithiobject!==null){
   tithiname_1 = tithiobject["current"]["Tithi"].split(",")[0]
@@ -291,7 +257,6 @@ function Holistic() {
   month = monthNames[moment(value).format("MM")-1];
   year = moment(value).format("YYYY");
   month_string = month + ", " + year;
-
 }
 
 
@@ -302,7 +267,7 @@ function Holistic() {
 
                         <div className="card-body-holistic" style={{ "padding": "10px", backgroundImage: `url(${background})`}}>
      <div class="dpPHeaderLeftContent">
-         <img className="dpPHeaderImage" src={require('./HolisticAssets/Moons/Purnima(New Moon), Shukla Paksha.png')} alt="Thithi"/>
+         <img className="dpPHeaderImage" src={link} alt="Thithi"/>
          <div class="dpPHeaderLeftTitle"><u>{tithiname_1}</u></div>
 		<strong>{tithiname_2}</strong><br/><span>,{place}</span>
          </div>  
