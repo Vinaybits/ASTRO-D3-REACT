@@ -11,7 +11,7 @@ function App() {
      <GlobalProvider>
       
       <div id="wrapper">
-        <Router>
+        <Router >
             <Route exact path='/' component={HomePage} />
             <Route exact path='/transition' component={TransitionPlanets} />
             <Route exact path='/panchang' component={PanchangHome} />
