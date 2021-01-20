@@ -1994,7 +1994,7 @@ switch_naksview = ()=>{
 </div>
                                 </span>
                                 <div className="row">
-                                    <div className="col-lg-12" style={{width:"80%", height:"700px"}}>
+                                    <div className="col-lg-12">
                                         <center>
                                         <div id="myDiv" style={{display:this.state.display_value_rashi}}>
                                        

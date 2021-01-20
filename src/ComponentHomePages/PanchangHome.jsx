@@ -8,7 +8,7 @@ import Footer from '../layout/footer';
 function TransitionPlanets() {
   return (
     <>
-      <div id="wrapper" style={{overflow:"hidden",position:"absolute"}}>
+      <div id="wrapper" style={{overflow:"hidden", position:"absolute"}}>
         <Topbar />
        
         <Panchanglayout />

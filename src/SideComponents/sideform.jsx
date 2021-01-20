@@ -146,13 +146,17 @@ class sideform extends Component {
     // alert(lat+long+offset+"Start -"+from_year+from_month+from_day+"-" + moment(this.state.startDate).format("DD-MM-YYYY") + "</br>" + "End -" +moment(this.state.endDate).format("DD-MM-YYYY"));
   };
 
+  callClose = () => {
+    this.props.close()
+  }
+
   alertclickPanchang = (e) =>
   {
     e.preventDefault();
     let names = document.getElementById("auto_complete1").value;
     this.setState({ city: names });
      this.context.set_Panchang_Date(this.state.panchangDate,names);
-     this.setState({ open: "none" });
+     this.callClose();
   }
 
 
@@ -229,7 +233,6 @@ class sideform extends Component {
     this.setState({ startDate: null });
     this.setState({ endDate: null });
     this.setState({ city: "" });
-    this.setState({ resetInputText: true });
     this.setState({ panchangDate: null });
     
   }
@@ -565,11 +568,6 @@ class sideform extends Component {
       <div className="">
           <div className="card" style={{ display: this.state.open }}>
             <div className="card-body">
-              <h4 className="header-title">Panchang</h4>
-              <p className="sub-header" style={{ "marginBottom": "0px" }}>
-                Let us explore the
-                <code> panchang </code>
-              </p>
               <form>
               <div className="form-group mb-1">
                   <label htmlFor="example-input-small">Place of Observation</label>
@@ -619,39 +617,12 @@ class sideform extends Component {
                         <i className="mdi mdi-spin mdi-loading mr-1 font-16"></i>
                       </span>
                     ) : (
-                      "Get Data"
+                      "Update"
                     )}
                   </button>
                 </center>
               </form>
             </div>
-          </div>
-        </div>
-
-        <div className="">
-          <div className="card"
-            style={{ display: this.state.open ? "" : "none" }} >
-            <div className="card-body">
-              <h4 className="header-title">Holistic View</h4>
-              <div className="sub-heading">
-               Date : {moment(this.state.panchangDate).format("DD-MM-YYYY")}
-                <br />
-                Location : {this.state.city}
-                <br />
-                <br />
-              
-                    
-                <br></br>
-                <button
-                  type="submit"
-                  className="ladda-button btn-sm"
-                  style={{ backgroundColor: "#03428D", color: "#fff",marginLeft:"5px"}}
-                  onClick={this.resetForm}
-                >
-                  Reset Parameters
-                </button>
-              </div>
-              </div>
           </div>
         </div>
      </>                     
