@@ -1,5 +1,5 @@
 body {
-  font-family: "Cerebri Sans,sans-serif";
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
 .dpFlex {
   display: flex;
@@ -7,38 +7,73 @@ body {
   display: -webkit-flex;
 }
 
-.card-body-holisitc {
+#card-body-holistic {
+  box-shadow: 0 0 0 10px hsl(0, 0%, 80%), 0 0 0 15px hsl(0, 0%, 90%);
 }
 
 u {
   text-decoration: none;
+  font-family: "Lucida Grande";
 }
 
-.dpPHeaderLeftTitle,
-.dpPHeaderRightTitle {
-  font-size: 1.6rem;
+.bgimg {
+  box-shadow: 0 0 0 10px hsl(0, 0%, 80%), 0 0 0 15px hsl(0, 0%, 90%);
+}
+
+.dpPHeaderLeftTitle {
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #f5fffa;
+  margin-top: 2%;
+}
+.dpPHeaderLeftSubTitle {
+  font-size: 1.2rem;
   font-weight: 600;
   text-decoration: none;
   color: #f5fffa;
 }
+.dpPHeaderRightTitle {
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #f5fffa;
+  margin-left: 40%;
+  margin-top: 2%;
+}
+.dpPHeaderCenterTitle {
+  font-size: 1.6rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #f5fffa;
+  margin-left: 20%;
+}
 .dpPHeaderLeftContent {
   float: left;
-  margin-left: 20%;
   white-space: nowrap;
   color: #f5fffa;
+  width: 33%;
+}
+.dpPHeaderCenterContent {
+  float: left;
+  white-space: nowrap;
+  color: #f5fffa;
+  width: 33%;
+  margin-top: 2%;
 }
 .dpPHeaderRightContent {
   float: right;
   white-space: nowrap;
-  margin-right: 20%;
   color: #f5fffa;
+  width: 33%;
 }
 .dpPHeaderImage {
   width: 80px;
   height: 80px;
   float: left;
-  margin-top: 5%;
-  margin-right: 5%;
+  margin-top: 2%;
+  margin-left: 5%;
+  margin-right: 3%;
 }
 .dpPHeaderImage img {
   width: 100%;
@@ -55,6 +90,7 @@ u {
   text-decoration: underline;
   text-decoration-color: #333;
   text-underline-offset: 6px;
+  font-family: "Lucida Grande";
 }
 
 .dpTableCardTitle {
@@ -62,6 +98,7 @@ u {
   min-width: 580px;
   font-size: 1.1rem;
   text-align: center;
+  font-family: "Lucida Grande";
 }
 
 .dpCardRow {
@@ -73,6 +110,12 @@ u {
   left: 5px;
   width: 30px;
   position: absolute;
+}
+.MapIcon {
+  width: 30px;
+  margin-bottom: 5%;
+  margin-left: 1%;
+  cursor: pointer;
 }
 .dpRashiCell .dpElementImage {
   left: 0;
@@ -96,11 +139,11 @@ u {
 }
 
 .dpTableCardWrapper {
-  position: relative;
   width: 100%;
-  overflow: auto;
   font-size: 1.3rem;
-  min-height: 700px;
+  overflow: auto;
+  height: 70vh;
+  font-family: Lucida Bright, Georgia, serif;
 }
 .dpTableCard {
   width: 100%;
@@ -111,12 +154,13 @@ u {
 }
 .dpTableRow {
   width: 100%;
-  padding: 6px;
+  padding: 10px;
   display: table-row;
 }
 .dpTableCell {
   width: 50%;
   padding: 6px;
+  padding-bottom: 200px;
   position: relative;
   display: table-cell;
 }
@@ -202,7 +246,7 @@ u {
 }
 @media only screen and (min-width: 1124px) {
   .dpTableCardTitle {
-    padding: 5px;
+    padding: 15px;
     color: #454545;
     font-size: 1.3rem;
     font-weight: 800;
@@ -256,13 +300,15 @@ u {
 .dpTitle a,
 .dpTableKey a {
   color: rgb(3, 66, 141);
+  font-family: "Lucida Grande";
 }
 .dpTitle a:hover,
 .dpTableKey a:hover {
   color: #581e00;
 }
 .dpTableValue {
-  color: #362300;
+  color: #404040;
+  font-family: "Lucida Grande";
 }
 
 .dpTableCell a:hover {

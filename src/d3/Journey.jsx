@@ -3,7 +3,7 @@ import * as d3zoom from 'd3-zoom';
 import React, { Component,  useState  } from 'react';
 import { GlobalContext } from '../mycontext';
 import eventDrops from 'event-drops';
-import './styles.css';
+import './JourneyStyles.css';
 import Select from 'react-select';
 import moment from "moment";
 import * as cities from "../components/cities.json";
@@ -14,6 +14,18 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { red } from '@material-ui/core/colors';
 
+var _ = require('lodash');
+
+const setTimeFormat =(timestring) =>{
+  timestring=timestring.split(":")
+  var hours=timestring[0]
+  var minutes= timestring[1]
+  var ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12;
+  hours = hours ? hours : 12;
+  // hours = hours < 10 ? hours.substring(1): hours; 
+  return hours+ ":" + minutes + " " +ampm
+}
 const planets = [
   { value: 'Sun', label: 'Sun' },
   { value: 'Moon', label: 'Moon' },
@@ -133,7 +145,6 @@ class Journey extends Component {
       axios(config)
       .then((response) => {
 		  //set for SIDETABLE
-		  console.log(response.data)
           this.setState(state => {
       return {
         repositories: response.data,
@@ -163,7 +174,6 @@ class Journey extends Component {
   }
 
 createChart() {
-console.log(this.state.multiValue)
     
 
       //----end
@@ -300,7 +310,6 @@ repositoriesData = this.state.repositories.transits.filter(f => this.state.multi
     data: repository.milestones,
 }));
 }
-console.log(repositoriesData)
 
 //chart = d3.zoom().on("zoom", zoomed);
 let svg =d3.select('#events')
@@ -348,27 +357,36 @@ updateCommitsInformation(chart);
    }
 
    generatePDF(){
-
      this.setState({show:false})
      const pdfData = this.state.repositories.transits.filter(f => this.state.pdfSelectedEvents.some(person => person.value === f.event_type )).map(repository =>  ({
-    event_type: repository.event_type,
-    data: repository.milestones
-}));
-    let pdfArray=[]
-    pdfData.forEach(function(element){
-      element.data.forEach(function(milestone){
-            let singleEle={}
-            singleEle.event_type = element.event_type;
-            singleEle.desc = milestone.desc.split(' ').slice(2).join(' ');;
-            singleEle.datetime = milestone.event_datetime
-            pdfArray.push(singleEle)
-      })
-    })
-    pdfArray.sort(function(a, b) {
-    var dateA = new Date(a.datetime), dateB = new Date(b.datetime);
-    return dateA - dateB;
-});
-    console.log(pdfArray)
+           event_type: repository.event_type,
+           data: repository.milestones
+     }));
+        let pdfArray=[]
+        pdfData.forEach(function(element){
+          element.data.forEach(function(milestone){
+                let singleEle={}
+                singleEle.event_type = element.event_type;
+                singleEle.desc = milestone.desc.split(' ').slice(2).join(' ');;
+                let datetimes= milestone.event_datetime.split(" ")
+                singleEle.date = datetimes[0]+ " " + datetimes[1]+" " +datetimes[2]+" " +datetimes[3];
+                singleEle.time = setTimeFormat(datetimes[4].substring(0,5));
+                pdfArray.push(singleEle)
+          })
+        })
+        pdfArray.sort(function(a, b) {
+            var dateA = new Date(a.date), dateB = new Date(b.date);
+            return dateA - dateB;
+         });
+        console.log(pdfArray)
+        const grouping = _.groupBy(pdfArray, element => element.date)
+        const sections = _.map(grouping, (items, date) => ({
+            date: date,
+            alerts: items
+        }));
+
+    console.log(sections)
+
 
     const unit = "pt";
     const size = "A4"; // Use A1, A2, A3 or A4
@@ -377,7 +395,7 @@ updateCommitsInformation(chart);
     var img = new Image()
     img.src = '../logo_OP.png'
     doc.addImage(img, 'png', 10, 20, 100, 30,'','FAST')
-     const title = this.state.selectedOption.value + "'s" + " "+ "Journey";
+    const title = this.state.selectedOption.value + "'s" + " "+ "Journey";
     doc.setFont("Roboto","bold");
     doc.setFontSize(20);
      doc.setTextColor(25,25,112);
@@ -385,26 +403,25 @@ updateCommitsInformation(chart);
      doc.text(title, 232, 80);
     doc.setFontSize(15);
     doc.setTextColor(80,80,80);
-    console.log(pdfData);
     let headers = [];
     headers.push("Date");
     pdfData.forEach(function(event){
         headers.push(event.event_type.split(" ")[0]);
     });
     let actualheaders=[headers]
-   const splitDate = (date) =>{
-      let dateArray = date.split(" ");
-      dateArray.splice(-1,1);
-      date=dateArray.join(" ")
-      return date
-   }
- 
+  //  const splitDate = (date) =>{
+  //     let dateArray = date.split(" ");
+  //     dateArray.splice(-1,1);
+  //     date=dateArray.join(" ")
+  //     return date
+  //  }
 
-   const tabledata = []
-   pdfArray.forEach(function(row){
+    const tabledata = []
+
+    pdfArray.forEach(function(row){
       let newrow=[]
-      let time=row.datetime.split(" ").pop()
-      newrow.push(splitDate(row.datetime))
+      let time=row.time
+      newrow.push(row.date)
       let index=headers.indexOf(row.event_type.split(" ")[0])
       for(var i=1; i<headers.length;i++){
           if (i!==index){
@@ -415,13 +432,33 @@ updateCommitsInformation(chart);
           }
       }
       tabledata.push(newrow)
+     })
+    console.log(tabledata)
+
+     const dummytabledata = []
+
+     sections.forEach(function(row){
+      let newrow= new Array(headers.length)
+      newrow.fill("")
+      newrow[0] = row.date
+      let end=0;
+      console.log(headers)
+      for(var i=0;i<row.alerts.length;i++)
+      {   
+        end= headers.indexOf(row.alerts[i].event_type.split(" ")[0]);
+        newrow[end] +=row.alerts[i].desc + " " + "@" + " " +  row.alerts[i].time + "\n"
+      }
+      dummytabledata.push(newrow)
    })
+   console.log(dummytabledata)
+
+
   
   let content = {
       startY: 150,
       theme: 'grid',
       head: actualheaders,
-      body: tabledata,
+      body: dummytabledata,
       headerStyles: {
         fontSize: 11,
         halign: 'center',
@@ -432,8 +469,6 @@ updateCommitsInformation(chart);
       },
       rowPageBreak: 'avoid'
     };
-
-
     let monthNames =["Jan","Feb","Mar","Apr",
                       "May","Jun","Jul","Aug",
                       "Sep", "Oct","Nov","Dec"];
@@ -457,11 +492,29 @@ updateCommitsInformation(chart);
     doc.setFontSize(10);
      doc.setTextColor(255,0,0);
     let str="Powered By OmParashar"
-    doc.text(str, 245, doc.internal.pageSize.getHeight()-30)
+    doc.text(str, 450, doc.internal.pageSize.getHeight()-30)
     doc.save("Omparashar_journey.pdf")
+  }
 
+  generateCircularPDF(){
+    const unit = "pt";
+    const size = "A4"; // Use A1, A2, A3 or A4
+    const orientation = "portrait"; // portrait or landscape
+    const doc = new jsPDF(orientation, unit, [800,600],true);
+    var img = new Image()
+    img.src = '../logo_OP.png'
+    doc.addImage(img, 'png', 10, 20, 100, 30,'','FAST')
+    const title = "Brief journey";
+    doc.setFont("Roboto","bold");
+    doc.setFontSize(20);
+     doc.setTextColor(25,25,112);
+    doc.setFont("Roboto","normal");
+     doc.text(title, 232, 80);
+    doc.setFontSize(15);
+    doc.setTextColor(80,80,80);
+    
 
-   }
+  }
 
 
 
