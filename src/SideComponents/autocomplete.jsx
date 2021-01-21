@@ -16,7 +16,6 @@ class Autocomplete extends Component {
   constructor(props) {
     super(props);
     
-
     this.state = {
       // The active selection's index
       activeSuggestion: 0,
@@ -25,7 +24,7 @@ class Autocomplete extends Component {
       // Whether or not the suggestion list is shown
       showSuggestions: false,
       // What the user has entered
-      userInput: '',
+      userInput: this.props.city,
     
     };
     
