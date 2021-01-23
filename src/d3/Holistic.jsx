@@ -190,6 +190,18 @@ function extract_auspicious_string(obj,str){
     }
  }
 
+ function extract_trikaal(obj){
+     let times=[]
+     if(obj!==null){
+         for (const key in obj){
+                for (const inner in obj[key]){
+                        times.push(obj[key][inner])
+                }
+        }
+     }
+     return times;
+ }
+
 
 function Holistic() {
 
@@ -218,6 +230,12 @@ function Holistic() {
     let [naksvalue,setnaksvalue] = useState(null);
     let [abhijitvalue,setabhijitvalue] = useState(null);
     let [show,setshow] = useState(false)
+    let [flag,setFlag] = useState("")
+    let [ritu,setritu] = useState(null)
+    let [sunsign,setsunsign] = useState(null);
+    let [moonsign,setmoonsign] = useState(null);
+    let [samvatsara,setsamvatsara] = useState(null);
+    let [trikaalvalue, settrikaalvalue] = useState(null);
     useEffect(() => {
     (async () => {
    let y = "";
@@ -286,6 +304,11 @@ function Holistic() {
       const varjya =   await holistic_api.get(`/varjya${params}`);
       const naks =   await holistic_api.get(`/nakshtra${params}`);
       const abhijit =   await holistic_api.get(`/abhijitmuhurat${params}`);
+      const ritu = await holistic_api.get(`/ritu${params}`);
+      const sunsign = await holistic_api.get(`/sunsign${params}`);
+      const moonsign = await holistic_api.get(`/moonsign${params}`);
+      const samvatsara = await holistic_api.get(`/samvatsara${params}`);
+      const trikaal = await holistic_api.get(`/trikaal${params}`);
       setsunriseTime(sunriseresult.data);
       setsunsetTime(sunsetresult.data);
       setmoonriseTime(moonriseresult.data);
@@ -306,6 +329,11 @@ function Holistic() {
       setvarjyavalue(varjya.data)
       setnaksvalue(naks.data)
       setabhijitvalue(abhijit.data)
+      setritu(ritu.data)
+      setsunsign(sunsign.data.current)
+      setmoonsign(moonsign.data.current)
+      setsamvatsara(samvatsara.data)
+      settrikaalvalue(trikaal.data)
     })();
   },[contextType.panchangDate, place]);
 
@@ -332,6 +360,7 @@ function Holistic() {
     let varjya = extract_auspicious_string(varjyavalue,"Nishita");
     let nakshtra = extract_nakshtra_string(naksvalue)
     let abhijit = extract_abhijit_string(abhijitvalue)
+    let trikaal = extract_trikaal(trikaalvalue);
     let dkayan=""
     let vdayan=""
 
@@ -346,6 +375,16 @@ function Holistic() {
         psandhya=sandhya[0] + " " + "to" + " " + sandhya[1];
         ssandhya=sandhya[2] + " " + "to" + " " + sandhya[3];
     }
+
+    let rkaal=""
+    let ykaal=""
+
+    if(typeof(trikaal)!=="undefined"){
+        rkaal=trikaal[0] + " " + "to" + " " + trikaal[1];
+        ykaal=trikaal[4] + " " + "to" + " " + trikaal[5];
+    }
+
+
     let tithiname_1=""
     let tithiname_2=""
     let imgsrc=null;
@@ -376,7 +415,16 @@ function Holistic() {
 
 const handleCalendar = () =>{
     setshow(!show)
+    //  setFlag("datesideform")
 }
+
+// const handleDateFlag = () =>{
+//     setFlag("datesideform")
+// }
+
+// const handlePlaceFlag = () =>{
+//     setFlag("placesideform")
+// }
 
   return (
     <div className={currentClass}>
@@ -384,34 +432,34 @@ const handleCalendar = () =>{
                     <div className="card">
 
     <div className="card-body-holistic" style={{ "padding": "10px", backgroundImage: `url(${background})`, width:"100%"}}>
-     <div class="dpPHeaderLeftContent">
+     <div className="dpPHeaderLeftContent">
          <img className="dpPHeaderImage" src={link} alt="Thithi"/>
-         <div class="dpPHeaderLeftTitle"><u>{tithiname_1}</u></div>
-		<div class="dpPHeaderLeftSubTitle"><u>{tithiname_2}</u></div>
+         <div className="dpPHeaderLeftTitle"><u>{tithiname_1}</u></div>
+		<div className="dpPHeaderLeftSubTitle"><u>{tithiname_2}</u></div>
      </div>  
-	 <div class="dpPHeaderRightContent">
-		<div class="dpPHeaderRightTitle"><u>{day} {month_string}</u><i onClick={handleCalendar} style={{"font-size":"24px", "margin-left":"4%","cursor":"pointer"}} class="dpPHeaderRightTitle fa">&#xf073;</i></div>
-        <div class="dpPHeaderRightTitle"><u>{place}</u> <img  onClick={handleCalendar} src={require('../assets/img/map.png')} alt="Map" class="MapIcon"/></div>
+	 <div className="dpPHeaderRightContent">
+		<div className="dpPHeaderRightTitle"><u>{day} {month_string}</u><i onClick={handleCalendar} style={{"fontSize":"24px", "marginLeft":"4%","cursor":"pointer"}} class="dpPHeaderRightTitle fa">&#xf073;</i></div>
+        <div className="dpPHeaderRightTitle"><u>{place}</u> <img  onClick={handleCalendar} src={require('../assets/img/map.png')} alt="Map" class="MapIcon"/></div>
        
      </div>
-      <div class="dpPHeaderCenterContent">
-		<div class="dpPHeaderCenterTitle"><u>Daily Panchang</u></div>
+      <div className="dpPHeaderCenterContent">
+		<div className="dpPHeaderCenterTitle"><u>Daily Panchang</u></div>
      </div>  
     </div>
-    <div class="dpTableCardWrapper">
-        <h3 class="dpTableCardTitle">Sunrise and Moonrise</h3>
-        <div class="dpTableCard">
-            <div class="dpTableRow">
-                <div class="dpTableCell dpTableKey"> Sunrise</div>
-                <div class="dpTableCell dpTableValue"><img src={require('../assets/img/sunrise.png')} alt="Sunrise" class="TableIcon"/>{sunriseTimedisplay}</div>
-                <div class="dpTableCell dpTableKey">Sunset</div>
-                <div class="dpTableCell dpTableValue"><img src={require('../assets/img/sunset.png')} alt="Sunset" class="TableIcon"/>{sunsetTimedisplay}</div>
+    <div className="dpTableCardWrapper">
+        <h3 className="dpTableCardTitle">Sunrise and Moonrise</h3>
+        <div className="dpTableCard">
+            <div className="dpTableRow">
+                <div className="dpTableCell dpTableKey"> Sunrise</div>
+                <div className="dpTableCell dpTableValue"><img src={require('../assets/img/sunrise.png')} alt="Sunrise" class="TableIcon"/>{sunriseTimedisplay}</div>
+                <div className="dpTableCell dpTableKey">Sunset</div>
+                <div className="dpTableCell dpTableValue"><img src={require('../assets/img/sunset.png')} alt="Sunset" class="TableIcon"/>{sunsetTimedisplay}</div>
             </div>
-            <div class="dpTableRow">
-                <div class="dpTableCell dpTableKey">MoonRise</div>
-                <div class="dpTableCell dpTableValue"><img src={require('../assets/img/moonrise.png')} alt="MoonRise" class="TableIcon"/>{moonriseTimedisplay}</div>
-                <div class="dpTableCell dpTableKey">MoonSet</div>
-                <div class="dpTableCell dpTableValue"><img src={require('../assets/img/moonset.png')} alt="Moonset" class="TableIcon"/>{moonsetTimedisplay}</div>
+            <div className="dpTableRow">
+                <div className="dpTableCell dpTableKey">MoonRise</div>
+                <div className="dpTableCell dpTableValue"><img src={require('../assets/img/moonrise.png')} alt="MoonRise" class="TableIcon"/>{moonriseTimedisplay}</div>
+                <div className="dpTableCell dpTableKey">MoonSet</div>
+                <div className="dpTableCell dpTableValue"><img src={require('../assets/img/moonset.png')} alt="Moonset" class="TableIcon"/>{moonsetTimedisplay}</div>
             </div>
         </div>
          <Modal show={show} onHide={handleCalendar} centered>
@@ -426,95 +474,125 @@ const handleCalendar = () =>{
         <Modal.Title style={{color:"rgb(3, 66, 141)",fontWeight:"bold"}}>Please Update Date and Location</Modal.Title> 
         </Modal.Header>
         <Modal.Body>
-        <Sideform view={"panchangView"} close = {handleCalendar}/>
+        <Sideform view={"panchangView"} close = {handleCalendar} date={value} place={place} flag={flag}/>
         </Modal.Body>
         <Modal.Footer>
         </Modal.Footer>
       </Modal>
-        <h3 class="dpTableCardTitle">Panchang</h3>
-        <div class="dpTableCard">
-            <div class="dpTableRow">
-                <div class="dpTableCell dpTableKey" >Tithi</div>
-                <div class="dpTableCell dpTableValue">{tithicurrent}</div>
-                <div class="dpTableCell dpTableKey">Karan</div>
-                <div class="dpTableCell dpTableValue">{karancurrent}</div>
+        <h3 className="dpTableCardTitle">Panchang</h3>
+        <div className="dpTableCard">
+            <div className="dpTableRow">
+                <div className="dpTableCell dpTableKey" >Tithi</div>
+                <div className="dpTableCell dpTableValue">{tithicurrent}</div>
+                <div className="dpTableCell dpTableKey">Karan</div>
+                <div className="dpTableCell dpTableValue">{karancurrent}</div>
             </div>
-            <div class="dpTableRow">
-                <div class="dpTableCell dpTableKey" ></div>
-                <div class="dpTableCell dpTableValue">{tithinext}</div>
-                <div class="dpTableCell dpTableKey"></div>
-                <div class="dpTableCell dpTableValue">{karannext}</div>
+            <div className="dpTableRow">
+                <div className="dpTableCell dpTableKey" ></div>
+                <div className="dpTableCell dpTableValue">{tithinext}</div>
+                <div className="dpTableCell dpTableKey"></div>
+                <div className="dpTableCell dpTableValue">{karannext}</div>
             </div>
-            <div class="dpTableRow">
-                <div class="dpTableCell dpTableKey" >Yoga</div>
-                <div class="dpTableCell dpTableValue">{yogacurrent}</div>
-                <div class="dpTableCell dpTableKey"></div>
-                <div class="dpTableCell dpTableValue">{karan_next_next}</div>
+            <div className="dpTableRow">
+                <div className="dpTableCell dpTableKey" >Yoga</div>
+                <div className="dpTableCell dpTableValue">{yogacurrent}</div>
+                <div className="dpTableCell dpTableKey"></div>
+                <div className="dpTableCell dpTableValue">{karan_next_next}</div>
             </div>
-            <div class="dpTableRow">
-                <div class="dpTableCell dpTableKey" ></div>
-                <div class="dpTableCell dpTableValue">{yoganext}</div>
-                <div class="dpTableCell dpTableKey">Weekday</div>
-                <div class="dpTableCell dpTableValue">{weekday}</div>
+            <div className="dpTableRow">
+                <div className="dpTableCell dpTableKey" ></div>
+                <div className="dpTableCell dpTableValue">{yoganext}</div>
+                <div className="dpTableCell dpTableKey">Weekday</div>
+                <div className="dpTableCell dpTableValue">{weekday}</div>
             </div>
-            <div class="dpTableRow">
-                <div class="dpTableCell dpTableKey" >Nakshtra</div>
-                <div class="dpTableCell dpTableValue">{nakshtra}</div>
-                <div class="dpTableCell dpTableKey"></div>
-                <div class="dpTableCell dpTableValue"></div>
+            <div className="dpTableRow">
+                <div className="dpTableCell dpTableKey" >Nakshtra</div>
+                <div className="dpTableCell dpTableValue">{nakshtra}</div>
+                <div className="dpTableCell dpTableKey"></div>
+                <div className="dpTableCell dpTableValue"></div>
             </div>
         </div>
 
-        <h3 class="dpTableCardTitle">Ritu and Ayan</h3>
-        <div class="dpTableCard">
-            <div class="dpTableRow">
-                <div class="dpTableCell dpTableKey" >Drik Ayan</div>
-                <div class="dpTableCell dpTableValue">{dkayan}</div>
-                <div class="dpTableCell dpTableKey">Day Duration</div>
-                <div class="dpTableCell dpTableValue">{dayd}</div>
+        <h3 className="dpTableCardTitle">Samvatsara</h3>
+        <div className="dpTableCard">
+            <div className="dpTableRow">
+                <div className="dpTableCell dpTableKey" >Shaka Samvatsara</div>
+                <div className="dpTableCell dpTableValue">{samvatsara}</div>
+                <div className="dpTableCell dpTableKey"></div>
+                <div className="dpTableCell dpTableValue"></div>
             </div>
-            <div class="dpTableRow">
-                <div class="dpTableCell dpTableKey" >Vedic Ayan</div>
-                <div class="dpTableCell dpTableValue">{vdayan}</div>
-                <div class="dpTableCell dpTableKey">Night Duration</div>
-                <div class="dpTableCell dpTableValue">{nightd}</div>
+        </div>
+
+        <h3 className="dpTableCardTitle">Rashi</h3>
+        <div className="dpTableCard">
+            <div className="dpTableRow">
+                <div className="dpTableCell dpTableKey" >Sunsign</div>
+                <div className="dpTableCell dpTableValue">{sunsign}</div>
+                <div className="dpTableCell dpTableKey">Moonsign</div>
+                <div className="dpTableCell dpTableValue">{moonsign}</div>
+            </div>
+        </div>
+
+        <h3 className="dpTableCardTitle">Ritu and Ayan</h3>
+        <div className="dpTableCard">
+            <div className="dpTableRow">
+                <div className="dpTableCell dpTableKey" >Drik Ayan</div>
+                <div className="dpTableCell dpTableValue">{dkayan}</div>
+                <div className="dpTableCell dpTableKey">Day Duration</div>
+                <div className="dpTableCell dpTableValue">{dayd}</div>
+            </div>
+            <div className="dpTableRow">
+                <div className="dpTableCell dpTableKey" >Vedic Ayan</div>
+                <div className="dpTableCell dpTableValue">{vdayan}</div>
+                <div className="dpTableCell dpTableKey">Night Duration</div>
+                <div className="dpTableCell dpTableValue">{nightd}</div>
+            </div>
+            <div className="dpTableRow">
+                <div className="dpTableCell dpTableKey" >Ritu</div>
+                <div className="dpTableCell dpTableValue">{ritu}</div>
             </div>
         </div>
             
-        <h3 class="dpTableCardTitle">Auspicious Timings</h3>
-        <div class="dpTableCard">
-            <div class="dpTableRow">
-                <div class="dpTableCell dpTableKey" >Amrit Kal</div>
-                <div class="dpTableCell dpTableValue">{amritkaal}</div>
-                <div class="dpTableCell dpTableKey">Abhijit Muhurat</div>
-                <div class="dpTableCell dpTableValue">{abhijit}</div>
+        <h3 className="dpTableCardTitle">Auspicious Timings</h3>
+        <div className="dpTableCard">
+            <div className="dpTableRow">
+                <div className="dpTableCell dpTableKey" >Amrit Kal</div>
+                <div className="dpTableCell dpTableValue">{amritkaal}</div>
+                <div className="dpTableCell dpTableKey">Abhijit Muhurat</div>
+                <div className="dpTableCell dpTableValue">{abhijit}</div>
             </div>
-            <div class="dpTableRow">
-                <div class="dpTableCell dpTableKey" >Brahma Muhurat</div>
-                <div class="dpTableCell dpTableValue">{brahma}</div>
-                <div class="dpTableCell dpTableKey">Nishita Muhurat</div>
-                <div class="dpTableCell dpTableValue">{nishita}</div>
+            <div className="dpTableRow">
+                <div className="dpTableCell dpTableKey" >Brahma Muhurat</div>
+                <div className="dpTableCell dpTableValue">{brahma}</div>
+                <div className="dpTableCell dpTableKey">Nishita Muhurat</div>
+                <div className="dpTableCell dpTableValue">{nishita}</div>
             </div>
-             <div class="dpTableRow">
-                <div class="dpTableCell dpTableKey" >Pratha Sandhya</div>
-                <div class="dpTableCell dpTableValue">{psandhya}</div>
-                <div class="dpTableCell dpTableKey">Sayan Sandhya</div>
-                <div class="dpTableCell dpTableValue">{ssandhya}</div>
+             <div className="dpTableRow">
+                <div className="dpTableCell dpTableKey" >Pratha Sandhya</div>
+                <div className="dpTableCell dpTableValue">{psandhya}</div>
+                <div className="dpTableCell dpTableKey">Sayan Sandhya</div>
+                <div className="dpTableCell dpTableValue">{ssandhya}</div>
             </div>
-            <div class="dpTableRow">
-                <div class="dpTableCell dpTableKey" >Vijay Muhurat</div>
-                <div class="dpTableCell dpTableValue">{vijay}</div>
-                <div class="dpTableCell dpTableKey"></div>
-                <div class="dpTableCell dpTableValue">{}</div>
+            <div className="dpTableRow">
+                <div className="dpTableCell dpTableKey" >Vijay Muhurat</div>
+                <div className="dpTableCell dpTableValue">{vijay}</div>
+                <div className="dpTableCell dpTableKey"></div>
+                <div className="dpTableCell dpTableValue">{}</div>
             </div>
         </div>
-            <h3 class="dpTableCardTitle">Inauspicious Timings</h3>
-            <div class="dpTableCard">
-            <div class="dpTableRow">
-                <div class="dpTableCell dpTableKey" >Kulika</div>
-                <div class="dpTableCell dpTableValue">{kulika}</div>
-                <div class="dpTableCell dpTableKey">Varjya Kaal</div>
-                <div class="dpTableCell dpTableValue">{varjya}</div>
+            <h3 className="dpTableCardTitle">Inauspicious Timings</h3>
+            <div className="dpTableCard">
+            <div className="dpTableRow">
+                <div className="dpTableCell dpTableKey" >Kulika</div>
+                <div className="dpTableCell dpTableValue">{kulika}</div>
+                <div className="dpTableCell dpTableKey">Varjya Kaal</div>
+                <div className="dpTableCell dpTableValue">{varjya}</div>
+            </div>
+            <div className="dpTableRow">
+                <div className="dpTableCell dpTableKey" >Raahu Kaal</div>
+                <div className="dpTableCell dpTableValue">{rkaal}</div>
+                <div className="dpTableCell dpTableKey">Yamaganda Kaal</div>
+                <div className="dpTableCell dpTableValue">{ykaal}</div>
             </div>
             </div>
     </div>

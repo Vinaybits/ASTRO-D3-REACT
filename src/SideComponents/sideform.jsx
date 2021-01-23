@@ -18,7 +18,8 @@ class sideform extends Component {
     this.state = {
       startDate: null,
       endDate: null,
-      panchangDate: null,
+      panchangDate: moment(moment(this.props.date).format("MM-DD-YYYY")),
+      displaypanchangDate: null,
       city: "",
       cities_value: null,
       focusedEndDate: false,
@@ -44,6 +45,8 @@ class sideform extends Component {
    
 
   }
+
+
 
   alertclick = (e) => {
     e.preventDefault();
@@ -198,6 +201,7 @@ class sideform extends Component {
       }
     }
     else if(name === "panchangDate"){
+      console.log(date)
       this.setState({panchangDate: date})
     }
 
@@ -327,6 +331,12 @@ class sideform extends Component {
         </div>
       );
     };
+    //  if(this.props.flag==="datesideform"){
+    //         this.setState({displaypanchangDate:null})
+    // }
+    // if(this.props.flag==="placesideform"){
+    //         this.setState({displaypanchangDate:this.state.panchangDate})
+    // }
     const view = this.props.view;
     if(view === "TransitionView"){
     return (
@@ -390,10 +400,12 @@ class sideform extends Component {
                 <div className="form-group mb-1">
                   <label htmlFor="example-input-small">Place of Observation</label>
                   <Autocomplete
+                    defaultValue = "Hyderabad"
                     resetInputText={this.state.resetInputText}
                     handleChange={this.handleAutoCompleterChange}
                     suggestions={cities_name}
                     id="autocomplete"
+                    city=""
                   />
                   {this.state.errors.observation && (
                     <p className="form-error">
@@ -576,6 +588,7 @@ class sideform extends Component {
                     handleChange={this.handleAutoCompleterChange}
                     suggestions={cities_name}
                     id="autocomplete"
+                    city={this.props.place}
                   />
                   {this.state.errors.observation && (
                     <p className="form-error">

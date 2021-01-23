@@ -62,7 +62,7 @@ const HomePage= () => {
            
            
         </header>
-        <center style={{"background-color":"white"}}>
+        <center style={{"backgroundColor":"white"}}>
             <a style={{marginTop:"-30px"}} className="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Explore</a>
         </center>
         
