@@ -490,7 +490,7 @@ const Dashboard= () => {
             <!-- Start Page Content here -->
             <!-- ============================================================== --> */}
 
-            <div class="content-page">
+            <div class="content-page2">
                 <div class="content">
 
                     {/* <!-- Start Content--> */}
