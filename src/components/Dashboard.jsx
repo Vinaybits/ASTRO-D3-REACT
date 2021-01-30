@@ -27,6 +27,7 @@ const Dashboard= () => {
                     <ul class="list-unstyled topnav-menu float-right mb-0">
 
                         <li class="d-none d-lg-block">
+                            
                             <form class="app-search">
                                 <div class="app-search-box dropdown">
                                     <div class="input-group">
@@ -330,21 +331,22 @@ const Dashboard= () => {
     
                     <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
                         <li>
+                        <a class="navbar-toggle nav-link" data-toggle="collapse" href="#topnav-menu-content" role="button">hello</a>
                             <button class="button-menu-mobile waves-effect waves-light">
                                 <i class="fe-menu"></i>
                             </button>
                         </li>
 
                         <li>
-                            {/* <!-- Mobile menu toggle (Horizontal Layout)--> */}
-                            <a class="navbar-toggle nav-link" data-toggle="collapse" data-target="#topnav-menu-content" href="/">
+                            
+                            <a class="navbar-toggle nav-link" data-toggle="collapse" data-target="#topnav-menu-content">
                                 <div class="lines">
                                     <span></span>
                                     <span></span>
                                     <span></span>
                                 </div>
                             </a>
-                            {/* <!-- End mobile menu toggle--> */}
+                           
                         </li>   
             
                        
@@ -418,7 +420,7 @@ const Dashboard= () => {
                            
 
                             <li>
-                                <a href="#sidebarEcommerce" data-toggle="collapse">
+                                <a href="#sidebarEcommerce" data-toggle="collapse" >
                                     <i data-feather="calendar"></i>
                                     <span> Planet Transition </span>
                                     <span class="menu-arrow"></span>
@@ -465,7 +467,7 @@ const Dashboard= () => {
                             </li>
 
                             <li>
-                                <a href="apps-chat.html">
+                                <a href="/panchang_dash">
                                     <i data-feather="users"></i>
                                     <span> Panchang </span>
                                 </a>
@@ -490,7 +492,7 @@ const Dashboard= () => {
             <!-- Start Page Content here -->
             <!-- ============================================================== --> */}
 
-            <div class="content-page2">
+            <div class="content-page">
                 <div class="content">
 
                     {/* <!-- Start Content--> */}
