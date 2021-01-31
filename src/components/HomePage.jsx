@@ -89,7 +89,7 @@ const HomePage= () => {
                             </div>
                     <div className="col-md-3">
                                 <div className="team-member">
-                                    <Link to='/panchang'>
+                                    <Link to='/panchang_dash'>
                                     <img className="mx-auto" style={{height:"200px"}} src={require("../assets/img/team/2.png")} alt="" />
                                     <h4 className="my-3">Panchang</h4>
                                      </Link>

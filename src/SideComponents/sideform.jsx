@@ -10,6 +10,7 @@ import * as cities from "../components/cities.json";
 import Autocomplete from "./autocomplete";
 import {GlobalContext } from "../mycontext";
 import "./sideform.css";
+import Modal from 'react-bootstrap/Modal';
 
 class sideform extends Component {
   static contextType = GlobalContext;
@@ -139,20 +140,19 @@ class sideform extends Component {
         .callAPI_daterange(url_string + params, names, startDate, endDate)
         .then((result) => {
           if (result) {
-            this.setState({ open: "none" });
-            
+              this.context
+                   .changeView(this.props.view);
+              this.props.handleClose();
           }
         });
       // this.setState({open: false});
     }
+    
 
     // alert(lat+long+offset+"Start -"+from_year+from_month+from_day+"-" + moment(this.state.startDate).format("DD-MM-YYYY") + "</br>" + "End -" +moment(this.state.endDate).format("DD-MM-YYYY"));
   };
 
-  callClose = () => {
-    this.props.close()
-  }
-
+ 
   alertclickPanchang = (e) =>
   {
     e.preventDefault();
@@ -337,20 +337,19 @@ class sideform extends Component {
     // if(this.props.flag==="placesideform"){
     //         this.setState({displaypanchangDate:this.state.panchangDate})
     // }
-    const view = this.props.view;
-    if(view === "TransitionView"){
+    const mode = this.props.mode;
+    if(mode === "TransitionView"){
     return (
       <>
         <div className="">
+          <Modal size="lg" dialogClassName={"primaryModal"} show={this.props.show} onHide={this.props.handleClose} centered>
+                        <Modal.Header 
+                            closeButton 
+                        >
+                        </Modal.Header>
+                        <Modal.Body>
           <div className="card" style={{ display: this.state.open }}>
             <div className="card-body">
-              <h4 className="header-title">Transition of Planets</h4>
-              <p className="sub-header" style={{ "marginBottom": "0px" }}>
-                Let us explore how
-                <code> planets </code>
-                move
-              </p>
-
               <form>
                 <div>
      {/* <div>
@@ -492,6 +491,8 @@ class sideform extends Component {
               </form>
             </div>
           </div>
+          </Modal.Body>
+          </Modal>
         </div>
 
         {/* New div for showing table data in this component only  */}
@@ -574,7 +575,7 @@ class sideform extends Component {
     );
   }
 
-  else if( view === "panchangView"){
+  else if( mode === "panchangView"){
     return(
        <>
       <div className="">

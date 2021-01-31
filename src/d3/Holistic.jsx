@@ -474,7 +474,7 @@ const handleCalendar = () =>{
         <Modal.Title style={{color:"rgb(3, 66, 141)",fontWeight:"bold"}}>Please Update Date and Location</Modal.Title> 
         </Modal.Header>
         <Modal.Body>
-        <Sideform view={"panchangView"} close = {handleCalendar} date={value} place={place} flag={flag}/>
+        <Sideform mode={"panchangView"} close = {handleCalendar} date={value} place={place} flag={flag}/>
         </Modal.Body>
         <Modal.Footer>
         </Modal.Footer>

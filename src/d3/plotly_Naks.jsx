@@ -11,8 +11,8 @@ class Plotly_NAKS extends Component {
         this.state = { 
             view_type:'rashi',
             display_value_rashi : '',
-            display_value_naks : '',
-            display_value_combined:'',
+            display_value_naks : 'none',
+            display_value_combined:'none',
             currentClass: 'col-lg-10 col-md-12'
          }
     }
@@ -1972,7 +1972,7 @@ switch_naksview = ()=>{
     render() { 
         return (  <> 
             {/* <button onClick={this.apidate_format}>click me</button> */}
-            <div className={this.state.currentClass}>
+            <div className="col-lg-12">
                     <div id="d3graph" className="col-lg-12"  >
                    
                         <div className="card">
@@ -1996,9 +1996,7 @@ switch_naksview = ()=>{
                                 <div className="row">
                                     <div className="col-lg-12">
                                         <center>
-                                        <div id="myDiv" style={{display:this.state.display_value_rashi}}>
-                                       
-                                        </div>
+                                        <div id="myDiv" style={{display:this.state.display_value_rashi}}></div>
                                       
                                         <div id="myDiv_NAKS" style={{display:this.state.display_value_naks}}></div>
                                        <div id="myDiv_combined" style={{display:this.state.display_value_combined}}></div>

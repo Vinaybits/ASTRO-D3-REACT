@@ -294,6 +294,12 @@ export class GlobalProvider extends Component {
 		 this.setState({IsLoading:false})
 	 }
 
+	 ResetForm = ()=>{
+		 this.setState({placeobserved:null})
+		 this.setState({startDate:null})
+		 this.setState({endDate:null})
+	 }
+
 
 	state = {
 		planet:this.planet_init,
@@ -303,7 +309,7 @@ export class GlobalProvider extends Component {
 		newState_apidata : '',
 		current_index: 0,
 		IsActive:'btn btn-dark waves-effect disabled', // class used for wheel buttons 
-		currentView: 'circle_graph',
+		currentView: 'Dashboard',
 		changeView: (value) => this.changeView(value),
 		playicon:'mdi mdi-play',
 		playplanet : this.play_array,
@@ -315,10 +321,11 @@ export class GlobalProvider extends Component {
 		callAPI_daterange: (url,city, str_date,end_date) => this.call_daterange(url,city,str_date,end_date),
 		set_Panchang_Date: (panchangDate,city) => this.set_PanchangDate(panchangDate,city),
 		callAPI_Journey_daterange: (url,city, str_date,end_date) => this.call_daterange_journey(url,city,str_date,end_date),
+		ResetForm:()=>this.ResetForm(),
 		togglebutton: this.toggle,
 		placeobserved:null,
-		startDate:'',
-		endDate:'',
+		startDate:null,
+		endDate:null,
 		panchangDate:null,
 		IsLoading:false
 	};

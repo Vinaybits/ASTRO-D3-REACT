@@ -337,7 +337,7 @@ updateCommitsInformation(chart);
   }
 
   toggleClass = () => {
-        (this.state.currentClass === 'col-lg-10 col-md-12') ? this.setState({currentClass:'fullscreen'}) : this.setState({currentClass:'col-lg-10 col-md-12'});
+        (this.state.currentClass === 'col-lg-12') ? this.setState({currentClass:'fullscreen'}) : this.setState({currentClass:'col-lg-12'});
     };
 
   exportJourneyPDF(){
@@ -523,8 +523,8 @@ updateCommitsInformation(chart);
     render() {
         const { selectedOption} = this.state;
         return <>
-                <div className={this.state.currentClass}>
-                <div id="d3graph" className="col-lg-12"  >
+                <div className="col-lg-12">
+                <div id="d3graph">
                     <div className="card">
 
                         <div className="card-body" style={{ "padding": "10px" }}>

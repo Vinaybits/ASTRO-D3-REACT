@@ -130,8 +130,8 @@ const D3graph = (props) => {
 
     return (
         <>
-            <div className={currentClass}>
-                <div id="d3graph" className="col-lg-12"  >
+            <div className="col-lg-12">
+                <div id="d3graph"  >
                     <div className="card" style={{ "backgroundImage": "url("+bg_img+")", "backgroundPosition": "center","backgroundRepeat": "no-repeat" ,"backgroundSize": "cover", }}>
 
                         <div className="card-body" style={{ "padding": "10px" }}>
