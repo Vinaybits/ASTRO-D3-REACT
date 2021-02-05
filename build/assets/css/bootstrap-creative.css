@@ -7988,7 +7988,6 @@ a.text-blue:hover, a.text-blue:focus {
     box-shadow: 0 0 0 0.15rem rgba(102, 88, 221, 0.3); }
 
 .card {
-  margin-bottom: 24px;
   box-shadow: 0 0 35px 0 rgba(154, 161, 171, 0.15); }
 
 .card-drop {
@@ -8044,7 +8043,6 @@ a.text-blue:hover, a.text-blue:focus {
   background-color: #fff;
   padding: 1.5rem;
   box-shadow: 0 0 35px 0 rgba(154, 161, 171, 0.15);
-  margin-bottom: 24px;
   border-radius: 0.25rem; }
 
 .header-title {
