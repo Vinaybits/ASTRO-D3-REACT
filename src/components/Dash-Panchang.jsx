@@ -14,24 +14,7 @@ import Modal from 'react-bootstrap/Modal';
 import Sideform from '../SideComponents/sideform'
 
 const Dash_Panchang = () => {
-  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  function scrollFunction() {
-    if (
-      document.body.scrollTop > 80 ||
-      document.documentElement.scrollTop > 80
-    ) {
-      // document.getElementById("navbar").style.padding = "30px 10px";
-      // document.getElementById("logo").style.fontSize = "25px";
-    } else {
-      //document.getElementById("navbar").style.padding = "80px 10px";
-      //document.getElementById("logo").style.fontSize = "35px";
-      //alert("2");
-    }
-  }
-  window.onscroll = function () {
-    scrollFunction();
-  };
-
+ 
   const monthNames = [
         'Jan',
         'Feb',
