@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import { useTable, useFilters, useSortBy } from "react-table";
 export default function Table({ columns, data }) {
   // Use the state and functions returned from useTable to build your UI
@@ -18,7 +18,6 @@ export default function Table({ columns, data }) {
   );
 
 
-  const [value, onChange] = useState(new Date());
   // Render the UI for your table
   return (
     <>

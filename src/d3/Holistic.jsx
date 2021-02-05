@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-concat */
 import React, { useState, useEffect, useContext } from "react";
 import './Holistic.css'
 import { GlobalContext } from '../mycontext';
@@ -5,12 +6,7 @@ import * as cities from "../components/cities.json";
 import axios from "axios";
 import background from "../assets/img/bg.jpg";
 import moment from "moment";
-import CustomInput from './CustomInput'
-import DatePicker from 'react-datepicker';
-import "react-datepicker/dist/react-datepicker.css";
-import Calendar from 'react-calendar';
 import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button'
 import Sideform from '../SideComponents/sideform'
 const monthNames = [
         'Jan',
@@ -205,7 +201,7 @@ function extract_auspicious_string(obj,str){
 
 function Holistic() {
 
-  const [currentClass, setcurrentClass] = useState('col-lg-10 col-md-12');
+  const currentClass = useState('col-lg-10 col-md-12');
    const contextType = useContext(GlobalContext)
    let value =contextType.panchangDate || new Date();
    let place = contextType.placeobserved || "Hyderabad";
@@ -230,7 +226,7 @@ function Holistic() {
     let [naksvalue,setnaksvalue] = useState(null);
     let [abhijitvalue,setabhijitvalue] = useState(null);
     let [show,setshow] = useState(false)
-    let [flag,setFlag] = useState("")
+    let flag = useState("")
     let [ritu,setritu] = useState(null)
     let [sunsign,setsunsign] = useState(null);
     let [moonsign,setmoonsign] = useState(null);
@@ -241,9 +237,6 @@ function Holistic() {
    let y = "";
       let m = "";
       let d = "";
-      let h="";
-      let mi="";
-      let s="";
     let lat = "",
         long = "";
     let offset = "";
@@ -335,7 +328,7 @@ function Holistic() {
       setsamvatsara(samvatsara.data)
       settrikaalvalue(trikaal.data)
     })();
-  },[contextType.panchangDate, place]);
+  },[contextType.panchangDate, place, value]);
 
     let moonriseTimedisplay = remove_character(moonriseTime, 5);
     let sunriseTimedisplay = remove_character(sunriseTime, 5);
@@ -428,8 +421,8 @@ const handleCalendar = () =>{
 
   return (
     <div className={currentClass}>
-                <div id="holistic" className="col-lg-12"  >
-                    <div className="card">
+    <div id="holistic" className="col-lg-12"  >
+    <div className="card">
 
     <div className="card-body-holistic" style={{ "padding": "10px", backgroundImage: `url(${background})`, width:"100%"}}>
      <div className="dpPHeaderLeftContent">
@@ -474,7 +467,7 @@ const handleCalendar = () =>{
         <Modal.Title style={{color:"rgb(3, 66, 141)",fontWeight:"bold"}}>Please Update Date and Location</Modal.Title> 
         </Modal.Header>
         <Modal.Body>
-        <Sideform view={"panchangView"} close = {handleCalendar} date={value} place={place} flag={flag}/>
+        <Sideform mode={"panchangView"} close = {handleCalendar} date={value} place={place} flag={flag}/>
         </Modal.Body>
         <Modal.Footer>
         </Modal.Footer>

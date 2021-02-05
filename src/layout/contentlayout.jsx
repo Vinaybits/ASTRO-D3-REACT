@@ -185,7 +185,7 @@ const Contentlayout = () => {
     if (value === true) {
       // remove becuse check value is true and its tuening to false
       const planetItemIndex = newPlanetData.findIndex(item => item.name === name);
-      const updatePlanet = { ...newPlanetData[planetItemIndex] };
+      // const updatePlanet = { ...newPlanetData[planetItemIndex] };
       console.log(newPlanetData);
       newPlanetData.splice(planetItemIndex, 1);
       console.log(newPlanetData);
@@ -493,6 +493,7 @@ const Contentlayout = () => {
 
   return (
     <>
+    
       <div className="content-page" style={{"paddingTop":"0px", "marginTop":"58px"}}>
         <div className="content">
           <div className="container-fluid" style={{"Width" : "100%", "maxWidth":"100%", "paddingRight":"0px"}}>

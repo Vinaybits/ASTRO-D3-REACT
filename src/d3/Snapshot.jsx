@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { GlobalContext } from '../mycontext';
@@ -8,8 +9,6 @@ import DatePicker from 'react-date-picker'
 import TextField from "@material-ui/core/TextField";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-import Button from "react-bootstrap/Button";
-
 
 
 
@@ -23,7 +22,7 @@ const noncombust = ['Ascendant', 'Sun', 'Rahu', 'Ketu']
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul','Aug','Sep','Oct','Nov','Dec']
 const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
 
-function Snapshot() {
+function Snapshot(props) {
   const contextType = useContext(GlobalContext)
   const [data, setData] = useState([]);
   const date = new Date()
@@ -31,13 +30,25 @@ function Snapshot() {
   // let [newDate,setNewDate] = useState(formatDate(date));
   let [newTime,setNewTime] = useState(time);
   const [value, onChange] = useState(new Date());
-  const [currentClass, setcurrentClass] = useState('col-lg-10 col-md-12');
+
   let reqDate="";
   let headerString=""
   if(value!=null){
   let day = days[value.getDay()];
-  reqDate = day + "," + " " +value.getDate() + " "+ months[value.getMonth()]+" "+ value.getFullYear();
-  headerString=reqDate+ " " + "at" + " " + newTime;
+  reqDate = day
+            + "," 
+            + " " 
+            +value.getDate() 
+            + " "
+            + 
+            months[value.getMonth()]
+            +" "
+            + value.getFullYear();
+  headerString=reqDate
+  + " " 
+  + "at" 
+  + " " 
+  + newTime;
   }
   else{
     headerString ="null";
@@ -53,7 +64,7 @@ function Snapshot() {
     let lat = "",
         long = "";
     let offset = "";
-    let c = contextType.placeobserved;
+    let c = contextType.placeobserved || "Hyderabad";
     if(newTime==null){
     h="00";
     mi="00";
@@ -116,6 +127,7 @@ function Snapshot() {
     })();
   },[value,newTime]);
 
+    
   const columns =[
       {
         Header: ''+headerString,
@@ -181,6 +193,7 @@ function Snapshot() {
   const timeChange = (time) =>{
     setNewTime(time.target.value)
   }
+
   const exportPDF = () => {
     const unit = "pt";
     const size = "A4"; // Use A1, A2, A3 or A4
@@ -234,7 +247,7 @@ function Snapshot() {
   }
 
   return (
-    <div className={currentClass}>
+    <div>
                 <div id="snapshot" className="col-lg-12"  >
                     <div className="card">
 
@@ -260,7 +273,7 @@ function Snapshot() {
     marginTop: "0px"}}
         id="time"
         type="time"
-        defaultValue={newTime}
+        value={newTime}
         onChange={timeChange}
         InputLabelProps={{
           shrink: true
@@ -284,12 +297,12 @@ function Snapshot() {
     </center>
                             <div className="row">
                                 <div className="col-lg-12">
-                                    <center><h2>Snapshot of Planet's Positions</h2>
+                                    <center>
                         
-      <Table columns={columns} data={data} className="table table-bordered"/>
-      </center>
-      <br></br>
-      </div>
+                                    <Table columns={columns} data={data} className="table table-bordered"/>
+                                    </center>
+                                    <br></br>
+                                    </div>
                                
                                </div>
    
@@ -303,6 +316,6 @@ function Snapshot() {
                    </div>
                </div>
   );
-                  }
+}
 
 export default Snapshot;

@@ -1,14 +1,14 @@
 import React from "react";
 import "./homestyles.css"
-import { useEffect } from 'react';
-import $ from 'jquery';
+
 import 'react-bootstrap';
 import { Link } from 'react-router-dom'
-import { fn } from "moment";
 
+import { GlobalContext } from '../mycontext';
 
 
 const HomePage= () => {
+
     function scrollFunction() {
         if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
          // document.getElementById("navbar").style.padding = "30px 10px";
@@ -20,7 +20,7 @@ const HomePage= () => {
         }
       }
       window.onscroll = function() {scrollFunction()};
-      
+  
 
       return(
           <>
@@ -49,7 +49,7 @@ const HomePage= () => {
             <div className="container" style={{paddingLeft:"20%", paddingRight:"0"}}>
                 
                 
-                 <div className="masthead-subheading" style={{textAlign:"left"}}>Dedicated to... <br></br> </div>
+                 <div className="masthead-subheading" style={{textAlign:"left"}}>Inspired By... <br></br> </div>
                  <div className="masthead-subheading" style={{textAlign:"left", fontStyle:"normal", paddingLeft:"8%"}}>the great revelations of 
                  <span style={{color:"#FE8B5D", fontStyle:"italic"}}> Rishi Parashar</span>
                   <br></br>
@@ -77,7 +77,7 @@ const HomePage= () => {
                     
                     <div className="col-md-3 ">
                         <div className="team-member">
-                            <Link to='/transition'>
+                            <Link to='/TransitionDashboard'>
                             <img className="mx-auto" style={{height:"200px"}} src={require("../assets/img/team/1.png")} alt="" />
                             <h4 className="my-3">Transition of Planets</h4>
                             </Link>
@@ -89,15 +89,15 @@ const HomePage= () => {
                             </div>
                     <div className="col-md-3">
                                 <div className="team-member">
-                                    <Link to='/panchang'>
+                                    <Link to='/PanchangDashboard'>
                                     <img className="mx-auto" style={{height:"200px"}} src={require("../assets/img/team/2.png")} alt="" />
                                     <h4 className="my-3">Panchang</h4>
-                                     </Link>
+                                    </Link>
                                      <p className="text-muted">Everything that one should know about the time and astral bodies. Explore five elements and beyond. Explore 
-                                auspicious and inauspicious time during the day and night.</p>
-                    
+                                      auspicious and inauspicious time during the day and night.</p>
                                 </div>
-                                    </div>
+                               
+                     </div>
                     <div className="col-md-3">
                                         <div className="team-member">
                                             <img className="mx-auto" style={{height:"200px"}} src={require("../assets/img/team/3.png")} alt="" />

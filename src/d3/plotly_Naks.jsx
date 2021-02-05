@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Plotly from 'plotly.js';
 import moment from 'moment';
-import { GlobalProvider, GlobalContext } from '../mycontext';
+import {GlobalContext } from '../mycontext';
 import '../d3/plotly.css';
 
 class Plotly_NAKS extends Component {
@@ -10,26 +10,24 @@ class Plotly_NAKS extends Component {
         super(props);
         this.state = { 
             view_type:'rashi',
-            display_value_rashi : '',
-            display_value_naks : '',
-            display_value_combined:'',
-            currentClass: 'col-lg-10 col-md-12'
          }
     }
+
     componentDidMount() {
        
             this.apidate_format_rashi();
-            this.apidate_format();
-            this.apidate_format_combined();
-      
-       
             
         }
+
+      componentWillReceiveProps(newProps) {
+      if(this.props.end !== newProps.end || this.props.start !== newProps.start || this.props.city !== newProps.city)
+            this.apidate_format_rashi();
+   }
 
 
    
         
-        apidate_format =() =>{
+        apidate_format_nakshatra =() =>{
             var gd1 = document.getElementById('myDiv_NAKS');
             var api_data = this.context.newState_apidata;
             console.log(api_data)
@@ -755,7 +753,7 @@ class Plotly_NAKS extends Component {
 
 
 apidate_format_rashi =() =>{
-    var gd1 = document.getElementById('myDiv');
+    var gd1 = document.getElementById('myDiv_NAKS');
     var api_data = this.context.newState_apidata;
     this.view_name = 'Rashi';
 
@@ -1222,7 +1220,7 @@ apidate_format_rashi =() =>{
 }
 
 apidate_format_combined =() =>{
-    var gd1 = document.getElementById('myDiv_combined');
+    var gd1 = document.getElementById('myDiv_NAKS');
     var api_data = this.context.newState_apidata;
     this.view_name = 'combined';
 
@@ -1944,24 +1942,20 @@ apidate_format_combined =() =>{
 
 switch_rasiview =()=>{
         this.setState({view_type: 'rasi'});
-        this.setState({display_value_rashi:''});
-        this.setState({display_value_naks:'none'});
-        this.setState({display_value_combined:'none'});
+        this.apidate_format_rashi();
+            
 }
 switch_combinedview = ()=>{
     this.setState({view_type: 'combined'});
-        this.setState({display_value_rashi:'none'});
-        this.setState({display_value_naks:'none'});
-        this.setState({display_value_combined:''});
+        this.apidate_format_combined();
+            
 
 }
 switch_naksview = ()=>{
     this.setState({view_type: 'naks'});
-        this.setState({display_value_rashi:'none'});
-        this.setState({display_value_naks:''});
-        this.setState({display_value_combined:'none'});
-
+        this.apidate_format_nakshatra();
 }
+
 
   toggleClass = () => {
         (this.state.currentClass === 'col-lg-10 col-md-12') ? this.setState({currentClass:'fullscreen'}) : this.setState({currentClass:'col-lg-10 col-md-12'});
@@ -1972,36 +1966,51 @@ switch_naksview = ()=>{
     render() { 
         return (  <> 
             {/* <button onClick={this.apidate_format}>click me</button> */}
-            <div className={this.state.currentClass}>
+            <div className="col-lg-14">
                     <div id="d3graph" className="col-lg-12"  >
                    
                         <div className="card">
                       
-                        <div className="card-body" style={{ "padding": "10px" }}>
+                        <div className="card-body" style={{}}>
                                 {/* <div class="card-widgets">
                                    
                                     <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light"
                                         data-toggle="fullscreen" href="/#">
                                         <i class="fe-maximize noti-icon"></i></a>
                                 </div> */}
+                                <div className="row">
                                 <span class="header-title" style={{ "color": "#fff" }}>
-
-<div class="btn-group" >
-<button className="btn btn-primary btn-sm" onClick={this.switch_rasiview}>Rashi View</button>
-<button className="btn btn-primary btn-sm" onClick={this.switch_naksview}>Nakshatra View</button>
-<button className="btn btn-primary btn-sm" onClick={this.switch_combinedview}> Combined View </button>
-
-</div>
+                                <div class="btn-group" >
+                                <button className="btn btn-primary btn-sm" onClick={this.switch_rasiview}>Rashi View</button>
+                                <button className="btn btn-primary btn-sm" onClick={this.switch_naksview}>Nakshatra View</button>
+                                <button className="btn btn-primary btn-sm" onClick={this.switch_combinedview}> Combined View </button>
+                                </div>
                                 </span>
+                                <div class="row">
+                                        <div class="col-lg-12">
+                                            <form class="form-inline" style={{fontSize:"1em"}}>
+                                                <div class="form-group mx-md-3">
+                                                    <label class="mr-2">Location:</label>
+                                                    <label class="mr-2" style={{color:"#343a40"}} >{this.context.placeobserved}</label>
+                                                </div>
+                                                <div class="form-group mx-md-3">
+                                                    <label class="mr-2">Start Date:</label>
+                                                    <label class="mr-2" style={{color:"#343a40"}}>{this.context.startDate}</label>
+                                                </div>
+                                                <div class="form-group mx-md-3">
+                                                    <label class="mr-2">End Date:</label>
+                                                    <label class="mr-2" style={{color:"#343a40"}}>{this.context.endDate}</label>
+                                                </div>
+                                                 <button type="button" class="btn btn-danger waves-effect waves-light mr-1" onClick={() => this.props.handleView()}><i class="mdi mdi-circle mr-1"></i> Reset</button>
+                                            </form>
+                                </div>
+                                       
+                                </div> 
+                                </div>
                                 <div className="row">
                                     <div className="col-lg-12">
                                         <center>
-                                        <div id="myDiv" style={{display:this.state.display_value_rashi}}>
-                                       
-                                        </div>
-                                      
-                                        <div id="myDiv_NAKS" style={{display:this.state.display_value_naks}}></div>
-                                       <div id="myDiv_combined" style={{display:this.state.display_value_combined}}></div>
+                                        <div id="myDiv_NAKS"></div>
                                         </center>
                 
                                         

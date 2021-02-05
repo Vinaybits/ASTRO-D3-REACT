@@ -233,6 +233,32 @@ export class GlobalProvider extends Component {
 
 	 }
 
+	 playSpeed = (sec) =>{
+
+		 this.setState({play_speed : sec});
+
+	 }
+
+
+	 changeView =(value)=>{
+		// alert(value);
+		this.setState({currentView:value})
+	
+	 }
+
+	 changeSideTableDisplay =(value)=>{
+		// alert(value);
+		this.setState({sideTableDisplay: value});
+	 }
+
+	 set_PanchangDate = (date,city) =>
+	 {
+		 this.setState({IsLoading:true})
+		 this.setState({panchangDate:date})
+		 this.setState({placeobserved:city});	
+		 this.setState({IsLoading:false})
+	 }
+
 	 call_daterange = (url,city,str_date,end_date)=> {
 
 	 var config = {
@@ -245,22 +271,9 @@ export class GlobalProvider extends Component {
       return axios(config)
       .then((response) => {
 		  //set for SIDETABLE
-		  var api_data = JSON.stringify(response.data);
 		  this.setState({newState_apidata:response.data});
 		  console.log(this.state.newState_apidata)
 		  this.setState({IsActive:'btn btn-dark waves-effect'});
-		  //set place  of observation in sidetable 
-		  this.setState({placeobserved:city});	
-		  //IsActive:' disabled'
-		  this.setState({IsLoading:false})
-		  this.playSpeed(1);
-		  this.setState({dataLoaded: true});
-		  
-		  // set start and end date for future use 
-		  this.setState({startDate:str_date});
-		  this.setState({endDate:end_date});
-
-
 
           return true;
 		//console.log("Result"+JSON.stringify(response.data));
@@ -273,26 +286,41 @@ export class GlobalProvider extends Component {
 	  }
 
 
+	call_daterange_journey = (url,city,str_date,end_date)=> {
+
+	 var config = {
+        method: 'get',
+        url: url,
+        headers: { }
+      };
+      return axios(config)
+      .then((response) => {
+		  let dummy=[...this.state.repositories]
+		  dummy.push(response.data)
+		  this.setState({repositories:dummy});
+          return true;
+      })
+      .catch(function (error) {
+		console.log("Result" + error);
+		this.setState({IsLoading:false});
+	  });
+	  }
 
 
-	 playSpeed = (sec) =>{
-
-		 this.setState({play_speed : sec});
-
+	 reset_form_for_journey = () =>{
+		 this.setState({repositories:[]})		 
 	 }
-	 changeView =(value)=>{
-		// alert(value);
-		this.setState({currentView:value})
 
+	 reset_loading = (value) =>{
+		 this.setState({IsLoading:value})		 
 	 }
 
-	 set_PanchangDate = (date,city) =>
-	 {
-		 this.setState({IsLoading:true})
-		 this.setState({panchangDate:date})
-		 this.setState({placeobserved:city});	
-		 this.setState({IsLoading:false})
+	 set_journey_states = (city,str_date,end_date) =>{
+		  this.setState({placeobserved:city});	
+		  this.setState({startDate:str_date});
+		  this.setState({endDate:end_date});
 	 }
+
 
 
 	state = {
@@ -301,10 +329,11 @@ export class GlobalProvider extends Component {
 		newStateplanet : '', // updated planet state after api call 
 		apidataState : '', // set this 
 		newState_apidata : '',
+		repositories:[],
 		current_index: 0,
 		IsActive:'btn btn-dark waves-effect disabled', // class used for wheel buttons 
-		currentView: 'circle_graph',
-		changeView: (value) => this.changeView(value),
+		currentView: 'Dashboard',
+		change_View: (value) => this.changeView(value),
 		playicon:'mdi mdi-play',
 		playplanet : this.play_array,
 		play_speed_fn : (seconds) => this.playSpeed(seconds),
@@ -315,12 +344,23 @@ export class GlobalProvider extends Component {
 		callAPI_daterange: (url,city, str_date,end_date) => this.call_daterange(url,city,str_date,end_date),
 		set_Panchang_Date: (panchangDate,city) => this.set_PanchangDate(panchangDate,city),
 		callAPI_Journey_daterange: (url,city, str_date,end_date) => this.call_daterange_journey(url,city,str_date,end_date),
+		planetselected:{ value: 'Jupiter', label: 'Jupiter' },
+		set_journey_planet: (value) => this.set_selected_planet(value),
+		setJourneyloading: () =>this.setJourneyLoading(),
 		togglebutton: this.toggle,
 		placeobserved:null,
-		startDate:'',
-		endDate:'',
+		startDate:null,
+		endDate:null,
 		panchangDate:null,
-		IsLoading:false
+		IsLoading:false,
+		journeyloading:true,
+		sideTableDisplay:false,
+		changeSideTableDisplay: (value) => this.changeSideTableDisplay(value),
+		setDates:(a,b,c) => this.set_Dates(a,b,c),
+		resetForm: () => this.reset_form_for_journey(),
+		resetLoading:(value) => this.reset_loading(value),
+		setStateForJourney: (a,b,c) => this.set_journey_states(a,b,c)
+	
 	};
 
 	render() {

@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import './autocomplete.css'
-import { GlobalProvider, GlobalContext } from '../mycontext';
+import {GlobalContext } from '../mycontext';
 
 class Autocomplete extends Component {
   static contextType = GlobalContext;
@@ -126,7 +126,7 @@ class Autocomplete extends Component {
     if (showSuggestions && userInput) {
       if (filteredSuggestions.length) {
         suggestionsListComponent = (
-          <ul class="suggestions">
+          <ul className="suggestions" style={{width:"70%"}}>
             {filteredSuggestions.map((suggestion, index) => {
               let className;
 
@@ -165,6 +165,7 @@ class Autocomplete extends Component {
           onKeyDown={onKeyDown}
           value={userInput}
           className="form-control"
+          style={{width:"70%"}}
         />
         {suggestionsListComponent}
       </Fragment>
