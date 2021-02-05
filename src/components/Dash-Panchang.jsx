@@ -487,7 +487,7 @@ const prevDay = () => {
                     <tbody>
                       <tr className="table_head_tr" style={{}}>
                         <th scope="col" colSpan="5" className="sectionheader" style={{borderTop:"none"}}>
-                          Sunrise and Moonrise
+                          Sun and Moon
                         </th>
                       </tr>
                       <tr>
