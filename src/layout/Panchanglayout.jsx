@@ -1,9 +1,5 @@
 import React, { useState, useEffect , useRef} from 'react';
 import Sideform from '../SideComponents/sideform'
-// import Sideoptions from '../components/sideoptions';
-// import Card3col from '../components/card3col';
-// import Sidetable from '../components/sidetable';
-// import Ploty_1 from '../d3/plotly_1';
 import { GlobalContext } from '../mycontext';
 import Holistic from '../d3/Holistic'
 import Natal_chart_layout from '../d3/Panchang/Natal_chart_layout';
