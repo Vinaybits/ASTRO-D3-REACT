@@ -185,7 +185,7 @@ const Contentlayout = () => {
     if (value === true) {
       // remove becuse check value is true and its tuening to false
       const planetItemIndex = newPlanetData.findIndex(item => item.name === name);
-      const updatePlanet = { ...newPlanetData[planetItemIndex] };
+      // const updatePlanet = { ...newPlanetData[planetItemIndex] };
       console.log(newPlanetData);
       newPlanetData.splice(planetItemIndex, 1);
       console.log(newPlanetData);

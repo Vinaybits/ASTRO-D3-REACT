@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3';
 import './d3.css';
-import { GlobalProvider, GlobalContext } from '../mycontext';
-import * as bg_img from '../components/bg_naks.jpg'
+import { GlobalContext } from '../mycontext';
 
 
 class BarChart extends Component {
@@ -26,10 +25,18 @@ class BarChart extends Component {
        
         this.astro_wheel(this.context.planet);
         this.draw_planets(this.context.planet);
-
-        
-
     }
+
+    componentDidReceiveProps(newProps) {
+        if(this.props.end !== newProps.end || this.props.start !== newProps.start || this.props.city !== newProps.city){
+        console.log("context");
+        console.log(this.context.planet);
+        alert('i')
+        this.astro_wheel(this.context.planet);
+        this.draw_planets(this.context.planet);
+        }
+    }
+
 
     astro_wheel(planets) {
 
@@ -509,7 +516,7 @@ class BarChart extends Component {
 
 
         // Scales
-        var x = d3.scaleBand()
+            x = d3.scaleBand()
             .range([0, 2 * Math.PI]) // X axis goes from 0 to 2pi = all around the circle. If I stop at 1Pi, it will be around a half circle
             .align(0) // This does nothing
             .domain(data2.map(function (d) {

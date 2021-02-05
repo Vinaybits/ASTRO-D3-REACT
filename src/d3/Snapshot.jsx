@@ -9,8 +9,6 @@ import DatePicker from 'react-date-picker'
 import TextField from "@material-ui/core/TextField";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-import Button from "react-bootstrap/Button";
-
 
 
 
@@ -32,14 +30,25 @@ function Snapshot(props) {
   // let [newDate,setNewDate] = useState(formatDate(date));
   let [newTime,setNewTime] = useState(time);
   const [value, onChange] = useState(new Date());
-  const [refresh,onChangeRefresh] = useState(props.refresh)
-  const [currentClass, setcurrentClass] = useState('col-lg-10 col-md-12');
+
   let reqDate="";
   let headerString=""
   if(value!=null){
   let day = days[value.getDay()];
-  reqDate = day + "," + " " +value.getDate() + " "+ months[value.getMonth()]+" "+ value.getFullYear();
-  headerString=reqDate+ " " + "at" + " " + newTime;
+  reqDate = day
+            + "," 
+            + " " 
+            +value.getDate() 
+            + " "
+            + 
+            months[value.getMonth()]
+            +" "
+            + value.getFullYear();
+  headerString=reqDate
+  + " " 
+  + "at" 
+  + " " 
+  + newTime;
   }
   else{
     headerString ="null";
@@ -307,6 +316,6 @@ function Snapshot(props) {
                    </div>
                </div>
   );
-                  }
+}
 
 export default Snapshot;

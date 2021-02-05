@@ -51,7 +51,6 @@ class sideform extends Component {
 
   alertclick = (e) => {
     e.preventDefault();
-
     let start_Date = "";
     let end_Date = "";
     let from_year = "",
@@ -66,6 +65,10 @@ class sideform extends Component {
 
     start_Date = this.state.startDate;
     end_Date = this.state.endDate;
+
+    let names = document.getElementById("auto_complete1").value;
+    this.setState({ city: names });
+  
     from_year = moment(start_Date).format("YYYY");
     from_month = moment(start_Date).format("MM");
     from_day = moment(start_Date).format("DD");
@@ -81,9 +84,7 @@ class sideform extends Component {
       isFormValid = false;
     }
 
-    let names = document.getElementById("auto_complete1").value;
-    this.setState({ city: names });
-    let keys = Object.entries(cities[0] + "." + names);
+    
     Object.entries(cities[0]).forEach(([key, value]) => {
       if (key === names) {
         long = Math.round(value.longitude).toFixed(2);
@@ -105,7 +106,9 @@ class sideform extends Component {
 
     this.setState({ errors: errors });
 
-    let url_string =
+
+
+      let url_string =
       "http://api.omparashar.com/transit/multi/positions/overdaterange";
     //var params = "?from_year=2020&from_month=1&from_day=1&to_year=2020&to_month=6&to_day=30&lat=29.47&long=77.69&offset=19800&p_nums=3&p_nums=4";
     let params =
@@ -136,21 +139,76 @@ class sideform extends Component {
       var endDate = to_year+"/"+to_month+"/"+to_day;
 
       //----end
+  
       this.context
         .callAPI_daterange(url_string + params, names, startDate, endDate)
         .then((result) => {
           if (result) {
-              this.context
-                   .changeView(this.props.view);
-              this.props.handleClose();
+             this.context.changeSideTableDisplay(false);
           }
         });
       // this.setState({open: false});
     }
-    
 
-    // alert(lat+long+offset+"Start -"+from_year+from_month+from_day+"-" + moment(this.state.startDate).format("DD-MM-YYYY") + "</br>" + "End -" +moment(this.state.endDate).format("DD-MM-YYYY"));
+
+
+      this.context.resetForm();
+      let pnums = [0,1,2,3,4,5,6,10,100]
+      this.context.resetLoading(true);
+
+    for(let i=0; i<pnums.length;i++){
+      let url_string =
+      "http://api.omparashar.com/transit/journey/overdaterange";
+    //var params = "?from_year=2020&from_month=1&from_day=1&to_year=2020&to_month=6&to_day=30&lat=29.47&long=77.69&offset=19800&p_nums=3&p_nums=4";
+    let params =
+      "?from_year=" +
+      from_year +
+      "&from_month=" +
+      from_month +
+      "&from_day=" +
+      from_day +
+      "&to_year=" +
+      to_year +
+      "&to_month=" +
+      to_month +
+      "&to_day=" +
+      to_day +
+      "&lat=" +
+      lat +
+      "&long=" +
+      long +
+      "&offset=" +
+      offset +
+      "&p_num="+
+      pnums[i];
+    console.log(url_string+params)
+    // submit form and send reqest is valid date range and location
+    if (this.state.isValidDateRange && isFormValid) {
+      //formating start and end date for updateing api conetxt
+      var startDate = from_year+"/"+from_month+"/"+from_day;
+      var endDate = to_year+"/"+to_month+"/"+to_day;
+  
+      this.context
+        .callAPI_Journey_daterange(url_string + params)
+        .then((result) => {
+          if (result){
+            if(this.context.repositories.length >= 9){
+              this.context.setStateForJourney(names,startDate,endDate);
+               this.context.change_View(this.props.view);
+              this.props.handleClose();
+              this.context.resetLoading(false);
+              }
+
+          }
+        });
+      }
+    }
+
   };
+
+  callClose = () => {
+    this.props.close()
+  }
 
  
   alertclickPanchang = (e) =>
@@ -170,7 +228,7 @@ class sideform extends Component {
     let isValidDateRange = true;
     errors["dateError"] = "";
     this.setState({ errors });
-    if (name == "startDate") {
+    if (name === "startDate") {
       this.setState({ startDate: date });
       if (this.state.endDate) {
         let isBefore = moment(date).isBefore(this.state.endDate);
@@ -242,10 +300,7 @@ class sideform extends Component {
   }
 
   render() {
-    var date = this.context.apidataState.date;
-    var planet_data_degree = [];
-    planet_data_degree = this.context.apidataState.planets;
-
+ 
     //console.log(cities.default);
     var city = cities.default[0];
     var cities_name = Object.keys(city);
@@ -306,31 +361,7 @@ class sideform extends Component {
         </div>
       );
     };
-    const showLabels = () => {
-      return (
-        <div>
-          <div>
-            Place:
-            <label htmlFor="example-input-small" style={{ "marginBottom": "0px" }}>
-              {this.state.city}
-            </label>
-          </div>
-          <div>
-            {" "}
-            Start Date:
-            <label htmlFor="example-input-small" style={{ "marginBottom": "0px" }}>
-              {moment(this.state.startDate).format("DD-MM-YYYY")}
-            </label>
-          </div>
-          <div>
-            End Date:
-            <label htmlFor="example-input-small" style={{ "marginBottom": "0px" }}>
-              {moment(this.state.endDate).format("DD-MM-YYYY")}
-            </label>
-          </div>
-        </div>
-      );
-    };
+   
     //  if(this.props.flag==="datesideform"){
     //         this.setState({displaypanchangDate:null})
     // }
@@ -338,18 +369,22 @@ class sideform extends Component {
     //         this.setState({displaypanchangDate:this.state.panchangDate})
     // }
     const mode = this.props.mode;
+
     if(mode === "TransitionView"){
     return (
       <>
         <div className="">
-          <Modal size="lg" dialogClassName={"primaryModal"} show={this.props.show} onHide={this.props.handleClose} centered>
+          <Modal animation={false} size="md" dialogClassName={"primaryModal"} show={this.props.show} onHide={this.props.handleClose} centered>
                         <Modal.Header 
-                            closeButton 
+                          closeButton 
                         >
+                         <Modal.Title id="contained-modal-title-vcenter">
+                          Update Details
+                        </Modal.Title>
                         </Modal.Header>
-                        <Modal.Body>
-          <div className="card" style={{ display: this.state.open }}>
-            <div className="card-body">
+                        <Modal.Body style={{paddingLeft:"120px"}}>
+          <div className="card" >
+            <div className="card-body" >
               <form>
                 <div>
      {/* <div>
@@ -399,7 +434,7 @@ class sideform extends Component {
                 <div className="form-group mb-1">
                   <label htmlFor="example-input-small">Place of Observation</label>
                   <Autocomplete
-                    defaultValue = "Hyderabad"
+                    defaultValue = {this.context.placeobserved}
                     resetInputText={this.state.resetInputText}
                     handleChange={this.handleAutoCompleterChange}
                     suggestions={cities_name}
@@ -470,11 +505,10 @@ class sideform extends Component {
                     Maximum Date Range allowed is <code> 1year </code>
                   </p>
                 </div>
-                <center>
-                  <button
+                    <button
                     type="submit"
                     className="ladda-button btn"
-                    style={{ backgroundColor: "#03428D", color: "#fff" }}
+                    style={{ backgroundColor: "#03428D", color: "#fff", marginTop:"5%" }}
                     onClick={this.alertclick}
                     disabled={this.context.IsLoading}
                   >
@@ -487,7 +521,7 @@ class sideform extends Component {
                       "Get Data"
                     )}
                   </button>
-                </center>
+
               </form>
             </div>
           </div>
@@ -496,85 +530,10 @@ class sideform extends Component {
         </div>
 
         {/* New div for showing table data in this component only  */}
-        <div className="">
-          <div className="card"
-            style={{ display: this.state.open ? "" : "none" }} >
-            <div className="card-body">
-              <h4 className="header-title">Planet positions </h4>
-              <div className="sub-heading">
-                From Date : {moment(this.state.startDate).format("DD-MM-YYYY")}
-                <br />
-                To Date : {moment(this.state.endDate).format("DD-MM-YYYY")}
-                <br />
-                Location : {this.state.city}
-                <br />
-                <br />
-              
-                    <label>
-                    Select Perspective:
-                    <select className="form-control"  value={this.state.value} onChange={this.handleChange}>
-            <option value="circle_graph">Galactic View</option>
-            <option value="line_chart">Traces</option>
-            <option value="journey">Journey</option>
-            <option value="snapshot">Snapshot</option>
-          </select>
-                   </label>
-                <br></br>
-                <button
-                  type="submit"
-                  className="ladda-button btn-sm"
-                  style={{ backgroundColor: "#03428D", color: "#fff",marginLeft:"5px"}}
-                  onClick={this.resetForm}
-                >
-                  Reset Parameters
-                </button>
-              </div>
-              <hr></hr>
-              <div style={{display:this.state.value === 'circle_graph' && this.context.showTable ? '' : 'none'}}>
-              <div className="sub-heading">
-                {" "}
-                Date :{" "}
-                <span
-                  style={{ fontSize: "14px" }}
-                  className="badge badge-pill badge-dark" >
-                  {" "}
-                  {date}{" "}
-                </span>
-              </div>
-              At 12:00 AM @ {this.context.placeobserved}
-              <br />
-              <table className="table table-sm table-bordered">
-                <thead>
-                  <tr>
-                    <th scope="col">Planet</th>
-                    <th scope="col">Degrees</th>
-                  </tr>
-                </thead>
-
-                {planet_data_degree && planet_data_degree.length > 0
-                  ? planet_data_degree.map((item) => {
-                      return (
-                        <>
-                          <tr key={item.name}>
-                            <td style={{ width: "50px" }}>{item.name}</td>
-                            <td>
-                              {item.deg}&#176;{" "}
-                              <b>{item.motion === "D" ? "" : "R"}</b>
-                            </td>
-                          </tr>
-                        </>
-                      );
-                    })
-                  : "Loading..."}
-              </table>
-            </div>
-          </div>
-          </div>
-        </div>
+       
       </>
     );
   }
-
   else if( mode === "panchangView"){
     return(
        <>
