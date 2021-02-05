@@ -49,8 +49,8 @@ const InitDashboard= () => {
 
                                         <div id="cardCollpase3" className="collapse pt-3 show">
                                             <div className="text-center">
-                                                <div id="total-users" data-colors="#00acc1,#4b88e4,#e3eaef,#fd7e14"> <img alt="galactic view" src={require("./Galactic.png")} style={{width:"100%",height:"100%"}}/></div>
-                                                <div className="row mt-3">
+                                                <div id="total-users" data-colors="#00acc1,#4b88e4,#e3eaef,#fd7e14"> <img alt="galactic view" src={require("./Galactic.png")} style={{width:"150px"}}/></div>
+                                                <div className="row mt-1">
                                                     <div className="col-3">
                                                     </div>
                                                     <div className="col-6">

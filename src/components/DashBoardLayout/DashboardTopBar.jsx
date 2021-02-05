@@ -315,7 +315,7 @@ const DashboardTopBar= () => {
     
                     <ul className="list-unstyled topnav-menu topnav-menu-left m-0">
                         <li>
-                        <a className="navbar-toggle nav-link" data-toggle="collapse" href="#topnav-menu-content" role="button">hello</a>
+                        <a className="navbar-toggle nav-link" data-toggle="collapse" href="#topnav-menu-content" role="button"></a>
                             <button className="button-menu-mobile waves-effect waves-light">
                                 <i className="fe-menu"></i>
                             </button>

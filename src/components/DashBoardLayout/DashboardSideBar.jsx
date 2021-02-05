@@ -90,11 +90,13 @@ const DashboardSideBar= (props) => {
                            
                 
                             <li>
-                                <a href="#Dashboard" data-toggle="collapse">
+                               
                                     <i data-feather="airplay"></i>
                                    
-                                    <span> Dashboard </span>
-                                </a>
+                                    <span>  <b>Dashboard</b> </span>
+                                    
+                               
+                               
                                
                             </li>
                            
@@ -108,12 +110,12 @@ const DashboardSideBar= (props) => {
                 
                             
                             <li>
-                                <a href="/TransitionDashBoard" aria-expanded = "true">
+                                <a href="/TransitionDashBoard">
                                     <i data-feather="calendar"></i>
-                                    <span> Planet Transition </span>
-                                    <span class="menu-arrow"></span>
+                                    <span>Planet Transition </span>
+                                    <a href="#sideNav" data-toggle="collapse"><i class="fa fa-caret-down"></i></a>
                                 </a>
-                                <div class="collapse show" id="">
+                                <div class="collapse" id="sideNav">
                                     <ul class="nav-second-level">
                                         {/* <li>
                                             <a href="#Home" onClick={()=>context.change_View("Dashboard")}>Dashboard Home</a>
