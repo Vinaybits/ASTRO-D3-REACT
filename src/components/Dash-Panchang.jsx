@@ -14,7 +14,7 @@ import Modal from "react-bootstrap/Modal";
 import Sideform from "../SideComponents/sideform";
 
 const Dash_Panchang = () => {
-  
+
   const monthNames = [
     "Jan",
     "Feb",
@@ -259,6 +259,46 @@ const Dash_Panchang = () => {
     return times;
   }
 
+  function extract_ascendant_table(obj) {
+    let ascendants = [];
+    if (obj !== null) {
+      for (const key in obj) {
+        let times = [];
+        for (const inner in obj[key]) {
+          times.push(obj[key][inner]);
+        }
+        ascendants.push(times);
+      }
+    }
+    return ascendants;
+  }
+
+  function extract_madhyahna(obj) {
+    if (obj !== null) {
+      let obj_str = obj.split(",");
+      let date_madhyahna = obj_str[0].split("/");
+      let month_name = monthNames[date_madhyahna[1] - 1];
+      let day = date_madhyahna[0];
+      let time_split = obj_str[1].split(":");
+      let period = time_split[2].split(" ");
+      return time_split[0] + ":" + time_split[1] + " " + period[1] + ", " + month_name + " " + day;
+    }
+  }
+
+  function extract_ascendant_sunrise(obj) {
+    let details = [];
+    if (obj !== null) {
+      let rashi_name = obj["Rashi"];
+      let dms = obj["D_M_S"];
+      return dms[0] + "\u00b0" + " " + rashi_name + " " + dms[1] + "' " + dms[2] + '"';
+    }
+  }
+  function extract_duration(obj) {
+    if (obj !== null) {
+      let duration = obj[0];
+      return duration[0] + " hours, " + duration[1] + " minutes, " + duration[2] + " seconds";
+    }
+  }
   const contextType = useContext(GlobalContext);
   let value = contextType.panchangDate || new Date();
   let place = contextType.placeobserved || "Hyderabad";
@@ -289,6 +329,12 @@ const Dash_Panchang = () => {
   let [moonsign, setmoonsign] = useState(null);
   let [samvatsara, setsamvatsara] = useState(null);
   let [trikaalvalue, settrikaalvalue] = useState(null);
+  let [ascendanttable, setascendanttable] = useState(null);
+  let [madhyahna, setmadhyahna] = useState(null);
+  let [suryanakshtra, setsuryanakshtra] = useState(null);
+  let [ascendantsunrise, setascendantsunrise] = useState(null);
+  let [nakshtratable, setnakshtratable] = useState(null);
+  let [chogadiya, setchogadiya] = useState(null);
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     (async () => {
@@ -360,6 +406,12 @@ const Dash_Panchang = () => {
       const moonsign = await holistic_api.get(`/moonsign${params}`);
       const samvatsara = await holistic_api.get(`/samvatsara${params}`);
       const trikaal = await holistic_api.get(`/trikaal${params}`);
+      const ascendant = await holistic_api.get(`/ascendanttable${params}`);
+      const madhyahnatime = await holistic_api.get(`/madhyahna${params}`);
+      const suryanak = await holistic_api.get(`/suryanakshtra${params}`);
+      const ascendantatsunrise = await holistic_api.get(`/ascendantsunrise${params}`);
+      const naktable = await holistic_api.get(`/nakshtratable${params}`);
+      const gaurichogadiya = await holistic_api.get(`/gaurichogadiya${params}`);
       setsunriseTime(sunriseresult.data);
       setsunsetTime(sunsetresult.data);
       setmoonriseTime(moonriseresult.data);
@@ -385,6 +437,13 @@ const Dash_Panchang = () => {
       setmoonsign(moonsign.data.current);
       setsamvatsara(samvatsara.data);
       settrikaalvalue(trikaal.data);
+      setascendanttable(ascendant.data);
+      setmadhyahna(madhyahnatime.data);
+      setsuryanakshtra(suryanak.data);
+      setascendantsunrise(ascendantatsunrise.data);
+      setnakshtratable(naktable.data);
+      setchogadiya(gaurichogadiya.data);
+
     })();
   }, [contextType.panchangDate, place]);
 
@@ -406,6 +465,11 @@ const Dash_Panchang = () => {
   let vijay = extract_auspicious_string(vijayvalue);
   let sandhya = extract_auspicious_string(sandhyavalue, "Sandhya");
   let ayan = extract_ayan(ayanavalue);
+  let asc = extract_ascendant_table(ascendanttable);
+  let madhya = extract_madhyahna(madhyahna);
+  let ascendantsun = extract_ascendant_sunrise(ascendantsunrise);
+  let daytime = extract_duration(dayduration);
+  let nighttime = extract_duration(nightduration);
 
   let varjya = extract_auspicious_string(varjyavalue, "Nishita");
   let nakshtra = extract_nakshtra_string(naksvalue);
@@ -481,6 +545,404 @@ const Dash_Panchang = () => {
       contextType.placeobserved
     );
   };
+  const AscendantTableHTML = () => {
+    if (asc.length > 0) {
+      return (
+        <>
+          <tr className="table_head_tr" style={{}}>
+            <th scope="col" colSpan="5" className="sectionheader">
+              Ascendant Table
+    </th>
+          </tr>
+          <tr>
+            <td className="td1">
+              <p className="tablelabel">{asc[0][0]}</p>
+            </td>
+            <td className="td2">
+              <span className="tablevalue">{"upto " + asc[0][2]}</span>
+            </td>
+            <td className="td3">
+              <p className="tablelabel">{asc[1][0]}</p>
+            </td>
+            <td className="td4">
+              <span className="tablevalue">{asc[1][1] + " to " + asc[1][2]}</span>
+            </td>
+          </tr>
+          <tr>
+            <td className="td1">
+              <p className="tablelabel">{asc[2][0]}</p>
+            </td>
+            <td className="td2">
+              <span className="tablevalue">{asc[2][1] + " to " + asc[2][2]}</span>
+            </td>
+            <td className="td3">
+              <p className="tablelabel">{asc[3][0]}</p>
+            </td>
+            <td className="td4">
+              <span className="tablevalue">{asc[3][1] + " to " + asc[3][2]}</span>
+            </td>
+          </tr>
+          <tr>
+            <td className="td1">
+              <p className="tablelabel">{asc[4][0]}</p>
+            </td>
+            <td className="td2">
+              <span className="tablevalue">{asc[4][1] + " to " + asc[4][2]}</span>
+            </td>
+            <td className="td3">
+              <p className="tablelabel">{asc[5][0]}</p>
+            </td>
+            <td className="td4">
+              <span className="tablevalue">{asc[5][1] + " to " + asc[5][2]}</span>
+            </td>
+          </tr>
+          <tr>
+            <td className="td1">
+              <p className="tablelabel">{asc[6][0]}</p>
+            </td>
+            <td className="td2">
+              <span className="tablevalue">{asc[6][1] + " to " + asc[6][2]}</span>
+            </td>
+            <td className="td3">
+              <p className="tablelabel">{asc[7][0]}</p>
+            </td>
+            <td className="td4">
+              <span className="tablevalue">{asc[7][1] + " to " + asc[7][2]}</span>
+            </td>
+          </tr>
+          <tr>
+            <td className="td1">
+              <p className="tablelabel">{asc[8][0]}</p>
+            </td>
+            <td className="td2">
+              <span className="tablevalue">{asc[8][1] + " to " + asc[8][2]}</span>
+            </td>
+            <td className="td3">
+              <p className="tablelabel">{asc[9][0]}</p>
+            </td>
+            <td className="td4">
+              <span className="tablevalue">{asc[9][1] + " to " + asc[9][2]}</span>
+            </td>
+          </tr>
+          <tr>
+            <td className="td1">
+              <p className="tablelabel">{asc[10][0]}</p>
+            </td>
+            <td className="td2">
+              <span className="tablevalue">{asc[10][1] + " to " + asc[10][2]}</span>
+            </td>
+            <td className="td3">
+              <p className="tablelabel">{asc[11][0]}</p>
+            </td>
+            <td className="td4">
+              <span className="tablevalue">{asc[11][1] + " to " + asc[11][2]}</span>
+            </td>
+          </tr>
+          <tr>
+            <td className="td1">
+              <p className="tablelabel">{asc[12][0]}</p>
+            </td>
+            <td className="td2">
+              <span className="tablevalue">{asc[12][1] + " to " + asc[12][2]}</span>
+            </td>
+          </tr>
+        </>
+      )
+    }
+    else {
+      return null;
+    }
+  }
+
+  const InauspiciousTimingsHTML = () => {
+    return (
+      <>
+        <tr className="table_head_tr" style={{}}>
+          <th scope="col" colSpan="5" className="sectionheader">
+            Inauspicious Timings
+   </th>
+        </tr>
+        <tr>
+          <td className="td1">
+            <p className="tablelabel">Kulika</p>
+          </td>
+          <td className="td2">
+            <span className="tablevalue">{kulika}</span>
+          </td>
+          <td className="td3">
+            <p className="tablelabel">Varjya Kaal</p>
+          </td>
+          <td className="td4">
+            <span className="tablevalue">{varjya}</span>
+          </td>
+        </tr>
+        <tr>
+          <td className="td1">
+            <p className="tablelabel">Raahu Kaal</p>
+          </td>
+          <td className="td2">
+            <span className="tablevalue">{rkaal}</span>
+          </td>
+          <td className="td3">
+            <p className="tablelabel">Yamaganda Kaal</p>
+          </td>
+          <td className="td4">
+            <span className="tablevalue">{ykaal}</span>
+          </td>
+        </tr>
+      </>
+    )
+  }
+
+  const AuspiciousTimingsHTML = () => {
+    return (
+      <>
+        <tr className="table_head_tr" style={{}}>
+          <th scope="col" colSpan="5" className="sectionheader">
+            Auspicious Timings
+  </th>
+        </tr>
+        <tr>
+          <td className="td1">
+            <p className="tablelabel">Amrit Kal</p>
+          </td>
+          <td className="td2">
+            <span className="tablevalue">{amritkaal}</span>
+          </td>
+          <td className="td3">
+            <p className="tablelabel">Abhijit Muhurat</p>
+          </td>
+          <td className="td4">
+            <span className="tablevalue">{abhijit}</span>
+          </td>
+        </tr>
+        <tr>
+          <td className="td1">
+            <p className="tablelabel">Brahma Muhurat</p>
+          </td>
+          <td className="td2">
+            <span className="tablevalue">{brahma}</span>
+          </td>
+          <td className="td3">
+            <p className="tablelabel">Nishita Muhurat</p>
+          </td>
+          <td className="td4">
+            <span className="tablevalue">{nishita}</span>
+          </td>
+        </tr>
+        <tr>
+          <td className="td1">
+            <p className="tablelabel">Pratha Sandhya</p>
+          </td>
+          <td className="td2">
+            <span className="tablevalue">{psandhya}</span>
+          </td>
+          <td className="td3">
+            <p className="tablelabel">Sayan Sandhya</p>
+          </td>
+          <td className="td4">
+            <span className="tablevalue">{ssandhya}</span>
+          </td>
+        </tr>
+        <tr>
+          <td className="td1">
+            <p className="tablelabel">Vijaya Muhurat</p>
+          </td>
+          <td className="td2">
+            <span className="tablevalue">{vijay}</span>
+          </td>
+          <td className="td3">
+            <p className="tablelabel"></p>
+          </td>
+          <td className="td4">
+            <span className="tablevalue">{ }</span>
+          </td>
+        </tr>
+
+      </>
+    )
+  }
+
+  const RituAndAyanHTML = () => {
+    return (
+      <>
+        <tr className="table_head_tr" style={{}}>
+          <th scope="col" colSpan="5" className="sectionheader">
+            Ritu and Ayan
+   </th>
+        </tr>
+        <tr>
+          <td className="td1">
+            <p className="tablelabel">Drik Ayan</p>
+          </td>
+          <td className="td2">
+            <span className="tablevalue">{dkayan}</span>
+          </td>
+          <td className="td3">
+            <p className="tablelabel">Day Duration</p>
+          </td>
+          <td className="td4">
+            <span className="tablevalue">{daytime}</span>
+          </td>
+        </tr>
+        <tr>
+          <td className="td1">
+            <p className="tablelabel">Vedic Ayan</p>
+          </td>
+          <td className="td2">
+            <span className="tablevalue">{vdayan}</span>
+          </td>
+          <td className="td3">
+            <p className="tablelabel">Night Duration</p>
+          </td>
+          <td className="td4">
+            <span className="tablevalue">{nighttime}</span>
+          </td>
+        </tr>
+        <tr>
+          <td className="td1">
+            <p className="tablelabel">Ritu</p>
+          </td>
+          <td className="td2">
+            <span className="tablevalue">{ritu}</span>
+          </td>
+          <td className="td3">
+            <p className="tablelabel">Madhyahna</p>
+          </td>
+          <td className="td4">
+            <span className="tablevalue">{madhya}</span>
+          </td>
+        </tr>
+      </>
+    )
+  }
+
+  const RashiHTML = () => {
+    return (
+      <>
+        <tr className="table_head_tr" style={{}}>
+          <th scope="col" colSpan="5" className="sectionheader">
+            Rashi
+   </th>
+        </tr>
+        <tr>
+          <td className="td1">
+            <p className="tablelabel">Sunsign</p>
+          </td>
+          <td className="td2">
+            <span className="tablevalue">{sunsign}</span>
+          </td>
+          <td className="td3">
+            <p className="tablelabel">MoonSign</p>
+          </td>
+          <td className="td4">
+            <span className="tablevalue">{moonsign}</span>
+          </td>
+        </tr>
+        <tr>
+          <td className="td1">
+            <p className="tablelabel">Surya Nakshtra</p>
+          </td>
+          <td className="td2">
+            <span className="tablevalue">{suryanakshtra}</span>
+          </td>
+          <td className="td3">
+            <p className="tablelabel">Ascendant</p>
+          </td>
+          <td className="td4">
+            <span className="tablevalue">{ascendantsun}</span>
+          </td>
+        </tr>
+      </>
+    )
+  }
+
+  const SamvatsaraHTML = () => {
+    return (
+      <>
+        <tr className="table_head_tr" style={{}}>
+          <th scope="col" colSpan="5" className="sectionheader">
+            Samvatsara
+   </th>
+        </tr>
+        <tr>
+          <td className="td1">
+            <p className="tablelabel">Shaka Samvatsara</p>
+          </td>
+          <td className="td2">
+            <span className="tablevalue">{samvatsara}</span>
+          </td>
+          <td className="td3">
+            <p className="tablelabel"></p>
+          </td>
+          <td className="td4">
+            <span className="tablevalue"></span>
+          </td>
+        </tr>
+      </>
+    )
+  }
+
+  const PanchangHTML = () => {
+    return (
+      <>
+        <tr className="table_head_tr" style={{}}>
+          <th scope="col" colSpan="5" className="sectionheader">
+            Panchang
+          </th>
+        </tr>
+        <tr>
+          <td className="td1">
+            <p className="tablelabel">Tithi</p>
+          </td>
+          <td className="td2">
+            <span className="tablevalue">{tithicurrent}</span>
+            <br /> <span className="tablevalue">{tithinext}</span>
+          </td>
+          <td className="td3">
+            <p className="tablelabel">Karan</p>{" "}
+          </td>
+          <td className="td4">
+            <span className="tablevalue">{karancurrent}</span>
+            <br /> <span className="tablevalue">{karannext}</span>
+            <br />  <span className="tablevalue">{karan_next_next}</span>
+          </td>
+        </tr>
+
+
+        <tr>
+          <td className="td1">
+            <p className="tablelabel">Yoga</p>
+          </td>
+          <td className="td2">
+            <span className="tablevalue">{yogacurrent}</span>
+            <br /> <span className="tablevalue">{yoganext}</span>
+          </td>
+          <td className="td3">
+            <p className="tablelabel"> Weekday</p>
+          </td>
+          <td className="td4">
+            <span className="tablevalue">{weekday}</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td className="td1">
+            <p className="tablelabel">Nakshtra</p>
+          </td>
+          <td className="td2">
+            <span className="tablevalue">{nakshtra}</span>
+          </td>
+          <td className="td3">
+            <p className="tablelabel"></p>
+          </td>
+          <td className="td4">
+            <span className="tablevalue"></span>
+          </td>
+        </tr>
+      </>
+    )
+  }
 
   return (
     <>
@@ -585,9 +1047,9 @@ const Dash_Panchang = () => {
             {/* <!-- end row --> */}
 
             <div className="row">
-              <div className="col-12" style={{"max-height":"550px", "overflowY":"scroll"}}>
+              <div className="col-12" style={{ "max-height": "550px", "overflowY": "scroll" }}>
                 <div className="card-box" style={{ paddingTop: "2px" }}>
-                
+
                   <table
                     className="tablesaw table mb-0 tablesaw-stack panchangtable"
                     id="tablesaw-802"
@@ -661,244 +1123,18 @@ const Dash_Panchang = () => {
                         </td>
                       </tr>
 
-                      <tr className="table_head_tr" style={{}}>
-                        <th scope="col" colSpan="5" className="sectionheader">
-                          Panchang
-                        </th>
-                      </tr>
-                      <tr>
-                        <td className="td1">
-                          <p className="tablelabel">Tithi</p>
-                        </td>
-                        <td className="td2">
-                          <span className="tablevalue">{tithicurrent}</span>
-                          <br/> <span className="tablevalue">{tithinext}</span>
-                        </td>
-                        <td className="td3">
-                          <p className="tablelabel">Karan</p>{" "}
-                        </td>
-                        <td className="td4">
-                          <span className="tablevalue">{karancurrent}</span>
-                          <br/> <span className="tablevalue">{karannext}</span>
-                          <br/>  <span className="tablevalue">{karan_next_next}</span>
-                        </td>
-                      </tr>
 
-                     
-                      <tr>
-                        <td className="td1">
-                          <p className="tablelabel">Yoga</p>
-                        </td>
-                        <td className="td2">
-                          <span className="tablevalue">{yogacurrent}</span>
-                          <br/> <span className="tablevalue">{yoganext}</span>
-                        </td>
-                        <td className="td3">
-                          <p className="tablelabel"> Weekday</p>
-                        </td>
-                        <td className="td4">
-                          <span className="tablevalue">{weekday}</span>
-                        </td>
-                      </tr>
-                     
-                      <tr>
-                        <td className="td1">
-                          <p className="tablelabel">Nakshtra</p>
-                        </td>
-                        <td className="td2">
-                          <span className="tablevalue">{nakshtra}</span>
-                        </td>
-                        <td className="td3">
-                          <p className="tablelabel"></p>
-                        </td>
-                        <td className="td4">
-                          <span className="tablevalue"></span>
-                        </td>
-                      </tr>
-                      <tr className="table_head_tr" style={{}}>
-                        <th scope="col" colSpan="5" className="sectionheader">
-                          Samvatsara
-                        </th>
-                      </tr>
-                      <tr>
-                        <td className="td1">
-                          <p className="tablelabel">Shaka Samvatsara</p>
-                        </td>
-                        <td className="td2">
-                          <span className="tablevalue">{samvatsara}</span>
-                        </td>
-                        <td className="td3">
-                          <p className="tablelabel"></p>
-                        </td>
-                        <td className="td4">
-                          <span className="tablevalue"></span>
-                        </td>
-                      </tr>
-                      <tr className="table_head_tr" style={{}}>
-                        <th scope="col" colSpan="5" className="sectionheader">
-                          Rashi
-                        </th>
-                      </tr>
-                      <tr>
-                        <td className="td1">
-                          <p className="tablelabel">Sunsign</p>
-                        </td>
-                        <td className="td2">
-                          <span className="tablevalue">{sunsign}</span>
-                        </td>
-                        <td className="td3">
-                          <p className="tablelabel">MoonSign</p>
-                        </td>
-                        <td className="td4">
-                          <span className="tablevalue">{moonsign}</span>
-                        </td>
-                      </tr>
-                      <tr className="table_head_tr" style={{}}>
-                        <th scope="col" colSpan="5" className="sectionheader">
-                          Ritu and Ayan
-                        </th>
-                      </tr>
-                      <tr>
-                        <td className="td1">
-                          <p className="tablelabel">Drik Ayan</p>
-                        </td>
-                        <td className="td2">
-                          <span className="tablevalue">{dkayan}</span>
-                        </td>
-                        <td className="td3">
-                          <p className="tablelabel">Day Duration</p>
-                        </td>
-                        <td className="td4">
-                          <span className="tablevalue">{dayduration}</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="td1">
-                          <p className="tablelabel">Vedic Ayan</p>
-                        </td>
-                        <td className="td2">
-                          <span className="tablevalue">{vdayan}</span>
-                        </td>
-                        <td className="td3">
-                          <p className="tablelabel">Night Duration</p>
-                        </td>
-                        <td className="td4">
-                          <span className="tablevalue">{nightduration}</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="td1">
-                          <p className="tablelabel">Ritu</p>
-                        </td>
-                        <td className="td2">
-                          <span className="tablevalue">{ritu}</span>
-                        </td>
-                        <td className="td3">
-                          <p className="tablelabel"></p>
-                        </td>
-                        <td className="td4">
-                          <span className="tablevalue">{}</span>
-                        </td>
-                      </tr>
 
-                      <tr className="table_head_tr" style={{}}>
-                        <th scope="col" colSpan="5" className="sectionheader">
-                          Auspicious Timings
-                        </th>
-                      </tr>
-                      <tr>
-                        <td className="td1">
-                          <p className="tablelabel">Amrit Kal</p>
-                        </td>
-                        <td className="td2">
-                          <span className="tablevalue">{amritkaal}</span>
-                        </td>
-                        <td className="td3">
-                          <p className="tablelabel">Abhijit Muhurat</p>
-                        </td>
-                        <td className="td4">
-                          <span className="tablevalue">{abhijit}</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="td1">
-                          <p className="tablelabel">Brahma Muhurat</p>
-                        </td>
-                        <td className="td2">
-                          <span className="tablevalue">{brahma}</span>
-                        </td>
-                        <td className="td3">
-                          <p className="tablelabel">Nishita Muhurat</p>
-                        </td>
-                        <td className="td4">
-                          <span className="tablevalue">{nishita}</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="td1">
-                          <p className="tablelabel">Pratha Sandhya</p>
-                        </td>
-                        <td className="td2">
-                          <span className="tablevalue">{psandhya}</span>
-                        </td>
-                        <td className="td3">
-                          <p className="tablelabel">Sayan Sandhya</p>
-                        </td>
-                        <td className="td4">
-                          <span className="tablevalue">{ssandhya}</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="td1">
-                          <p className="tablelabel">Vijaya Muhurat</p>
-                        </td>
-                        <td className="td2">
-                          <span className="tablevalue">{vijay}</span>
-                        </td>
-                        <td className="td3">
-                          <p className="tablelabel"></p>
-                        </td>
-                        <td className="td4">
-                          <span className="tablevalue">{}</span>
-                        </td>
-                      </tr>
-
-                      <tr className="table_head_tr" style={{}}>
-                        <th scope="col" colSpan="5" className="sectionheader">
-                          Inauspicious Timings
-                        </th>
-                      </tr>
-                      <tr>
-                        <td className="td1">
-                          <p className="tablelabel">Kulika</p>
-                        </td>
-                        <td className="td2">
-                          <span className="tablevalue">{kulika}</span>
-                        </td>
-                        <td className="td3">
-                          <p className="tablelabel">Varjya Kaal</p>
-                        </td>
-                        <td className="td4">
-                          <span className="tablevalue">{varjya}</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="td1">
-                          <p className="tablelabel">Raahu Kaal</p>
-                        </td>
-                        <td className="td2">
-                          <span className="tablevalue">{rkaal}</span>
-                        </td>
-                        <td className="td3">
-                          <p className="tablelabel">Yamaganda Kaal</p>
-                        </td>
-                        <td className="td4">
-                          <span className="tablevalue">{ykaal}</span>
-                        </td>
-                      </tr>
+                      <PanchangHTML />
+                      <SamvatsaraHTML />
+                      <RashiHTML />
+                      <RituAndAyanHTML />
+                      <AuspiciousTimingsHTML />
+                      <InauspiciousTimingsHTML />
+                      <AscendantTableHTML />
                     </tbody>
                   </table>
-                 
+
 
                   <Modal show={show} onHide={handleCalendar} centered>
                     <Modal.Header
