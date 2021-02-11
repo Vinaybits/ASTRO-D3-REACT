@@ -13,6 +13,17 @@ import moment from "moment";
 import Modal from "react-bootstrap/Modal";
 import Sideform from "../SideComponents/sideform";
 
+const setTimeFormat = (timestring) => {
+  timestring = timestring.split(":")
+  var hours = timestring[0]
+  var minutes = timestring[1]
+  var ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12;
+  hours = hours ? hours : 12;
+  // hours = hours < 10 ? hours.substring(1): hours; 
+  return hours + ":" + minutes + " " + ampm
+}
+
 const Dash_Panchang = () => {
 
   const monthNames = [
@@ -260,6 +271,7 @@ const Dash_Panchang = () => {
   }
 
   function extract_ascendant_table(obj) {
+    let rashi_mapper={"Aries":<span role="img" aria-label="rashi">&#9800;</span>,"Cancer":<span role="img" aria-label="rashi">&#9803;</span>,"Taurus":<span role="img" aria-label="rashi">&#9801;</span>,"Sagittarius":<span role="img" aria-label="rashi">&#9808;</span>,"Leo":<span role="img" aria-label="rashi">&#9804;</span>,"Scorpio":<span role="img" aria-label="rashi">&#9807;</span>,"Aquarius":<span role="img" aria-label="rashi">&#9810;</span>,"Virgo":<span role="img" aria-label="rashi">&#9805;</span>,"Capricorn":<span role="img" aria-label="rashi">&#9809;</span>,"Pisces":<span role="img" aria-label="rashi">&#9811;</span>,"Gemini":<span role="img" aria-label="rashi">&#9802;</span>,"Libra":<span role="img" aria-label="rashi">&#9806;</span>}
     let ascendants = [];
     if (obj !== null) {
       for (const key in obj) {
@@ -267,6 +279,7 @@ const Dash_Panchang = () => {
         for (const inner in obj[key]) {
           times.push(obj[key][inner]);
         }
+        times.push(rashi_mapper[obj[key]["Ascendant"]])
         ascendants.push(times);
       }
     }
@@ -299,9 +312,57 @@ const Dash_Panchang = () => {
       return duration[0] + " hours, " + duration[1] + " minutes, " + duration[2] + " seconds";
     }
   }
+
+  function extract_naktable(obj) {
+    if(obj !== null){
+        let nak=[]
+        for(var key in obj){
+          for(var inner in (obj[key]).milestones){
+                  var datetime = ((obj[key]).milestones)[inner].event_datetime.split(" ")
+                  var desc = ((obj[key]).milestones)[inner].desc
+                  desc= desc.substr(desc.indexOf(" ")+1)
+                   desc= desc.substr(desc.indexOf(" ")+1)
+                  nak.push(desc + " " + "upto" + " " + setTimeFormat(datetime[4]) + ", " + datetime[2] + " " + datetime[1])
+          }
+        }
+      return nak;
+    }
+  }
+
+  function extract_cho(obj) {
+    let cho=[]
+    let months={"01":"Jan","02":"Feb","03":"Mar","04":"Apr","05":"May","06":"Jun","07":"Jul","08":"Aug","09":"Sep","10":"Oct","11":"Nov","12":"Dec"}
+    if(obj!==null){
+          for(var inner in obj["day_time"]){
+            cho.push(obj["day_time"][inner].chogadiya_name)
+            cho.push(obj["day_time"][inner].quality)
+            cho.push("upto " + obj["day_time"][inner].end_time)
+        }
+        for(var inner2 in obj["night_time"]){
+            cho.push(obj["night_time"][inner2].chogadiya_name)
+            cho.push(obj["night_time"][inner2].quality)
+            var date = (obj["night_time"][inner2].end_date).split("-")
+            cho.push("upto " + obj["night_time"][inner2].end_time + ", " + months[date[1]] + " " + date[0])
+        }
+        for(var i in cho){
+          if(cho[i]==="Auspicious"){
+            cho[i]=<span style={{"color":"green", fontSize:"0.7em"}}> (Auspicious)</span>
+          }
+          else if(cho[i] === "Inauspicious"){
+            cho[i]=<span style={{"color":"red", fontSize:"0.7em"}}> (Inauspicious)</span>
+          }
+          else if(cho[i] === "Neutral"){
+            cho[i]=<span style={{"color":"#03428D", fontSize:"0.7em"}}> (Neutral)</span>
+          }
+          }
+        }
+        return cho;
+    }
+
   const contextType = useContext(GlobalContext);
   let value = contextType.panchangDate || new Date();
   let place = contextType.placeobserved || "Hyderabad";
+  let [loading,setLoading] = useState(true)
   let [sunriseTime, setsunriseTime] = useState(null);
   let [sunsetTime, setsunsetTime] = useState(null);
   let [moonriseTime, setmoonriseTime] = useState(null);
@@ -335,9 +396,11 @@ const Dash_Panchang = () => {
   let [ascendantsunrise, setascendantsunrise] = useState(null);
   let [nakshtratable, setnakshtratable] = useState(null);
   let [chogadiya, setchogadiya] = useState(null);
+
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     (async () => {
+      setLoading(true)
       let y = "";
       let m = "";
       let d = "";
@@ -443,7 +506,7 @@ const Dash_Panchang = () => {
       setascendantsunrise(ascendantatsunrise.data);
       setnakshtratable(naktable.data);
       setchogadiya(gaurichogadiya.data);
-
+      setLoading(false)
     })();
   }, [contextType.panchangDate, place]);
 
@@ -470,11 +533,12 @@ const Dash_Panchang = () => {
   let ascendantsun = extract_ascendant_sunrise(ascendantsunrise);
   let daytime = extract_duration(dayduration);
   let nighttime = extract_duration(nightduration);
-
   let varjya = extract_auspicious_string(varjyavalue, "Nishita");
   let nakshtra = extract_nakshtra_string(naksvalue);
   let abhijit = extract_abhijit_string(abhijitvalue);
   let trikaal = extract_trikaal(trikaalvalue);
+  let naks = extract_naktable(nakshtratable);
+  let cho = extract_cho(chogadiya)
   let dkayan = "";
   let vdayan = "";
 
@@ -502,6 +566,7 @@ const Dash_Panchang = () => {
   let tithiname_2 = "";
   let imgsrc = null;
   let link = "";
+
   imgsrc = extract_image_link(tithiobject);
   if (typeof imgsrc !== "undefined") {
     link = imgsrc;
@@ -545,6 +610,7 @@ const Dash_Panchang = () => {
       contextType.placeobserved
     );
   };
+
   const AscendantTableHTML = () => {
     if (asc.length > 0) {
       return (
@@ -556,94 +622,94 @@ const Dash_Panchang = () => {
           </tr>
           <tr>
             <td className="td1">
-              <p className="tablelabel">{asc[0][0]}</p>
+              <p className="tablelabel">{asc[0][0]} {asc[0][3]}</p>
             </td>
             <td className="td2">
               <span className="tablevalue">{"upto " + asc[0][2]}</span>
             </td>
             <td className="td3">
-              <p className="tablelabel">{asc[1][0]}</p>
+              <p className="tablelabel">{asc[7][0]} {asc[7][3]}</p>
             </td>
-            <td className="td4">
-              <span className="tablevalue">{asc[1][1] + " to " + asc[1][2]}</span>
+            <td className="td">
+              <span className="tablevalue">{"upto " + asc[7][2]}</span>
             </td>
           </tr>
           <tr>
             <td className="td1">
-              <p className="tablelabel">{asc[2][0]}</p>
+              <p className="tablelabel">{asc[1][0]} {asc[1][3]}</p>
             </td>
             <td className="td2">
-              <span className="tablevalue">{asc[2][1] + " to " + asc[2][2]}</span>
+              <span className="tablevalue">{"upto " + asc[1][2]}</span>
             </td>
             <td className="td3">
-              <p className="tablelabel">{asc[3][0]}</p>
+              <p className="tablelabel">{asc[8][0]} {asc[8][3]}</p>
             </td>
             <td className="td4">
-              <span className="tablevalue">{asc[3][1] + " to " + asc[3][2]}</span>
+              <span className="tablevalue">{"upto " + asc[8][2]}</span>
             </td>
           </tr>
           <tr>
             <td className="td1">
-              <p className="tablelabel">{asc[4][0]}</p>
+              <p className="tablelabel">{asc[2][0]} {asc[2][3]}</p>
             </td>
             <td className="td2">
-              <span className="tablevalue">{asc[4][1] + " to " + asc[4][2]}</span>
+              <span className="tablevalue">{"upto " + asc[2][2]}</span>
             </td>
             <td className="td3">
-              <p className="tablelabel">{asc[5][0]}</p>
+              <p className="tablelabel">{asc[9][0]} {asc[9][3]}</p>
             </td>
             <td className="td4">
-              <span className="tablevalue">{asc[5][1] + " to " + asc[5][2]}</span>
+              <span className="tablevalue">{"upto " + asc[9][2]}</span>
             </td>
           </tr>
           <tr>
             <td className="td1">
-              <p className="tablelabel">{asc[6][0]}</p>
+              <p className="tablelabel">{asc[3][0]} {asc[3][3]}</p>
             </td>
             <td className="td2">
-              <span className="tablevalue">{asc[6][1] + " to " + asc[6][2]}</span>
+              <span className="tablevalue">{"upto " + asc[3][2]}</span>
             </td>
             <td className="td3">
-              <p className="tablelabel">{asc[7][0]}</p>
+              <p className="tablelabel">{asc[10][0]} {asc[10][3]}</p>
             </td>
             <td className="td4">
-              <span className="tablevalue">{asc[7][1] + " to " + asc[7][2]}</span>
+              <span className="tablevalue">{"upto " + asc[10][2]}</span>
             </td>
           </tr>
           <tr>
             <td className="td1">
-              <p className="tablelabel">{asc[8][0]}</p>
+              <p className="tablelabel">{asc[4][0]} {asc[4][3]}</p>
             </td>
             <td className="td2">
-              <span className="tablevalue">{asc[8][1] + " to " + asc[8][2]}</span>
+              <span className="tablevalue">{"upto " + asc[4][2]}</span>
             </td>
             <td className="td3">
-              <p className="tablelabel">{asc[9][0]}</p>
+              <p className="tablelabel">{asc[11][0]} {asc[11][3]}</p>
             </td>
             <td className="td4">
-              <span className="tablevalue">{asc[9][1] + " to " + asc[9][2]}</span>
+              <span className="tablevalue">{"upto " + asc[11][2]}</span>
             </td>
           </tr>
           <tr>
             <td className="td1">
-              <p className="tablelabel">{asc[10][0]}</p>
+              <p className="tablelabel">{asc[5][0]} {asc[5][3]}</p>
             </td>
             <td className="td2">
-              <span className="tablevalue">{asc[10][1] + " to " + asc[10][2]}</span>
+              <span className="tablevalue">{"upto " + asc[5][2]}</span>
             </td>
             <td className="td3">
-              <p className="tablelabel">{asc[11][0]}</p>
+              <p className="tablelabel">{asc[12][0]} {asc[12][3]}</p>
             </td>
             <td className="td4">
-              <span className="tablevalue">{asc[11][1] + " to " + asc[11][2]}</span>
+              <span className="tablevalue">{"upto " + asc[12][2]}</span>
             </td>
           </tr>
           <tr>
             <td className="td1">
-              <p className="tablelabel">{asc[12][0]}</p>
+              <p className="tablelabel">{asc[6][0]} {asc[6][3]}</p>
             </td>
             <td className="td2">
-              <span className="tablevalue">{asc[12][1] + " to " + asc[12][2]}</span>
+              <span className="tablevalue">{"upto " + asc[6][2]}</span>
             </td>
           </tr>
         </>
@@ -944,6 +1010,171 @@ const Dash_Panchang = () => {
     )
   }
 
+  const NakshtraHTML = () => {
+    if (typeof naks!== 'undefined') {
+    return (
+      <>
+        <tr className="table_head_tr" style={{}}>
+          <th scope="col" colSpan="5" className="sectionheader">
+            Nakshtra
+          </th>
+        </tr>
+        <tr>
+          <td className="td1">
+            <p className="tablelabel">Nakshtra</p>
+          </td>
+          <td className="td2">
+            <span className="tablevalue">{naks[0]}</span>
+          </td>
+          <td className="td3">
+            <p className="tablelabel">Nakshtra Pada</p>{" "}
+          </td>
+          <td className="td4">
+            <span className="tablevalue">{naks[1]}</span>
+            <br /> <span className="tablevalue">{naks[2]}</span>
+            <br /> <span className="tablevalue">{naks[3]}</span>
+            <br /> <span className="tablevalue">{naks[4]}</span>
+          </td>
+        </tr>
+      </>
+    )
+    }
+    else{
+      return null;
+    }
+  }
+
+  const ChoghadiyaHTML = () => {
+    if (typeof cho!== 'undefined') {
+    return (
+      <>
+        <tr className="table_head_tr">
+          <th scope="col" colSpan="5" className="sectionheader">
+            Choghadiya
+          </th>
+        </tr>
+        <tr>
+          <td className="td1">
+            <p className="tablelabel">{cho[0]}{cho[1]}</p>
+          </td>
+          <td className="td2">
+            <span className="tablevalue">{cho[2]}</span>
+          </td>
+          <td className="td3">
+            <p className="tablelabel">{cho[24]} {cho[25]}</p>{" "}
+          </td>
+          <td className="td4">
+            <span className="tablevalue">{cho[26]}</span>
+          </td>
+        </tr>
+        <tr>
+          <td className="td1">
+            <p className="tablelabel">{cho[3]}{cho[4]}</p>
+          </td>
+          <td className="td2">
+            <span className="tablevalue">{cho[5]}</span>
+          </td>
+          <td className="td3">
+            <p className="tablelabel">{cho[27]} {cho[28]}</p>{" "}
+          </td>
+          <td className="td4">
+            <span className="tablevalue">{cho[29]}</span>
+          </td>
+        </tr>
+        <tr>
+          <td className="td1">
+            <p className="tablelabel">{cho[6]}{cho[7]}</p>
+          </td>
+          <td className="td2">
+            <span className="tablevalue">{cho[8]}</span>
+          </td>
+          <td className="td3">
+            <p className="tablelabel">{cho[30]} {cho[31]}</p>{" "}
+          </td>
+          <td className="td4">
+            <span className="tablevalue">{cho[32]}</span>
+          </td>
+        </tr>
+        <tr>
+          <td className="td1">
+            <p className="tablelabel">{cho[9]}{cho[10]}</p>
+          </td>
+          <td className="td2">
+            <span className="tablevalue">{cho[11]}</span>
+          </td>
+          <td className="td3">
+            <p className="tablelabel">{cho[33]} {cho[34]}</p>{" "}
+          </td>
+          <td className="td4">
+            <span className="tablevalue">{cho[35]}</span>
+          </td>
+        </tr>
+        <tr>
+          <td className="td1">
+            <p className="tablelabel">{cho[12]}{cho[13]}</p>
+          </td>
+          <td className="td2">
+            <span className="tablevalue">{cho[14]}</span>
+          </td>
+          <td className="td3">
+            <p className="tablelabel">{cho[36]} {cho[37]}</p>{" "}
+          </td>
+          <td className="td4">
+            <span className="tablevalue">{cho[38]}</span>
+          </td>
+        </tr>
+        <tr>
+          <td className="td1">
+            <p className="tablelabel">{cho[15]}{cho[16]}</p>
+          </td>
+          <td className="td2">
+            <span className="tablevalue">{cho[17]}</span>
+          </td>
+          <td className="td3">
+            <p className="tablelabel">{cho[39]} {cho[40]}</p>{" "}
+          </td>
+          <td className="td4">
+            <span className="tablevalue">{cho[41]}</span>
+          </td>
+        </tr>
+        <tr>
+          <td className="td1">
+            <p className="tablelabel">{cho[18]}{cho[19]}</p>
+          </td>
+          <td className="td2">
+            <span className="tablevalue">{cho[20]}</span>
+          </td>
+          <td className="td3">
+            <p className="tablelabel">{cho[42]} {cho[43]}</p>{" "}
+          </td>
+          <td className="td4">
+            <span className="tablevalue">{cho[44]}</span>
+          </td>
+        </tr>
+        <tr>
+          <td className="td1">
+            <p className="tablelabel">{cho[21]}{cho[22]}</p>
+          </td>
+          <td className="td2">
+            <span className="tablevalue">{cho[23]}</span>
+          </td>
+          <td className="td3">
+            <p className="tablelabel">{cho[45]} {cho[46]}</p>{" "}
+          </td>
+          <td className="td4">
+            <span className="tablevalue">{cho[47]}</span>
+          </td>
+        </tr>
+      </>
+    )
+    }
+    else{
+      return null;
+    }
+  }
+
+
+
   return (
     <>
       <DashboardTopBar />
@@ -1049,7 +1280,12 @@ const Dash_Panchang = () => {
             <div className="row">
               <div className="col-12" style={{ "max-height": "550px", "overflowY": "scroll" }}>
                 <div className="card-box" style={{ paddingTop: "2px" }}>
-
+                  {loading ? (
+                      <div style={{minHeight:"700px"}}>
+                      <div className='loader'></div>
+                    </div>
+                  )
+                  :(
                   <table
                     className="tablesaw table mb-0 tablesaw-stack panchangtable"
                     id="tablesaw-802"
@@ -1128,13 +1364,15 @@ const Dash_Panchang = () => {
                       <PanchangHTML />
                       <SamvatsaraHTML />
                       <RashiHTML />
+                      <NakshtraHTML />
                       <RituAndAyanHTML />
                       <AuspiciousTimingsHTML />
                       <InauspiciousTimingsHTML />
                       <AscendantTableHTML />
+                      <ChoghadiyaHTML/>
                     </tbody>
                   </table>
-
+                )}
 
                   <Modal show={show} onHide={handleCalendar} centered>
                     <Modal.Header
