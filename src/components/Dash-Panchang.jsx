@@ -1054,6 +1054,29 @@ const Dash_Panchang = () => {
           </th>
         </tr>
         <tr>
+          <td className="td1 td1cho">
+            <p className="tablelabel">
+                            <img
+                              src={require("../assets/img/sunrise.png")}
+                              alt="Sunrise"
+                              className="TableIconSun"
+                            /></p>
+          </td>
+          <td className="td2">
+            <span className="tablevalue td2cho">Day Choghadiya</span>
+          </td>
+          <td className="td3 td3cho">
+            <p className="tablelabel"><img
+                              src={require("../assets/img/moonrise.png")}
+                              alt="MoonRise"
+                              className="TableIconMoon"
+                            /></p>{" "}
+          </td>
+          <td className="td4">
+            <span className="tablevalue td4cho">Night Choghadiya</span>
+          </td>
+        </tr>
+        <tr>
           <td className="td1">
             <p className="tablelabel">{cho[0]}{cho[1]}</p>
           </td>

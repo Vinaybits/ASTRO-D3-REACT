@@ -32,19 +32,48 @@
   font-size: 1.2em;
   color: #ff6e00;
 }
-
+.TableIconMoon{
+  margin-left: 91px;
+  width: 30px;
+}
+.TableIconSun{
+  margin-left: 35px;
+  width: 30px;
+}
 .td1 {
   text-align: right;
   font-weight: bold;
   width: 20%;
 }
+.td1cho{
+  text-align: center;
+}
 .td2 {
   width: 30%;
 }
+
+.td2cho{
+  margin-left: -87px;
+  font-weight: bold;
+  font-size: 1.4em;
+  color: rgb(181, 31, 116);
+}
+
 .td3 {
   text-align: right;
   font-weight: bold;
   width: 20%;
+}
+
+.td3cho{
+  text-align: center;
+}
+
+.td4cho{
+  margin-left: -66px;
+  font-weight: bold;
+  font-size: 1.4em;
+  color: rgb(181, 31, 116);
 }
 
 .dpPHeaderLeftContent {
