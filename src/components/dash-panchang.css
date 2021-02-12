@@ -153,7 +153,7 @@
   height: 100px;
   position: absolute;
   left: 40vw;
-  top: 30vh;
+  top: 40vh;
   transform: translate(-50%, -50%);
 }
 #loader .planet-top {

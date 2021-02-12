@@ -1204,16 +1204,6 @@ const Dash_Panchang = () => {
 
   return (
     <>
-      <DashboardTopBar />
-      <DashboardSideBar />
-
-      <div className="content-page">
-        <div className="content">
-          <div className="container-fluid">
-            {/* <!-- start page title --> */}
-
-            {/* <!-- end page title -->  */}
-
             <div className="row" style={{ paddingTop: "2px" }}>
               <div className="col-md-12 col-xl-12">
                 <div
@@ -1434,10 +1424,6 @@ const Dash_Panchang = () => {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        <DashboardFooter />
-      </div>
     </>
   );
 };

@@ -8,7 +8,7 @@ import { GlobalContext } from '../mycontext';
 
 
 const HomePage= () => {
-
+    const context = React.useContext(GlobalContext)
     function scrollFunction() {
         if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
          // document.getElementById("navbar").style.padding = "30px 10px";
@@ -77,7 +77,7 @@ const HomePage= () => {
                     
                     <div className="col-md-3 ">
                         <div className="team-member">
-                            <Link to='/TransitionDashboard'>
+                            <Link to='/Dashboard' onClick={() =>context.change_View("Dashboard")}>
                             <img className="mx-auto" style={{height:"200px"}} src={require("../assets/img/team/1.png")} alt="" />
                             <h4 className="my-3">Transition of Planets</h4>
                             </Link>
@@ -89,7 +89,7 @@ const HomePage= () => {
                             </div>
                     <div className="col-md-3">
                                 <div className="team-member">
-                                    <Link to='/PanchangDashboard'>
+                                    <Link to='/Dashboard' onClick={() => context.change_View("Panchang View")}>
                                     <img className="mx-auto" style={{height:"200px"}} src={require("../assets/img/team/2.png")} alt="" />
                                     <h4 className="my-3">Panchang</h4>
                                     </Link>

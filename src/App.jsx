@@ -5,8 +5,6 @@ import { GlobalProvider} from './mycontext';
 import HomePage from './components/HomePage';
 import Dashboard from './components/Dashboard'
 
-import Dash_Panchang from './components/Dash-Panchang';
-import D3graph from './components/d3graph';
 function App() {
   return (
     <>
@@ -15,9 +13,7 @@ function App() {
       <div id="wrapper">
         <Router >
             <Route exact path='/' component={HomePage} />
-            <Route exact path='/TransitionDashboard' component={Dashboard} />
-            <Route exact path='/PanchangDashboard' component={Dash_Panchang} />
-            <Route exact path='/galactic' component={D3graph} />
+            <Route exact path='/Dashboard' component={Dashboard} />
         </Router>
       </div>
       </GlobalProvider>
