@@ -351,7 +351,7 @@ export class GlobalProvider extends Component {
 		placeobserved:null,
 		startDate:null,
 		endDate:null,
-		panchangDate:null,
+		panchangDate:new Date(),
 		IsLoading:false,
 		journeyloading:true,
 		sideTableDisplay:false,
