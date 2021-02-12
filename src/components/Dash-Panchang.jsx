@@ -299,7 +299,6 @@ const Dash_Panchang = () => {
   }
 
   function extract_ascendant_sunrise(obj) {
-    let details = [];
     if (obj !== null) {
       let rashi_name = obj["Rashi"];
       let dms = obj["D_M_S"];
@@ -360,7 +359,7 @@ const Dash_Panchang = () => {
     }
 
   const contextType = useContext(GlobalContext);
-  let value = contextType.panchangDate || new Date();
+  let value = contextType.panchangDate;
   let place = contextType.placeobserved || "Hyderabad";
   let [loading,setLoading] = useState(true)
   let [sunriseTime, setsunriseTime] = useState(null);
@@ -444,6 +443,7 @@ const Dash_Panchang = () => {
         "&place=" +
         place;
 
+      try{
       const sunriseresult = await holistic_api.get(`/sunrise${params}`);
       const sunsetresult = await holistic_api.get(`/sunset${params}`);
       const moonriseresult = await holistic_api.get(`/moonrise${params}`);
@@ -507,9 +507,13 @@ const Dash_Panchang = () => {
       setnakshtratable(naktable.data);
       setchogadiya(gaurichogadiya.data);
       setLoading(false)
+      }
+      catch(e){
+        console.log(e)
+      }
     })();
-  }, [contextType.panchangDate, place]);
-
+  }, [value, place]);
+  console.log('rendering')
   let moonriseTimedisplay = remove_character(moonriseTime, 5);
   let sunriseTimedisplay = remove_character(sunriseTime, 5);
   let sunsetTimedisplay = remove_character(sunsetTime, 5);
@@ -593,23 +597,23 @@ const Dash_Panchang = () => {
     //  setFlag("datesideform")
   };
 
-  const handleToday = () => {
-    this.context.set_Panchang_Date(new Date(), contextType.placeobserved);
-  };
+  // const handleToday = () => {
+  //   this.context.set_Panchang_Date(new Date(), contextType.placeobserved);
+  // };
 
-  const nextDay = () => {
-    this.context.set_Panchang_Date(
-      contextType.panchangDate,
-      contextType.placeobserved
-    );
-  };
+  // const nextDay = () => {
+  //   this.context.set_Panchang_Date(
+  //     contextType.panchangDate,
+  //     contextType.placeobserved
+  //   );
+  // };
 
-  const prevDay = () => {
-    this.context.set_Panchang_Date(
-      contextType.panchangDate,
-      contextType.placeobserved
-    );
-  };
+  // const prevDay = () => {
+  //   this.context.set_Panchang_Date(
+  //     contextType.panchangDate,
+  //     contextType.placeobserved
+  //   );
+  // };
 
   const AscendantTableHTML = () => {
     if (asc.length > 0) {
@@ -1305,8 +1309,12 @@ const Dash_Panchang = () => {
                 <div className="card-box" style={{ paddingTop: "2px" }}>
                   {loading ? (
                       <div style={{minHeight:"700px"}}>
-                      <div className='loader'></div>
-                    </div>
+                            <div id="loader">
+                            <div class="planet-top"></div>
+                            <div class="planet-bottom"></div>
+                            <div class="ring"></div>
+                          </div>
+                      </div>
                   )
                   :(
                   <table
