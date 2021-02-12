@@ -8,6 +8,7 @@ import Journey from "../../d3/Journey";
 import InitDashboard from "./InitDashboard";
 
 import Sideform from "../../SideComponents/sideform";
+import Dash_Panchang from "../Dash-Panchang";
 
 
 const DashboardLayout = (props) => {
@@ -52,6 +53,9 @@ const DashboardLayout = (props) => {
             }
             else if(view==="Journey View"){
                 return <Journey city={context.placeobserved} start={context.startDate} end={context.endDate} handleView={handleView}/>
+            }
+            else if(view==="Panchang View"){
+                return <Dash_Panchang/>
             }
     }
 

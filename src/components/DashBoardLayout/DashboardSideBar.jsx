@@ -25,6 +25,16 @@ const DashboardSideBar= (props) => {
         }
     }
 
+    const handlepanchangView = (selectedName) => {
+         context.change_View(selectedName);
+    }
+
+    const handleTransitionView = (selectedName) => {
+         context.change_View("Dashboard");
+    }
+
+
+
     const handleView = (selectedName) => {
         setLocalview(selectedName)
          if(AreDetailsFilled()){
@@ -110,13 +120,13 @@ const DashboardSideBar= (props) => {
                 
                             
                             <li>
-                                <a href="/TransitionDashBoard">
-                                    <i data-feather="calendar"></i>
-                                    <span>Planet Transition </span>
-                                    <a href="#sideNav" data-toggle="collapse"><i class="fa fa-caret-down"></i></a>
+                                <a href="#TransitionDashBoard" >
+                                    <i data-feather="calendar" ></i>
+                                    <span onClick={()=>handleTransitionView("Dashboard")}>Planet Transition </span>
+                                    <a href="#sideNav" data-toggle="collapse"><i className="fa fa-caret-down"></i></a>
                                 </a>
-                                <div class="collapse" id="sideNav">
-                                    <ul class="nav-second-level">
+                                <div className="collapse" id="sideNav">
+                                    <ul className="nav-second-level">
                                         {/* <li>
                                             <a href="#Home" onClick={()=>context.change_View("Dashboard")}>Dashboard Home</a>
                                         </li> */}
@@ -136,7 +146,7 @@ const DashboardSideBar= (props) => {
 
 
                             <li>
-                                <a href="/PanchangDashBoard" >
+                                <a href="#PanchangView" onClick={()=>handlepanchangView("Panchang View")}>
                                     <i data-feather="users"></i>
                                     <span> Panchang</span>
                                 </a>
