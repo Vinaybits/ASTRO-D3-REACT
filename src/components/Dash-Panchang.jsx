@@ -839,7 +839,7 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
           <td className="td1">
-            <p className="tablelabel">Drik Ayan</p>
+            <span className="tablelabel">Drik Ayan</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{dkayan}</span>
@@ -1336,7 +1336,7 @@ const Dash_Panchang = () => {
                               alt="Sunrise"
                               className="TableIcon"
                             />
-                            {sunriseTimedisplay}
+                            <b>{sunriseTimedisplay}</b>
                           </span>
                         </td>
                         <td className="td3">
