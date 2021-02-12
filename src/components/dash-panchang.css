@@ -32,12 +32,12 @@
   font-size: 1.2em;
   color: #ff6e00;
 }
-.TableIconMoon{
-  margin-left: 91px;
+.TableIconMoon {
+  margin-left: 70px;
   width: 30px;
 }
-.TableIconSun{
-  margin-left: 35px;
+.TableIconSun {
+  margin-left: 20px;
   width: 30px;
 }
 .td1 {
@@ -45,14 +45,14 @@
   font-weight: bold;
   width: 20%;
 }
-.td1cho{
+.td1cho {
   text-align: center;
 }
 .td2 {
   width: 30%;
 }
 
-.td2cho{
+.td2cho {
   margin-left: -87px;
   font-weight: bold;
   font-size: 1.4em;
@@ -65,11 +65,11 @@
   width: 20%;
 }
 
-.td3cho{
+.td3cho {
   text-align: center;
 }
 
-.td4cho{
+.td4cho {
   margin-left: -66px;
   font-weight: bold;
   font-size: 1.4em;

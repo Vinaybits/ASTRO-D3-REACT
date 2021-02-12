@@ -113,10 +113,10 @@ const DashboardSideBar= (props) => {
                                 <a href="/TransitionDashBoard">
                                     <i data-feather="calendar"></i>
                                     <span>Planet Transition </span>
-                                    <a href="#sideNav" data-toggle="collapse"><i class="fa fa-caret-down"></i></a>
+                                    <a href="#sideNav" data-toggle="collapse"><i className="fa fa-caret-down"></i></a>
                                 </a>
-                                <div class="collapse" id="sideNav">
-                                    <ul class="nav-second-level">
+                                <div className="collapse" id="sideNav">
+                                    <ul className="nav-second-level">
                                         {/* <li>
                                             <a href="#Home" onClick={()=>context.change_View("Dashboard")}>Dashboard Home</a>
                                         </li> */}

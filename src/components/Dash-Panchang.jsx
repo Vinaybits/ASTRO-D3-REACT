@@ -1301,7 +1301,7 @@ const Dash_Panchang = () => {
             {/* <!-- end row --> */}
 
             <div className="row">
-              <div className="col-12" style={{ "max-height": "550px", "overflowY": "scroll" }}>
+              <div className="col-12" style={{ maxHeight: "550px", "overflowY": "scroll" }}>
                 <div className="card-box" style={{ paddingTop: "2px" }}>
                   {loading ? (
                       <div style={{minHeight:"700px"}}>
