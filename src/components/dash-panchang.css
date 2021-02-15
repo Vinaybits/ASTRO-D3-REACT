@@ -45,6 +45,7 @@
   margin-right: 10px;
   margin-top: -2%;
   width: 25px;
+  filter: contrast(30%);
 }
 .td1 {
   text-align: right;
