@@ -17,15 +17,16 @@
 }
 
 .table_head_tr {
-  font-size: 1.5em;
+  font-size: 21px;
   background-image: none;
   border: none;
   color: rgb(181, 31, 116);
 }
 
 .tablevalue {
-  font-size: 1.1em;
+  font-size: 1.2em;
   color: rgb(95, 95, 95);
+  font-weight: bold;
 }
 
 .tablelabel {
@@ -40,16 +41,24 @@
   margin-left: 20px;
   width: 30px;
 }
+.RashiIcon {
+  margin-right: 10px;
+  margin-top: -2%;
+  width: 20px;
+  filter: contrast(30%);
+}
 .td1 {
   text-align: right;
   font-weight: bold;
   width: 20%;
+  padding: 0;
 }
 .td1cho {
   text-align: center;
 }
 .td2 {
   width: 30%;
+  padding: 0;
 }
 
 .td2cho {
@@ -63,6 +72,7 @@
   text-align: right;
   font-weight: bold;
   width: 20%;
+  padding: 0;
 }
 
 .td3cho {
