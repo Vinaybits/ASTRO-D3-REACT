@@ -1,9 +1,7 @@
 /* eslint-disable no-useless-concat */
 import React, { useState, useEffect, useContext } from "react";
 import "./dash-panchang.css";
-import DashboardTopBar from "./DashBoardLayout/DashboardTopBar";
-import DashboardSideBar from "./DashBoardLayout/DashboardSideBar";
-import DashboardFooter from "./DashBoardLayout/DashboardFooter";
+
 import "../d3/Holistic.css";
 import { GlobalContext } from "../mycontext";
 import * as cities from "./cities.json";
@@ -24,9 +22,7 @@ const setTimeFormat = (timestring) => {
   return hours + ":" + minutes + " " + ampm
 }
 
-const Dash_Panchang = () => {
-
-  const monthNames = [
+ const monthNames = [
     "Jan",
     "Feb",
     "Mar",
@@ -271,7 +267,22 @@ const Dash_Panchang = () => {
   }
 
   function extract_ascendant_table(obj) {
-    let rashi_mapper={"Aries":<span role="img" aria-label="rashi">&#9800;</span>,"Cancer":<span role="img" aria-label="rashi">&#9803;</span>,"Taurus":<span role="img" aria-label="rashi">&#9801;</span>,"Sagittarius":<span role="img" aria-label="rashi">&#9808;</span>,"Leo":<span role="img" aria-label="rashi">&#9804;</span>,"Scorpio":<span role="img" aria-label="rashi">&#9807;</span>,"Aquarius":<span role="img" aria-label="rashi">&#9810;</span>,"Virgo":<span role="img" aria-label="rashi">&#9805;</span>,"Capricorn":<span role="img" aria-label="rashi">&#9809;</span>,"Pisces":<span role="img" aria-label="rashi">&#9811;</span>,"Gemini":<span role="img" aria-label="rashi">&#9802;</span>,"Libra":<span role="img" aria-label="rashi">&#9806;</span>}
+    let rashi_mapper=
+    {
+      "Aries":"assets/Rashi/aries.png",
+      "Cancer":"assets/Rashi/cancer.png",
+      "Taurus":"assets/Rashi/taurus.png",
+      "Sagittarius":"assets/Rashi/sagittarius.png",
+      "Leo":"assets/Rashi/leo.png",
+      "Scorpio":"assets/Rashi/scorpio.png",
+      "Aquarius":"assets/Rashi/aquarius.png",
+      "Virgo":"assets/Rashi/virgo.png",
+      "Capricorn":"assets/Rashi/capricorn.png",
+      "Pisces":"assets/Rashi/pisces.png",
+      "Gemini":"assets/Rashi/gemini.png",
+      "Libra":"assets/Rashi/libra.png"
+    }
+
     let ascendants = [];
     if (obj !== null) {
       for (const key in obj) {
@@ -357,6 +368,8 @@ const Dash_Panchang = () => {
         }
         return cho;
     }
+
+const Dash_Panchang = () => {
 
   const contextType = useContext(GlobalContext);
   let value = contextType.panchangDate;
@@ -597,23 +610,17 @@ const Dash_Panchang = () => {
     //  setFlag("datesideform")
   };
 
-  // const handleToday = () => {
-  //   this.context.set_Panchang_Date(new Date(), contextType.placeobserved);
-  // };
+  const handleToday = () => {
+    contextType.panchang_date_change('today');
+  };
 
-  // const nextDay = () => {
-  //   this.context.set_Panchang_Date(
-  //     contextType.panchangDate,
-  //     contextType.placeobserved
-  //   );
-  // };
+  const nextDay = () => {
+    contextType.panchang_date_change('next');
+  };
 
-  // const prevDay = () => {
-  //   this.context.set_Panchang_Date(
-  //     contextType.panchangDate,
-  //     contextType.placeobserved
-  //   );
-  // };
+  const prevDay = () => {
+   contextType.panchang_date_change('previous');
+  };
 
   const AscendantTableHTML = () => {
     if (asc.length > 0) {
@@ -626,13 +633,24 @@ const Dash_Panchang = () => {
           </tr>
           <tr>
             <td className="td1">
-              <p className="tablelabel">{asc[0][0]} {asc[0][3]}</p>
+              <img
+                              src={asc[0][3]}
+                              alt="Rashi"
+                              className="RashiIcon"
+              />
+              <span className="tablelabel">{asc[0][0]} 
+              </span>
             </td>
             <td className="td2">
               <span className="tablevalue">{"upto " + asc[0][2]}</span>
             </td>
             <td className="td3">
-              <p className="tablelabel">{asc[7][0]} {asc[7][3]}</p>
+              <img
+                              src={asc[7][3]}
+                              alt="Rashi"
+                              className="RashiIcon"
+              />
+              <span className="tablelabel">{asc[7][0]} </span>
             </td>
             <td className="td">
               <span className="tablevalue">{"upto " + asc[7][2]}</span>
@@ -640,13 +658,23 @@ const Dash_Panchang = () => {
           </tr>
           <tr>
             <td className="td1">
-              <p className="tablelabel">{asc[1][0]} {asc[1][3]}</p>
+              <img
+                              src={asc[1][3]}
+                              alt="Rashi"
+                              className="RashiIcon"
+              />
+              <span className="tablelabel">{asc[1][0]} </span>
             </td>
             <td className="td2">
               <span className="tablevalue">{"upto " + asc[1][2]}</span>
             </td>
             <td className="td3">
-              <p className="tablelabel">{asc[8][0]} {asc[8][3]}</p>
+              <img
+                              src={asc[8][3]}
+                              alt="Rashi"
+                              className="RashiIcon"
+              />
+              <span className="tablelabel">{asc[8][0]}</span>
             </td>
             <td className="td4">
               <span className="tablevalue">{"upto " + asc[8][2]}</span>
@@ -654,13 +682,23 @@ const Dash_Panchang = () => {
           </tr>
           <tr>
             <td className="td1">
-              <p className="tablelabel">{asc[2][0]} {asc[2][3]}</p>
+              <img
+                              src={asc[2][3]}
+                              alt="Rashi"
+                              className="RashiIcon"
+              />
+              <span className="tablelabel">{asc[2][0]} </span>
             </td>
             <td className="td2">
               <span className="tablevalue">{"upto " + asc[2][2]}</span>
             </td>
             <td className="td3">
-              <p className="tablelabel">{asc[9][0]} {asc[9][3]}</p>
+              <img
+                              src={asc[9][3]}
+                              alt="Rashi"
+                              className="RashiIcon"
+              />
+              <span className="tablelabel">{asc[9][0]} </span>
             </td>
             <td className="td4">
               <span className="tablevalue">{"upto " + asc[9][2]}</span>
@@ -668,13 +706,23 @@ const Dash_Panchang = () => {
           </tr>
           <tr>
             <td className="td1">
-              <p className="tablelabel">{asc[3][0]} {asc[3][3]}</p>
+              <img
+                              src={asc[3][3]}
+                              alt="Rashi"
+                              className="RashiIcon"
+              />
+              <span className="tablelabel">{asc[3][0]} </span>
             </td>
             <td className="td2">
               <span className="tablevalue">{"upto " + asc[3][2]}</span>
             </td>
             <td className="td3">
-              <p className="tablelabel">{asc[10][0]} {asc[10][3]}</p>
+              <img
+                              src={asc[10][3]}
+                              alt="Rashi"
+                              className="RashiIcon"
+              />
+              <span className="tablelabel">{asc[10][0]} </span>
             </td>
             <td className="td4">
               <span className="tablevalue">{"upto " + asc[10][2]}</span>
@@ -682,13 +730,23 @@ const Dash_Panchang = () => {
           </tr>
           <tr>
             <td className="td1">
-              <p className="tablelabel">{asc[4][0]} {asc[4][3]}</p>
+              <img
+                              src={asc[4][3]}
+                              alt="Rashi"
+                              className="RashiIcon"
+              />
+              <span className="tablelabel">{asc[4][0]} </span>
             </td>
             <td className="td2">
               <span className="tablevalue">{"upto " + asc[4][2]}</span>
             </td>
             <td className="td3">
-              <p className="tablelabel">{asc[11][0]} {asc[11][3]}</p>
+              <img
+                              src={asc[11][3]}
+                              alt="Rashi"
+                              className="RashiIcon"
+              />
+              <span className="tablelabel">{asc[11][0]} </span>
             </td>
             <td className="td4">
               <span className="tablevalue">{"upto " + asc[11][2]}</span>
@@ -696,13 +754,23 @@ const Dash_Panchang = () => {
           </tr>
           <tr>
             <td className="td1">
-              <p className="tablelabel">{asc[5][0]} {asc[5][3]}</p>
+              <img
+                              src={asc[5][3]}
+                              alt="Rashi"
+                              className="RashiIcon"
+              />
+              <span className="tablelabel">{asc[5][0]} </span>
             </td>
             <td className="td2">
               <span className="tablevalue">{"upto " + asc[5][2]}</span>
             </td>
             <td className="td3">
-              <p className="tablelabel">{asc[12][0]} {asc[12][3]}</p>
+              <img
+                              src={asc[12][3]}
+                              alt="Rashi"
+                              className="RashiIcon"
+              />
+              <span className="tablelabel">{asc[12][0]} </span>
             </td>
             <td className="td4">
               <span className="tablevalue">{"upto " + asc[12][2]}</span>
@@ -710,7 +778,12 @@ const Dash_Panchang = () => {
           </tr>
           <tr>
             <td className="td1">
-              <p className="tablelabel">{asc[6][0]} {asc[6][3]}</p>
+              <img
+                              src={asc[6][3]}
+                              alt="Rashi"
+                              className="RashiIcon"
+              />
+              <span className="tablelabel">{asc[6][0]} </span>
             </td>
             <td className="td2">
               <span className="tablevalue">{"upto " + asc[6][2]}</span>
@@ -734,13 +807,13 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
           <td className="td1">
-            <p className="tablelabel">Kulika</p>
+            <span className="tablelabel">Kulika</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{kulika}</span>
           </td>
           <td className="td3">
-            <p className="tablelabel">Varjya Kaal</p>
+            <span className="tablelabel">Varjya Kaal</span>
           </td>
           <td className="td4">
             <span className="tablevalue">{varjya}</span>
@@ -748,13 +821,13 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
           <td className="td1">
-            <p className="tablelabel">Raahu Kaal</p>
+            <span className="tablelabel">Raahu Kaal</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{rkaal}</span>
           </td>
           <td className="td3">
-            <p className="tablelabel">Yamaganda Kaal</p>
+            <span className="tablelabel">Yamaganda Kaal</span>
           </td>
           <td className="td4">
             <span className="tablevalue">{ykaal}</span>
@@ -774,13 +847,13 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
           <td className="td1">
-            <p className="tablelabel">Amrit Kal</p>
+            <span className="tablelabel">Amrit Kal</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{amritkaal}</span>
           </td>
           <td className="td3">
-            <p className="tablelabel">Abhijit Muhurat</p>
+            <span className="tablelabel">Abhijit Muhurat</span>
           </td>
           <td className="td4">
             <span className="tablevalue">{abhijit}</span>
@@ -788,13 +861,13 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
           <td className="td1">
-            <p className="tablelabel">Brahma Muhurat</p>
+            <span className="tablelabel">Brahma Muhurat</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{brahma}</span>
           </td>
           <td className="td3">
-            <p className="tablelabel">Nishita Muhurat</p>
+            <span className="tablelabel">Nishita Muhurat</span>
           </td>
           <td className="td4">
             <span className="tablevalue">{nishita}</span>
@@ -802,13 +875,13 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
           <td className="td1">
-            <p className="tablelabel">Pratha Sandhya</p>
+            <span className="tablelabel">Pratha Sandhya</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{psandhya}</span>
           </td>
           <td className="td3">
-            <p className="tablelabel">Sayan Sandhya</p>
+            <span className="tablelabel">Sayan Sandhya</span>
           </td>
           <td className="td4">
             <span className="tablevalue">{ssandhya}</span>
@@ -816,13 +889,13 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
           <td className="td1">
-            <p className="tablelabel">Vijaya Muhurat</p>
+            <span className="tablelabel">Vijaya Muhurat</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{vijay}</span>
           </td>
           <td className="td3">
-            <p className="tablelabel"></p>
+            <span className="tablelabel"></span>
           </td>
           <td className="td4">
             <span className="tablevalue">{ }</span>
@@ -849,7 +922,7 @@ const Dash_Panchang = () => {
             <span className="tablevalue">{dkayan}</span>
           </td>
           <td className="td3">
-            <p className="tablelabel">Day Duration</p>
+            <span className="tablelabel">Day Duration</span>
           </td>
           <td className="td4">
             <span className="tablevalue">{daytime}</span>
@@ -857,13 +930,13 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
           <td className="td1">
-            <p className="tablelabel">Vedic Ayan</p>
+            <span className="tablelabel">Vedic Ayan</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{vdayan}</span>
           </td>
           <td className="td3">
-            <p className="tablelabel">Night Duration</p>
+            <span className="tablelabel">Night Duration</span>
           </td>
           <td className="td4">
             <span className="tablevalue">{nighttime}</span>
@@ -871,13 +944,13 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
           <td className="td1">
-            <p className="tablelabel">Ritu</p>
+            <span className="tablelabel">Ritu</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{ritu}</span>
           </td>
           <td className="td3">
-            <p className="tablelabel">Madhyahna</p>
+            <span className="tablelabel">Madhyahna</span>
           </td>
           <td className="td4">
             <span className="tablevalue">{madhya}</span>
@@ -897,13 +970,13 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
           <td className="td1">
-            <p className="tablelabel">Sunsign</p>
+            <span className="tablelabel">Sunsign</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{sunsign}</span>
           </td>
           <td className="td3">
-            <p className="tablelabel">MoonSign</p>
+            <span className="tablelabel">MoonSign</span>
           </td>
           <td className="td4">
             <span className="tablevalue">{moonsign}</span>
@@ -911,13 +984,13 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
           <td className="td1">
-            <p className="tablelabel">Surya Nakshtra</p>
+            <span className="tablelabel">Surya Nakshtra</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{suryanakshtra}</span>
           </td>
           <td className="td3">
-            <p className="tablelabel">Ascendant</p>
+            <span className="tablelabel">Ascendant</span>
           </td>
           <td className="td4">
             <span className="tablevalue">{ascendantsun}</span>
@@ -937,13 +1010,13 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
           <td className="td1">
-            <p className="tablelabel">Shaka Samvatsara</p>
+            <span className="tablelabel">Shaka Samvatsara</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{samvatsara}</span>
           </td>
           <td className="td3">
-            <p className="tablelabel"></p>
+            <span className="tablelabel"></span>
           </td>
           <td className="td4">
             <span className="tablevalue"></span>
@@ -963,33 +1036,36 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
           <td className="td1">
-            <p className="tablelabel">Tithi</p>
+            <span className="tablelabel">Tithi</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{tithicurrent}</span>
-            <br /> <span className="tablevalue">{tithinext}</span>
+            <br></br><span className="tablevalue">{tithinext}</span>
           </td>
           <td className="td3">
-            <p className="tablelabel">Karan</p>{" "}
+            <span className="tablelabel">Karan</span>{" "}
           </td>
           <td className="td4">
             <span className="tablevalue">{karancurrent}</span>
-            <br /> <span className="tablevalue">{karannext}</span>
-            <br />  <span className="tablevalue">{karan_next_next}</span>
+            <br></br><span className="tablevalue">{karannext}</span>
+            <br></br><span className="tablevalue">{karan_next_next}</span>
           </td>
         </tr>
+        
+      
+
 
 
         <tr>
           <td className="td1">
-            <p className="tablelabel">Yoga</p>
+            <span className="tablelabel">Yoga</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{yogacurrent}</span>
             <br /> <span className="tablevalue">{yoganext}</span>
           </td>
           <td className="td3">
-            <p className="tablelabel"> Weekday</p>
+            <span className="tablelabel"> Weekday</span>
           </td>
           <td className="td4">
             <span className="tablevalue">{weekday}</span>
@@ -998,13 +1074,13 @@ const Dash_Panchang = () => {
 
         <tr>
           <td className="td1">
-            <p className="tablelabel">Nakshtra</p>
+            <span className="tablelabel">Nakshtra</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{nakshtra}</span>
           </td>
           <td className="td3">
-            <p className="tablelabel"></p>
+            <span className="tablelabel"></span>
           </td>
           <td className="td4">
             <span className="tablevalue"></span>
@@ -1025,13 +1101,13 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
           <td className="td1">
-            <p className="tablelabel">Nakshtra</p>
+            <span className="tablelabel">Nakshtra</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{naks[0]}</span>
           </td>
           <td className="td3">
-            <p className="tablelabel">Nakshtra Pada</p>{" "}
+            <span className="tablelabel">Nakshtra Pada</span>{" "}
           </td>
           <td className="td4">
             <span className="tablevalue">{naks[1]}</span>
@@ -1059,22 +1135,22 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
           <td className="td1 td1cho">
-            <p className="tablelabel">
+            <span className="tablelabel">
                             <img
                               src={require("../assets/img/sunrise.png")}
                               alt="Sunrise"
                               className="TableIconSun"
-                            /></p>
+                            /></span>
           </td>
           <td className="td2">
             <span className="tablevalue td2cho">Day Choghadiya</span>
           </td>
           <td className="td3 td3cho">
-            <p className="tablelabel"><img
+            <span className="tablelabel"><img
                               src={require("../assets/img/moonrise.png")}
                               alt="MoonRise"
                               className="TableIconMoon"
-                            /></p>{" "}
+                            /></span>{" "}
           </td>
           <td className="td4">
             <span className="tablevalue td4cho">Night Choghadiya</span>
@@ -1082,13 +1158,13 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
           <td className="td1">
-            <p className="tablelabel">{cho[0]}{cho[1]}</p>
+            <span className="tablelabel">{cho[0]}{cho[1]}</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{cho[2]}</span>
           </td>
           <td className="td3">
-            <p className="tablelabel">{cho[24]} {cho[25]}</p>{" "}
+            <span className="tablelabel">{cho[24]} {cho[25]}</span>{" "}
           </td>
           <td className="td4">
             <span className="tablevalue">{cho[26]}</span>
@@ -1096,13 +1172,13 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
           <td className="td1">
-            <p className="tablelabel">{cho[3]}{cho[4]}</p>
+            <span className="tablelabel">{cho[3]}{cho[4]}</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{cho[5]}</span>
           </td>
           <td className="td3">
-            <p className="tablelabel">{cho[27]} {cho[28]}</p>{" "}
+            <span className="tablelabel">{cho[27]} {cho[28]}</span>{" "}
           </td>
           <td className="td4">
             <span className="tablevalue">{cho[29]}</span>
@@ -1110,13 +1186,13 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
           <td className="td1">
-            <p className="tablelabel">{cho[6]}{cho[7]}</p>
+            <span className="tablelabel">{cho[6]}{cho[7]}</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{cho[8]}</span>
           </td>
           <td className="td3">
-            <p className="tablelabel">{cho[30]} {cho[31]}</p>{" "}
+            <span className="tablelabel">{cho[30]} {cho[31]}</span>{" "}
           </td>
           <td className="td4">
             <span className="tablevalue">{cho[32]}</span>
@@ -1124,13 +1200,13 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
           <td className="td1">
-            <p className="tablelabel">{cho[9]}{cho[10]}</p>
+            <span className="tablelabel">{cho[9]}{cho[10]}</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{cho[11]}</span>
           </td>
           <td className="td3">
-            <p className="tablelabel">{cho[33]} {cho[34]}</p>{" "}
+            <span className="tablelabel">{cho[33]} {cho[34]}</span>{" "}
           </td>
           <td className="td4">
             <span className="tablevalue">{cho[35]}</span>
@@ -1138,13 +1214,13 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
           <td className="td1">
-            <p className="tablelabel">{cho[12]}{cho[13]}</p>
+            <span className="tablelabel">{cho[12]}{cho[13]}</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{cho[14]}</span>
           </td>
           <td className="td3">
-            <p className="tablelabel">{cho[36]} {cho[37]}</p>{" "}
+            <span className="tablelabel">{cho[36]} {cho[37]}</span>{" "}
           </td>
           <td className="td4">
             <span className="tablevalue">{cho[38]}</span>
@@ -1152,13 +1228,13 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
           <td className="td1">
-            <p className="tablelabel">{cho[15]}{cho[16]}</p>
+            <span className="tablelabel">{cho[15]}{cho[16]}</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{cho[17]}</span>
           </td>
           <td className="td3">
-            <p className="tablelabel">{cho[39]} {cho[40]}</p>{" "}
+            <span className="tablelabel">{cho[39]} {cho[40]}</span>{" "}
           </td>
           <td className="td4">
             <span className="tablevalue">{cho[41]}</span>
@@ -1166,13 +1242,13 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
           <td className="td1">
-            <p className="tablelabel">{cho[18]}{cho[19]}</p>
+            <span className="tablelabel">{cho[18]}{cho[19]}</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{cho[20]}</span>
           </td>
           <td className="td3">
-            <p className="tablelabel">{cho[42]} {cho[43]}</p>{" "}
+            <span className="tablelabel">{cho[42]} {cho[43]}</span>{" "}
           </td>
           <td className="td4">
             <span className="tablevalue">{cho[44]}</span>
@@ -1180,13 +1256,13 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
           <td className="td1">
-            <p className="tablelabel">{cho[21]}{cho[22]}</p>
+            <span className="tablelabel">{cho[21]}{cho[22]}</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{cho[23]}</span>
           </td>
           <td className="td3">
-            <p className="tablelabel">{cho[45]} {cho[46]}</p>{" "}
+            <span className="tablelabel">{cho[45]} {cho[46]}</span>{" "}
           </td>
           <td className="td4">
             <span className="tablevalue">{cho[47]}</span>
@@ -1270,18 +1346,21 @@ const Dash_Panchang = () => {
                           <button
                             type="button"
                             className="btn btn-primary btn-sm waves-effect waves-light"
+                            onClick={()=>prevDay()}
                           >
                             Prev Day
                           </button>
                           <button
                             type="button"
                             className="btn btn-primary btn-sm waves-effect waves-light"
+                            onClick={()=>handleToday()}
                           >
                             Today
                           </button>
                           <button
                             type="button"
                             className="btn btn-primary btn-sm waves-effect waves-light"
+                            onClick={()=>nextDay()}
                           >
                             Next Day
                           </button>
@@ -1308,7 +1387,7 @@ const Dash_Panchang = () => {
                   )
                   :(
                   <table
-                    className="tablesaw table mb-0 tablesaw-stack panchangtable"
+                    className="tablesaw table mb-0 tablesaw-stack"
                     id="tablesaw-802"
                     style={{ border: "none", borderTop: "none" }}
                   >
@@ -1325,7 +1404,7 @@ const Dash_Panchang = () => {
                       </tr>
                       <tr>
                         <td className="td1">
-                          <p className="tablelabel">Sun Rise</p>
+                          <span className="tablelabel">Sun Rise</span>
                         </td>
                         <td className="td2">
                           <span className="tablevalue">
@@ -1338,7 +1417,7 @@ const Dash_Panchang = () => {
                           </span>
                         </td>
                         <td className="td3">
-                          <p className="tablelabel">Sun Set</p>{" "}
+                          <span className="tablelabel">Sun Set</span>{" "}
                         </td>
                         <td className="td4">
                           <span className="tablevalue">
@@ -1353,7 +1432,7 @@ const Dash_Panchang = () => {
                       </tr>
                       <tr className="lastrow">
                         <td className="td1">
-                          <p className="tablelabel">Moon Rise</p>
+                          <span className="tablelabel">Moon Rise</span>
                         </td>
                         <td className="td2">
                           <span className="tablevalue">
@@ -1366,7 +1445,7 @@ const Dash_Panchang = () => {
                           </span>
                         </td>
                         <td className="td3">
-                          <p className="tablelabel">Moon Set</p>
+                          <span className="tablelabel">Moon Set</span>
                         </td>
                         <td className="td4">
                           <span className="tablevalue">
