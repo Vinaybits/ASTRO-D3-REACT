@@ -97,154 +97,15 @@ const DashboardTopBar= () => {
                             </a>
                         </li>
     
-                        <li className="dropdown d-none d-lg-inline-block topbar-dropdown">
-                            <a className="nav-link dropdown-toggle arrow-none waves-effect waves-light" data-toggle="dropdown" href="/transition" role="button" aria-haspopup="false" aria-expanded="false">
-                                <i className="fe-grid noti-icon"></i>
-                            </a>
-                            <div className="dropdown-menu dropdown-lg dropdown-menu-right">
-    
-                                <div className="p-lg-1">
-                                    <div className="row no-gutters">
-                                        <div className="col">
-                                            <a className="dropdown-icon-item" href="/transition">
-                                                <img src="../assets/images/brands/slack.png" alt="slack"/>
-                                                <span>Slack</span>
-                                            </a>
-                                        </div>
-                                        <div className="col">
-                                            <a className="dropdown-icon-item" href="/transition">
-                                                <img src="../assets/images/brands/github.png" alt="Github"/>
-                                                <span>GitHub</span>
-                                            </a>
-                                        </div>
-                                        <div className="col">
-                                            <a className="dropdown-icon-item" href="/transition">
-                                                <img src="../assets/images/brands/dribbble.png" alt="dribbble"/>
-                                                <span>Dribbble</span>
-                                            </a>
-                                        </div>
-                                    </div>
-    
-                                    <div className="row no-gutters">
-                                        <div className="col">
-                                            <a className="dropdown-icon-item" href="/transition">
-                                                <img src="../assets/images/brands/bitbucket.png" alt="bitbucket"/>
-                                                <span>Bitbucket</span>
-                                            </a>
-                                        </div>
-                                        <div className="col">
-                                            <a className="dropdown-icon-item" href="/transition">
-                                                <img src="../assets/images/brands/dropbox.png" alt="dropbox"/>
-                                                <span>Dropbox</span>
-                                            </a>
-                                        </div>
-                                        <div className="col">
-                                            <a className="dropdown-icon-item" href="/transition">
-                                                <img src="../assets/images/brands/g-suite.png" alt="G Suite"/>
-                                                <span>G Suite</span>
-                                            </a>
-                                        </div>
-                            
-                                    </div>
-                                </div>
-    
-                            </div>
-                        </li>
+                      
     
                        
             
-                        <li className="dropdown notification-list topbar-dropdown">
-                            <a className="nav-link dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="/transition" role="button" aria-haspopup="false" aria-expanded="false">
-                                <i className="fe-bell noti-icon"></i>
-                                <span className="badge badge-danger rounded-circle noti-icon-badge">9</span>
-                            </a>
-                            <div className="dropdown-menu dropdown-menu-right dropdown-lg">
+                      
     
-                                {/* <!-- item--> */}
-                                <div className="dropdown-item noti-title">
-                                    <h5 className="m-0">
-                                        <span className="float-right">
-                                            <a href="/transition" className="text-dark">
-                                                <small>Clear All</small>
-                                            </a>
-                                        </span>Notification
-                                    </h5>
-                                </div>
-    
-                                <div className="noti-scroll" data-simplebar>
-    
-                                    {/* <!-- item--> */}
-                                    <a href="/" className="dropdown-item notify-item active">
-                                        <div className="notify-icon">
-                                            <img src="../assets/images/users/user-1.jpg" className="img-fluid rounded-circle" alt="" /> </div>
-                                        <p className="notify-details">Cristina Pride</p>
-                                        <p className="text-muted mb-0 user-msg">
-                                            <small>Hi, How are you? What about our next meeting</small>
-                                        </p>
-                                    </a>
-    
-                                    {/* <!-- item--> */}
-                                    <a href="/" className="dropdown-item notify-item">
-                                        <div className="notify-icon bg-primary">
-                                            <i className="mdi mdi-comment-account-outline"></i>
-                                        </div>
-                                        <p className="notify-details">Caleb Flakelar commented on Admin
-                                            <small className="text-muted">1 min ago</small>
-                                        </p>
-                                    </a>
-{/*     
-                                    <!-- item--> */}
-                                    <a href="/" className="dropdown-item notify-item">
-                                        <div className="notify-icon">
-                                            <img src="../assets/images/users/user-4.jpg" className="img-fluid rounded-circle" alt="" /> </div>
-                                        <p className="notify-details">Karen Robinson</p>
-                                        <p className="text-muted mb-0 user-msg">
-                                            <small>Wow ! this admin looks good and awesome design</small>
-                                        </p>
-                                    </a>
-    
-                                    {/* <!-- item--> */}
-                                    <a href="/" className="dropdown-item notify-item">
-                                        <div className="notify-icon bg-warning">
-                                            <i className="mdi mdi-account-plus"></i>
-                                        </div>
-                                        <p className="notify-details">New user registered.
-                                            <small className="text-muted">5 hours ago</small>
-                                        </p>
-                                    </a>
-    
-                                    {/* <!-- item--> */}
-                                    <a href="/" className="dropdown-item notify-item">
-                                        <div className="notify-icon bg-info">
-                                            <i className="mdi mdi-comment-account-outline"></i>
-                                        </div>
-                                        <p className="notify-details">Caleb Flakelar commented on Admin
-                                            <small className="text-muted">4 days ago</small>
-                                        </p>
-                                    </a>
-    
-                                    {/* <!-- item--> */}
-                                    <a href="/" className="dropdown-item notify-item">
-                                        <div className="notify-icon bg-secondary">
-                                            <i className="mdi mdi-heart"></i>
-                                        </div>
-                                        <p className="notify-details">Carlos Crouch liked
-                                            <b>Admin</b>
-                                            <small className="text-muted">13 days ago</small>
-                                        </p>
-                                    </a>
-                                </div>
-    
-                                {/* <!-- All--> */}
-                                <a href="/" className="dropdown-item text-center text-primary notify-item notify-all">
-                                    View all
-                                    <i className="fe-arrow-right"></i>
-                                </a>
-    
-                            </div>
-                        </li>
-    
-                        <li className="dropdown notification-list topbar-dropdown">
+
+    {/* -------------USER DROPDOWN MENU-------------- */}
+                        {/* <li className="dropdown notification-list topbar-dropdown">
                             <a className="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="/" role="button" aria-haspopup="false" aria-expanded="false">
                                 <img src="../assets/images/users/user-1.jpg" alt="user" className="rounded-circle"/>
                                 <span className="pro-user-name ml-1">
@@ -252,24 +113,24 @@ const DashboardTopBar= () => {
                                 </span>
                             </a>
                             <div className="dropdown-menu dropdown-menu-right profile-dropdown ">
-                                {/* <!-- item--> */}
+                               
                                 <div className="dropdown-header noti-title">
                                     <h6 className="text-overflow m-0">Welcome !</h6>
                                 </div>
     
-                                {/* <!-- item--> */}
+                               
                                 <a href="/" className="dropdown-item notify-item">
                                     <i className="fe-user"></i>
                                     <span>My Account</span>
                                 </a>
     
-                                {/* <!-- item--> */}
+                             
                                 <a href="/" className="dropdown-item notify-item">
                                     <i className="fe-settings"></i>
                                     <span>Settings</span>
                                 </a>
     
-                                {/* <!-- item--> */}
+                              
                                 <a href="/" className="dropdown-item notify-item">
                                     <i className="fe-lock"></i>
                                     <span>Lock Screen</span>
@@ -277,16 +138,16 @@ const DashboardTopBar= () => {
     
                                 <div className="dropdown-divider"></div>
     
-                                {/* <!-- item--> */}
+                              
                                 <a href="/" className="dropdown-item notify-item">
                                     <i className="fe-log-out"></i>
                                     <span>Logout</span>
                                 </a>
     
                             </div>
-                        </li>
+                        </li> */}
     
-                       
+    {/* -------------USER DROPDOWN MENU-------------- */}
     
                     </ul>
     
