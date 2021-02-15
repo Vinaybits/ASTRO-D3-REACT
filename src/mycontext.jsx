@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from 'axios';
-
+import moment from "moment";
 export const GlobalContext = React.createContext();
 
 export class GlobalProvider extends Component {
@@ -259,6 +259,18 @@ export class GlobalProvider extends Component {
 		 this.setState({IsLoading:false})
 	 }
 
+	 operations_panchang_date = (value) =>{
+		 if(value==='today'){
+			 this.setState({panchangDate:new Date()})
+		 }
+		 else if(value==='next'){
+			 this.setState({panchangDate:moment(this.state.panchangDate).add(1,'days')})
+		 }
+		 else{
+			  this.setState({panchangDate:moment(this.state.panchangDate).subtract(1,'days')})
+		 }
+	 }
+
 	 call_daterange = (url,city,str_date,end_date)=> {
 
 	 var config = {
@@ -359,7 +371,7 @@ export class GlobalProvider extends Component {
 		setDates:(a,b,c) => this.set_Dates(a,b,c),
 		resetForm: () => this.reset_form_for_journey(),
 		resetLoading:(value) => this.reset_loading(value),
-		setStateForJourney: (a,b,c) => this.set_journey_states(a,b,c)
+		panchang_date_change : (value) => this.operations_panchang_date(value)
 	
 	};
 
