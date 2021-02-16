@@ -15,11 +15,10 @@ const setTimeFormat = (timestring) => {
   timestring = timestring.split(":")
   var hours = timestring[0]
   var minutes = timestring[1]
-  var ampm = hours >= 12 ? 'PM' : 'AM';
   hours = hours % 12;
   hours = hours ? hours : 12;
   // hours = hours < 10 ? hours.substring(1): hours; 
-  return hours + ":" + minutes + " " + ampm
+  return hours + ":" + minutes + " "
 }
 
  const monthNames = [
@@ -42,14 +41,14 @@ const setTimeFormat = (timestring) => {
       str = str.split(",")[1];
       let part1 = str.substring(0, char_pos + 1);
       let part2 = str.substring(char_pos + 4, str.length);
-      return part1 + part2;
+      return setTimeFormat(part1) + part2;
     }
   }
 
   function extract_current_tithi(obj) {
     if (obj !== null) {
       let tithi_name = obj.current.Tithi.split(",")[0];
-      let current_tithi_end_time = obj["current"]["Ends on"]["time"];
+      let current_tithi_end_time = setTimeFormat(obj["current"]["Ends on"]["time"]);
       return tithi_name + " " + "upto" + " " + current_tithi_end_time;
     }
   }
@@ -57,7 +56,7 @@ const setTimeFormat = (timestring) => {
   function extract_current_yoga(obj) {
     if (obj !== null) {
       let yoga_name = obj.current.Yoga.split(",")[0];
-      let current_yoga_end_time = obj["current"]["Ends on"]["time"];
+      let current_yoga_end_time = setTimeFormat(obj["current"]["Ends on"]["time"]);
       return yoga_name + " " + "upto" + " " + current_yoga_end_time;
     }
   }
@@ -65,7 +64,7 @@ const setTimeFormat = (timestring) => {
   function extract_current_karan(obj) {
     if (obj !== null) {
       let karan_name = obj.current.Karan.split(",")[0];
-      let next_end_time = obj["current"]["Ends on"]["time"];
+      let next_end_time = setTimeFormat(obj["current"]["Ends on"]["time"]);
       let next_end_date = obj["current"]["Ends on"]["date"].split("-");
       let month_name = monthNames[next_end_date[1] - 1];
       let day = next_end_date[0];
@@ -87,7 +86,7 @@ const setTimeFormat = (timestring) => {
   function extract_next_tithi(obj) {
     if (obj !== null) {
       let tithi_name = obj.next.Tithi.split(",")[0];
-      let next_end_time = obj["next"]["Ends on"]["time"];
+      let next_end_time = setTimeFormat(obj["next"]["Ends on"]["time"]);
       let next_end_date = obj["next"]["Ends on"]["date"].split("-");
       let month_name = monthNames[next_end_date[1] - 1];
       let day = next_end_date[0];
@@ -131,7 +130,7 @@ const setTimeFormat = (timestring) => {
   function extract_next_karan(obj) {
     if (obj !== null) {
       let karan_name = obj.next.Karan.split(",")[0];
-      let next_end_time = obj["next"]["Ends on"]["time"];
+      let next_end_time = setTimeFormat(obj["next"]["Ends on"]["time"]);
       let next_end_date = obj["next"]["Ends on"]["date"].split("-");
       let month_name = monthNames[next_end_date[1] - 1];
       let day = next_end_date[0];
@@ -153,7 +152,7 @@ const setTimeFormat = (timestring) => {
   function extract_next_next_karan(obj) {
     if (obj !== null) {
       let karan_name = obj.next_next.Karan.split(",")[0];
-      let next_end_time = obj["next_next"]["Ends on"]["time"];
+      let next_end_time = setTimeFormat(obj["next_next"]["Ends on"]["time"]);
       let next_end_date = obj["next_next"]["Ends on"]["date"].split("-");
       let month_name = monthNames[next_end_date[1] - 1];
       let day = next_end_date[0];
@@ -187,7 +186,7 @@ const setTimeFormat = (timestring) => {
           }
         }
         return (
-          times[0] +
+          setTimeFormat(times[0]) +
           "," +
           " " +
           times[1] +
@@ -213,7 +212,7 @@ const setTimeFormat = (timestring) => {
         if (str === "Sandhya") {
           return times;
         } else {
-          return times[0] + " " + "to" + " " + times[1];
+          return setTimeFormat(times[0]) + " " + "to" + " " + setTimeFormat(times[1]);
         }
       }
     }
@@ -259,7 +258,7 @@ const setTimeFormat = (timestring) => {
     if (obj !== null) {
       for (const key in obj) {
         for (const inner in obj[key]) {
-          times.push(obj[key][inner]);
+          times.push(setTimeFormat(obj[key][inner]));
         }
       }
     }
@@ -288,7 +287,12 @@ const setTimeFormat = (timestring) => {
       for (const key in obj) {
         let times = [];
         for (const inner in obj[key]) {
-          times.push(obj[key][inner]);
+          if(inner==="start_time" || inner ==='end_time'){
+          times.push(setTimeFormat(obj[key][inner]));
+          }
+          else{
+            times.push(obj[key][inner])
+          }
         }
         times.push(rashi_mapper[obj[key]["Ascendant"]])
         ascendants.push(times);
@@ -346,13 +350,13 @@ const setTimeFormat = (timestring) => {
           for(var inner in obj["day_time"]){
             cho.push(obj["day_time"][inner].chogadiya_name)
             cho.push(obj["day_time"][inner].quality)
-            cho.push("upto " + obj["day_time"][inner].end_time)
+            cho.push("upto " + setTimeFormat(obj["day_time"][inner].end_time))
         }
         for(var inner2 in obj["night_time"]){
             cho.push(obj["night_time"][inner2].chogadiya_name)
             cho.push(obj["night_time"][inner2].quality)
             var date = (obj["night_time"][inner2].end_date).split("-")
-            cho.push("upto " + obj["night_time"][inner2].end_time + ", " + months[date[1]] + " " + date[0])
+            cho.push("upto " +setTimeFormat( obj["night_time"][inner2].end_time) + ", " + months[date[1]] + " " + date[0])
         }
         for(var i in cho){
           if(cho[i]==="Auspicious"){

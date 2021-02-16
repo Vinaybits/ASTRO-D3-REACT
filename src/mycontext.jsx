@@ -371,6 +371,7 @@ export class GlobalProvider extends Component {
 		setDates:(a,b,c) => this.set_Dates(a,b,c),
 		resetForm: () => this.reset_form_for_journey(),
 		resetLoading:(value) => this.reset_loading(value),
+		setStateForJourney: (a,b,c) => this.set_journey_states(a,b,c),
 		panchang_date_change : (value) => this.operations_panchang_date(value)
 	
 	};
