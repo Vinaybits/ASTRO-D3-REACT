@@ -18,7 +18,7 @@ const setTimeFormat = (timestring) => {
   hours = hours % 12;
   hours = hours ? hours : 12;
   // hours = hours < 10 ? hours.substring(1): hours; 
-  return hours + ":" + minutes + " "
+  return hours + ":" + minutes
 }
 
  const monthNames = [
@@ -350,23 +350,23 @@ const setTimeFormat = (timestring) => {
           for(var inner in obj["day_time"]){
             cho.push(obj["day_time"][inner].chogadiya_name)
             cho.push(obj["day_time"][inner].quality)
-            cho.push("upto " + setTimeFormat(obj["day_time"][inner].end_time))
+            cho.push(setTimeFormat(obj["day_time"][inner].start_time) + " to " + setTimeFormat(obj["day_time"][inner].end_time))
         }
         for(var inner2 in obj["night_time"]){
             cho.push(obj["night_time"][inner2].chogadiya_name)
             cho.push(obj["night_time"][inner2].quality)
             var date = (obj["night_time"][inner2].end_date).split("-")
-            cho.push("upto " +setTimeFormat( obj["night_time"][inner2].end_time) + ", " + months[date[1]] + " " + date[0])
+            cho.push(setTimeFormat(obj["night_time"][inner].start_time) + " to " +setTimeFormat( obj["night_time"][inner2].end_time) + ", " + months[date[1]] + " " + date[0])
         }
         for(var i in cho){
           if(cho[i]==="Auspicious"){
-            cho[i]=<span style={{"color":"green", fontSize:"0.7em"}}> (Auspicious)</span>
+            cho[i]="Auspicious"
           }
           else if(cho[i] === "Inauspicious"){
-            cho[i]=<span style={{"color":"red", fontSize:"0.7em"}}> (Inauspicious)</span>
+            cho[i]="Inauspicious"
           }
           else if(cho[i] === "Neutral"){
-            cho[i]=<span style={{"color":"#03428D", fontSize:"0.7em"}}> (Neutral)</span>
+            cho[i]="Neutral"
           }
           }
         }
@@ -1134,7 +1134,13 @@ const Dash_Panchang = () => {
       <>
         <tr className="table_head_tr">
           <th scope="col" colSpan="5" className="sectionheader">
-            Choghadiya
+            <span>Choghadiya</span>
+            <span className="spancolor">Auspicious</span>
+            <span className="color-box" style={{"background-color": "green"}}></span>
+            <span className="spancolor">Inauspicious</span>
+            <span className="color-box" style={{"background-color": "red"}}></span>
+            <span className="spancolor">Neutral</span>
+            <span className="color-box" style={{"background-color": "#585151"}}></span>
           </th>
         </tr>
         <tr>
@@ -1161,14 +1167,15 @@ const Dash_Panchang = () => {
           </td>
         </tr>
         <tr>
+          {console.log(cho[1])}
           <td className="td1">
-            <span className="tablelabel">{cho[0]}{cho[1]}</span>
+            <span className={"tablelabel " +(cho[1])}>{cho[0]}</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{cho[2]}</span>
           </td>
           <td className="td3">
-            <span className="tablelabel">{cho[24]} {cho[25]}</span>{" "}
+            <span className={"tablelabel " +(cho[25])}>{cho[24]}</span>{" "}
           </td>
           <td className="td4">
             <span className="tablevalue">{cho[26]}</span>
@@ -1176,13 +1183,13 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
           <td className="td1">
-            <span className="tablelabel">{cho[3]}{cho[4]}</span>
+            <span className={"tablelabel " +(cho[4])}>{cho[3]}</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{cho[5]}</span>
           </td>
           <td className="td3">
-            <span className="tablelabel">{cho[27]} {cho[28]}</span>{" "}
+            <span className={"tablelabel " +(cho[28])}>{cho[27]}</span>{" "}
           </td>
           <td className="td4">
             <span className="tablevalue">{cho[29]}</span>
@@ -1190,13 +1197,13 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
           <td className="td1">
-            <span className="tablelabel">{cho[6]}{cho[7]}</span>
+            <span className={"tablelabel " +(cho[7])}>{cho[6]}</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{cho[8]}</span>
           </td>
           <td className="td3">
-            <span className="tablelabel">{cho[30]} {cho[31]}</span>{" "}
+            <span className={"tablelabel " +(cho[31])}>{cho[30]}</span>{" "}
           </td>
           <td className="td4">
             <span className="tablevalue">{cho[32]}</span>
@@ -1204,13 +1211,13 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
           <td className="td1">
-            <span className="tablelabel">{cho[9]}{cho[10]}</span>
+            <span className={"tablelabel " +(cho[10])}> {cho[9]} </span>
           </td>
           <td className="td2">
             <span className="tablevalue">{cho[11]}</span>
           </td>
           <td className="td3">
-            <span className="tablelabel">{cho[33]} {cho[34]}</span>{" "}
+            <span className={"tablelabel " +(cho[34])}> {cho[33]} </span>{" "}
           </td>
           <td className="td4">
             <span className="tablevalue">{cho[35]}</span>
@@ -1218,13 +1225,13 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
           <td className="td1">
-            <span className="tablelabel">{cho[12]}{cho[13]}</span>
+            <span className={"tablelabel " +(cho[13])}>{cho[12]}</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{cho[14]}</span>
           </td>
           <td className="td3">
-            <span className="tablelabel">{cho[36]} {cho[37]}</span>{" "}
+            <span className={"tablelabel " +(cho[37])}>{cho[36]}</span>{" "}
           </td>
           <td className="td4">
             <span className="tablevalue">{cho[38]}</span>
@@ -1232,13 +1239,13 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
           <td className="td1">
-            <span className="tablelabel">{cho[15]}{cho[16]}</span>
+            <span className={"tablelabel " +(cho[16])}>{cho[15]}</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{cho[17]}</span>
           </td>
           <td className="td3">
-            <span className="tablelabel">{cho[39]} {cho[40]}</span>{" "}
+            <span className={"tablelabel " +(cho[40])}>{cho[39]}</span>{" "}
           </td>
           <td className="td4">
             <span className="tablevalue">{cho[41]}</span>
@@ -1246,13 +1253,13 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
           <td className="td1">
-            <span className="tablelabel">{cho[18]}{cho[19]}</span>
+            <span className={"tablelabel " +(cho[19])}>{cho[18]}</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{cho[20]}</span>
           </td>
           <td className="td3">
-            <span className="tablelabel">{cho[42]} {cho[43]}</span>{" "}
+            <span className={"tablelabel " +(cho[43])}>{cho[42]} </span>{" "}
           </td>
           <td className="td4">
             <span className="tablevalue">{cho[44]}</span>
@@ -1260,13 +1267,13 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
           <td className="td1">
-            <span className="tablelabel">{cho[21]}{cho[22]}</span>
+            <span className={"tablelabel " +(cho[22])}>{cho[21]}</span>
           </td>
           <td className="td2">
             <span className="tablevalue">{cho[23]}</span>
           </td>
           <td className="td3">
-            <span className="tablelabel">{cho[45]} {cho[46]}</span>{" "}
+            <span className={"tablelabel " +(cho[46])}>{cho[45]} </span>{" "}
           </td>
           <td className="td4">
             <span className="tablevalue">{cho[47]}</span>
