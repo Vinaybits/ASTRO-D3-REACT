@@ -21,6 +21,17 @@ const setTimeFormat = (timestring) => {
   return hours + ":" + minutes
 }
 
+const setTimeFormatNaks = (timestring) => {
+  timestring = timestring.split(":")
+  var hours = timestring[0]
+  var minutes = timestring[1]
+  var ampm = hours > 12 ? 'PM' : 'AM';
+  hours = hours % 12;
+  hours = hours ? hours : 12;
+  // hours = hours < 10 ? hours.substring(1): hours; 
+  return hours + ":" + minutes + " " + ampm
+}
+
  const monthNames = [
     "Jan",
     "Feb",
@@ -336,7 +347,7 @@ const setTimeFormat = (timestring) => {
                   var desc = ((obj[key]).milestones)[inner].desc
                   desc= desc.substr(desc.indexOf(" ")+1)
                    desc= desc.substr(desc.indexOf(" ")+1)
-                  nak.push(desc + " " + "upto" + " " + setTimeFormat(datetime[4]) + ", " + datetime[2] + " " + datetime[1])
+                  nak.push(desc + " " + "upto" + " " + setTimeFormatNaks(datetime[4]) + ", " + datetime[2] + " " + datetime[1])
           }
         }
       return nak;
@@ -356,7 +367,7 @@ const setTimeFormat = (timestring) => {
             cho.push(obj["night_time"][inner2].chogadiya_name)
             cho.push(obj["night_time"][inner2].quality)
             var date = (obj["night_time"][inner2].end_date).split("-")
-            cho.push(setTimeFormat(obj["night_time"][inner].start_time) + " to " +setTimeFormat( obj["night_time"][inner2].end_time) + ", " + months[date[1]] + " " + date[0])
+            cho.push(setTimeFormat(obj["night_time"][inner2].start_time) + " to " +setTimeFormat( obj["night_time"][inner2].end_time) + ", " + months[date[1]] + " " + date[0])
         }
         for(var i in cho){
           if(cho[i]==="Auspicious"){
@@ -492,6 +503,7 @@ const Dash_Panchang = () => {
       const ascendantatsunrise = await holistic_api.get(`/ascendantsunrise${params}`);
       const naktable = await holistic_api.get(`/nakshtratable${params}`);
       const gaurichogadiya = await holistic_api.get(`/gaurichogadiya${params}`);
+      console.log(naktable)
       setsunriseTime(sunriseresult.data);
       setsunsetTime(sunsetresult.data);
       setmoonriseTime(moonriseresult.data);
@@ -530,7 +542,6 @@ const Dash_Panchang = () => {
       }
     })();
   }, [value, place]);
-  console.log('rendering')
   let moonriseTimedisplay = remove_character(moonriseTime, 5);
   let sunriseTimedisplay = remove_character(sunriseTime, 5);
   let sunsetTimedisplay = remove_character(sunsetTime, 5);
@@ -1167,7 +1178,6 @@ const Dash_Panchang = () => {
           </td>
         </tr>
         <tr>
-          {console.log(cho[1])}
           <td className="td1">
             <span className={"tablelabel " +(cho[1])}>{cho[0]}</span>
           </td>
@@ -1388,7 +1398,7 @@ const Dash_Panchang = () => {
               <div className="col-12" style={{ maxHeight: "550px", "overflowY": "scroll" }}>
                 <div className="card-box" style={{ paddingTop: "2px" }}>
                   {loading ? (
-                      <div style={{minHeight:"700px"}}>
+                      <div style={{minHeight:"350px"}}>
                             <div id="loader">
                             <div class="planet-top"></div>
                             <div class="planet-bottom"></div>

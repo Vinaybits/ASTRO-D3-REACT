@@ -221,7 +221,7 @@ ul li {
   height: 100px;
   position: absolute;
   left: 40vw;
-  top: 40vh;
+  top: 20vh;
   transform: translate(-50%, -50%);
 }
 #loader .planet-top {
