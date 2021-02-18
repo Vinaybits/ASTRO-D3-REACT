@@ -59,16 +59,44 @@ const setTimeFormatNaks = (timestring) => {
   function extract_current_tithi(obj) {
     if (obj !== null) {
       let tithi_name = obj.current.Tithi.split(",")[0];
-      let current_tithi_end_time = setTimeFormat(obj["current"]["Ends on"]["time"]);
-      return tithi_name + " " + "upto" + " " + current_tithi_end_time;
+      let current_end_time = setTimeFormat(obj["current"]["Ends on"]["time"]);
+      let current_end_date = obj["current"]["Ends on"]["date"].split("-");
+      let month_name = monthNames[current_end_date[1] - 1];
+      let day = current_end_date[0];
+      return (
+        tithi_name +
+        " " +
+        "upto" +
+        " " +
+        current_end_time +
+        "," +
+        " " +
+        month_name +
+        " " +
+        day
+      );
     }
   }
 
   function extract_current_yoga(obj) {
     if (obj !== null) {
       let yoga_name = obj.current.Yoga.split(",")[0];
-      let current_yoga_end_time = setTimeFormat(obj["current"]["Ends on"]["time"]);
-      return yoga_name + " " + "upto" + " " + current_yoga_end_time;
+      let current_end_time = setTimeFormat(obj["current"]["Ends on"]["time"]);
+      let current_end_date = obj["current"]["Ends on"]["date"].split("-");
+      let month_name = monthNames[current_end_date[1] - 1];
+      let day = current_end_date[0];
+      return (
+        yoga_name +
+        " " +
+        "upto" +
+        " " +
+        current_end_time +
+        "," +
+        " " +
+        month_name +
+        " " +
+        day
+      );
     }
   }
 
@@ -119,7 +147,7 @@ const setTimeFormatNaks = (timestring) => {
   function extract_next_yoga(obj) {
     if (obj !== null) {
       let yoga_name = obj.next.Yoga.split(",")[0];
-      let next_end_time = obj["next"]["Ends on"]["time"];
+      let next_end_time = setTimeFormat(obj["next"]["Ends on"]["time"]);
       let next_end_date = obj["next"]["Ends on"]["date"].split("-");
       let month_name = monthNames[next_end_date[1] - 1];
       let day = next_end_date[0];
@@ -253,7 +281,7 @@ const setTimeFormatNaks = (timestring) => {
       let end_time = obj["Nakshtra at Sunrise"]["Nakshtra End Time"].split(" ");
       end_time[4] = end_time[4].substring(0, 5) + " " + end_time[5];
       return (
-        obj["Nakshtra at Sunrise"]["Nakshtra Name"] + " upto " + end_time[4]
+        obj["Nakshtra at Sunrise"]["Nakshtra Name"] + " upto " + end_time[4] + ", " + end_time[2] + " " + end_time[1]
       );
     }
   }
@@ -343,12 +371,14 @@ const setTimeFormatNaks = (timestring) => {
         let nak=[]
         for(var key in obj){
           for(var inner in (obj[key]).milestones){
+                  if(obj[key].event_type==='Pada Event'){
                   var datetime = ((obj[key]).milestones)[inner].event_datetime.split(" ")
                   var desc = ((obj[key]).milestones)[inner].desc
                   desc= desc.substr(desc.indexOf(" ")+1)
                    desc= desc.substr(desc.indexOf(" ")+1)
                   nak.push(desc + " " + "upto" + " " + setTimeFormatNaks(datetime[4]) + ", " + datetime[2] + " " + datetime[1])
-          }
+                  } 
+        }
         }
       return nak;
     }
@@ -503,7 +533,7 @@ const Dash_Panchang = () => {
       const ascendantatsunrise = await holistic_api.get(`/ascendantsunrise${params}`);
       const naktable = await holistic_api.get(`/nakshtratable${params}`);
       const gaurichogadiya = await holistic_api.get(`/gaurichogadiya${params}`);
-      console.log(naktable)
+      console.log(tithiresult.data)
       setsunriseTime(sunriseresult.data);
       setsunsetTime(sunsetresult.data);
       setmoonriseTime(moonriseresult.data);
@@ -1119,16 +1149,16 @@ const Dash_Panchang = () => {
             <span className="tablelabel">Nakshtra</span>
           </td>
           <td className="td2">
-            <span className="tablevalue">{naks[0]}</span>
+            <span className="tablevalue">{nakshtra}</span>
           </td>
           <td className="td3">
             <span className="tablelabel">Nakshtra Pada</span>{" "}
           </td>
           <td className="td4">
-            <span className="tablevalue">{naks[1]}</span>
+            <span className="tablevalue">{naks[0]}</span>
+            <br /> <span className="tablevalue">{naks[1]}</span>
             <br /> <span className="tablevalue">{naks[2]}</span>
             <br /> <span className="tablevalue">{naks[3]}</span>
-            <br /> <span className="tablevalue">{naks[4]}</span>
           </td>
         </tr>
       </>
@@ -1147,9 +1177,9 @@ const Dash_Panchang = () => {
           <th scope="col" colSpan="5" className="sectionheader">
             <span>Choghadiya</span>
             <span className="spancolor">Auspicious</span>
-            <span className="color-box" style={{"background-color": "green"}}></span>
+            <span className="color-box" style={{"background-color": "#8db332"}}></span>
             <span className="spancolor">Inauspicious</span>
-            <span className="color-box" style={{"background-color": "red"}}></span>
+            <span className="color-box" style={{"background-color": "#cc3036"}}></span>
             <span className="spancolor">Neutral</span>
             <span className="color-box" style={{"background-color": "#585151"}}></span>
           </th>
@@ -1366,21 +1396,21 @@ const Dash_Panchang = () => {
                         <div className="button-list">
                           <button
                             type="button"
-                            className="btn btn-primary btn-sm waves-effect waves-light"
+                            className="btn btn-primary btn-sm waves-effect waves-light buttonpanchang"
                             onClick={()=>prevDay()}
                           >
                             Prev Day
                           </button>
                           <button
                             type="button"
-                            className="btn btn-primary btn-sm waves-effect waves-light"
+                            className="btn btn-primary btn-sm waves-effect waves-light buttonpanchang"
                             onClick={()=>handleToday()}
                           >
                             Today
                           </button>
                           <button
                             type="button"
-                            className="btn btn-primary btn-sm waves-effect waves-light"
+                            className="btn btn-primary btn-sm waves-effect waves-light buttonpanchang"
                             onClick={()=>nextDay()}
                           >
                             Next Day
@@ -1434,7 +1464,7 @@ const Dash_Panchang = () => {
                               alt="Sunrise"
                               className="TableIcon"
                             />
-                            <b>{sunriseTimedisplay}</b>
+                            {sunriseTimedisplay}
                           </span>
                         </td>
                         <td className="td3">
