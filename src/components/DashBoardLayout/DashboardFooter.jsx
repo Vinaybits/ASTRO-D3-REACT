@@ -9,7 +9,9 @@ const DashboardFooter= () => {
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-md-6">
+                            <div className="text-md-left">
                                 2020 - {new Date().getFullYear()} Omparashar <a href="/">Semanticbits</a> 
+                                </div>
                             </div>
                             <div className="col-md-6">
                                 <div className="text-md-right footer-links d-none d-sm-block">

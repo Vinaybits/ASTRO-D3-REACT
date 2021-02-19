@@ -11,39 +11,56 @@
 }
 
 .tablesaw th {
-  border-top: dashed;
-  border-top-width: 2px;
-  border-color: #009879;
+  /* border-top: dashed;
+  border-top-width: 1px;
+  border-color: #009879; */
+  /* height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0)); */
+  border-top:none;
 }
+
 
 .table_head_tr {
   font-size: 21px;
   background-image: none;
   border: none;
-  color: rgb(181, 31, 116);
+  /* color: rgb(181, 31, 116); */
+  color:#0365B2;
 }
 
 .tablevalue {
-  font-size: 1.2em;
+  font-size: 18px;
   color: rgb(95, 95, 95);
-  font-weight: bold;
+  /* font-weight: bold; */
+  font-family: "Lucida Bright";
+ 
+  font-style: normal;
+  -webkit-font-smoothing:auto;
 }
 
 .tablelabel {
-  font-size: 1.2em;
+  font-size: 18px;
   color: #ff6e00;
+  font-family: "Lucida Bright";
+ 
 }
 .TableIconMoon {
-  margin-left: 70px;
+  margin-left: 170px;
   width: 30px;
 }
 .TableIconSun {
-  margin-left: 20px;
+  margin-left: 125px;
   width: 30px;
 }
 .RashiIcon {
-  margin-right: 10px;
-  margin-top: -2%;
+  float: left;
+  margin-left: 45%;
+  width: 20px;
+  filter: contrast(30%);
+}
+.RashiIcon2 {
+  float: left;
+  margin-left: 58%;
   width: 20px;
   filter: contrast(30%);
 }
@@ -62,7 +79,7 @@
 }
 
 .td2cho {
-  margin-left: -87px;
+  margin-left: -17px;
   font-weight: bold;
   font-size: 1.4em;
   color: rgb(181, 31, 116);
@@ -80,17 +97,17 @@
 }
 
 .td4cho {
-  margin-left: -66px;
+  margin-left: -5px;
   font-weight: bold;
   font-size: 1.4em;
   color: rgb(181, 31, 116);
 }
 
 .Auspicious {
-  background-color: green;
+  background-color: #8db332;
   color: white;
   text-align: center;
-  width: 120px;
+  width: 80px;
   /* padding-left: 50px; */
   padding-bottom: 5px;
   /* padding-right: 50px; */
@@ -99,10 +116,10 @@
 }
 
 .Inauspicious {
-  background-color: red;
+  background-color: #cc3036;
   color: white;
   text-align: center;
-  width: 120px;
+  width: 80px;
   /* padding-left: 50px; */
   padding-bottom: 5px;
   /* padding-right: 50px; */
@@ -114,7 +131,7 @@
   background-color: #585151;
   color: white;
   text-align: center;
-  width: 120px;
+  width: 80px;
   /* padding-left: 50px; */
   padding-bottom: 5px;
   /* padding-right: 50px; */
@@ -206,7 +223,7 @@ ul li {
 }
 
 .button-list {
-  margin-left: 13%;
+  margin-left: 12%;
   margin-top: 1%;
 }
 
@@ -221,7 +238,7 @@ ul li {
   height: 100px;
   position: absolute;
   left: 40vw;
-  top: 40vh;
+  top: 20vh;
   transform: translate(-50%, -50%);
 }
 #loader .planet-top {
@@ -365,4 +382,41 @@ ul li {
     left: 0;
     top: 0;
   }
+}
+
+.sectionheader {
+  font-size: 1.3rem;
+  font-weight: 600;
+  font-family: "Lucida Bright";
+}
+
+u,
+.buttonpanchang {
+  font-family: "Lucida Bright";
+}
+
+hr.style-two {
+  border: 0;
+  height: 1.1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), #0365B2, rgba(0, 0, 0, 0));
+}
+hr.style-seven {
+  overflow: visible; /* For IE */
+  height: 30px;
+  border-style: solid;
+  border-color:#0365b2cc;
+  border-width: 1px 0 0 0;
+  border-radius: 20px;
+  margin-bottom: -20px;
+  margin-top: 10px;
+}
+hr.style-seven:before { /* Not really supposed to work, but does */
+  display: block;
+  content: "";
+  height: 30px;
+  margin-top: -31px;
+  border-style: solid;
+  border-color:#0365b2cc;
+  border-width: 0 0 1px 0;
+  border-radius: 20px;
 }
