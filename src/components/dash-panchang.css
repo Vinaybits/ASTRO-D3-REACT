@@ -11,31 +11,38 @@
 }
 
 .tablesaw th {
-  border-top: dashed;
-  border-top-width: 2px;
-  border-color: #009879;
+  /* border-top: dashed;
+  border-top-width: 1px;
+  border-color: #009879; */
+  /* height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0)); */
+  border-top:none;
 }
+
 
 .table_head_tr {
   font-size: 21px;
   background-image: none;
   border: none;
-  color: rgb(181, 31, 116);
+  /* color: rgb(181, 31, 116); */
+  color:#0365B2;
 }
 
 .tablevalue {
-  font-size: 1.2em;
+  font-size: 18px;
   color: rgb(95, 95, 95);
   /* font-weight: bold; */
   font-family: "Lucida Bright";
-  font-weight: 100;
+ 
   font-style: normal;
+  -webkit-font-smoothing:auto;
 }
 
 .tablelabel {
-  font-size: 1.2em;
+  font-size: 18px;
   color: #ff6e00;
   font-family: "Lucida Bright";
+ 
 }
 .TableIconMoon {
   margin-left: 170px;
@@ -47,7 +54,13 @@
 }
 .RashiIcon {
   float: left;
-  margin-left: 40%;
+  margin-left: 45%;
+  width: 20px;
+  filter: contrast(30%);
+}
+.RashiIcon2 {
+  float: left;
+  margin-left: 58%;
   width: 20px;
   filter: contrast(30%);
 }
@@ -380,4 +393,30 @@ ul li {
 u,
 .buttonpanchang {
   font-family: "Lucida Bright";
+}
+
+hr.style-two {
+  border: 0;
+  height: 1.1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), #0365B2, rgba(0, 0, 0, 0));
+}
+hr.style-seven {
+  overflow: visible; /* For IE */
+  height: 30px;
+  border-style: solid;
+  border-color:#0365b2cc;
+  border-width: 1px 0 0 0;
+  border-radius: 20px;
+  margin-bottom: -20px;
+  margin-top: 10px;
+}
+hr.style-seven:before { /* Not really supposed to work, but does */
+  display: block;
+  content: "";
+  height: 30px;
+  margin-top: -31px;
+  border-style: solid;
+  border-color:#0365b2cc;
+  border-width: 0 0 1px 0;
+  border-radius: 20px;
 }

@@ -671,6 +671,7 @@ const Dash_Panchang = () => {
     if (asc.length > 0) {
       return (
         <>
+       
           <tr className="table_head_tr" style={{}}>
             <th scope="col" colSpan="5" className="sectionheader">
               Ascendant Table
@@ -693,7 +694,7 @@ const Dash_Panchang = () => {
               <img
                               src={asc[7][3]}
                               alt="Rashi"
-                              className="RashiIcon"
+                              className="RashiIcon2"
               />
               <span className="tablelabel">{asc[7][0]} </span>
             </td>
@@ -717,7 +718,7 @@ const Dash_Panchang = () => {
               <img
                               src={asc[8][3]}
                               alt="Rashi"
-                              className="RashiIcon"
+                              className="RashiIcon2"
               />
               <span className="tablelabel">{asc[8][0]}</span>
             </td>
@@ -741,7 +742,7 @@ const Dash_Panchang = () => {
               <img
                               src={asc[9][3]}
                               alt="Rashi"
-                              className="RashiIcon"
+                              className="RashiIcon2"
               />
               <span className="tablelabel">{asc[9][0]} </span>
             </td>
@@ -765,7 +766,7 @@ const Dash_Panchang = () => {
               <img
                               src={asc[10][3]}
                               alt="Rashi"
-                              className="RashiIcon"
+                              className="RashiIcon2"
               />
               <span className="tablelabel">{asc[10][0]} </span>
             </td>
@@ -789,7 +790,7 @@ const Dash_Panchang = () => {
               <img
                               src={asc[11][3]}
                               alt="Rashi"
-                              className="RashiIcon"
+                              className="RashiIcon2"
               />
               <span className="tablelabel">{asc[11][0]} </span>
             </td>
@@ -813,7 +814,7 @@ const Dash_Panchang = () => {
               <img
                               src={asc[12][3]}
                               alt="Rashi"
-                              className="RashiIcon"
+                              className="RashiIcon2"
               />
               <span className="tablelabel">{asc[12][0]} </span>
             </td>
@@ -834,6 +835,11 @@ const Dash_Panchang = () => {
               <span className="tablevalue">{"upto " + asc[6][2]}</span>
             </td>
           </tr>
+          <tr>
+                        <td colSpan="4">
+                        <hr class="style-seven"></hr>
+                        </td>
+                      </tr>
         </>
       )
     }
@@ -878,6 +884,11 @@ const Dash_Panchang = () => {
             <span className="tablevalue">{ykaal}</span>
           </td>
         </tr>
+        <tr>
+                        <td colSpan="4">
+                        <hr class="style-seven"></hr>
+                        </td>
+                      </tr>
       </>
     )
   }
@@ -946,6 +957,11 @@ const Dash_Panchang = () => {
             <span className="tablevalue">{ }</span>
           </td>
         </tr>
+        <tr>
+                        <td colSpan="4">
+                        <hr class="style-seven"></hr>
+                        </td>
+                      </tr>
 
       </>
     )
@@ -1001,6 +1017,11 @@ const Dash_Panchang = () => {
             <span className="tablevalue">{madhya}</span>
           </td>
         </tr>
+        <tr>
+                        <td colSpan="4">
+                        <hr class="style-seven"></hr>
+                        </td>
+                      </tr>
       </>
     )
   }
@@ -1041,6 +1062,11 @@ const Dash_Panchang = () => {
             <span className="tablevalue">{ascendantsun}</span>
           </td>
         </tr>
+        <tr>
+                        <td colSpan="4">
+                        <hr class="style-seven"></hr>
+                        </td>
+                      </tr>
       </>
     )
   }
@@ -1067,6 +1093,11 @@ const Dash_Panchang = () => {
             <span className="tablevalue"></span>
           </td>
         </tr>
+        <tr>
+                        <td colSpan="4">
+                        <hr class="style-seven"></hr>
+                        </td>
+                      </tr>
       </>
     )
   }
@@ -1131,6 +1162,11 @@ const Dash_Panchang = () => {
             <span className="tablevalue"></span>
           </td>
         </tr>
+        <tr>
+                        <td colSpan="4">
+                        <hr class="style-seven"></hr>
+                        </td>
+                      </tr>
       </>
     )
   }
@@ -1161,6 +1197,11 @@ const Dash_Panchang = () => {
             <br /> <span className="tablevalue">{naks[3]}</span>
           </td>
         </tr>
+        <tr>
+                        <td colSpan="4">
+                        <hr class="style-seven"></hr>
+                        </td>
+                      </tr>
       </>
     )
     }
@@ -1508,12 +1549,20 @@ const Dash_Panchang = () => {
                             {moonsetTimedisplay}
                           </span>
                         </td>
+                        
+                      </tr>
+                      <tr>
+                        <td colSpan="4">
+                        <hr class="style-seven"></hr>
+                        </td>
                       </tr>
 
 
 
                       <PanchangHTML />
+                     
                       <SamvatsaraHTML />
+                     
                       <RashiHTML />
                       <NakshtraHTML />
                       <RituAndAyanHTML />
