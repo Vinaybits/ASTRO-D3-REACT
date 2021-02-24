@@ -1967,7 +1967,7 @@ switch_naksview = ()=>{
         return (  <> 
             {/* <button onClick={this.apidate_format}>click me</button> */}
             <div className="col-lg-14">
-                    <div id="d3graph" className="col-lg-12"  >
+                    <div id="d3graph">
                    
                         <div className="card">
                       

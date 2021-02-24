@@ -247,74 +247,56 @@ function Snapshot(props) {
   }
 
   return (
-    <div>
-                <div id="snapshot" className="col-lg-12"  >
+    <div className="col-lg-14">
+                <div id="snapshot">
                     <div className="card">
-
                         <div className="card-body" style={{ "padding": "10px" }}>
-                            {/* <div class="card-widgets">
-                                <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light"
-                                    data-toggle="fullscreen" href="/#">
-                                    <i class="fe-maximize noti-icon"></i></a>
-                            </div> */}
-
-<center>
-  <label>Select Date and Time:</label>
-      <div>
-                            {/* <input type="date" value={newDate} onChange={dateChange} onKeyDown={(e) => e.preventDefault()}></input> */}
-                            <DatePicker
-        onChange={dateChange}
-        value={value}
-        format="dd/MM/yyyy"
-        onKeyDown={(e) => e.preventDefault()}
-      />
-      <TextField
-        style={{    marginLeft: "10px",
-    marginTop: "0px"}}
-        id="time"
-        type="time"
-        value={newTime}
-        onChange={timeChange}
-        InputLabelProps={{
-          shrink: true
-        }}
-        onKeyDown={(e) => e.preventDefault()}
-      />
-       <div style={{ display: "flex" }}>
-      <button
-                    type="submit"
-                    className="ladda-button btn pdf"
-                    style={{ backgroundColor: " #009879", color: "#fff",marginLeft:"auto",marginRight: "5%" }}
-                    onClick={exportPDF}
-                  >
-                    Generate PDF
-                  </button></div>
-      
-      
-   
-                            {/* <input type="time" value={newTime} onChange={timeChange}></input> */}
-    </div>
-    </center>
+                        <center>
+                          <label>Select Date and Time:</label>
+                            <div>
+                              <DatePicker
+                                onChange={dateChange}
+                                value={value}
+                                format="dd/MM/yyyy"
+                                onKeyDown={(e) => e.preventDefault()}
+                              />
+                              <TextField
+                                style={{
+                                  marginLeft: "10px",
+                                  marginTop: "0px"}}
+                                  id="time"
+                                  type="time"
+                                  value={newTime}
+                                  onChange={timeChange}
+                                  InputLabelProps={{
+                                  shrink: true
+                                }}
+                                onKeyDown={(e) => e.preventDefault()}
+                              />
+                              <div style={{ display: "flex" }}>
+                                          <button
+                                            type="submit"
+                                            className="ladda-button btn pdf"
+                                            style={{ backgroundColor: " #009879", color: "#fff",marginLeft:"auto",marginRight: "5%" }}
+                                            onClick={exportPDF}
+                                          >
+                                          Generate PDF
+                                          </button>
+                              </div>
+                            </div>
+                            </center>
                             <div className="row">
-                                <div className="col-lg-12">
-                                    <center>
-                        
+                              <div className="col-lg-12">
+                                  <center>
                                     <Table columns={columns} data={data} className="table table-bordered"/>
-                                    </center>
-                                    <br></br>
-                                    </div>
-                               
-                               </div>
-   
-   
-   
-   
-                           </div>
-                       </div>
-                
-                   {/* <Ploty_1 /> */}
+                                  </center>
+                                  <br></br>
+                              </div>
+                            </div>
+                    </div>
                    </div>
-               </div>
+                </div>
+    </div>
   );
 }
 

@@ -9,6 +9,8 @@ import InitDashboard from "./InitDashboard";
 
 import Sideform from "../../SideComponents/sideform";
 import Dash_Panchang from "../Dash-Panchang";
+import Natal_chart_layout from "../../d3/Panchang/Natal_chart_layout";
+import Snapshot from "../../d3/Snapshot";
 
 
 const DashboardLayout = (props) => {
@@ -56,6 +58,12 @@ const DashboardLayout = (props) => {
             }
             else if(view==="Panchang View"){
                 return <Dash_Panchang/>
+            }
+            else if(view==="Snapshot"){
+                return <Snapshot/>
+            }
+            else if(view==="Natal Chart"){
+                return <Natal_chart_layout/>
             }
     }
 

@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import * as d3 from "d3";
 import { GlobalProvider, GlobalContext } from "../../mycontext";
 import './Natal.css';
-
+import DatePicker from 'react-date-picker'
+import TextField from "@material-ui/core/TextField";
 class NatalChart extends Component {
   static contextType = GlobalContext;
   constructor(props) {
@@ -557,6 +558,7 @@ planet_container
   render() {
     return (
       <>
+        
         <div ref={this.d3_Chart_ref}></div>
       </>
     );
