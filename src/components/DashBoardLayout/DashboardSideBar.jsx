@@ -25,7 +25,7 @@ const DashboardSideBar= (props) => {
         }
     }
 
-    const handlepanchangView = (selectedName) => {
+    const handlePlainView = (selectedName) => {
          context.change_View(selectedName);
     }
 
@@ -139,6 +139,13 @@ const DashboardSideBar= (props) => {
                                         <li>
                                             <a href="#Journey" onClick={()=>handleView("Journey View")}>Planet Journey</a>
                                         </li>
+                                        <li>
+                                            <a href="#Snapshot" onClick={()=>handlePlainView("Snapshot")}>Snapshot</a>
+                                        </li>
+                                        <li>
+                                            <a href="#NatalChart" onClick={()=>handlePlainView("Natal Chart")}>Natal Chart</a>
+                                        </li>
+                                        
 
                                     </ul>
                                 </div>
@@ -146,7 +153,7 @@ const DashboardSideBar= (props) => {
 
 
                             <li>
-                                <a href="#PanchangView" onClick={()=>handlepanchangView("Panchang View")}>
+                                <a href="#PanchangView" onClick={()=>handlePlainView("Panchang View")}>
                                     <i data-feather="users"></i>
                                     <span> Panchang</span>
                                 </a>

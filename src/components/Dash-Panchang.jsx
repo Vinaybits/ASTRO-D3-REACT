@@ -342,6 +342,7 @@ const setTimeFormatNaks = (timestring) => {
 
   function extract_madhyahna(obj) {
     if (obj !== null) {
+      console.log(obj)
       let obj_str = obj.split(",");
       let date_madhyahna = obj_str[0].split("/");
       let month_name = monthNames[date_madhyahna[1] - 1];
