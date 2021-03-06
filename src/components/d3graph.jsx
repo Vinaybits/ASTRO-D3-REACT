@@ -93,13 +93,8 @@ const D3graph = (props) => {
          }
     }
      
-     const currentTopView = () =>{
-        if(context.sideTableDisplay){
-                return <Sidetable handleView={props.handleView}/>
-                            
-        }
-        else{
-            return <form className="form-inline" style={{fontSize:"1.1em",color:"#fff", marginTop:"2%" }} >
+     const currentTopDetails = () =>{
+            return <form className="form-inline" style={{fontSize:"1.1em",color:"#fff"}} >
                                                 <div className="form-group mx-md-3">
                                                     <label className="mr-2">Location:</label>
                                                     <label className="mr-2">{context.placeobserved}</label>
@@ -112,11 +107,19 @@ const D3graph = (props) => {
                                                     <label className="mr-2">End Date:</label>
                                                     <label className="mr-2">{context.endDate}</label>
                                                 </div>
+    <button type="button" class="btn btn-outline" onClick={() => props.handleView()} style={{marginLeft:"40px", color:"rgb(211,163,58",borderColor:"rgb(211,163,58"}}><i class="mdi mdi-refresh"></i> Reset</button>
                     </form>
-        }
         
     }
 
+    const SideTableView = () =>{
+        if(context.sideTableDisplay){
+            return <Sidetable/>
+        }
+        else {
+            return ""
+        }
+    }
 
 
     return (
@@ -126,18 +129,14 @@ const D3graph = (props) => {
                     <div className="card" style={{ "backgroundImage": "url("+bg_img+")", "backgroundPosition": "center","backgroundRepeat": "no-repeat" ,"backgroundSize": "cover", }}>
 
                         <div className="card-body" style={{ "padding": "10px" }}>
-                            <div class="row" style={{paddingLeft:"10px", display:"flex", flexWrap:"wrap"}}> 
-                                    <span className="header-title" style={{ "color": "#fff", width:"20%" }}> 
+                            <div className="row" style={{paddingLeft:"10px", display:"flex", flexWrap:"wrap"}}> 
+                                <span className="header-title" style={{ "color": "#fff", width:"20%" }}> 
                                     <div className="btn-group" >
-                                    <a href="" style={{"padding":"0","paddingLeft":"1px","paddingRight":"1px","margin":"0"}} onClick={backward_array} className={context.IsActive}><i style={{"fontSize":"25px","padding":"0","margin":"0"}} className="mdi mdi-skip-previous large"></i></a>
-
-                                    {/* <a href="#" style={{"padding":"0","margin":"0"}} class="btn btn-danger waves-effect"><i class="fe-square"></i></a> */}
-                                    <a href="#" style={{"padding":"0","paddingLeft":"1px","paddingRight":"1px","margin":"0"}} onClick={play_array} className={context.IsActive}><i style={{"fontSize":"25px","padding":"0","margin":"0"}} className={context.playicon}></i></a>
-
-                                    <a href="#" style={{"padding":"0","paddingLeft":"1px","paddingRight":"1px","margin":"0"}} onClick={forward_array} className={context.IsActive}><i style={{"fontSize":"25px","padding":"0","margin":"0"}} className="mdi mdi-skip-next "></i></a>
+                                        <a href="" style={{"padding":"0","paddingLeft":"1px","paddingRight":"1px","margin":"0"}} onClick={backward_array} className={context.IsActive}><i style={{"fontSize":"25px","padding":"0","margin":"0"}} className="mdi mdi-skip-previous large"></i></a>
+                                        <a href="#" style={{"padding":"0","paddingLeft":"1px","paddingRight":"1px","margin":"0"}} onClick={play_array} className={context.IsActive}><i style={{"fontSize":"25px","padding":"0","margin":"0"}} className={context.playicon}></i></a>
+                                        <a href="#" style={{"padding":"0","paddingLeft":"1px","paddingRight":"1px","margin":"0"}} onClick={forward_array} className={context.IsActive}><i style={{"fontSize":"25px","padding":"0","margin":"0"}} className="mdi mdi-skip-next "></i></a>
                                     </div>
                                     <div className="btn-group">
-                            
                                     <select style={{"padding":"0","paddingLeft":"1px","paddingRight":"1px","marginLeft":"8px",}} className="form-control"  value={speed} onChange={handleSpeed}>
                                         <option value="Normal">Normal</option>
                                         <option value="Very Slow">Very Slow</option>
@@ -146,20 +145,13 @@ const D3graph = (props) => {
                                         <option value="Very Fast">Very Fast</option>
                                     </select>    
                                     </div>
-                                    </span>    
-                                <div style={{ paddingLeft: "40px",width:"70%"}}>
-                                   {currentTopView()}
-                                </div>
-
-                                <div style={{width:"10%"}}>
-                                <button style={{marginTop:"2%"}} type="button" className="btn btn-danger waves-effect waves-light mr-1" onClick={() => props.handleView()}><i class="mdi mdi-circle mr-1"></i> Reset</button>
-                                </div>
-                               
+                                </span>   
+                            {currentTopDetails()} 
                             </div> 
 
                             <div className="row">
                                 <div className="col-lg-12">
-                                   
+                                {SideTableView()}
                                 <Chart1 city={context.placeobserved} start={context.startDate} end={context.endDate}/>
                                    
                                 </div>

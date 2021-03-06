@@ -9,83 +9,69 @@ class NatalChart extends Component {
   constructor(props) {
     super(props);
     this.d3_Chart_ref = React.createRef();
-
     this.state = {};
   }
+
   componentDidMount() {
     this.draw_chart_layout();
     this.rashi_placement();
     this.planet_positions();
   }
 
-  rashi_placement(){
-   
-    var data = 
-    [
-      { 
-      house: "11", 
-      value: ["Su", "Ma", "Sa"] 
-      },
-      
-      { house: "12", value: ["Su", "Ma", "Sa"] },
-      { house: "1", value: ["Su", "Ma", "Sa"] },
-      { house: "2", value: ["Su", "Ma", "Sa"] },
-      { house: "3", value: ["Su", "Ma", "Sa"] },
-      { house: "4", value: ["Su", "Ma", "Sa"] },
-      { house: "5", value: ["Su", "Ma", "Sa"] },
-      { house: "6", value: ["Su", "Ma", "Sa"] },
-      { house: "7", value: ["Su", "Ma", "Sa"] },
-      { house: "8", value: ["Su", "Ma", "Sa"] },
-      { house: "9", value: ["Su", "Ma", "Sa"] },
-      { house: "10", value: ["Su", "Ma", "Sa"] }
-    ];
+  componentDidUpdate(){
+     d3.select("#container").selectAll("planetClass1").remove()
+    this.planet_positions();
 
+  }
+
+  rashi_placement(){
+ 
     var container2 = d3.select("#container");
 
     container2
       .selectAll(".rashiText")
-      .data(data)
+      .data(this.props.data)
       .enter()
       .append("text")
       .attr("class", "rashiClass")
       .attr("transform", function (d,i) {
         var house1_x = 540;
         var house1_y = 400;
-        if(i == 0){
+        if(i === 0){
           return "translate("+house1_x+","+house1_y+")";
     
         }
-        else if(i==1){
+        else if(i===1){
           return "translate("+ (house1_x - 100)+","+(house1_y - 100)+")";
         }
-        else if(i==2){
+        else if(i===2){
           return "translate("+ (house1_x - 120)+","+(house1_y - 80)+")";
         }
-        else if(i==3){
+        else if(i===3){
           return "translate("+ (house1_x - 20)+","+(house1_y + 18)+")";
         }
-        else if(i==4){
+        else if(i===4){
           return "translate("+ (house1_x - 120)+","+(house1_y + 120)+")";
         }
-        else if(i==5){
+        else if(i===5){
           return "translate("+ (house1_x - 100)+","+(house1_y + 140)+")";
         }
-        else if(i==6){
+        else if(i===6){
           return "translate("+ (house1_x )+","+(house1_y + 40)+")";
         }
-        else if(i==7){
+        else if(i===7){
           return "translate("+ (house1_x +100 )+","+(house1_y + 140)+")";
         }
-        else if(i==8){
+        else if(i===8){
           return "translate("+ (house1_x +120 )+","+(house1_y + 120)+")";
         }
-        else if(i==9){
+        else if(i===9){
           return "translate("+ (house1_x + 20 )+","+(house1_y + 18)+")";
         }
-        else if(i==10){
+        else if(i===10){
           return "translate("+ (house1_x + 120 )+","+(house1_y - 80)+")";
         }
-        else if(i==11){
+        else if(i===11){
           return "translate("+ (house1_x + 100 )+","+(house1_y - 100)+")";
         }
         else{
@@ -100,33 +86,13 @@ class NatalChart extends Component {
       //     return "#SunSign_Arc_" + i;
       // })
       .text(function (d, i) {
-        return d.house;
+        return d.rashi;
       });
 
 
   }
 
   planet_positions(){
-    var data = 
-    [
-      { 
-      house: "11", 
-      value: ["Su1", "Ma1", "Sa1", "Ve", "Ur"] 
-      },
-      
-      { house: "12", value: ["Su2", "Ma2", "Sa2", "Ve", "Ur" ] },
-      { house: "1", value: ["Su3", "Ma3", "Sa3" , "Ve", "Ur"] },
-      { house: "2", value: ["Su4", "Ma4", "Sa" , "Ve", "Ur"] },
-      { house: "3", value: ["Su7", "Ma7", "Sa" , "Ve", "Ur"] },
-      { house: "4", value: ["Su7", "Ma7", "Sa" , "Ve", "Ur"] },
-      { house: "5", value: ["Su7", "Ma7", "Sa" , "Ve", "Ur"] },
-      { house: "6", value: ["Su7", "Ma7", "Sa" , "Ve", "Ur"] },
-      { house: "7", value: ["Su9", "Ma9", "Sa" , "Ve", "Ur"] },
-      { house: "8", value: ["Su10", "Ma10", "Sa" , "Ve", "Ur"] },
-      { house: "9", value: ["Su11", "Ma11", "Sa" , "Ve", "Ur"] },
-      { house: "10", value: ["Su12", "Ma12", "Ur"] }
-    ];
-
     var planet_container = d3.select("#container");
     var house1_x = 540;
     var house1_y = 320;
@@ -142,45 +108,45 @@ class NatalChart extends Component {
 
     planet_container
       .selectAll(".planetText1")
-      .data(data)
+      .data(this.props.data)
       .enter()
       .append("text")
       .attr("class", "planetClass1")
       .attr("transform", function (d,i) {
-        if(i == 0){
+        if(i === 0){
           return "translate("+house1_x+","+(house1_y-50)+")";
         }
-        else if(i==1){
+        else if(i===1){
           return "translate("+ (house1_x - 100)+","+(house1_y - 70)+")";
         }
-        else if(i==2){
+        else if(i===2){
           return "translate("+ (house1_x - 180)+","+(house1_y )+")";
         }
-        else if(i==3){
+        else if(i===3){
           return "translate("+ (house1_x - 100)+","+(house1_y + 100)+")";
         }
-        else if(i==4){
+        else if(i===4){
           return "translate("+ (house1_x - 180)+","+(house1_y + 200)+")";
         }
-        else if(i==5){
+        else if(i===5){
           return "translate("+ (house1_x - 100)+","+(house1_y + 250)+")";
         }
-        else if(i==6){
+        else if(i===6){
           return "translate("+ (house1_x )+","+(house1_y + 200)+")";
         }
-        else if(i==7){
+        else if(i===7){
           return "translate("+ (house1_x +100 )+","+(house1_y + 250)+")";
         }
-        else if(i==8){
+        else if(i===8){
           return "translate("+ (house1_x +180 )+","+(house1_y + 200)+")";
         }
-        else if(i==9){
+        else if(i===9){
           return "translate("+ (house1_x + 100 )+","+(house1_y + 100)+")";
         }
-        else if(i==10){
+        else if(i===10){
           return "translate("+ (house1_x + 180 )+","+(house1_y)+")";
         }
-        else if(i==11){
+        else if(i===11){
           return "translate("+ (house1_x + 100 )+","+(house1_y - 70)+")";
         }
         else{
@@ -195,56 +161,56 @@ class NatalChart extends Component {
       //     return "#SunSign_Arc_" + i;
       // })
       .text(function (d, i) {
-        return d.value[0];
+        return d.planets[0];
       });
 
 
       // second planet placement 
       planet_container
       .selectAll(".planetText2")
-      .data(data)
+      .data(this.props.data)
       .enter()
       .append("text")
       .attr("class", "planetClass2")
       .attr("transform", function (d,i) {
        
         
-        if(i == 0){
+        if(i === 0){
 
           return "translate("+(house1_x - 50)+","+house1_y+")";
     
         }
-        else if(i==1){
+        else if(i===1){
           return "translate("+ (house1_x - 120)+","+(house1_y - 50)+")";
         }
-        else if(i==2){
+        else if(i===2){
           return "translate("+ (house1_x - 180)+","+(house1_y - 40)+")";
         }
-        else if(i==3){
+        else if(i===3){
           return "translate("+ (house1_x - 100)+","+(house1_y + 80)+")";
         }
-        else if(i==4){
+        else if(i===4){
           return "translate("+ (house1_x - 180)+","+(house1_y + 160)+")";
         }
-        else if(i==5){
+        else if(i===5){
           return "translate("+ (house1_x - 100)+","+(house1_y + 270)+")";
         }
-        else if(i==6){
+        else if(i===6){
           return "translate("+ (house1_x )+","+(house1_y + 240)+")";
         }
-        else if(i==7){
+        else if(i===7){
           return "translate("+ (house1_x +100 )+","+(house1_y + 270)+")";
         }
-        else if(i==8){
+        else if(i===8){
           return "translate("+ (house1_x +180 )+","+(house1_y + 220)+")";
         }
-        else if(i==9){
+        else if(i===9){
           return "translate("+ (house1_x + 100 )+","+(house1_y + 80)+")";
         }
-        else if(i==10){
+        else if(i===10){
           return "translate("+ (house1_x + 180 )+","+(house1_y - 30 )+")";
         }
-        else if(i==11){
+        else if(i===11){
           return "translate("+ (house1_x + 100 )+","+(house1_y - 90)+")";
         }
         else{
@@ -259,52 +225,52 @@ class NatalChart extends Component {
       //     return "#SunSign_Arc_" + i;
       // })
       .text(function (d, i) {
-        return d.value[1];
+        return d.planets[1];
       });
 
 
       // Third Planet 
       planet_container
       .selectAll(".planetText3")
-      .data(data)
+      .data(this.props.data)
       .enter()
       .append("text")
       .attr("class", "planetClass3")
       .attr("transform", function (d,i) {
-        if(i == 0){
+        if(i === 0){
           return "translate("+(house1_x+50)+","+(house1_y)+")";
         }
-        else if(i==1){
+        else if(i===1){
           return "translate("+ (house1_x - 80)+","+(house1_y - 90)+")";
         }
-        else if(i==2){
+        else if(i===2){
           return "translate("+ (house1_x - 180)+","+(house1_y + 20)+")";
         }
-        else if(i==3){
+        else if(i===3){
           return "translate("+ (house1_x - 140)+","+(house1_y + 100)+")";
         }
-        else if(i==4){
+        else if(i===4){
           return "translate("+ (house1_x - 180)+","+(house1_y + 220)+")";
         }
-        else if(i==5){
+        else if(i===5){
           return "translate("+ (house1_x - 100)+","+(house1_y + 230)+")";
         }
-        else if(i==6){
+        else if(i===6){
           return "translate("+ (house1_x + 50 )+","+(house1_y + 200)+")";
         }
-        else if(i==7){
+        else if(i===7){
           return "translate("+ (house1_x +100 )+","+(house1_y + 235)+")";
         }
-        else if(i==8){
+        else if(i===8){
           return "translate("+ (house1_x +180 )+","+(house1_y + 180)+")";
         }
-        else if(i==9){
+        else if(i===9){
           return "translate("+ (house1_x + 140 )+","+(house1_y + 100)+")";
         }
-        else if(i==10){
+        else if(i===10){
           return "translate("+ (house1_x + 180 )+","+(house1_y + 20)+")";
         }
-        else if(i==11){
+        else if(i===11){
           return "translate("+ (house1_x + 100 )+","+(house1_y - 50)+")";
         }
         else{
@@ -319,51 +285,51 @@ class NatalChart extends Component {
       //     return "#SunSign_Arc_" + i;
       // })
       .text(function (d, i) {
-        return d.value[2];
+        return d.planets[2];
       });
 
       // fourth Planet 
       planet_container
       .selectAll(".planetText4")
-      .data(data)
+      .data(this.props.data)
       .enter()
       .append("text")
       .attr("class", "planetClass4")
       .attr("transform", function (d,i) {
-        if(i == 0){
+        if(i === 0){
           return "translate("+house1_x+","+(house1_y + 50)+")";
         }
-        else if(i==1){
+        else if(i===1){
           return "translate("+ (house1_x - 140)+","+(house1_y - 90)+")";
         }
-        else if(i==2){
+        else if(i===2){
           return "translate("+ (house1_x - 180)+","+(house1_y + 40)+")";
         }
-        else if(i==3){
+        else if(i===3){
           return "translate("+ (house1_x - 100)+","+(house1_y + 160)+")";
         }
-        else if(i==4){
+        else if(i===4){
           return "translate("+ (house1_x - 180)+","+(house1_y + 240)+")";
         }
-        else if(i==5){
+        else if(i===5){
           return "translate("+ (house1_x - 140)+","+(house1_y + 280)+")";
         }
-        else if(i==6){
+        else if(i===6){
           return "translate("+ (house1_x )+","+(house1_y + 150)+")";
         }
-        else if(i==7){
+        else if(i===7){
           return "translate("+ (house1_x +140 )+","+(house1_y + 270)+")";
         }
-        else if(i==8){
+        else if(i===8){
           return "translate("+ (house1_x +180 )+","+(house1_y + 150)+")";
         }
-        else if(i==9){
+        else if(i===9){
           return "translate("+ (house1_x + 100 )+","+(house1_y + 140)+")";
         }
-        else if(i==10){
+        else if(i===10){
           return "translate("+ (house1_x + 180 )+","+(house1_y + 40)+")";
         }
-        else if(i==11){
+        else if(i===11){
           return "translate("+ (house1_x + 140 )+","+(house1_y - 70)+")";
         }
         else{
@@ -378,52 +344,52 @@ class NatalChart extends Component {
       //     return "#SunSign_Arc_" + i;
       // })
       .text(function (d, i) {
-        return d.value[3];
+        return d.planets[3];
       });
       
 // fiveth Planet 
 
 planet_container
 .selectAll(".planetText5")
-.data(data)
+.data(this.props.data)
 .enter()
 .append("text")
 .attr("class", "planetClass5")
 .attr("transform", function (d,i) {
-  if(i == 0){
+  if(i === 0){
     return "translate("+house1_x+","+(house1_y-30)+")";
   }
-  else if(i==1){
+  else if(i===1){
     return "translate("+ (house1_x - 60)+","+(house1_y - 70)+")";
   }
-  else if(i==2){
+  else if(i===2){
     return "translate("+ (house1_x - 140)+","+(house1_y )+")";
   }
-  else if(i==3){
+  else if(i===3){
     return "translate("+ (house1_x - 50)+","+(house1_y + 100)+")";
   }
-  else if(i==4){
+  else if(i===4){
     return "translate("+ (house1_x - 180)+","+(house1_y + 180)+")";
   }
-  else if(i==5){
+  else if(i===5){
     return "translate("+ (house1_x - 60)+","+(house1_y + 280)+")";
   }
-  else if(i==6){
+  else if(i===6){
     return "translate("+ (house1_x - 50 )+","+(house1_y + 200)+")";
   }
-  else if(i==7){
+  else if(i===7){
     return "translate("+ (house1_x + 60 )+","+(house1_y + 270)+")";
   }
-  else if(i==8){
+  else if(i===8){
     return "translate("+ (house1_x +180 )+","+(house1_y + 240)+")";
   }
-  else if(i==9){
+  else if(i===9){
     return "translate("+ (house1_x + 50 )+","+(house1_y + 100)+")";
   }
-  else if(i==10){
+  else if(i===10){
     return "translate("+ (house1_x + 150 )+","+(house1_y)+")";
   }
-  else if(i==11){
+  else if(i===11){
     return "translate("+ (house1_x + 60 )+","+(house1_y - 70)+")";
   }
   else{
@@ -438,7 +404,7 @@ planet_container
 //     return "#SunSign_Arc_" + i;
 // })
 .text(function (d, i) {
-  return d.value[4];
+  return d.planets[4];
 });
 
 
@@ -549,7 +515,7 @@ planet_container
     //   //     return "#SunSign_Arc_" + i;
     //   // })
     //   .text(function (d, i) {
-    //     return d.value;
+    //     return d.planets;
     //   });
 
       
@@ -558,7 +524,6 @@ planet_container
   render() {
     return (
       <>
-        
         <div ref={this.d3_Chart_ref}></div>
       </>
     );

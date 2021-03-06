@@ -16,7 +16,8 @@ export default function Table({ columns, data }) {
     useFilters,
     useSortBy
   );
-
+  console.log("inTable")
+    console.log(data)
 
   // Render the UI for your table
   return (

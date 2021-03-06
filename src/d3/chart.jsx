@@ -17,12 +17,8 @@ class BarChart extends Component {
 
     }
 
-
-
     componentDidMount() {
         console.log("context");
-        console.log(this.context.planet);
-       
         this.astro_wheel(this.context.planet);
         this.draw_planets(this.context.planet);
     }
@@ -522,7 +518,7 @@ class BarChart extends Component {
             .domain(data2.map(function (d) {
                 return d.name;
             })); // The domain of the X axis is the list of states.
-        var y = d3.scaleOrdinal()
+            y = d3.scaleOrdinal()
             .range([second_inner_radius, second_outer_radius]) // Domain will be define later.
             .domain([0, 14000]); // Domain of Y is from 0 to the max seen in the data
 
@@ -792,7 +788,7 @@ class BarChart extends Component {
 
                     var naks_degree = 360 / 27;
 
-                    var padas_degree = 360 / 108;
+                    // var padas_degree = 360 / 108;
                     var name = d.name;
                     var degree = d.degree;
                     var motion = d.motion;
@@ -824,7 +820,7 @@ class BarChart extends Component {
                     }
 
                     //  this loop is for NAKS highlight
-                    for (var i = 0; i <= 26; i++) {
+                    for (i = 0; i <= 26; i++) {
                         if (degree >= (naks_degree * i) && degree < (naks_degree * (i + 1))) {
                            // console.log(i + "- " + degree);
                             naks_name = naks_data[(26-i)].name;
@@ -913,8 +909,8 @@ class BarChart extends Component {
 
                     .attr("class", "planet")
                     .on("mouseover", function (d) {
-                        var x = d3.event.clientX;
-                        var y = d3.event.clientY;
+                        // var x = d3.event.clientX;
+                        // var y = d3.event.clientY;
                         // console.log("ok" + x + "-" + y);
                         tooltip_
 
@@ -982,7 +978,7 @@ class BarChart extends Component {
             }
 
             //  this loop is for NAKS highlight
-            for (var i = 0; i <= 26; i++) {
+            for (i = 0; i <= 26; i++) {
                 if (degree >= (naks_degree * i) && degree < (naks_degree * (i + 1))) {
                     animate_color_arc("#NAKS_Arc_" + (26 - i), "orange");
                     //console.log("true" + j)
@@ -1001,9 +997,6 @@ class BarChart extends Component {
 
         }
 
-        function between(degree) {
-            console.log(degree);
-        }
 
         function animate_color_arc(id, color) {
             setTimeout(function () {
@@ -1018,12 +1011,6 @@ class BarChart extends Component {
     }
 
     remove_highlight = () => {
-        var sunshine_degree = 360 / 12;
-        //console.log(sunshine_degree);
-        var naks_degree = 360 / 27;
-        // console.log(naks_degree);
-        var padas_degree = 360 / 108;
-        // console.log(padas);
         var gradient_color_padas = d3.scaleOrdinal()
             .domain([0, 1, 2, 3])
             .range(["#4ea1be", "#6bb0c9", "#87bfd3", "#a4cfde"]);
@@ -1037,7 +1024,7 @@ class BarChart extends Component {
         }
 
         //  this loop is for NAKS highlight
-        for (var i = 0; i <= 26; i++) {
+        for (i = 0; i <= 26; i++) {
 
             d3.select("#NAKS_Arc_" + (26 - i)).style("fill", "#467B89");
             //console.log("true" + j)
@@ -1061,7 +1048,7 @@ class BarChart extends Component {
 
   
     componentDidUpdate() {
-       
+       console.log("in update")
         d3.select("#orbit_container").selectAll("g.planet_cluster").remove();
         // this.astro_wheel(this.props.data);
         this.remove_highlight();
@@ -1075,7 +1062,6 @@ class BarChart extends Component {
 
     render() {
         return <>
-
             <div ref={this.myRef} ></div>
 
 

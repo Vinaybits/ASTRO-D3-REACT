@@ -10,10 +10,19 @@ const DashboardSideBar= (props) => {
     const context = React.useContext(GlobalContext)
     const [show,setShow] = useState(false)
     let [localview,setLocalview] = useState(context.currentView)
-    
+    let [localmode,setLocalmode] = useState("TransitionView")
      const handleClose = () =>{
         setShow(!show)
     }
+
+    const AreSnapshotDetailsFilled = () =>{
+         if(context.placeobserved===null){
+                return false;
+        }
+        else{
+            return true;
+        }
+     }
 
 
     const AreDetailsFilled = () =>{
@@ -35,13 +44,28 @@ const DashboardSideBar= (props) => {
 
 
 
+
+
     const handleView = (selectedName) => {
-        setLocalview(selectedName)
-         if(AreDetailsFilled()){
-         context.change_View(selectedName);
+          if(selectedName==="Snapshot" || selectedName ==="Natal Chart"){
+              setLocalmode("Snapshot")
+              setLocalview(selectedName)
+               if(AreSnapshotDetailsFilled()){
+                context.change_View(selectedName);
+            }
+            else{
+                setShow(!show)
+            }
          }
          else{
-             setShow(!show)
+            setLocalmode("TransitionView")
+            setLocalview(selectedName)
+            if(AreDetailsFilled()){
+                context.change_View(selectedName);
+            }
+            else{
+                setShow(!show)
+            }
          }
     }
 
@@ -49,7 +73,7 @@ const DashboardSideBar= (props) => {
         <>
  
             {/*<!-- ========== Left Sidebar Start ========== --> */}
-            <Sideform show={show} mode="TransitionView" view={localview} handleClose={handleClose} reset={false}/>
+            <Sideform show={show} mode={localmode} view={localview} handleClose={handleClose} reset={false}/>
             <div className="left-side-menu">
 
                 <div className="h-100" data-simplebar>
@@ -140,10 +164,10 @@ const DashboardSideBar= (props) => {
                                             <a href="#Journey" onClick={()=>handleView("Journey View")}>Planet Journey</a>
                                         </li>
                                         <li>
-                                            <a href="#Snapshot" onClick={()=>handlePlainView("Snapshot")}>Snapshot</a>
+                                            <a href="#Snapshot" onClick={()=>handleView("Snapshot")}>Snapshot</a>
                                         </li>
                                         <li>
-                                            <a href="#NatalChart" onClick={()=>handlePlainView("Natal Chart")}>Natal Chart</a>
+                                            <a href="#NatalChart" onClick={()=>handleView("Natal Chart")}>Natal Chart</a>
                                         </li>
                                         
 

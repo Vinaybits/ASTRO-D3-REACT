@@ -259,6 +259,11 @@ export class GlobalProvider extends Component {
 		 this.setState({IsLoading:false})
 	 }
 
+	 set_SnapshotCity = (city) =>
+	 {
+		 this.setState({placeobserved:city});	
+	 }
+
 	 operations_panchang_date = (value) =>{
 		 if(value==='today'){
 			 this.setState({panchangDate:new Date()})
@@ -361,6 +366,7 @@ export class GlobalProvider extends Component {
 		setJourneyloading: () =>this.setJourneyLoading(),
 		togglebutton: this.toggle,
 		placeobserved:null,
+		Snapshotplaceobserved:null,
 		startDate:null,
 		endDate:null,
 		panchangDate:new Date(),
@@ -372,7 +378,8 @@ export class GlobalProvider extends Component {
 		resetForm: () => this.reset_form_for_journey(),
 		resetLoading:(value) => this.reset_loading(value),
 		setStateForJourney: (a,b,c) => this.set_journey_states(a,b,c),
-		panchang_date_change : (value) => this.operations_panchang_date(value)
+		panchang_date_change : (value) => this.operations_panchang_date(value),
+		setSnapshotCity : (city) => this.set_SnapshotCity(city)
 	
 	};
 

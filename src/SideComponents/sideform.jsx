@@ -50,159 +50,150 @@ class sideform extends Component {
 
 
   alertclick = (e) => {
-    e.preventDefault();
-    let start_Date = "";
-    let end_Date = "";
-    let from_year = "",
-      from_month = "",
-      from_day = "";
-    let to_year = "",
-      to_month = "",
-      to_day = "";
-    let lat = "",
-      long = "";
-    let offset = "";
 
-    start_Date = this.state.startDate;
-    end_Date = this.state.endDate;
+        e.preventDefault();
+        let start_Date = "";
+        let end_Date = "";
+        let from_year = "",
+          from_month = "",
+          from_day = "";
+        let to_year = "",
+          to_month = "",
+          to_day = "";
+        let lat = "",
+          long = "";
+        let offset = "";
 
-    let names = document.getElementById("auto_complete1").value;
-    this.setState({ city: names });
-  
-    from_year = moment(start_Date).format("YYYY");
-    from_month = moment(start_Date).format("MM");
-    from_day = moment(start_Date).format("DD");
+        start_Date = this.state.startDate;
+        end_Date = this.state.endDate;
 
-    to_year = moment(end_Date).format("YYYY");
-    to_month = moment(end_Date).format("MM");
-    to_day = moment(end_Date).format("DD");
-    let errors = this.state.errors;
-    let isFormValid = true;
+        let names = document.getElementById("auto_complete1").value;
+        this.setState({ city: names });
+      
+        from_year = moment(start_Date).format("YYYY");
+        from_month = moment(start_Date).format("MM");
+        from_day = moment(start_Date).format("DD");
 
-    if (start_Date == null || end_Date == null) {
-      errors["dateError"] = "Please select date range";
-      isFormValid = false;
-    }
+        to_year = moment(end_Date).format("YYYY");
+        to_month = moment(end_Date).format("MM");
+        to_day = moment(end_Date).format("DD");
+        let errors = this.state.errors;
+        let isFormValid = true;
 
-    
-    Object.entries(cities[0]).forEach(([key, value]) => {
-      if (key === names) {
-        long = Math.round(value.longitude).toFixed(2);
-        lat = Math.round(value.latitude).toFixed(2);
-      }
-      //console.log(`${key}: ${value}`);
-    });
-    offset = Math.round(long * 4 * 60);
-
-    if (names === "") {
-      // alert("Please select place of observation");
-      errors["observation"] = "Please select place of observation";
-      isFormValid = false;
-    } else if (lat === "" || long === "" || offset === "") {
-      // alert("Please choose correct place of observation");
-      errors["observation"] = "Please choose correct place of observation";
-      isFormValid = false;
-    }
-
-    this.setState({ errors: errors });
-
-
-
-      let url_string =
-      "http://api.omparashar.com/transit/multi/positions/overdaterange";
-    //var params = "?from_year=2020&from_month=1&from_day=1&to_year=2020&to_month=6&to_day=30&lat=29.47&long=77.69&offset=19800&p_nums=3&p_nums=4";
-    let params =
-      "?from_year=" +
-      from_year +
-      "&from_month=" +
-      from_month +
-      "&from_day=" +
-      from_day +
-      "&to_year=" +
-      to_year +
-      "&to_month=" +
-      to_month +
-      "&to_day=" +
-      to_day +
-      "&lat=" +
-      lat +
-      "&long=" +
-      long +
-      "&offset=" +
-      offset +
-      "&p_nums=0&p_nums=1&p_nums=2&p_nums=3&p_nums=4&p_nums=5&p_nums=6&p_nums=10&p_nums=100";
-    console.log(url_string+params)
-    // submit form and send reqest is valid date range and location
-    if (this.state.isValidDateRange && isFormValid) {
-      //formating start and end date for updateing api conetxt
-      var startDate = from_year+"/"+from_month+"/"+from_day;
-      var endDate = to_year+"/"+to_month+"/"+to_day;
-
-      //----end
-  
-      this.context
-        .callAPI_daterange(url_string + params, names, startDate, endDate)
-        .then((result) => {
-          if (result) {
-             this.context.changeSideTableDisplay(false);
+        if (start_Date == null || end_Date == null) {
+          errors["dateError"] = "Please select date range";
+          isFormValid = false;
+        }
+        Object.entries(cities[0]).forEach(([key, value]) => {
+          if (key === names) {
+            long = Math.round(value.longitude).toFixed(2);
+            lat = Math.round(value.latitude).toFixed(2);
           }
+          //console.log(`${key}: ${value}`);
         });
-      // this.setState({open: false});
-    }
+        offset = Math.round(long * 4 * 60);
 
+        if (names === "") {
+          // alert("Please select place of observation");
+          errors["observation"] = "Please select place of observation";
+          isFormValid = false;
+        } else if (lat === "" || long === "" || offset === "") {
+          // alert("Please choose correct place of observation");
+          errors["observation"] = "Please choose correct place of observation";
+          isFormValid = false;
+        }
 
-
-      this.context.resetForm();
-      let pnums = [0,1,2,3,4,5,6,10,100]
-      this.context.resetLoading(true);
-
-    for(let i=0; i<pnums.length;i++){
-      let url_string =
-      "http://api.omparashar.com/transit/journey/overdaterange";
-    //var params = "?from_year=2020&from_month=1&from_day=1&to_year=2020&to_month=6&to_day=30&lat=29.47&long=77.69&offset=19800&p_nums=3&p_nums=4";
-    let params =
-      "?from_year=" +
-      from_year +
-      "&from_month=" +
-      from_month +
-      "&from_day=" +
-      from_day +
-      "&to_year=" +
-      to_year +
-      "&to_month=" +
-      to_month +
-      "&to_day=" +
-      to_day +
-      "&lat=" +
-      lat +
-      "&long=" +
-      long +
-      "&offset=" +
-      offset +
-      "&p_num="+
-      pnums[i];
-    console.log(url_string+params)
-    // submit form and send reqest is valid date range and location
-    if (this.state.isValidDateRange && isFormValid) {
-      //formating start and end date for updateing api conetxt
-      var startDate = from_year+"/"+from_month+"/"+from_day;
-      var endDate = to_year+"/"+to_month+"/"+to_day;
-  
-      this.context
-        .callAPI_Journey_daterange(url_string + params)
-        .then((result) => {
-          if (result){
-            if(this.context.repositories.length >= 9){
-              this.context.setStateForJourney(names,startDate,endDate);
-               this.context.change_View(this.props.view);
-              this.props.handleClose();
-              this.context.resetLoading(false);
+        this.setState({ errors: errors });
+          let url_string =
+          "http://api.omparashar.com/transit/multi/positions/overdaterange";
+        //var params = "?from_year=2020&from_month=1&from_day=1&to_year=2020&to_month=6&to_day=30&lat=29.47&long=77.69&offset=19800&p_nums=3&p_nums=4";
+        let params =
+          "?from_year=" +
+          from_year +
+          "&from_month=" +
+          from_month +
+          "&from_day=" +
+          from_day +
+          "&to_year=" +
+          to_year +
+          "&to_month=" +
+          to_month +
+          "&to_day=" +
+          to_day +
+          "&lat=" +
+          lat +
+          "&long=" +
+          long +
+          "&offset=" +
+          offset +
+          "&p_nums=0&p_nums=1&p_nums=2&p_nums=3&p_nums=4&p_nums=5&p_nums=6&p_nums=10&p_nums=100";
+        console.log(url_string+params)
+        // submit form and send reqest is valid date range and location
+        if (this.state.isValidDateRange && isFormValid) {
+          //formating start and end date for updateing api conetxt
+          var startDate = from_year+"/"+from_month+"/"+from_day;
+          var endDate = to_year+"/"+to_month+"/"+to_day;
+          //----end
+          this.context
+            .callAPI_daterange(url_string + params, names, startDate, endDate)
+            .then((result) => {
+              if (result) {
+                this.context.changeSideTableDisplay(false);
               }
+            });
+          // this.setState({open: false});
+        }
+          this.context.resetForm();
+          let pnums = [0,1,2,3,4,5,6,10,100]
+          this.context.resetLoading(true);
 
+        for(let i=0; i<pnums.length;i++){
+          let url_string =
+          "http://api.omparashar.com/transit/journey/overdaterange";
+        //var params = "?from_year=2020&from_month=1&from_day=1&to_year=2020&to_month=6&to_day=30&lat=29.47&long=77.69&offset=19800&p_nums=3&p_nums=4";
+        let params =
+          "?from_year=" +
+          from_year +
+          "&from_month=" +
+          from_month +
+          "&from_day=" +
+          from_day +
+          "&to_year=" +
+          to_year +
+          "&to_month=" +
+          to_month +
+          "&to_day=" +
+          to_day +
+          "&lat=" +
+          lat +
+          "&long=" +
+          long +
+          "&offset=" +
+          offset +
+          "&p_num="+
+          pnums[i];
+        console.log(url_string+params)
+        // submit form and send reqest is valid date range and location
+        if (this.state.isValidDateRange && isFormValid) {
+          //formating start and end date for updateing api conetxt
+          var startDate = from_year+"/"+from_month+"/"+from_day;
+          var endDate = to_year+"/"+to_month+"/"+to_day;
+      
+          this.context
+            .callAPI_Journey_daterange(url_string + params)
+            .then((result) => {
+              if (result){
+                if(this.context.repositories.length >= 9){
+                  this.context.setStateForJourney(names,startDate,endDate);
+                  this.context.change_View(this.props.view);
+                  this.props.handleClose();
+                  this.context.resetLoading(false);
+                  }
+
+              }
+            });
           }
-        });
-      }
-    }
+        }
 
   };
 
@@ -218,6 +209,19 @@ class sideform extends Component {
     this.setState({ city: names });
      this.context.set_Panchang_Date(this.state.panchangDate,names);
      this.callClose();
+  }
+
+   
+  alertclickSnapshot = (e) =>
+  {
+    e.preventDefault();
+    this.context.resetLoading(true);
+    let names = document.getElementById("auto_complete1").value;
+    this.setState({ city: names });
+    this.context.setSnapshotCity(names);
+    this.props.handleClose();
+    this.context.change_View(this.props.view);
+    this.context.resetLoading(false);
   }
 
 
@@ -287,6 +291,8 @@ class sideform extends Component {
       this.setState({ resetInputText: false });
     }
   };
+
+  
 
   resetForm() {
     // this.context.dataLoaded = false;
@@ -369,69 +375,23 @@ class sideform extends Component {
     //         this.setState({displaypanchangDate:this.state.panchangDate})
     // }
     const mode = this.props.mode;
-
     if(mode === "TransitionView"){
     return (
       <>
         <div className="">
           <Modal animation={false} size="md" dialogClassName={"primaryModal"} show={this.props.show} onHide={this.props.handleClose} centered>
-                        <Modal.Header 
-                          closeButton 
-                        >
-                         <Modal.Title id="contained-modal-title-vcenter">
-                          Update Details
-                        </Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body style={{paddingLeft:"120px"}}>
-          <div className="card" >
-            <div className="card-body" >
-              <form>
-                <div>
-     {/* <div>
-    <GooglePlacesAutocomplete
-      apiKey="AIzaSyD20dhIgpcWeejMM9vOzbzvIwX7DNXrQao"
-    />
-  </div>   */}
-    {/* <PlacesAutocomplete
-        value={this.state.address}
-        onChange={this.handleplaceChange}
-        onSelect={this.handleSelect}
-      >
-        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <div>
-            <input
-              {...getInputProps({
-                placeholder: 'Search Places ...',
-                className: 'location-search-input',
-              })}
-            />
-            <div className="autocomplete-dropdown-container">
-              {loading && <div>Loading...</div>}
-              {suggestions.map(suggestion => {
-                const className = suggestion.active
-                  ? 'suggestion-item--active'
-                  : 'suggestion-item';
-                // inline style for demonstration purpose
-                const style = suggestion.active
-                  ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                  : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                return (
-                  <div
-                    {...getSuggestionItemProps(suggestion, {
-                      className,
-                      style,
-                    })}
-                  >
-                    <span>{suggestion.description}</span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-      </PlacesAutocomplete> */}
-  </div>
-                <div className="form-group mb-1">
+              <Modal.Header 
+                closeButton 
+              >
+                <Modal.Title id="contained-modal-title-vcenter">
+                    Update Details
+                </Modal.Title>
+              </Modal.Header>
+            <Modal.Body style={{paddingLeft:"120px"}}>
+            <div className="card" >
+              <div className="card-body" >
+                <form>
+                  <div className="form-group mb-1">
                   <label htmlFor="example-input-small">Place of Observation</label>
                   <Autocomplete
                     defaultValue = {this.context.placeobserved}
@@ -439,7 +399,7 @@ class sideform extends Component {
                     handleChange={this.handleAutoCompleterChange}
                     suggestions={cities_name}
                     id="autocomplete"
-                    city=""
+                    city={this.context.placeobserved||""}
                   />
                   {this.state.errors.observation && (
                     <p className="form-error">
@@ -599,6 +559,60 @@ class sideform extends Component {
           </div>
         </div>
      </>                     
+    );
+  }
+  else if( mode === "Snapshot"){
+    return(
+       <>
+        <div className="">
+        <Modal animation={false} size="md" dialogClassName={"primaryModal"} show={this.props.show} onHide={this.props.handleClose} centered>
+            <Modal.Header closeButton >
+                <Modal.Title id="contained-modal-title-vcenter">
+                      Update Details
+                </Modal.Title>
+            </Modal.Header>
+        <Modal.Body style={{paddingLeft:"120px"}}>
+          <div className="card" style={{ display: this.state.open }}>
+            <div className="card-body">
+              <form>
+              <div className="form-group mb-1">
+                  <label htmlFor="example-input-small">Place of Observation</label>
+                  <Autocomplete
+                    resetInputText={this.state.resetInputText}
+                    handleChange={this.handleAutoCompleterChange}
+                    suggestions={cities_name}
+                    id="autocomplete"
+                    city={this.props.place}
+                  />
+                  {this.state.errors.observation && (
+                    <p className="form-error">
+                      {this.state.errors.observation}
+                    </p>
+                  )}
+              </div>
+                  <button
+                    type="submit"
+                    className="ladda-button btn"
+                    style={{ backgroundColor: "#03428D", color: "#fff" }}
+                    onClick={this.alertclickSnapshot}
+                    disabled={this.context.IsLoading}
+                  >
+                    {this.context.IsLoading ? (
+                      <span>
+                        Getting Data{" "}
+                        <i className="mdi mdi-spin mdi-loading mr-1 font-16"></i>
+                      </span>
+                    ) : (
+                      "Update"
+                    )}
+                  </button>
+              </form>
+            </div>
+          </div>
+        </Modal.Body>
+        </Modal>
+        </div>
+       </>                     
     );
   }
   }

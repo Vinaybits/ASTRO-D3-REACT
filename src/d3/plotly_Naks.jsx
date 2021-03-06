@@ -2001,7 +2001,7 @@ switch_naksview = ()=>{
                                                     <label class="mr-2">End Date:</label>
                                                     <label class="mr-2" style={{color:"#343a40"}}>{this.context.endDate}</label>
                                                 </div>
-                                                 <button type="button" class="btn btn-danger waves-effect waves-light mr-1" onClick={() => this.props.handleView()}><i class="mdi mdi-circle mr-1"></i> Reset</button>
+                                                 <button type="button" className="btn btn-outline" onClick={() => this.props.handleView()} style={{marginLeft:"40px", color:"rgb(211,163,58",borderColor:"rgb(211,163,58"}}><i className="mdi mdi-refresh"></i> Reset</button>
                                             </form>
                                 </div>
                                        

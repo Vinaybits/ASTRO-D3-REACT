@@ -7,6 +7,7 @@ import './InitDashboard.css'
 const InitDashboard= () => {
     const context = React.useContext(GlobalContext)
     let [localview,setLocalview] = useState(context.currentView)
+    let [localmode,setLocalmode] = useState("TransitionView")
     const [show,setShow] = useState(false)
 
     
@@ -21,25 +22,47 @@ const InitDashboard= () => {
         else{
             return true;
         }
-    }
+     }
+
+     const AreSnapshotDetailsFilled = () =>{
+         if(context.placeobserved===null){
+                return false;
+        }
+        else{
+            return true;
+        }
+     }
 
     const handlePlainView = (selectedName) => {
         context.change_View(selectedName)
     }
 
      const handleView = (selectedName) => {
-         setLocalview(selectedName)
-         if(AreDetailsFilled()){
-         context.change_View(selectedName);
+         if(selectedName==="Snapshot" || selectedName ==="Natal Chart"){
+              setLocalmode("Snapshot")
+              setLocalview(selectedName)
+               if(AreSnapshotDetailsFilled()){
+                context.change_View(selectedName);
+            }
+            else{
+                setShow(!show)
+            }
          }
          else{
-             setShow(!show)
+            setLocalmode("TransitionView")
+            setLocalview(selectedName)
+            if(AreDetailsFilled()){
+                context.change_View(selectedName);
+            }
+            else{
+                setShow(!show)
+            }
          }
     }
     
     return(
                 <>
-                            <Sideform show={show} mode="TransitionView" handleClose={handleClose} view={localview} reset={false}/>
+                            <Sideform show={show} mode={localmode} handleClose={handleClose} view={localview} reset={false}/>
                          <div className="row">
 
                             <div className="col-xl-4 col-md-6">
@@ -168,7 +191,7 @@ const InitDashboard= () => {
                                                     <div className="col-3">
                                                     </div>
                                                     <div className="col-6">
-                                                        <button type="button" onClick={() => handlePlainView("Snapshot")}  className="btn btn-outline-primary waves-effect waves-light">Explore Here</button>
+                                                        <button type="button" onClick={() => handleView("Snapshot")}  className="btn btn-outline-primary waves-effect waves-light">Explore Here</button>
                                                     </div>
                                                     <div className="col-3">
                                                         
@@ -204,7 +227,7 @@ const InitDashboard= () => {
                                                        
                                                     </div>
                                                     <div className="col-6">
-                                                        <button type="button" onClick={() => handlePlainView("Natal Chart")}  className="btn btn-outline-success waves-effect waves-light">Explore Here</button>
+                                                        <button type="button" onClick={() => handleView("Natal Chart")}  className="btn btn-outline-success waves-effect waves-light">Explore Here</button>
                                                     </div>
                                                     <div className="col-3">
                                                     </div>
