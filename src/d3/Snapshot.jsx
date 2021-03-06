@@ -53,6 +53,7 @@ function Snapshot(props) {
   else{
     headerString ="null";
   }
+
   useEffect(() => {
     (async () => {
    let y = "";
@@ -64,7 +65,7 @@ function Snapshot(props) {
     let lat = "",
         long = "";
     let offset = "";
-    let c = contextType.placeobserved || "Hyderabad";
+    let c = contextType.placeobserved;
     if(newTime==null){
     h="00";
     mi="00";

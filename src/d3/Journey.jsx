@@ -91,14 +91,9 @@ class Journey extends Component {
 
       };
     }, ()=>this.setOptions());
-
-
   }
 
   setOptions() {
-    console.log(_.isEqual(this.state.repositories, this.state.repositoriess))
-    console.log(this.state.repositories)
-    console.log(this.state.repositoriess)
     let array = []
     this.state.repositoriess.transits.forEach(function (arrayItem) {
       if (arrayItem !== null) {
@@ -115,14 +110,13 @@ class Journey extends Component {
   }
 
   createChart() {
-    console.log("create CHart")
+
     const addZero = (i) => {
       if (i < 10) {
         i = "0" + i;
       }
       return i;
     }
-
     const humanizeDate = (event_datetime) => {
       const monthNames = [
         'Jan.',
@@ -147,7 +141,6 @@ class Journey extends Component {
         'Fri, ',
         'Sat, ',
       ];
-
       return `
        ${dayNames[event_datetime.getDay()]} ${monthNames[event_datetime.getMonth()]} ${event_datetime.getDate()} ${event_datetime.getFullYear()}
         ${addZero(event_datetime.getHours())}:${addZero(event_datetime.getMinutes())}:${addZero(event_datetime.getSeconds())}
@@ -155,23 +148,17 @@ class Journey extends Component {
     };
 
     const numberCommitsContainer = document.getElementById('numberCommits');
-
     const updateCommitsInformation = chart => {
-
       const filteredData = chart.filteredData()
         .reduce(
           (total, repo) =>
             total.concat(repo.data), []
         );
-
       numberCommitsContainer.textContent = filteredData.length;
       // zoomStart.textContent = humanizeDate(chart.scale().domain()[0]);
       // zoomEnd.textContent = humanizeDate(chart.scale().domain()[1])
 
     };
-
-
-
     const tooltip = d3
       .select('body')
       .append('div')
@@ -226,9 +213,7 @@ class Journey extends Component {
         },
       },
     });
-
     let repositoriesData = {}
-
     if (this.state.multiValue === null) {
       repositoriesData = this.state.repositoriess.transits.filter(f => !filterOptions.some(person => person.value === f.event_type)).map(repository => ({
         name: repository.event_type,
@@ -241,15 +226,11 @@ class Journey extends Component {
         data: repository.milestones,
       }));
     }
-
-    console.log(repositoriesData)
     //chart = d3.zoom().on("zoom", zoomed);
     d3.select('#events')
       .data([repositoriesData])
       .call(chart)
-
     updateCommitsInformation(chart);
-
   }
 
 
@@ -290,7 +271,7 @@ class Journey extends Component {
 
   generatePDF() {
     this.setState({ show: false })
-    const pdfData = this.state.repositories.transits.filter(f => this.state.pdfSelectedEvents.some(person => person.value === f.event_type)).map(repository => ({
+    const pdfData = this.state.repositoriess.transits.filter(f => this.state.pdfSelectedEvents.some(person => person.value === f.event_type)).map(repository => ({
       event_type: repository.event_type,
       data: repository.milestones
     }));
@@ -310,7 +291,7 @@ class Journey extends Component {
       var dateA = new Date(a.date), dateB = new Date(b.date);
       return dateA - dateB;
     });
-    console.log(pdfArray)
+
     const grouping = _.groupBy(pdfArray, element => element.date)
     const sections = _.map(grouping, (items, date) => ({
       date: date,
@@ -358,8 +339,7 @@ class Journey extends Component {
       }
       tabledata.push(newrow)
     })
-    console.log(tabledata)
-
+    
     const dummytabledata = []
 
     sections.forEach(function (row) {
@@ -367,14 +347,14 @@ class Journey extends Component {
       newrow.fill("")
       newrow[0] = row.date
       let end = 0;
-      console.log(headers)
+
       for (var i = 0; i < row.alerts.length; i++) {
         end = headers.indexOf(row.alerts[i].event_type.split(" ")[0]);
         newrow[end] += row.alerts[i].desc + " " + "@" + " " + row.alerts[i].time + "\n"
       }
       dummytabledata.push(newrow)
     })
-    console.log(dummytabledata)
+
 
 
 
@@ -383,7 +363,7 @@ class Journey extends Component {
       theme: 'grid',
       head: actualheaders,
       body: dummytabledata,
-      headerStyles: {
+      headStyles: {
         fontSize: 11,
         halign: 'center',
       },
@@ -435,6 +415,7 @@ class Journey extends Component {
     doc.text(title, 232, 80);
     doc.setFontSize(15);
     doc.setTextColor(80, 80, 80);
+
   }
 
 
@@ -464,7 +445,8 @@ class Journey extends Component {
                       <label className="mr-2">End Date:</label>
                       <label className="mr-2" style={{ color: "#343a40" }}>{this.context.endDate}</label>
                     </div>
-                    <button type="button" className="btn btn-danger waves-effect waves-light mr-1" onClick={() => this.props.handleView()}><i className="mdi mdi-circle mr-1"></i> Reset</button>
+                   
+                    <button type="button" className="btn btn-outline" onClick={() => this.props.handleView()} style={{marginLeft:"40px", color:"rgb(211,163,58",borderColor:"rgb(211,163,58"}}><i className="mdi mdi-refresh"></i> Reset</button>
                   </form>
                 </div>
               </div>
@@ -530,7 +512,8 @@ class Journey extends Component {
                   {this.state.loading ? (
                     <div>
                       <div className='loader'></div>
-                    </div>)
+                    </div>
+                    )
 
                     : (
                       <div>

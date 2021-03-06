@@ -10,44 +10,36 @@ const Sidetable = (props) => {
     console.log("super-" + planet_data_degree);
     return (
         <>
-             <div className="sub-heading" style={{color:"#fff"}}> Date : <span style={{ "fontSize": "0.9em"}} className="badge badge-pill badge-dark"> {date} </span> At 12:00 AM @ {context.placeobserved} </div>
-                        <table className="table table-sm table-bordered" style={{ "fontSize": "0.8em", color:"#fff", width:"70%" }} >
+            <div style={{position:"absolute", width:"30%"}}>
+             <div className="sub-heading" style={{color:"#fff"}}> Date : <span style={{ "fontSize": "0.9em",marginTop:"40px"}} className="badge badge-pill badge-dark"> {date} </span> <br></br> At 12:00 AM @ {context.placeobserved} </div>
+                        <table className="table table-sm table-bordered" style={{ "fontSize": "0.8em", color:"#fff", width:"50%"}} >
                             <thead>
-                                <tr>
+                               <tr>
                                     <th scope="col">Planet</th>
-                                     {
-                                            planet_data_degree && planet_data_degree.length > 0
-                                            ? planet_data_degree.map(item => {
-                                        return (
-                                            <>
-                                                    <th scope ="col">{item.name}</th>
-                                            </>
-                                        );
-                                    })
-                                    :""
-                                    }               
+                                    <th scope="col">Degrees</th>
 
                                 </tr>
                             </thead>
 
-                            <tr> 
-                                <th scope="row">Planet</th>
                             {
-                                
                                 planet_data_degree && planet_data_degree.length > 0
                                     ? planet_data_degree.map(item => {
                                         return (
                                             <>
+                                                <tr key={item.name}>
+                                                    <td>{item.name}</td>
                                         <td>{item.deg}&#176; <b>{ (item.motion === 'D')? '': 'R'}</b></td>
+
+                                                </tr>
                                             </>
                                         );
                                     })
-                                    : ""
+                                    : "."
 
                                 
                             }
-                        </tr>
                         </table>
+            </div>           
 
         </>
     );
