@@ -3,6 +3,20 @@
 body {
   margin: 0;
 }
+.text3d {
+  font-family:Garamond, serif;
+  line-height:1em;
+  color: #ff9407;
+  font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+  text-shadow: 0px 0px 0 rgb(217,118,0),
+                 1px 1px 0 rgb(184,85,0),
+                 2px 2px 0 rgb(152,53,0),
+                 3px 3px 0 rgb(119,20,0),
+                 4px 4px 0 rgb(86,-13,0),
+                 5px 5px  0 rgb(53,-46,0),
+                 6px 6px 5px rgba(0,0,0,0.37),
+                 6px 6px 1px rgba(0,0,0,0.5),
+                 0px 0px 5px rgba(0,0,0,.2);  }
 
 .btn {
   display: inline-block;

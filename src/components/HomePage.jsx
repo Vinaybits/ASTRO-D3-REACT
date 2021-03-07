@@ -45,15 +45,15 @@ const HomePage= () => {
             </div>
         </nav>
         {/* <!-- Masthead--> */}
-        <header className="masthead">
+        <header className="masthead text3d">
             <div className="container" style={{paddingLeft:"20%", paddingRight:"0"}}>
                 
                 
                  <div className="masthead-subheading" style={{textAlign:"left"}}>Inspired By... <br></br> </div>
                  <div className="masthead-subheading" style={{textAlign:"left", fontStyle:"normal", paddingLeft:"8%"}}>the great revelations of 
-                 <span style={{color:"#FE8B5D", fontStyle:"italic"}}> Rishi Parashar</span>
+                 <span style={{color:"#FE8B5D",}}> Rishi Parashar</span>
                   <br></br>
-                 in the world of <span style={{color:"#FE8B5D", fontStyle:"italic"}}>astrology</span>.
+                 in the world of <span style={{color:"#FE8B5D",}}>Astrology</span>.
  </div>
                
                
