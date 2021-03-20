@@ -120,8 +120,8 @@ class NatalChart extends Component {
                         .style("opacity", .9)
                         .style("width","auto")		
                         div.html(d.planets[0])	
-                        .style("left", (d3.event.pageX) + "px")		
-                        .style("top", (d3.event.pageY - 28) + "px");
+                        .style("left", (d3.event.clientX-20) + "px")		
+                        .style("top", (d3.event.clientY +20) + "px");
       })
       .on("mouseout", function (d) {
                         div.transition()		
@@ -196,8 +196,8 @@ class NatalChart extends Component {
                         .style("opacity", .9)
                         .style("width","auto")			
                         div.html(d.planets[1])	
-                        .style("left", (d3.event.pageX) + "px")		
-                        .style("top", (d3.event.pageY - 28) + "px");
+                        .style("left", (d3.event.clientX-20) + "px")		
+                        .style("top", (d3.event.clientY +20) + "px");
       })
       .on("mouseout", function (d) {
                         div.transition()		
@@ -274,8 +274,8 @@ class NatalChart extends Component {
                         .style("opacity", .9)
                         .style("width","auto")			
                         div.html(d.planets[2])	
-                        .style("left", (d3.event.pageX) + "px")		
-                        .style("top", (d3.event.pageY - 28) + "px");
+                        .style("left", (d3.event.clientX-20) + "px")		
+                        .style("top", (d3.event.clientY +20) + "px");
       })
       .on("mouseout", function (d) {
                         div.transition()		
@@ -349,8 +349,8 @@ class NatalChart extends Component {
                         .style("opacity", .9)
                         .style("width","auto")			
                         div.html(d.planets[3])	
-                        .style("left", (d3.event.pageX) + "px")		
-                        .style("top", (d3.event.pageY - 28) + "px");
+                        .style("left", (d3.event.clientX-20) + "px")		
+                        .style("top", (d3.event.clientY +20) + "px");
       })
       .on("mouseout", function (d) {
                         div.transition()		
@@ -425,8 +425,8 @@ planet_container
                         .style("opacity", .9)
                         .style("width","auto")			
                         div.html(d.planets[4])	
-                        .style("left", (d3.event.pageX) + "px")		
-                        .style("top", (d3.event.pageY - 28) + "px");
+                        .style("left", (d3.event.clientX-20) + "px")		
+                        .style("top", (d3.event.clientY +20) + "px");
 })
 .on("mouseout", function (d) {
                         div.transition()		
