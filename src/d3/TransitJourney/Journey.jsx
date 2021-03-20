@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-concat */
 import * as d3 from 'd3';
 import React, { Component } from 'react';
-import { GlobalContext } from '../mycontext';
+import { GlobalContext } from '../../mycontext';
 import eventDrops from 'event-drops';
 import './JourneyStyles.css';
 import Select from 'react-select';
@@ -10,6 +10,8 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button'
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import axios from 'axios';
+import * as cities from "../../components/cities.json";
 
 var _ = require('lodash');
 
@@ -34,68 +36,137 @@ const planets = [
   { value: 'Rahu', label: 'Rahu' },
   { value: 'Ketu', label: 'Ketu' }
 ];
+const planetnums = ['Sun','Moon','Mercury','Venus','Mars','Jupiter','Saturn','Uranus','Neptune','Pluto','Rahu'];
 
 const filterOptions = [
-  { value: 'Direction Event', label: 'Direction Event' },
-  { value: 'Rashi Event', label: 'Rashi Event' },
-  { value: 'Nakshtra Event', label: 'Nakshatra Event' },
-  { value: 'Pada Event', label: 'Pada Event' },
-  { value: 'Combustion Event', label: 'Combustion Event' },
-]
+            { value: 'Direction Event', label: 'Direction Event' },
+            { value: 'Rashi Event', label: 'Rashi Event' },
+            { value: 'Nakshtra Event' , label: 'Nakshatra Event' },
+            { value: 'Pada Event', label: 'Pada Event' },
+            { value: 'Combustion Event', label: 'Combustion Event' },
+            ]
 class Journey extends Component {
-  static contextType = GlobalContext;
-  constructor(props) {
-    super(props);
-    this.myRef = React.createRef();
-    this.state = {
-      selectedOption: { value: 'Jupiter', label: 'Jupiter' },
-      multiValue: [],
-      repositories: '',
-      repositoriess: '',
-      currentClass: 'col-lg-10 col-md-12',
-      loading: true,
-      show: false,
-      pdfSelectedEvents: [],
-    }
-    this.handleChange = this.handleChange.bind(this);
-    this.handleMultiChange = this.handleMultiChange.bind(this);
-    this.exportJourneyPDF = this.exportJourneyPDF.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-    this.handlePDFEvents = this.handlePDFEvents.bind(this)
-    this.generatePDF = this.generatePDF.bind(this)
-  }
-
-  componentWillMount() {
-    this.fetchData()
-  }
-
-  componentDidUpdate(newProps){
+     static contextType = GlobalContext;
+     constructor(props){
+      super(props);
+      this.myRef = React.createRef();
+      this.state = {
+            selectedOption:{ value: 'Jupiter', label: 'Jupiter' },
+            multiValue: [],
+            repositories:'',
+            currentClass: 'col-lg-10 col-md-12',
+            loading:true,
+            show:false,
+            pdfSelectedEvents:[]
+      }
+      this.handleChange = this.handleChange.bind(this);
+      this.handleMultiChange = this.handleMultiChange.bind(this);
+      this.exportJourneyPDF = this.exportJourneyPDF.bind(this);
+      this.handleClose = this.handleClose.bind(this);
+      this.handlePDFEvents = this.handlePDFEvents.bind(this)
+      this.generatePDF = this.generatePDF.bind(this)
+   }
+   componentWillMount() {
+      this.fetchData();
+   }
+   componentDidUpdate(newProps){
     if(this.props.city!==newProps.city || this.props.start!==newProps.start || this.props.end!==newProps.end){
+      this.setState({loading:true})
       this.fetchData()
     }
   }
 
-  fetchData() {
-    let planetrepo = ''
-    let p = this.state.selectedOption.value
 
-    this.context.repositories.forEach(function (arrayItem) {
-      if (arrayItem.planet_name === p) {
-        planetrepo = arrayItem
+   fetchData() {
+    let start_Date = "";
+    let end_Date = "";
+    let from_year = "",
+      from_month = "",
+      from_day = "";
+    let to_year = "",
+      to_month = "",
+      to_day = "";
+    let lat = "",
+      long = "";
+    let offset = "";
+    let pnum = 0;
+    if(this.state.selectedOption.value !=='Ketu'){
+    pnum = planetnums.indexOf(this.state.selectedOption.value)
+    }
+    else{
+        pnum=100
+    }
+    start_Date = this.context.startDate;
+    end_Date = this.context.endDate;
+    from_year = moment(start_Date).format("YYYY");
+    from_month = moment(start_Date).format("MM");
+    from_day = moment(start_Date).format("DD");
+
+    to_year = moment(end_Date).format("YYYY");
+    to_month = moment(end_Date).format("MM");
+    to_day = moment(end_Date).format("DD");
+
+    Object.entries(cities[0]).forEach(([key, value]) => {
+      if (key === this.context.placeobserved) {
+        long = Math.round(value.longitude).toFixed(2);
+        lat = Math.round(value.latitude).toFixed(2);
       }
     });
+      offset = Math.round(long * 4 * 60);
 
-    this.setState(state => {
-      return {
-        repositoriess: planetrepo,
 
+        let url_string =
+      "http://api.omparashar.com/transit/journey/overdaterange";
+    //var params = "?from_year=2020&from_month=1&from_day=1&to_year=2020&to_month=6&to_day=30&lat=29.47&long=77.69&offset=19800&p_nums=3&p_nums=4";
+    let params =
+      "?from_year=" +
+      from_year +
+      "&from_month=" +
+      from_month +
+      "&from_day=" +
+      from_day +
+      "&to_year=" +
+      to_year +
+      "&to_month=" +
+      to_month +
+      "&to_day=" +
+      to_day +
+      "&lat=" +
+      lat +
+      "&long=" +
+      long +
+      "&offset=" +
+      offset +
+      "&p_num=" +
+      pnum;
+      var config = {
+        method: 'get',
+        url: url_string+params,
+        headers: { }
       };
-    }, ()=>this.setOptions());
+      console.log(url_string+params)
+	  
+	  // always use arrow function otherwise this. will not work
+      axios(config)
+      .then((response) => {
+		  //set for SIDETABLE
+		  console.log(response.data)
+          this.setState(state => {
+      return {
+        repositories: response.data,
+        loading:false
+      };
+    },() => this.setOptions());
+    })
+      .catch(function (error) {
+		console.log("Result" + error);
+	  });
+
   }
 
   setOptions() {
     let array = []
-    this.state.repositoriess.transits.forEach(function (arrayItem) {
+    this.state.repositories.transits.forEach(function (arrayItem) {
       if (arrayItem !== null) {
         array.push({ label: arrayItem.event_type, value: arrayItem.event_type })
       }
@@ -215,13 +286,13 @@ class Journey extends Component {
     });
     let repositoriesData = {}
     if (this.state.multiValue === null) {
-      repositoriesData = this.state.repositoriess.transits.filter(f => !filterOptions.some(person => person.value === f.event_type)).map(repository => ({
+      repositoriesData = this.state.repositories.transits.filter(f => !filterOptions.some(person => person.value === f.event_type)).map(repository => ({
         name: repository.event_type,
         data: repository.milestones,
       }));
     }
     else {
-      repositoriesData = this.state.repositoriess.transits.filter(f => this.state.multiValue.some(person => person.value === f.event_type)).map(repository => ({
+      repositoriesData = this.state.repositories.transits.filter(f => this.state.multiValue.some(person => person.value === f.event_type)).map(repository => ({
         name: repository.event_type,
         data: repository.milestones,
       }));

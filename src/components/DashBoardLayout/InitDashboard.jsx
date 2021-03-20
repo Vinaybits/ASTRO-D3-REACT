@@ -1,6 +1,5 @@
  import React, {useState} from "react";
 import 'react-bootstrap';
-import Snapshot from "../../d3/Snapshot";
 import { GlobalContext } from '../../mycontext';
 import Sideform from "../../SideComponents/sideform";
 import './InitDashboard.css'
@@ -331,13 +330,13 @@ const InitDashboard= () => {
 
                                         <div id="cardCollpase2" className="collapse pt-3 show">
                                             <div className="text-center">
-                                                <div id="income-amounts" data-colors="#00acc1"><img alt="SMPhases" src={require("./Galactic.png")} className="introimage"/></div>
+                                                <div id="income-amounts" data-colors="#00acc1"><img alt="SMPhases" src={require("./SunAndMoonPhases.png")} className="introimagewide"/></div>
                                                 <div className="row mt-3">
                                                     <div className="col-3">
                                                        
                                                     </div>
                                                     <div className="col-6">
-                                                        <button type="button" onClick={() => handleView("Dashboard")}  className="btn btn-outline-success waves-effect waves-light">Explore Here</button>
+                                                        <button type="button" onClick={() => handleView("Sun and Moon Phases")}  className="btn btn-outline-success waves-effect waves-light">Explore Here</button>
                                                     </div>
                                                     <div className="col-3">
                                                     </div>

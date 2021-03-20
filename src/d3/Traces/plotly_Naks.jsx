@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Plotly from 'plotly.js';
 import moment from 'moment';
-import {GlobalContext } from '../mycontext';
-import '../d3/plotly.css';
+import {GlobalContext } from '../../mycontext';
+import './plotly.css';
 
 class Plotly_NAKS extends Component {
     static contextType = GlobalContext;

@@ -1,7 +1,6 @@
  import React, {useState} from "react";
 import 'react-bootstrap';
 import './DashboardCard.css';
-
 import { GlobalContext } from '../../mycontext';
 import Sideform from "../../SideComponents/sideform";
 
@@ -168,6 +167,9 @@ const DashboardSideBar= (props) => {
                                         </li>
                                         <li>
                                             <a href="#NatalChart" onClick={()=>handleView("Natal Chart")}>Natal Chart</a>
+                                        </li>
+                                        <li>
+                                            <a href="#SunandMoonPhases" onClick={()=>handleView("Sun and Moon Phases")}>Sun and Moon Phases</a>
                                         </li>
                                         
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3';
 import './d3.css';
-import { GlobalContext } from '../mycontext';
+import { GlobalContext } from '../../mycontext';
 
 
 class BarChart extends Component {

@@ -1,12 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { useState } from 'react';
-import { GlobalContext } from '../mycontext';
-import * as bg_img from '../components/bg_naks.jpg'
+import { GlobalContext } from '../../mycontext';
+import * as bg_img from '../../assets/img/bg_naks.jpg'
 // import { Link } from 'react-router-dom'
 
-import Chart1 from '../d3/chart';
-import Sidetable from '../SideComponents/sidetable';
+import Chart1 from './chart';
+import Sidetable from '../../SideComponents/sidetable';
 
 
 const D3graph = (props) => {

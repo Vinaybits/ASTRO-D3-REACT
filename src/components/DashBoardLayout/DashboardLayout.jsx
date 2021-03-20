@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import 'react-bootstrap';
 import "./DashboardCard.css"
 import { GlobalContext } from '../../mycontext';
-import D3graph from "../d3graph";
-import PlotlyNAKS from "../../d3/plotly_Naks";
-import Journey from "../../d3/Journey";
+import SunandMoonPhases from "../../d3/SunandMoonPhases/SunandMoonPhases";
 import InitDashboard from "./InitDashboard";
-
 import Sideform from "../../SideComponents/sideform";
 import Dash_Panchang from "../Dash-Panchang";
-import Natal_chart_layout from "../../d3/Panchang/Natal_chart_layout";
-import Snapshot from "../../d3/Snapshot";
+import D3graph from "../../d3/GalacticView/d3graph";
+import PlotlyNAKS from "../../d3/Traces/plotly_Naks";
+import Journey from "../../d3/TransitJourney/Journey";
+import Natal_chart_layout from "../../d3/NatalChart/Natal_chart_layout";
+import Snapshot from "../../d3/Snapshot/Snapshot";
 
 
 const DashboardLayout = (props) => {
@@ -64,6 +64,9 @@ const DashboardLayout = (props) => {
             }
             else if(view==="Natal Chart"){
                 return <Natal_chart_layout/>
+            }
+            else if(view==="Sun and Moon Phases"){
+                return <SunandMoonPhases city={context.placeobserved} start={context.startDate} end={context.endDate} handleView={handleView}/>
             }
     }
 

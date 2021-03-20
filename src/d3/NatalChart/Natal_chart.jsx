@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import * as d3 from "d3";
-import { GlobalProvider, GlobalContext } from "../../mycontext";
+
+import {  GlobalContext } from "../../mycontext";
 import './Natal.css';
-import DatePicker from 'react-date-picker'
-import TextField from "@material-ui/core/TextField";
+
 class NatalChart extends Component {
   static contextType = GlobalContext;
   constructor(props) {
@@ -105,13 +105,31 @@ class NatalChart extends Component {
       .attr("font-size", 15)
       .attr("font-family", "monospace")
       .attr("fill", "black");
-
+    // Define the div for the tooltip
+    var div = d3.select("body").append("div")	
+    .attr("class", "tooltip")				
+    .style("opacity", 0);
     planet_container
       .selectAll(".planetText1")
       .data(this.props.data)
       .enter()
       .append("text")
       .attr("class", "planetClass1")
+      .on("mouseover", function (d) {
+                        div.transition()				
+                        .style("opacity", .9)
+                        .style("width","auto")		
+                        div.html(d.planets[0])	
+                        .style("left", (d3.event.pageX) + "px")		
+                        .style("top", (d3.event.pageY - 28) + "px");
+      })
+      .on("mouseout", function (d) {
+                        div.transition()		
+                        .duration(200)		
+                        .style("opacity", 0)
+                        .style("width","auto")			
+       })
+
       .attr("transform", function (d,i) {
         if(i === 0){
           return "translate("+house1_x+","+(house1_y-50)+")";
@@ -161,7 +179,8 @@ class NatalChart extends Component {
       //     return "#SunSign_Arc_" + i;
       // })
       .text(function (d, i) {
-        return d.planets[0];
+        if(typeof d.planets[0]!== "undefined")
+          return d.planets[0].substring(0,2);
       });
 
 
@@ -172,9 +191,21 @@ class NatalChart extends Component {
       .enter()
       .append("text")
       .attr("class", "planetClass2")
+      .on("mouseover", function (d) {
+                        div.transition()			
+                        .style("opacity", .9)
+                        .style("width","auto")			
+                        div.html(d.planets[1])	
+                        .style("left", (d3.event.pageX) + "px")		
+                        .style("top", (d3.event.pageY - 28) + "px");
+      })
+      .on("mouseout", function (d) {
+                        div.transition()		
+                        .duration(200)		
+                        .style("opacity", 0)
+                        .style("width","auto")			
+       })
       .attr("transform", function (d,i) {
-       
-        
         if(i === 0){
 
           return "translate("+(house1_x - 50)+","+house1_y+")";
@@ -225,7 +256,8 @@ class NatalChart extends Component {
       //     return "#SunSign_Arc_" + i;
       // })
       .text(function (d, i) {
-        return d.planets[1];
+        if(typeof d.planets[1]!== "undefined")
+          return d.planets[1].substring(0,2);
       });
 
 
@@ -236,6 +268,21 @@ class NatalChart extends Component {
       .enter()
       .append("text")
       .attr("class", "planetClass3")
+      .on("mouseover", function (d) {
+                        div.transition()		
+                        .duration(200)		
+                        .style("opacity", .9)
+                        .style("width","auto")			
+                        div.html(d.planets[2])	
+                        .style("left", (d3.event.pageX) + "px")		
+                        .style("top", (d3.event.pageY - 28) + "px");
+      })
+      .on("mouseout", function (d) {
+                        div.transition()		
+                        .duration(200)		
+                        .style("opacity", 0)
+                        .style("width","auto")			
+       })
       .attr("transform", function (d,i) {
         if(i === 0){
           return "translate("+(house1_x+50)+","+(house1_y)+")";
@@ -285,7 +332,8 @@ class NatalChart extends Component {
       //     return "#SunSign_Arc_" + i;
       // })
       .text(function (d, i) {
-        return d.planets[2];
+        if(typeof d.planets[2]!== "undefined")
+          return d.planets[2].substring(0,2);
       });
 
       // fourth Planet 
@@ -295,6 +343,21 @@ class NatalChart extends Component {
       .enter()
       .append("text")
       .attr("class", "planetClass4")
+      .on("mouseover", function (d) {
+                        div.transition()		
+                        .duration(200)		
+                        .style("opacity", .9)
+                        .style("width","auto")			
+                        div.html(d.planets[3])	
+                        .style("left", (d3.event.pageX) + "px")		
+                        .style("top", (d3.event.pageY - 28) + "px");
+      })
+      .on("mouseout", function (d) {
+                        div.transition()		
+                        .duration(200)		
+                        .style("opacity", 0)
+                        .style("width","auto")			
+       })
       .attr("transform", function (d,i) {
         if(i === 0){
           return "translate("+house1_x+","+(house1_y + 50)+")";
@@ -344,7 +407,8 @@ class NatalChart extends Component {
       //     return "#SunSign_Arc_" + i;
       // })
       .text(function (d, i) {
-        return d.planets[3];
+        if(typeof d.planets[3]!== "undefined")
+          return d.planets[3].substring(0,2);
       });
       
 // fiveth Planet 
@@ -355,6 +419,21 @@ planet_container
 .enter()
 .append("text")
 .attr("class", "planetClass5")
+.on("mouseover", function (d) {
+                        div.transition()		
+                        .duration(200)		
+                        .style("opacity", .9)
+                        .style("width","auto")			
+                        div.html(d.planets[4])	
+                        .style("left", (d3.event.pageX) + "px")		
+                        .style("top", (d3.event.pageY - 28) + "px");
+})
+.on("mouseout", function (d) {
+                        div.transition()		
+                        .duration(200)		
+                        .style("opacity", 0)
+                        .style("width","auto")			
+       })
 .attr("transform", function (d,i) {
   if(i === 0){
     return "translate("+house1_x+","+(house1_y-30)+")";
@@ -404,7 +483,8 @@ planet_container
 //     return "#SunSign_Arc_" + i;
 // })
 .text(function (d, i) {
-  return d.planets[4];
+  if(typeof d.planets[4]!== "undefined")
+          return d.planets[4].substring(0,2);
 });
 
 
@@ -415,7 +495,6 @@ planet_container
    
   draw_chart_layout() {
     
-
     var json = [
       {
         chart: "D1",

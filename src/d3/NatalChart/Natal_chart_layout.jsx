@@ -155,11 +155,11 @@ class Natal_chart_layout extends Component{
                 .then((result) => {
                     //set for SIDETABLE
                       console.log(result.data)
-                      for (var key in result.data){
-                            for(var i in result.data[key]["planets"]){
-                                result.data[key]["planets"][i]=result.data[key]["planets"][i].substring(0,2)
-                       }
-                }
+                    //   for (var key in result.data){
+                    //         for(var i in result.data[key]["planets"]){
+                    //             result.data[key]["planets"][i]=result.data[key]["planets"][i].substring(0,2)
+                    //         }
+                    //     }
                 this.setState({data:result.data})
                 this.setState({dataIsReturned:true})
                 })

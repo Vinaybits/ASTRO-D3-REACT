@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { GlobalContext } from '../mycontext';
-import Table from "./Snapshot/Table";
-import "./Snapshot/Snapshot.css";
-import * as cities from "../components/cities.json";
+import { GlobalContext } from '../../mycontext';
+import Table from "./Table";
+import "./Snapshot.css";
+import * as cities from "../../components/cities.json";
 import DatePicker from 'react-date-picker'
 import TextField from "@material-ui/core/TextField";
 import jsPDF from "jspdf";

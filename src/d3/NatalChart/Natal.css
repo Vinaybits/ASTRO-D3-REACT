@@ -1,0 +1,40 @@
+.rashiClass {
+  fill: silver;
+  font-size: 15px;
+}
+
+.planetClass1 {
+  fill: black;
+  font-size: 15px;
+  padding: 10px;
+}
+
+.planetClass2 {
+  fill: black;
+  font-size: 15px;
+  padding: 10px;
+}
+
+.planetClass3 {
+  fill: black;
+  font-size: 15px;
+  padding: 10px;
+}
+
+.planetClass4 {
+  fill: black;
+  font-size: 15px;
+  padding: 10px;
+}
+
+.planetClass5 {
+  fill: black;
+  font-size: 15px;
+  padding: 10px;
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  pointer-events: none;
+}
