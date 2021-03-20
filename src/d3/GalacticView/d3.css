@@ -1,0 +1,151 @@
+#sun {
+    stroke: #000;
+    fill: #000;
+}
+
+.orbit {
+    stroke: transparent;
+    fill: transparent;
+}
+
+.planet {
+    stroke: #666;
+    fill: #fff;
+}
+
+.Planet_Text {
+    fill: #fff;
+    font-size: 10px;
+    z-index:999;
+}
+
+.Planet_degree {
+    fill: #dcd427;
+    font-size: 12px;
+}
+
+.moon {
+    stroke: #ccc;
+    fill: #fff;
+}
+
+.monthText {
+    fill: #fff;
+    font-size: 11px;
+}
+
+.naksText {
+    fill: #fff;
+    font-size: 10px;
+    letter-spacing: 1px;
+    word-wrap:break-word;
+    /* pointer-events: none; */
+}
+
+.planet_cluster {}
+
+.Planet_Text {
+    pointer-events: none;
+}
+
+.moon_cluster {
+    pointer-events: none;
+}
+
+.orbit {
+    pointer-events: none;
+}
+
+.Planet_degree {
+    pointer-events: none;
+}
+
+.tooltip212 {
+    background: #467B89;
+    min-width: 100px;
+    padding: 10px;
+    transition: all 0.25s cubic-bezier(0, 0, 0.2, 1);
+    color: #fff;
+    border: 1px solid #173F5F;
+    border-radius: 3px;
+    font-weight: 500;
+    z-index: 4;
+    display: none;
+    font-size: 12px;
+    position: fixed;
+    text-align: left;
+    top: 95px;
+    max-width: 150px;
+    transform: translateY(9px);
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 0 3px rgba(56, 54, 54, 0.86);
+    opacity: 0.8;
+}
+
+.tooltip-top::before {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 0px;
+    left: 0;
+    top: 50%;
+    border: 10px solid transparent;
+    border-left: 0;
+    border-right: 10px solid #467B89;
+    transform: translate(calc(-100% - 0px), -50%);
+}
+
+#play-button {
+    position: absolute;
+    top: 140px;
+    left: 50px;
+    background: #f08080;
+    padding-right: 26px;
+    border-radius: 3px;
+    border: none;
+    color: white;
+    margin: 0;
+    padding: 0 12px;
+    width: 60px;
+    cursor: pointer;
+    height: 30px;
+}
+
+#play-button:hover {
+    background-color: #696969;
+}
+
+.ticks {
+    font-size: 10px;
+}
+
+.track,
+.track-inset,
+.track-overlay {
+    stroke-linecap: round;
+}
+
+.track {
+    stroke: #000;
+    stroke-opacity: 0.3;
+    stroke-width: 10px;
+}
+
+.track-inset {
+    stroke: #dcdcdc;
+    stroke-width: 8px;
+}
+
+.track-overlay {
+    pointer-events: stroke;
+    stroke-width: 50px;
+    stroke: transparent;
+    cursor: crosshair;
+}
+
+.handle {
+    fill: #fff;
+    stroke: #000;
+    stroke-opacity: 0.5;
+    stroke-width: 1.25px;
+}

@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./dash-panchang.css";
 
-import "../d3/Holistic.css";
+import "./Holistic.css";
 import { GlobalContext } from "../mycontext";
 import * as cities from "./cities.json";
 import axios from "axios";
