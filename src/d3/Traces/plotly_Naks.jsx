@@ -69,6 +69,7 @@ class Plotly_NAKS extends Component {
         
         
                 var moment_obj = moment(JSON.parse(JSON.stringify(api_date)),'DD-MM-YYYY');
+
                 var date = moment(moment_obj).format('YYYY-MM-DD');
                 x_dates.push(date);
                 y_planet0.push(JSON.parse(JSON.stringify(planet_sun)));
@@ -82,16 +83,16 @@ class Plotly_NAKS extends Component {
                 y_planet8.push(JSON.parse(JSON.stringify(planet_ketu)));
             }
             //console.log("Superman -"+ x_dates+ "- deg-" + y_planet1[0]); 
-            var date_end = x_dates[x_dates.length-1];
-            var minDate_ = moment(x_dates[0],'DD-MM-YYYY');
-            var minDate = moment(minDate_).format('YYYY-MM-DD');
-            var maxDate_ = moment(date_end,'DD-MM-YYYY');
-            var maxDate = moment(maxDate_).format('YYYY-MM-DD');
-        
+            var maxDate = x_dates[x_dates.length-1];
+            var minDate=x_dates[0];
+            // var minDate_ = moment(x_dates[0],'DD-MM-YYYY');
+            // var minDate = moment(minDate_).format('YYYY-MM-DD');
+            // var maxDate_ = moment(date_end,'DD-MM-YYYY');
+            // var maxDate = moment(maxDate_).format('YYYY-MM-DD');
+
            // console.log("Dates " + minDate + "-" + (date_end) +"---- " + maxDate);
         
-        
-        
+            
             var sun_data = {
                 x: x_dates,
                 y: y_planet0,
@@ -806,11 +807,14 @@ apidate_format_rashi =() =>{
         y_planet8.push(JSON.parse(JSON.stringify(planet_ketu)));
     }
    // console.log("Superman -"+ x_dates+ "- deg-" + y_planet1[0]); 
-    var date_end = x_dates[x_dates.length-1];
-    var minDate_ = moment(x_dates[0],'DD-MM-YYYY');
-    var minDate = moment(minDate_).format('YYYY-MM-DD');
-    var maxDate_ = moment(date_end,'DD-MM-YYYY');
-    var maxDate = moment(maxDate_).format('YYYY-MM-DD');
+    // var date_end = x_dates[x_dates.length-1];
+    // var minDate_ = moment(x_dates[0],'DD-MM-YYYY');
+    // var minDate = moment(minDate_).format('YYYY-MM-DD');
+    // var maxDate_ = moment(date_end,'DD-MM-YYYY');
+    // var maxDate = moment(maxDate_).format('YYYY-MM-DD');
+
+    var maxDate = x_dates[x_dates.length-1];
+    var minDate=x_dates[0];
 
    // console.log("Dates " + minDate + "-" + (date_end) +"---- " + maxDate);
 
@@ -1274,11 +1278,14 @@ apidate_format_combined =() =>{
         y_planet8.push(JSON.parse(JSON.stringify(planet_ketu)));
     }
     // console.log("Superman -"+ x_dates+ "- deg-" + y_planet1[0]); 
-    var date_end = x_dates[x_dates.length-1];
-    var minDate_ = moment(x_dates[0],'DD-MM-YYYY');
-    var minDate = moment(minDate_).format('YYYY-MM-DD');
-    var maxDate_ = moment(date_end,'DD-MM-YYYY');
-    var maxDate = moment(maxDate_).format('YYYY-MM-DD');
+    // var date_end = x_dates[x_dates.length-1];
+    // var minDate_ = moment(x_dates[0],'DD-MM-YYYY');
+    // var minDate = moment(minDate_).format('YYYY-MM-DD');
+    // var maxDate_ = moment(date_end,'DD-MM-YYYY');
+    // var maxDate = moment(maxDate_).format('YYYY-MM-DD');
+
+    var maxDate = x_dates[x_dates.length-1];
+    var minDate=x_dates[0];
 
    // console.log("Dates " + minDate + "-" + (date_end) +"---- " + maxDate);
 

@@ -139,6 +139,65 @@
   display: inline-block;
 }
 
+.VeryGood {
+  margin-top: 6px;
+  background-color: rgb(57, 129, 29);
+  width: 80px;
+  display: inline-block;
+  padding-bottom: 7.5px;
+  /* padding-right: 50px; */
+  padding-top: 7.5px;
+}
+
+.Good {
+  margin-top: 6px;
+  background-color: rgb(155, 204, 58);
+  width: 80px;
+  display: inline-block;
+  padding-bottom: 7.5px;
+  padding-top: 7.5px;
+}
+
+.NotGood {
+  margin-top: 6px;
+  background-color: rgb(251, 214, 74);
+  width: 80px;
+  display: inline-block;
+  padding-bottom: 7.5px;
+  padding-top: 7.5px;
+}
+.Bad {
+  margin-top: 6px;
+  background-color: rgb(244, 179, 193);
+  width: 80px;
+  display: inline-block;
+  padding-bottom: 7.5px;
+  padding-top: 7.5px;
+}
+.VeryBad {
+  margin-top: 6px;
+  background-color: rgb(220, 52, 60);
+  width: 80px;
+  display: inline-block;
+  padding-bottom: 7.5px;
+  padding-top: 7.5px;
+}
+
+.tbalamheading1 {
+  font-size: 1.4em;
+  color: #0365b2;
+  margin-left: -50px;
+}
+
+.tbalamheading2 {
+  font-size: 1.4em;
+  color: #0365b2;
+  margin-left: -60px;
+}
+.td2tbalam1 {
+  margin-left: -17px;
+}
+
 ul li {
   display: inline;
 }

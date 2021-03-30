@@ -4,7 +4,7 @@ const Footer =() =>{
     return(
         <>
  
-                <footer className="footer">
+                <footer className="footer" style={{position:"fixed"}}>
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-md-6">

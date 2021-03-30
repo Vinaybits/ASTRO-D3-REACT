@@ -10,6 +10,8 @@ import Select from 'react-select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
+import Sidetable from "../../SideComponents/sidetable";
+import NatalSidetable from "./NatalSideTable";
 
 function pad(n) {
 
@@ -190,7 +192,7 @@ class Natal_chart_layout extends Component{
                                  <span className="header-title" style={{ "color": "#fff" }}>
                                 </span>
                                 <div className="row">
-                                    <div className="col-lg-12" style={{width:"80%", height:"700px"}}>
+                                    <div className="col-lg-12" style={{width:"80%",height: "600px"}}>
                                         <center>
                                         <label>Select Date, Time and Ascendant Number:</label>
                                         <div style={{marginBottom:"-50px"}}>
@@ -230,7 +232,11 @@ class Natal_chart_layout extends Component{
                                         </div>
                                        {
                                        isfetched ? 
+                                       <>
+                                        <NatalSidetable newTime={this.state.newTime} value={this.state.value}/>
                                        <NatalChart data={this.state.data}/>
+                                      
+                                       </>
                                         : ( <div>
                                                 <div className='loader' style={{marginLeft:"0%",marginTop:"20%"}}></div>
                                             </div>

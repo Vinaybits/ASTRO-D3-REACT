@@ -22,3 +22,7 @@ code {
   position: absolute;
   min-height: 100vh;
 }
+
+.footer {
+  position: "fixed";
+}

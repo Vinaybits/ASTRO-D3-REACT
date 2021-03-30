@@ -1,7 +1,6 @@
 /* eslint-disable no-useless-concat */
 import React, { useState, useEffect, useContext } from "react";
 import "./dash-panchang.css";
-
 import "./Holistic.css";
 import { GlobalContext } from "../mycontext";
 import * as cities from "./cities.json";
@@ -342,7 +341,6 @@ const setTimeFormatNaks = (timestring) => {
 
   function extract_madhyahna(obj) {
     if (obj !== null) {
-      console.log(obj)
       let obj_str = obj.split(",");
       let date_madhyahna = obj_str[0].split("/");
       let month_name = monthNames[date_madhyahna[1] - 1];
@@ -454,6 +452,7 @@ const Dash_Panchang = () => {
   let [ascendantsunrise, setascendantsunrise] = useState(null);
   let [nakshtratable, setnakshtratable] = useState(null);
   let [chogadiya, setchogadiya] = useState(null);
+  let [generictarabalam,setgenerictarabalam] =useState(null);
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -534,7 +533,8 @@ const Dash_Panchang = () => {
       const ascendantatsunrise = await holistic_api.get(`/ascendantsunrise${params}`);
       const naktable = await holistic_api.get(`/nakshtratable${params}`);
       const gaurichogadiya = await holistic_api.get(`/gaurichogadiya${params}`);
-      console.log(tithiresult.data)
+      const generictbalam = await holistic_api.get(`/generictarabalam${params}`);
+      console.log(generictbalam.data)
       setsunriseTime(sunriseresult.data);
       setsunsetTime(sunsetresult.data);
       setmoonriseTime(moonriseresult.data);
@@ -566,6 +566,7 @@ const Dash_Panchang = () => {
       setascendantsunrise(ascendantatsunrise.data);
       setnakshtratable(naktable.data);
       setchogadiya(gaurichogadiya.data);
+      setgenerictarabalam(generictbalam.data)
       setLoading(false)
       }
       catch(e){
@@ -573,6 +574,7 @@ const Dash_Panchang = () => {
       }
     })();
   }, [value, place]);
+
   let moonriseTimedisplay = remove_character(moonriseTime, 5);
   let sunriseTimedisplay = remove_character(sunriseTime, 5);
   let sunsetTimedisplay = remove_character(sunsetTime, 5);
@@ -602,6 +604,7 @@ const Dash_Panchang = () => {
   let trikaal = extract_trikaal(trikaalvalue);
   let naks = extract_naktable(nakshtratable);
   let cho = extract_cho(chogadiya)
+
   let dkayan = "";
   let vdayan = "";
 
@@ -667,6 +670,182 @@ const Dash_Panchang = () => {
   const prevDay = () => {
    contextType.panchang_date_change('previous');
   };
+
+  const HeaderPanchang = () => {
+    return(
+      <>
+        <div className="row" style={{ paddingTop: "2px" }}>
+              <div className="col-md-12 col-xl-12">
+                <div
+                  className="card-box"
+                  style={{
+                    padding: "10px",
+                    backgroundImage: `url(${background})`,
+                    width: "100%",
+                    height: "75%",
+                    marginBottom: "0px",
+                    boxShadow: "10px 10px 10px #333",
+                  }}
+                >
+                  <div
+                    className="card"
+                    style={{ background: "none", fontSize: "0.9rem" }}
+                  >
+                    <div className="card-body-holistic">
+                      <div className="dpPHeaderLeftContent">
+                        <img
+                          className="dpPHeaderImage"
+                          src={link}
+                          alt="Thithi"
+                        />
+                        <div className="dpPHeaderLeftTitle">
+                          <u>{tithiname_1}</u>
+                        </div>
+                        <div className="dpPHeaderLeftSubTitle">
+                          <u>{tithiname_2}</u>
+                        </div>
+                      </div>
+                      <div className="dpPHeaderRightContent">
+                        <div className="dpPHeaderRightTitle">
+                          <u>
+                            {day} {month_string}
+                          </u>
+                          <i
+                            onClick={handleCalendar}
+                            style={{
+                              fontSize: "20px",
+                              marginLeft: "4%",
+                              cursor: "pointer",
+                            }}
+                            className="dpPHeaderRightTitle fa"
+                          >
+                            &#xf073;
+                          </i>
+                        </div>
+                        <div className="dpPHeaderRightTitle">
+                          <u>{place}</u>{" "}
+                          <img
+                            onClick={handleCalendar}
+                            src={require("../assets/img/map.png")}
+                            alt="Map"
+                            className="MapIcon"
+                          />
+                        </div>
+                      </div>
+                      <div className="dpPHeaderCenterContent">
+                        <div className="dpPHeaderCenterTitle">
+                          <u>Daily Panchang</u>
+                        </div>
+                        <div className="button-list">
+                          <button
+                            type="button"
+                            className="btn btn-primary btn-sm waves-effect waves-light buttonpanchang"
+                            onClick={()=>prevDay()}
+                          >
+                            Prev Day
+                          </button>
+                          <button
+                            type="button"
+                            className="btn btn-primary btn-sm waves-effect waves-light buttonpanchang"
+                            onClick={()=>handleToday()}
+                          >
+                            Today
+                          </button>
+                          <button
+                            type="button"
+                            className="btn btn-primary btn-sm waves-effect waves-light buttonpanchang"
+                            onClick={()=>nextDay()}
+                          >
+                            Next Day
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* <!-- end row --> */}
+      </>
+    )
+  }
+  const SunRiseMoonRiseHTML = () => {
+    return(
+      <>
+      <tr className="table_head_tr" style={{}}>
+                          <th
+                            scope="col"
+                            colSpan="5"
+                            className="sectionheader"
+                            style={{ borderTop: "none" }}
+                          >
+                            Sun and Moon
+                          </th>
+                        </tr>
+                        <tr>
+                          <td className="td1">
+                            <span className="tablelabel">Sun Rise</span>
+                          </td>
+                          <td className="td2">
+                            <span className="tablevalue">
+                              <img
+                                src={require("../assets/img/sunrise.png")}
+                                alt="Sunrise"
+                                className="TableIcon"
+                              />
+                              {sunriseTimedisplay}
+                            </span>
+                          </td>
+                          <td className="td3">
+                            <span className="tablelabel">Sun Set</span>{" "}
+                          </td>
+                          <td className="td4">
+                            <span className="tablevalue">
+                              <img
+                                src={require("../assets/img/sunset.png")}
+                                alt="Sunset"
+                                className="TableIcon"
+                              />
+                              {sunsetTimedisplay}
+                            </span>
+                          </td>
+                        </tr>
+                        <tr className="lastrow">
+                          <td className="td1">
+                            <span className="tablelabel">Moon Rise</span>
+                          </td>
+                          <td className="td2">
+                            <span className="tablevalue">
+                              <img
+                                src={require("../assets/img/moonrise.png")}
+                                alt="MoonRise"
+                                className="TableIcon"
+                              />
+                              {moonriseTimedisplay}
+                            </span>
+                          </td>
+                          <td className="td3">
+                            <span className="tablelabel">Moon Set</span>
+                          </td>
+                          <td className="td4">
+                            <span className="tablevalue">
+                              <img
+                                src={require("../assets/img/moonset.png")}
+                                alt="Moonset"
+                                className="TableIcon"
+                              />
+                              {moonsetTimedisplay}
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colSpan="4">
+                          <hr className="style-seven"></hr>
+                          </td>
+      </tr>
+      </>
+  )
+  }
 
   const AscendantTableHTML = () => {
     if (asc.length > 0) {
@@ -838,7 +1017,7 @@ const Dash_Panchang = () => {
           </tr>
           <tr>
                         <td colSpan="4">
-                        <hr class="style-seven"></hr>
+                        <hr className="style-seven"></hr>
                         </td>
                       </tr>
         </>
@@ -887,7 +1066,7 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
                         <td colSpan="4">
-                        <hr class="style-seven"></hr>
+                        <hr className="style-seven"></hr>
                         </td>
                       </tr>
       </>
@@ -960,7 +1139,7 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
                         <td colSpan="4">
-                        <hr class="style-seven"></hr>
+                        <hr className="style-seven"></hr>
                         </td>
                       </tr>
 
@@ -1020,7 +1199,7 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
                         <td colSpan="4">
-                        <hr class="style-seven"></hr>
+                        <hr className="style-seven"></hr>
                         </td>
                       </tr>
       </>
@@ -1065,7 +1244,7 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
                         <td colSpan="4">
-                        <hr class="style-seven"></hr>
+                        <hr className="style-seven"></hr>
                         </td>
                       </tr>
       </>
@@ -1096,7 +1275,7 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
                         <td colSpan="4">
-                        <hr class="style-seven"></hr>
+                        <hr className="style-seven"></hr>
                         </td>
                       </tr>
       </>
@@ -1165,7 +1344,7 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
                         <td colSpan="4">
-                        <hr class="style-seven"></hr>
+                        <hr className="style-seven"></hr>
                         </td>
                       </tr>
       </>
@@ -1200,9 +1379,9 @@ const Dash_Panchang = () => {
         </tr>
         <tr>
                         <td colSpan="4">
-                        <hr class="style-seven"></hr>
+                        <hr className="style-seven"></hr>
                         </td>
-                      </tr>
+        </tr>
       </>
     )
     }
@@ -1219,11 +1398,11 @@ const Dash_Panchang = () => {
           <th scope="col" colSpan="5" className="sectionheader">
             <span>Choghadiya</span>
             <span className="spancolor">Auspicious</span>
-            <span className="color-box" style={{"background-color": "#8db332"}}></span>
+            <span className="color-box" style={{backgroundColor: "#8db332"}}></span>
             <span className="spancolor">Inauspicious</span>
-            <span className="color-box" style={{"background-color": "#cc3036"}}></span>
+            <span className="color-box" style={{backgroundColor: "#cc3036"}}></span>
             <span className="spancolor">Neutral</span>
-            <span className="color-box" style={{"background-color": "#585151"}}></span>
+            <span className="color-box" style={{backgroundColor: "#585151"}}></span>
           </th>
         </tr>
         <tr>
@@ -1361,8 +1540,197 @@ const Dash_Panchang = () => {
             <span className="tablevalue">{cho[47]}</span>
           </td>
         </tr>
+        <tr>
+                        <td colSpan="4">
+                        <hr className="style-seven"></hr>
+                        </td>
+        </tr>
       </>
     )
+    }
+    else{
+      return null;
+    }
+  }
+
+  const TaraBalamHTML = () =>{
+    if (typeof generictarabalam!== 'undefined') {
+      var verygood=generictarabalam.Quality_Mappings[1].For_Janma_Nakshtra;
+      var good=generictarabalam.Quality_Mappings[0].For_Janma_Nakshtra;
+      var notgood=generictarabalam.Quality_Mappings[2].For_Janma_Nakshtra;
+      var bad=generictarabalam.Quality_Mappings[3].For_Janma_Nakshtra;
+      var verybad=generictarabalam.Quality_Mappings[4].For_Janma_Nakshtra;
+      var verygoodnext=generictarabalam.Next_Quality_Mappings[1].For_Janma_Nakshtra;
+      var goodnext=generictarabalam.Next_Quality_Mappings[0].For_Janma_Nakshtra;
+      var notgoodnext=generictarabalam.Next_Quality_Mappings[2].For_Janma_Nakshtra;
+      var badnext=generictarabalam.Next_Quality_Mappings[3].For_Janma_Nakshtra;
+      var verybadnext=generictarabalam.Next_Quality_Mappings[4].For_Janma_Nakshtra;
+      var date =  new Date(generictarabalam.Upto)
+      var fromtime = date.getHours() + ":" +  (date.getMinutes()<10?'0':'') + date.getMinutes();
+      return (
+        <>
+        <tr className="table_head_tr">
+          <th scope="col" colSpan="5" className="sectionheader">
+            <span>Tara Balam</span>
+          </th>
+        </tr>
+        <tr>
+           <td className="td1">
+              <span className="tablelabel"></span>
+            </td>
+          <td className="td2 td2tbalam1">
+            <span className="tablevalue tbalamheading1"><b>From 12:00 AM to {setTimeFormatNaks(fromtime)}</b></span>
+          </td>
+          <td className="td3">
+              <span className="tablelabel"></span>
+            </td>
+          <td className="td4 td4tbalam2">
+            <span className="tablevalue tbalamheading2"><b>From {setTimeFormatNaks(fromtime)} to Rest of the Day</b></span>
+          </td>
+        </tr>
+          <tr>
+            <td className="td1">
+              <span className="tablelabel VeryGood"></span>
+            </td>
+            <td className="td2">
+              <span className="tablevalue"><i><b>Very Good  </b></i>for Janma Nakshtra:</span>
+            </td>
+             <td className="td3">
+              <span className="tablelabel VeryGood"></span>
+            </td>
+            <td className="td4">
+              <span className="tablevalue"><i><b>Very Good  </b></i>for Janma Nakshtra:</span>
+            </td>
+          </tr>
+          <tr>
+            <td className="td1">
+              <span className="tablelabel"></span>
+            </td>
+            <td className="td2">
+              <span className="tablevalue">{verygood.join(", ")}</span>
+            </td>
+            <td className="td3">
+              <span className="tablelabel"></span>
+            </td>
+            <td className="td4">
+              <span className="tablevalue">{verygoodnext.join(", ")}</span>
+            </td>
+          </tr>
+          <tr>
+            <td className="td1">
+              <span className="tablelabel Good"></span>
+            </td>
+            <td className="td2">
+              <span className="tablevalue"><i><b>Good  </b></i>  for Janma Nakshtra:</span>
+            </td>
+            <td className="td3">
+              <span className="tablelabel Good"></span>
+            </td>
+            <td className="td4">
+              <span className="tablevalue"><i><b>Good  </b></i>  for Janma Nakshtra:</span>
+            </td>
+            
+          </tr>
+          <tr>
+            <td className="td1">
+              <span className="tablelabel"></span>
+            </td>
+            <td className="td2">
+              <span className="tablevalue">{good.join(", ")}</span>
+            </td>
+            <td className="td3">
+              <span className="tablelabel"></span>
+            </td>
+            <td className="td4">
+              <span className="tablevalue">{goodnext.join(", ")}</span>
+            </td>
+          </tr>
+          <tr>
+            <td className="td1">
+              <span className="tablelabel NotGood"></span>
+            </td>
+            <td className="td2">
+              <span className="tablevalue"><i><b>Not Good  </b></i> for Janma Nakshtra:</span>
+            </td>
+            <td className="td3">
+              <span className="tablelabel NotGood"></span>
+            </td>
+            <td className="td4">
+              <span className="tablevalue"><i><b>Not Good  </b></i> for Janma Nakshtra:</span>
+            </td>
+          </tr>
+           <tr>
+            <td className="td1">
+              <span className="tablelabel"></span>
+            </td>
+            <td className="td2">
+              <span className="tablevalue">{notgood.join(", ")}</span>
+            </td>
+            <td className="td3">
+              <span className="tablelabel"></span>
+            </td>
+            <td className="td4">
+              <span className="tablevalue">{notgoodnext.join(", ")}</span>
+            </td>
+          </tr>
+          <tr>
+            <td className="td1">
+              <span className="tablelabel Bad"></span>
+            </td>
+            <td className="td2">
+              <span className="tablevalue"><i><b>Bad  </b></i> for Janma Nakshtra:</span>
+            </td>
+             <td className="td3">
+              <span className="tablelabel Bad"></span>
+            </td>
+            <td className="td4">
+              <span className="tablevalue"><i><b>Bad  </b></i> for Janma Nakshtra:</span>
+            </td>
+          </tr>
+          <tr>
+            <td className="td1">
+              <span className="tablelabel"></span>
+            </td>
+            <td className="td2">
+              <span className="tablevalue">{bad.join(", ")}</span>
+            </td>
+             <td className="td3">
+              <span className="tablelabel"></span>
+            </td>
+            <td className="td4">
+              <span className="tablevalue">{badnext.join(", ")}</span>
+            </td>
+          </tr>
+          <tr>
+            <td className="td1">
+              <span className="tablelabel VeryBad"></span>
+            </td>
+            <td className="td2">
+              <span className="tablevalue"><i><b>Totally Bad  </b></i> for Janma Nakshtra:</span>
+            </td>
+            <td className="td3">
+              <span className="tablelabel VeryBad"></span>
+            </td>
+            <td className="td4">
+              <span className="tablevalue"><i><b>Totally Bad  </b></i> for Janma Nakshtra:</span>
+            </td>
+          </tr>
+           <tr>
+            <td className="td1">
+              <span className="tablelabel"></span>
+            </td>
+            <td className="td2">
+              <span className="tablevalue">{verybad.join(", ")}</span>
+            </td>
+            <td className="td3">
+              <span className="tablelabel"></span>
+            </td>
+            <td className="td4">
+              <span className="tablevalue">{verybadnext.join(", ")}</span>
+            </td>
+          </tr>
+        </>
+      )
     }
     else{
       return null;
@@ -1373,108 +1741,17 @@ const Dash_Panchang = () => {
 
   return (
     <>
-            <div className="row" style={{ paddingTop: "2px" }}>
-              <div className="col-md-12 col-xl-12">
-                <div
-                  className="card-box"
-                  style={{
-                    padding: "10px",
-                    backgroundImage: `url(${background})`,
-                    width: "100%",
-                    height: "75%",
-                    marginBottom: "0px",
-                    boxShadow: "10px 10px 10px #333",
-                  }}
-                >
-                  <div
-                    className="card"
-                    style={{ background: "none", fontSize: "0.9rem" }}
-                  >
-                    <div className="card-body-holistic">
-                      <div className="dpPHeaderLeftContent">
-                        <img
-                          className="dpPHeaderImage"
-                          src={link}
-                          alt="Thithi"
-                        />
-                        <div className="dpPHeaderLeftTitle">
-                          <u>{tithiname_1}</u>
-                        </div>
-                        <div className="dpPHeaderLeftSubTitle">
-                          <u>{tithiname_2}</u>
-                        </div>
-                      </div>
-                      <div className="dpPHeaderRightContent">
-                        <div className="dpPHeaderRightTitle">
-                          <u>
-                            {day} {month_string}
-                          </u>
-                          <i
-                            onClick={handleCalendar}
-                            style={{
-                              fontSize: "20px",
-                              marginLeft: "4%",
-                              cursor: "pointer",
-                            }}
-                            className="dpPHeaderRightTitle fa"
-                          >
-                            &#xf073;
-                          </i>
-                        </div>
-                        <div className="dpPHeaderRightTitle">
-                          <u>{place}</u>{" "}
-                          <img
-                            onClick={handleCalendar}
-                            src={require("../assets/img/map.png")}
-                            alt="Map"
-                            className="MapIcon"
-                          />
-                        </div>
-                      </div>
-                      <div className="dpPHeaderCenterContent">
-                        <div className="dpPHeaderCenterTitle">
-                          <u>Daily Panchang</u>
-                        </div>
-                        <div className="button-list">
-                          <button
-                            type="button"
-                            className="btn btn-primary btn-sm waves-effect waves-light buttonpanchang"
-                            onClick={()=>prevDay()}
-                          >
-                            Prev Day
-                          </button>
-                          <button
-                            type="button"
-                            className="btn btn-primary btn-sm waves-effect waves-light buttonpanchang"
-                            onClick={()=>handleToday()}
-                          >
-                            Today
-                          </button>
-                          <button
-                            type="button"
-                            className="btn btn-primary btn-sm waves-effect waves-light buttonpanchang"
-                            onClick={()=>nextDay()}
-                          >
-                            Next Day
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* <!-- end row --> */}
-
+            
+            <HeaderPanchang/>
             <div className="row">
-              <div className="col-12" style={{ maxHeight: "550px", "overflowY": "scroll" }}>
+              <div className="col-12" style={{ maxHeight: "500px", "overflowY": "scroll" }}>
                 <div className="card-box" style={{ paddingTop: "2px" }}>
                   {loading ? (
                       <div style={{minHeight:"350px"}}>
                             <div id="loader">
-                            <div class="planet-top"></div>
-                            <div class="planet-bottom"></div>
-                            <div class="ring"></div>
+                            <div className="planet-top"></div>
+                            <div className="planet-bottom"></div>
+                            <div className="ring"></div>
                           </div>
                       </div>
                   )
@@ -1485,85 +1762,9 @@ const Dash_Panchang = () => {
                     style={{ border: "none", borderTop: "none" }}
                   >
                     <tbody>
-                      <tr className="table_head_tr" style={{}}>
-                        <th
-                          scope="col"
-                          colSpan="5"
-                          className="sectionheader"
-                          style={{ borderTop: "none" }}
-                        >
-                          Sun and Moon
-                        </th>
-                      </tr>
-                      <tr>
-                        <td className="td1">
-                          <span className="tablelabel">Sun Rise</span>
-                        </td>
-                        <td className="td2">
-                          <span className="tablevalue">
-                            <img
-                              src={require("../assets/img/sunrise.png")}
-                              alt="Sunrise"
-                              className="TableIcon"
-                            />
-                            {sunriseTimedisplay}
-                          </span>
-                        </td>
-                        <td className="td3">
-                          <span className="tablelabel">Sun Set</span>{" "}
-                        </td>
-                        <td className="td4">
-                          <span className="tablevalue">
-                            <img
-                              src={require("../assets/img/sunset.png")}
-                              alt="Sunset"
-                              className="TableIcon"
-                            />
-                            {sunsetTimedisplay}
-                          </span>
-                        </td>
-                      </tr>
-                      <tr className="lastrow">
-                        <td className="td1">
-                          <span className="tablelabel">Moon Rise</span>
-                        </td>
-                        <td className="td2">
-                          <span className="tablevalue">
-                            <img
-                              src={require("../assets/img/moonrise.png")}
-                              alt="MoonRise"
-                              className="TableIcon"
-                            />
-                            {moonriseTimedisplay}
-                          </span>
-                        </td>
-                        <td className="td3">
-                          <span className="tablelabel">Moon Set</span>
-                        </td>
-                        <td className="td4">
-                          <span className="tablevalue">
-                            <img
-                              src={require("../assets/img/moonset.png")}
-                              alt="Moonset"
-                              className="TableIcon"
-                            />
-                            {moonsetTimedisplay}
-                          </span>
-                        </td>
-                        
-                      </tr>
-                      <tr>
-                        <td colSpan="4">
-                        <hr class="style-seven"></hr>
-                        </td>
-                      </tr>
-
-
-
-                      <PanchangHTML />
-                     
-                      <SamvatsaraHTML />
-                     
+                      <SunRiseMoonRiseHTML/>
+                      <PanchangHTML />                    
+                      <SamvatsaraHTML />                  
                       <RashiHTML />
                       <NakshtraHTML />
                       <RituAndAyanHTML />
@@ -1571,6 +1772,7 @@ const Dash_Panchang = () => {
                       <InauspiciousTimingsHTML />
                       <AscendantTableHTML />
                       <ChoghadiyaHTML/>
+                      <TaraBalamHTML/>
                     </tbody>
                   </table>
                 )}
