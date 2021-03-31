@@ -525,13 +525,14 @@ planet_container
       // .attr("width", w)
       // .attr("height", h)
       .attr("preserveAspectRatio", "xMinYMin meet")
-      .attr("viewBox", "0 80 " + w + " " + h + "");
+      .attr("viewBox", "300 80 " + w + " " + h + "");
 
     var container = svg.append("g").attr("id", "container");
 
     var rectangle = container
       .append("rect")
       .style("stroke", "black")
+      .style("stroke-width", "2px")
       .style("fill", "none")
       .attr("x", x - 200)
       .attr("y", y - 100)
@@ -541,6 +542,7 @@ planet_container
     var rectangle2 = container
       .append("rect")
       .style("stroke", "black")
+      .style("stroke-width", "2px")
       .style("fill", "none")
       .attr("x", x - 5)
       .attr("y", y - 545)
@@ -555,7 +557,7 @@ planet_container
       .attr("y1", y + 300)
       .attr("y2", y - 100)
       .style("stroke", "black")
-      .style("stroke_width", 2);
+      .style("stroke-width", "2px")
 
     var line2 = container
       .append("line")
@@ -564,7 +566,7 @@ planet_container
       .attr("y1", y - 100)
       .attr("y2", y + 300)
       .style("stroke", "black")
-      .style("stroke_width", 2);
+      .style("stroke-width", "2px")
 
     var house1_x = 540;
     var house1_y = 400;
@@ -604,6 +606,7 @@ planet_container
     return (
       <>
         <div ref={this.d3_Chart_ref}></div>
+      
       </>
     );
   }

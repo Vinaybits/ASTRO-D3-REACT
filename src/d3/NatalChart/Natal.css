@@ -38,3 +38,29 @@ div.tooltip {
   text-align: center;
   pointer-events: none;
 }
+
+.side-table {
+  border-collapse: collapse;
+  font-size: 0.93em;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.side-table thead tr {
+  background-color: #009879;
+  color: #ffffff;
+}
+
+.side-table th {
+  font-weight: bolder;
+}
+.side-table td {
+  color: "black";
+}
+.side-table th,
+.side-table td {
+  border-bottom: 1px solid #ededed;
+  border-right: 1px solid #ededed;
+  text-align: center;
+}
