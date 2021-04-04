@@ -10,6 +10,7 @@ import moment from "moment";
 import Modal from "react-bootstrap/Modal";
 import Sideform from "../SideComponents/sideform";
 
+
 const setTimeFormat = (timestring) => {
   timestring = timestring.split(":")
   var hours = timestring[0]
@@ -413,6 +414,47 @@ const setTimeFormatNaks = (timestring) => {
         return cho;
     }
 
+  function extract_chandrabalam(obj) {
+
+    let rashi_mapper=
+    {
+      "Aries":"assets/Rashi/aries.png",
+      "Cancer":"assets/Rashi/cancer.png",
+      "Taurus":"assets/Rashi/taurus.png",
+      "Sagittarius":"assets/Rashi/sagittarius.png",
+      "Leo":"assets/Rashi/leo.png",
+      "Scorpio":"assets/Rashi/scorpio.png",
+      "Aquarius":"assets/Rashi/aquarius.png",
+      "Virgo":"assets/Rashi/virgo.png",
+      "Capricorn":"assets/Rashi/capricorn.png",
+      "Pisces":"assets/Rashi/pisces.png",
+      "Gemini":"assets/Rashi/gemini.png",
+      "Libra":"assets/Rashi/libra.png"
+    }
+
+    let chandra = [];
+    if (obj !== null) {
+      for (const key in obj.Janma_Rashi_Qualities) {
+                chandra.push(rashi_mapper[key])
+        }
+      for (const key in obj.Janma_Rashi_Qualities) {
+                chandra.push(obj.Janma_Rashi_Qualities[key])
+        }
+      if(obj.Next_Janma_Rashi_Qualities !== null)
+      {
+          let date = new Date(obj.Upto)
+          console.log(obj.Upto)
+          console.log(date.getHours() + ":" + date.getMinutes())
+          let time = setTimeFormatNaks(date.getHours() + ":" +  (date.getMinutes()<10?'0':'') + date.getMinutes()) +", " + monthNames[date.getMonth()-1] + " " + date.getDate();
+          chandra.push("after " + time)
+          for (const key in obj.Next_Janma_Rashi_Qualities) {
+                  chandra.push(obj.Next_Janma_Rashi_Qualities[key])
+          }
+      }
+    }
+      return chandra;
+  }
+
 const Dash_Panchang = () => {
 
   const contextType = useContext(GlobalContext);
@@ -453,7 +495,13 @@ const Dash_Panchang = () => {
   let [nakshtratable, setnakshtratable] = useState(null);
   let [chogadiya, setchogadiya] = useState(null);
   let [generictarabalam,setgenerictarabalam] =useState(null);
+  let [showcbalam,setShowcbalam] = useState(false)
+  let [generichandrabalam,setGenerichandrabalam] =useState(null);
+  const [expanded, setExpanded] = React.useState(false);
 
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     (async () => {
@@ -534,7 +582,8 @@ const Dash_Panchang = () => {
       const naktable = await holistic_api.get(`/nakshtratable${params}`);
       const gaurichogadiya = await holistic_api.get(`/gaurichogadiya${params}`);
       const generictbalam = await holistic_api.get(`/generictarabalam${params}`);
-      console.log(generictbalam.data)
+      const genericcbalam = await holistic_api.get(`/genericchandrabalam${params}`);
+      setGenerichandrabalam(genericcbalam.data);
       setsunriseTime(sunriseresult.data);
       setsunsetTime(sunsetresult.data);
       setmoonriseTime(moonriseresult.data);
@@ -573,7 +622,7 @@ const Dash_Panchang = () => {
         console.log(e)
       }
     })();
-  }, [value, place]);
+  }, [value, place, showcbalam]);
 
   let moonriseTimedisplay = remove_character(moonriseTime, 5);
   let sunriseTimedisplay = remove_character(sunriseTime, 5);
@@ -604,6 +653,7 @@ const Dash_Panchang = () => {
   let trikaal = extract_trikaal(trikaalvalue);
   let naks = extract_naktable(nakshtratable);
   let cho = extract_cho(chogadiya)
+  let chandrabalam = extract_chandrabalam(generichandrabalam)
 
   let dkayan = "";
   let vdayan = "";
@@ -838,11 +888,7 @@ const Dash_Panchang = () => {
                             </span>
                           </td>
                         </tr>
-                        <tr>
-                          <td colSpan="4">
-                          <hr className="style-seven"></hr>
-                          </td>
-      </tr>
+
       </>
   )
   }
@@ -855,7 +901,7 @@ const Dash_Panchang = () => {
           <tr className="table_head_tr" style={{}}>
             <th scope="col" colSpan="5" className="sectionheader">
               Ascendant Table
-    </th>
+            </th>
           </tr>
           <tr>
             <td className="td1">
@@ -1015,11 +1061,6 @@ const Dash_Panchang = () => {
               <span className="tablevalue">{"upto " + asc[6][2]}</span>
             </td>
           </tr>
-          <tr>
-                        <td colSpan="4">
-                        <hr className="style-seven"></hr>
-                        </td>
-                      </tr>
         </>
       )
     }
@@ -1064,11 +1105,6 @@ const Dash_Panchang = () => {
             <span className="tablevalue">{ykaal}</span>
           </td>
         </tr>
-        <tr>
-                        <td colSpan="4">
-                        <hr className="style-seven"></hr>
-                        </td>
-                      </tr>
       </>
     )
   }
@@ -1137,11 +1173,6 @@ const Dash_Panchang = () => {
             <span className="tablevalue">{ }</span>
           </td>
         </tr>
-        <tr>
-                        <td colSpan="4">
-                        <hr className="style-seven"></hr>
-                        </td>
-                      </tr>
 
       </>
     )
@@ -1197,11 +1228,7 @@ const Dash_Panchang = () => {
             <span className="tablevalue">{madhya}</span>
           </td>
         </tr>
-        <tr>
-                        <td colSpan="4">
-                        <hr className="style-seven"></hr>
-                        </td>
-                      </tr>
+  
       </>
     )
   }
@@ -1242,11 +1269,7 @@ const Dash_Panchang = () => {
             <span className="tablevalue">{ascendantsun}</span>
           </td>
         </tr>
-        <tr>
-                        <td colSpan="4">
-                        <hr className="style-seven"></hr>
-                        </td>
-                      </tr>
+  
       </>
     )
   }
@@ -1273,11 +1296,6 @@ const Dash_Panchang = () => {
             <span className="tablevalue"></span>
           </td>
         </tr>
-        <tr>
-                        <td colSpan="4">
-                        <hr className="style-seven"></hr>
-                        </td>
-                      </tr>
       </>
     )
   }
@@ -1308,10 +1326,6 @@ const Dash_Panchang = () => {
           </td>
         </tr>
         
-      
-
-
-
         <tr>
           <td className="td1">
             <span className="tablelabel">Yoga</span>
@@ -1342,11 +1356,6 @@ const Dash_Panchang = () => {
             <span className="tablevalue"></span>
           </td>
         </tr>
-        <tr>
-                        <td colSpan="4">
-                        <hr className="style-seven"></hr>
-                        </td>
-                      </tr>
       </>
     )
   }
@@ -1376,11 +1385,6 @@ const Dash_Panchang = () => {
             <br /> <span className="tablevalue">{naks[2]}</span>
             <br /> <span className="tablevalue">{naks[3]}</span>
           </td>
-        </tr>
-        <tr>
-                        <td colSpan="4">
-                        <hr className="style-seven"></hr>
-                        </td>
         </tr>
       </>
     )
@@ -1540,11 +1544,7 @@ const Dash_Panchang = () => {
             <span className="tablevalue">{cho[47]}</span>
           </td>
         </tr>
-        <tr>
-                        <td colSpan="4">
-                        <hr className="style-seven"></hr>
-                        </td>
-        </tr>
+
       </>
     )
     }
@@ -1569,26 +1569,26 @@ const Dash_Panchang = () => {
       var fromtime = date.getHours() + ":" +  (date.getMinutes()<10?'0':'') + date.getMinutes();
       return (
         <>
-        <tr className="table_head_tr">
-          <th scope="col" colSpan="5" className="sectionheader">
-            <span>Tara Balam</span>
-          </th>
-        </tr>
-        <tr>
-           <td className="td1">
-              <span className="tablelabel"></span>
+                 <tr className="table_head_tr">
+                  <th scope="col" colSpan="5" className="sectionheader">
+                    <span>Tara Balam</span>
+                  </th>
+                 </tr>
+          <tr className="taraBalamTable">
+            <td className="td1">
+                <span className="tablelabel"></span>
+              </td>
+            <td className="td2 td2tbalam1">
+              <span className="tablevalue tbalamheading1"><b>From 12:00 AM to {setTimeFormatNaks(fromtime)}</b></span>
             </td>
-          <td className="td2 td2tbalam1">
-            <span className="tablevalue tbalamheading1"><b>From 12:00 AM to {setTimeFormatNaks(fromtime)}</b></span>
-          </td>
-          <td className="td3">
-              <span className="tablelabel"></span>
+            <td className="td3">
+                <span className="tablelabel"></span>
+              </td>
+            <td className="td4 td4tbalam2">
+              <span className="tablevalue tbalamheading2"><b>From {setTimeFormatNaks(fromtime)} to Rest of the Day</b></span>
             </td>
-          <td className="td4 td4tbalam2">
-            <span className="tablevalue tbalamheading2"><b>From {setTimeFormatNaks(fromtime)} to Rest of the Day</b></span>
-          </td>
-        </tr>
-          <tr>
+          </tr >
+          <tr className="taraBalamTable">
             <td className="td1">
               <span className="tablelabel VeryGood"></span>
             </td>
@@ -1602,7 +1602,7 @@ const Dash_Panchang = () => {
               <span className="tablevalue"><i><b>Very Good  </b></i>for Janma Nakshtra:</span>
             </td>
           </tr>
-          <tr>
+          <tr className="taraBalamTable">
             <td className="td1">
               <span className="tablelabel"></span>
             </td>
@@ -1616,7 +1616,7 @@ const Dash_Panchang = () => {
               <span className="tablevalue">{verygoodnext.join(", ")}</span>
             </td>
           </tr>
-          <tr>
+          <tr className="taraBalamTable">
             <td className="td1">
               <span className="tablelabel Good"></span>
             </td>
@@ -1631,7 +1631,7 @@ const Dash_Panchang = () => {
             </td>
             
           </tr>
-          <tr>
+          <tr className="taraBalamTable">
             <td className="td1">
               <span className="tablelabel"></span>
             </td>
@@ -1645,7 +1645,7 @@ const Dash_Panchang = () => {
               <span className="tablevalue">{goodnext.join(", ")}</span>
             </td>
           </tr>
-          <tr>
+          <tr className="taraBalamTable">
             <td className="td1">
               <span className="tablelabel NotGood"></span>
             </td>
@@ -1659,7 +1659,7 @@ const Dash_Panchang = () => {
               <span className="tablevalue"><i><b>Not Good  </b></i> for Janma Nakshtra:</span>
             </td>
           </tr>
-           <tr>
+           <tr className="taraBalamTable">
             <td className="td1">
               <span className="tablelabel"></span>
             </td>
@@ -1673,7 +1673,7 @@ const Dash_Panchang = () => {
               <span className="tablevalue">{notgoodnext.join(", ")}</span>
             </td>
           </tr>
-          <tr>
+          <tr className="taraBalamTable">
             <td className="td1">
               <span className="tablelabel Bad"></span>
             </td>
@@ -1687,7 +1687,7 @@ const Dash_Panchang = () => {
               <span className="tablevalue"><i><b>Bad  </b></i> for Janma Nakshtra:</span>
             </td>
           </tr>
-          <tr>
+          <tr className="taraBalamTable">
             <td className="td1">
               <span className="tablelabel"></span>
             </td>
@@ -1701,7 +1701,7 @@ const Dash_Panchang = () => {
               <span className="tablevalue">{badnext.join(", ")}</span>
             </td>
           </tr>
-          <tr>
+          <tr className="taraBalamTable">
             <td className="td1">
               <span className="tablelabel VeryBad"></span>
             </td>
@@ -1715,7 +1715,7 @@ const Dash_Panchang = () => {
               <span className="tablevalue"><i><b>Totally Bad  </b></i> for Janma Nakshtra:</span>
             </td>
           </tr>
-           <tr>
+           <tr className="taraBalamTable">
             <td className="td1">
               <span className="tablelabel"></span>
             </td>
@@ -1737,7 +1737,374 @@ const Dash_Panchang = () => {
     }
   }
 
+  const ChandraBalamHTML = () => {
+    if(typeof chandrabalam!=="undefined")
+    console.log(chandrabalam)
+        if(chandrabalam.length<30){
+          return(
+            <>
+              <tr className="table_head_tr">
+                <th scope="col" colSpan="5" className="sectionheader">
+                  <span>Chandra Balam</span>
+                </th>
+              </tr>
+              <tr>
+                  <td className="td1">
+                    <img
+                                    src={chandrabalam[0]}
+                                    alt="Rashi"
+                                    className="RashiIconChandra"
+                    />
+                    <span className="tablelabel">Aries</span>
+                  </td>
+                  <td className="td2">
+                    <span className={"tablevalue " + chandrabalam[12].split(" ")[0]+"chandra"}>{chandrabalam[12]}</span>
+                  </td>
+                  <td className="td3">
+                    <img
+                                    src={chandrabalam[6]}
+                                    alt="Rashi"
+                                    className="RashiIcon2"
+                    />
+                    <span className="tablelabel">Libra</span>
+                  </td>
+                  <td className="td4">
+                    <span className={"tablevalue " + chandrabalam[17].split(" ")[0]+"chandra"}>{chandrabalam[17]}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="td1">
+                    <img
+                                    src={chandrabalam[1]}
+                                    alt="Rashi"
+                                    className="RashiIconChandra"
+                    />
+                    <span className="tablelabel">Taurus</span>
+                  </td>
+                  <td className="td2">
+                    <span className={"tablevalue " + chandrabalam[13].split(" ")[0]+"chandra"}>{chandrabalam[13]}</span>
+                  </td>
+                  <td className="td3">
+                    <img
+                                    src={chandrabalam[7]}
+                                    alt="Rashi"
+                                    className="RashiIcon2"
+                    />
+                    <span className="tablelabel">Scorpio</span>
+                  </td>
+                  <td className="td4">
+                    <span className={"tablevalue "+ chandrabalam[18].split(" ")[0]+"chandra"}>{chandrabalam[18]}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="td1">
+                    <img
+                                    src={chandrabalam[2]}
+                                    alt="Rashi"
+                                    className="RashiIconChandra"
+                    />
+                    <span className="tablelabel">Gemini</span>
+                  </td>
+                  <td className="td2">
+                    <span className={"tablevalue "+ chandrabalam[14].split(" ")[0]+"chandra"}>{chandrabalam[14]}</span>
+                  </td>
+                  <td className="td3">
+                    <img
+                                    src={chandrabalam[8]}
+                                    alt="Rashi"
+                                    className="RashiIcon2"
+                    />
+                    <span className="tablelabel">Sagittarius</span>
+                  </td>
+                  <td className="td4">
+                    <span className={"tablevalue "+ chandrabalam[19].split(" ")[0]+"chandra"}>{chandrabalam[19]}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="td1">
+                    <img
+                                    src={chandrabalam[3]}
+                                    alt="Rashi"
+                                    className="RashiIconChandra"
+                    />
+                    <span className="tablelabel">Cancer</span>
+                  </td>
+                  <td className="td2">
+                    <span className={"tablevalue "+ chandrabalam[15].split(" ")[0]+"chandra"}>{chandrabalam[15]}</span>
 
+                  </td>
+                  <td className="td3">
+                    <img
+                                    src={chandrabalam[9]}
+                                    alt="Rashi"
+                                    className="RashiIcon2"
+                    />
+                    <span className="tablelabel">Capricorn</span>
+                  </td>
+                  <td className="td4">
+                    <span className={"tablevalue "+ chandrabalam[20].split(" ")[0]+"chandra"}>{chandrabalam[20]}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="td1">
+                    <img
+                                    src={chandrabalam[4]}
+                                    alt="Rashi"
+                                    className="RashiIconChandra"
+                    />
+                    <span className="tablelabel">Leo</span>
+                  </td>
+                  <td className="td2">
+                    <span className={"tablevalue "+ chandrabalam[15].split(" ")[0]+"chandra"}>{chandrabalam[15]}</span>
+                  </td>
+                  <td className="td3">
+                    <img
+                                    src={chandrabalam[10]}
+                                    alt="Rashi"
+                                    className="RashiIcon2"
+                    />
+                    <span className="tablelabel">Aquarius</span>
+                  </td>
+                  <td className="td4">
+                    <span className={"tablevalue "+ chandrabalam[21].split(" ")[0]+"chandra"}>{chandrabalam[21]}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="td1">
+                    <img
+                                    src={chandrabalam[5]}
+                                    alt="Rashi"
+                                    className="RashiIconChandra"
+                    />
+                    <span className="tablelabel">Virgo</span>
+                  </td>
+                  <td className="td2">
+                    <span className={"tablevalue "+ chandrabalam[16].split(" ")[0]+"chandra"}>{chandrabalam[16]}</span>
+                  </td>
+                  <td className="td3">
+                    <img
+                                    src={chandrabalam[11]}
+                                    alt="Rashi"
+                                    className="RashiIcon2"
+                    />
+                    <span className="tablelabel">Pisces</span>
+                  </td>
+                  <td className="td4">
+                    <span className={"tablevalue "+ chandrabalam[22].split(" ")[0]+"chandra"}>{chandrabalam[22]}</span>
+                  </td>
+                </tr>
+
+            </>
+          )
+      }
+      else{
+            return(
+          <>
+           <tr className="table_head_tr">
+                <th scope="col" colSpan="5" className="sectionheader">
+                  <span>Chandra Balam</span>
+                </th>
+              </tr>
+              <tr>
+                  <td className="td1">
+                    <img
+                                    src={chandrabalam[0]}
+                                    alt="Rashi"
+                                    className="RashiIconChandra"
+                    />
+                    <span className="tablelabel">Aries</span>
+                    <br></br> <span className="tablelabel">{chandrabalam[24]}</span>
+                  </td>
+                  <td className="td2">
+                    <span className={"tablevalue " + chandrabalam[12].split(" ")[0]+"chandra"}>{chandrabalam[12]}</span>
+                    <br></br>
+                    <span className={"tablevalue "+ chandrabalam[25].split(" ")[0]+"chandra"}>{chandrabalam[25]}</span>
+                  </td>
+                  <td className="td3">
+                    <img
+                                    src={chandrabalam[6]}
+                                    alt="Rashi"
+                                    className="RashiIcon2"
+                    />
+                    <span className="tablelabel">Libra</span>
+                    <br></br> <span className="tablelabel">{chandrabalam[24]}</span>
+                  </td>
+                  <td className="td4">
+                    <span className={"tablevalue "+ chandrabalam[17].split(" ")[0]+"chandra"}>{chandrabalam[17]}</span>
+                                        <br></br>
+                    <span className={"tablevalue "+ chandrabalam[30].split(" ")[0]+"chandra"}>{chandrabalam[30]}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="td1">
+                    <img
+                                    src={chandrabalam[1]}
+                                    alt="Rashi"
+                                    className="RashiIconChandra"
+                    />
+                    <span className="tablelabel">Taurus</span>
+                    <br></br> <span className="tablelabel">{chandrabalam[24]}</span>
+                  </td>
+                  <td className="td2">
+                    <span className={"tablevalue "+ chandrabalam[13].split(" ")[0]+"chandra"}>{chandrabalam[13]}</span>
+                                         <br></br>
+                    <span className={"tablevalue "+ chandrabalam[26].split(" ")[0]+"chandra"}>{chandrabalam[26]}</span>
+                  </td>
+                  <td className="td3">
+                    <img
+                                    src={chandrabalam[7]}
+                                    alt="Rashi"
+                                    className="RashiIcon2"
+                    />
+                    <span className="tablelabel">Scorpio</span>
+                    <br></br> <span className="tablelabel">{chandrabalam[24]}</span>
+                  </td>
+                  <td className="td4">
+                    <span className={"tablevalue "+ chandrabalam[18].split(" ")[0]+"chandra"}>{chandrabalam[18]}</span>
+                                        <br></br>
+                    <span className={"tablevalue "+ chandrabalam[31].split(" ")[0]+"chandra"}>{chandrabalam[31]}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="td1">
+                    <img
+                                    src={chandrabalam[2]}
+                                    alt="Rashi"
+                                    className="RashiIconChandra"
+                    />
+                    <span className="tablelabel">Gemini</span>
+                    <br></br> <span className="tablelabel">{chandrabalam[24]}</span>
+                  </td>
+                  <td className="td2">
+                    <span className={"tablevalue "+ chandrabalam[14].split(" ")[0]+"chandra"}>{chandrabalam[14]}</span>
+                                        <br></br>
+                    <span className={"tablevalue "+ chandrabalam[27].split(" ")[0]+"chandra"}>{chandrabalam[27]}</span>
+                  </td>
+                  <td className="td3">
+                    <img
+                                    src={chandrabalam[8]}
+                                    alt="Rashi"
+                                    className="RashiIcon2"
+                    />
+                    <span className="tablelabel">Sagittarius</span>
+                    <br></br> <span className="tablelabel">{chandrabalam[24]}</span>
+
+                  </td>
+                  <td className="td4">
+                    <span className={"tablevalue "+ chandrabalam[19].split(" ")[0]+"chandra"}>{chandrabalam[19]}</span>
+                                        <br></br>
+                    <span className={"tablevalue "+ chandrabalam[32].split(" ")[0]+"chandra"}>{chandrabalam[32]}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="td1">
+                    <img
+                                    src={chandrabalam[3]}
+                                    alt="Rashi"
+                                    className="RashiIconChandra"
+                    />
+                    <span className="tablelabel">Cancer</span>
+                    <br></br> <span className="tablelabel">{chandrabalam[24]}</span>
+                  </td>
+                  <td className="td2">
+                    <span className={"tablevalue "+ chandrabalam[15].split(" ")[0]+"chandra"}>{chandrabalam[15]}</span>
+                                        <br></br>
+                    <span className={"tablevalue "+ chandrabalam[28].split(" ")[0]+"chandra"}>{chandrabalam[28]}</span>
+                  </td>
+                  <td className="td3">
+                    <img
+                                    src={chandrabalam[9]}
+                                    alt="Rashi"
+                                    className="RashiIcon2"
+                    />
+                    <span className="tablelabel">Capricorn</span>
+                    <br></br> <span className="tablelabel">{chandrabalam[24]}</span>
+                  </td>
+                  <td className="td4">
+                    <span className={"tablevalue "+ chandrabalam[20].split(" ")[0]+"chandra"}>{chandrabalam[20]}</span>
+                                        <br></br>
+                    <span className={"tablevalue "+ chandrabalam[33].split(" ")[0]+"chandra"}>{chandrabalam[33]}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="td1">
+                    <img
+                                    src={chandrabalam[4]}
+                                    alt="Rashi"
+                                    className="RashiIconChandra"
+                    />
+                    <span className="tablelabel">Leo</span>
+                    <br></br> <span className="tablelabel">{chandrabalam[24]}</span>
+                  </td>
+                  <td className="td2">
+                    <span className={"tablevalue "+ chandrabalam[16].split(" ")[0]+"chandra"}>{chandrabalam[16]}</span>
+                                        <br></br>
+                    <span className={"tablevalue "+ chandrabalam[29].split(" ")[0]+"chandra"}>{chandrabalam[29]}</span>
+                  </td>
+                  <td className="td3">
+                    <img
+                                    src={chandrabalam[10]}
+                                    alt="Rashi"
+                                    className="RashiIcon2"
+                    />
+                    <span className="tablelabel">Aquarius</span>
+                    <br></br> <span className="tablelabel">{chandrabalam[24]}</span>
+                  </td>
+                  <td className="td4">
+                    <span className={"tablevalue "+ chandrabalam[21].split(" ")[0]+"chandra"}>{chandrabalam[21]}</span>
+                                        <br></br>
+                    <span className={"tablevalue "+ chandrabalam[34].split(" ")[0]+"chandra"}>{chandrabalam[34]}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="td1">
+                    <img
+                                    src={chandrabalam[5]}
+                                    alt="Rashi"
+                                    className="RashiIconChandra"
+                    />
+                    <span className="tablelabel">Virgo</span>
+                    <br></br> <span className="tablelabel">{chandrabalam[24]}</span>
+                  </td>
+                  <td className="td2">
+                    <span className={"tablevalue "+ chandrabalam[17].split(" ")[0]+"chandra"}>{chandrabalam[17]}</span>
+                                        <br></br>
+                    <span className={"tablevalue "+ chandrabalam[30].split(" ")[0]+"chandra"}>{chandrabalam[30]}</span>
+                  </td>
+                  <td className="td3">
+                    <img
+                                    src={chandrabalam[11]}
+                                    alt="Rashi"
+                                    className="RashiIcon2"
+                    />
+                    <span className="tablelabel">Pisces</span>
+                    <br></br> <span className="tablelabel">{chandrabalam[24]}</span>
+                  </td>
+                  <td className="td4">
+                    <span className={"tablevalue "+ chandrabalam[22].split(" ")[0]+"chandra"}>{chandrabalam[22]}</span>
+                                        <br></br>
+                    <span className={"tablevalue "+ chandrabalam[35].split(" ")[0]+"chandra"}>{chandrabalam[35]}</span>
+                  </td>
+                </tr>
+
+
+          </>
+        )
+      }
+
+  }
+
+  const BreakLine = () =>{
+    return(
+      <>
+        <tr>
+          <td colSpan="4">
+            <hr className="style-seven"></hr>
+          </td>
+        </tr>
+      </>
+    )
+  }
 
   return (
     <>
@@ -1763,16 +2130,28 @@ const Dash_Panchang = () => {
                   >
                     <tbody>
                       <SunRiseMoonRiseHTML/>
-                      <PanchangHTML />                    
-                      <SamvatsaraHTML />                  
+                      <BreakLine/>
+                      <PanchangHTML /> 
+                      <BreakLine/>                   
+                      <SamvatsaraHTML /> 
+                      <BreakLine/>                 
                       <RashiHTML />
+                      <BreakLine/>
                       <NakshtraHTML />
+                      <BreakLine/>
                       <RituAndAyanHTML />
+                      <BreakLine/>
                       <AuspiciousTimingsHTML />
+                      <BreakLine/>
                       <InauspiciousTimingsHTML />
+                      <BreakLine/>                 
                       <AscendantTableHTML />
+                      <BreakLine/>
                       <ChoghadiyaHTML/>
+                      <BreakLine/>
                       <TaraBalamHTML/>
+                      <BreakLine/>
+                      <ChandraBalamHTML/>
                     </tbody>
                   </table>
                 )}

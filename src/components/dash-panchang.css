@@ -52,18 +52,27 @@
 }
 .RashiIcon {
   float: left;
-  margin-left: 40%;
+  margin-left: 35%;
   width: 20px;
   filter: contrast(30%);
   margin-top: 1%;
 }
 .RashiIcon2 {
   float: left;
-  margin-left: 40%;
+  margin-left: 35%;
   width: 20px;
   filter: contrast(30%);
   margin-top: 1%;
 }
+
+.RashiIconChandra {
+  float: left;
+  margin-left: 45%;
+  width: 20px;
+  filter: contrast(30%);
+  margin-top: 1%;
+}
+
 .td1 {
   text-align: right;
   font-weight: bold;
@@ -94,6 +103,11 @@
 
 .td3cho {
   text-align: center;
+}
+
+.td4 {
+  width: 30%;
+  padding: 0;
 }
 
 .td4cho {
@@ -290,6 +304,17 @@ ul li {
   font-size: 11px;
 }
 
+.Goodchandra {
+  color: rgb(57, 129, 29);
+}
+
+.Badchandra {
+  color: rgb(220, 52, 60);
+}
+
+.Pujachandra {
+  color: rgb(220, 52, 60);
+}
 /* Loader Animation */
 
 #loader {
